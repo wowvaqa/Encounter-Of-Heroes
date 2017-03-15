@@ -1,0 +1,144 @@
+{
+com.badlogic.gdx.graphics.g2d.BitmapFont: {
+	openSans16: {
+		file: openSans16.fnt
+	}
+	openSans32: {
+		file: openSans32.fnt
+	}
+	openSans64Outline: {
+		file: openSans64.fnt
+	}
+}
+com.badlogic.gdx.graphics.Color: {
+	black: {
+		r: 0
+		g: 0
+		b: 0
+		a: 1
+	}
+	brownGreyDarkMiddle: {
+		r: 0.22000009
+		g: 0.124666765
+		b: 0.124666765
+		a: 1
+	}
+	greyDarkMiddle: {
+		r: 0.25333333
+		g: 0.25333333
+		b: 0.25333333
+		a: 1
+	}
+	greyMiddle: {
+		r: 0.5133333
+		g: 0.5133333
+		b: 0.5133333
+		a: 1
+	}
+	greySoftMiddle: {
+		r: 0.75333315
+		g: 0.75333315
+		b: 0.75333315
+		a: 1
+	}
+	Red: {
+		r: 1
+		g: 0
+		b: 0
+		a: 1
+	}
+	white: {
+		r: 1
+		g: 1
+		b: 1
+		a: 1
+	}
+}
+com.badlogic.gdx.scenes.scene2d.ui.Label$LabelStyle: {
+	default: {
+		font: openSans32
+		fontColor: white
+	}
+	black: {
+		font: openSans32
+		fontColor: black
+	}
+	white16: {
+		font: openSans16
+		fontColor: white
+	}
+	black16: {
+		font: openSans16
+		fontColor: black
+	}
+	black32: {
+		font: openSans32
+		fontColor: black
+	}
+	fight: {
+		font: openSans64Outline
+		fontColor: white
+	}
+}
+com.badlogic.gdx.scenes.scene2d.ui.List$ListStyle: {
+	default: {
+		font: openSans32
+		fontColorSelected: black
+		fontColorUnselected: greyDarkMiddle
+		selection: textFieldSelection
+	}
+}
+com.badlogic.gdx.scenes.scene2d.ui.ScrollPane$ScrollPaneStyle: {
+	default: {
+		background: focusedBackgroundTextField
+		hScroll: defaultButton01
+		hScrollKnob: textButtonUp
+		vScroll: defaultButton01
+		vScrollKnob: textButtonUp
+	}
+}
+com.badlogic.gdx.scenes.scene2d.ui.SelectBox$SelectBoxStyle: {
+	default: {
+		font: openSans32
+		fontColor: black
+		scrollStyle: default
+		listStyle: default
+	}
+}
+com.badlogic.gdx.scenes.scene2d.ui.TextButton$TextButtonStyle: {
+	default: {
+		font: openSans32
+		fontColor: white
+		downFontColor: greyDarkMiddle
+		up: textButton_02_01_up
+		down: textButton_02_01_down
+	}
+}
+com.badlogic.gdx.scenes.scene2d.ui.TextField$TextFieldStyle: {
+	default: {
+		font: openSans32
+		fontColor: greyDarkMiddle
+		focusedFontColor: brownGreyDarkMiddle
+		background: darkBackground
+		focusedBackground: focusedBackgroundTextField
+		cursor: cursor
+		selection: textFieldSelection
+	}
+}
+com.badlogic.gdx.scenes.scene2d.ui.TextTooltip$TextTooltipStyle: {
+	default: {
+		label: default
+	}
+}
+com.badlogic.gdx.scenes.scene2d.ui.Window$WindowStyle: {
+	default: {
+		background: windowBackground
+		titleFont: openSans32
+		titleFontColor: brownGreyDarkMiddle
+	}
+	transparet: {
+		background: transparetWindowBackground
+		titleFont: openSans32
+	}
+}
+}
