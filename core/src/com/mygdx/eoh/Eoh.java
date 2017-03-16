@@ -5,7 +5,7 @@ import com.badlogic.gdx.Gdx;
 import com.mygdx.eoh.enums.Screens;
 import com.mygdx.eoh.screens.ScreenManager;
 
-public class Main extends Game {
+public class Eoh extends Game {
 
     @Override
     public void create() {

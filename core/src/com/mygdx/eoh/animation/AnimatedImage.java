@@ -1,6 +1,8 @@
 package com.mygdx.eoh.animation;
 
+import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Animation;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 
@@ -16,9 +18,10 @@ public class AnimatedImage extends Image {
 
     protected AnimatedImage(Animation animation, boolean isLooped) {
 
-        super(animation.getKeyFrame(0));
+        super((TextureRegion) animation.getKeyFrame(0));
         this.animation = animation;
         this.isLooped = isLooped;
+
 
         this.setSize(100, 100);
     }
@@ -28,11 +31,11 @@ public class AnimatedImage extends Image {
         super.act(delta);
 
         if (isLooped) {
-            ((TextureRegionDrawable) getDrawable()).setRegion(animation.getKeyFrame(stateTime += delta, true));
+            ((TextureRegionDrawable) getDrawable()).setRegion((TextureRegion) animation.getKeyFrame(stateTime += delta, true));
             super.act(delta);
         } else {
             if (!animation.isAnimationFinished(stateTime)) {
-                ((TextureRegionDrawable) getDrawable()).setRegion(animation.getKeyFrame(stateTime += delta, true));
+                ((TextureRegionDrawable) getDrawable()).setRegion((TextureRegion) animation.getKeyFrame(stateTime += delta, true));
                 super.act(delta);
 //            } else {
 //                this.remove();
