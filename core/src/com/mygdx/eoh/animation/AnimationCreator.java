@@ -462,6 +462,27 @@ public class AnimationCreator {
                     walkFrames[i] = textureAtlas.getRegions().get(i);
                 }
                 break;
+            case ManaPotionAnimation:
+                animationSpeed = 0.09f;
+                textureAtlas = AssetsGameScreen.getInstance().getManager().get("game/items/mixtures/manaPotion.atlas", TextureAtlas.class);
+
+                walkFrames = new TextureRegion[textureAtlas.getRegions().size];
+
+                for (int i = 0; i < textureAtlas.getRegions().size; i++) {
+                    walkFrames[i] = textureAtlas.getRegions().get(i);
+                }
+                break;
+            case HealthPotionAnimation:
+                animationSpeed = 0.09f;
+                textureAtlas = AssetsGameScreen.getInstance().getManager().get("game/items/mixtures/healthPotion.atlas", TextureAtlas.class);
+
+                walkFrames = new TextureRegion[textureAtlas.getRegions().size];
+
+                for (int i = 0; i < textureAtlas.getRegions().size; i++) {
+                    walkFrames[i] = textureAtlas.getRegions().get(i);
+                }
+                break;
+
         }
 
         return new Animation(animationSpeed, walkFrames);

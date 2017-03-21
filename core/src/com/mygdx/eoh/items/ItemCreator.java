@@ -22,6 +22,10 @@ public class ItemCreator {
         switch (availableItems) {
             case Gold:
                 return createGold(locXonMap, locYonMap);
+            case ManaPotion:
+                return createManaPotion(locXonMap, locYonMap);
+            case HealthPotion:
+                return createHealthPotion(locXonMap, locYonMap);
         }
         return null;
     }
@@ -32,4 +36,19 @@ public class ItemCreator {
         item.setSize(Options.tileSize, Options.tileSize);
         return item;
     }
+
+    private Item createManaPotion(float locXonMap, float locYonMap) {
+        Item item = new Item(AnimationTypes.ManaPotionAnimation, AvailableItems.ManaPotion);
+        item.setPosition(locXonMap * Options.tileSize, locYonMap * Options.tileSize);
+        item.setSize(Options.tileSize, Options.tileSize);
+        return item;
+    }
+
+    private Item createHealthPotion(float locXonMap, float locYonMap) {
+        Item item = new Item(AnimationTypes.HealthPotionAnimation, AvailableItems.HealthPotion);
+        item.setPosition(locXonMap * Options.tileSize, locYonMap * Options.tileSize);
+        item.setSize(Options.tileSize, Options.tileSize);
+        return item;
+    }
+
 }

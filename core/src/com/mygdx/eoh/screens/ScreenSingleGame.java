@@ -104,6 +104,14 @@ class ScreenSingleGame extends DefaultGameScreen {
                     fields[i][j].setItem(ItemCreator.getInstance().createItem(AvailableItems.Gold, i, j));
                 }
 
+                if (mapfile.fields[i][j].manaPotion){
+                    fields[i][j].setItem(ItemCreator.getInstance().createItem(AvailableItems.ManaPotion, i, j));
+                }
+
+                if (mapfile.fields[i][j].healthPotion){
+                    fields[i][j].setItem(ItemCreator.getInstance().createItem(AvailableItems.HealthPotion, i, j));
+                }
+
                 if (mapfile.fields[i][j].towerHospital)
                     fields[i][j].setBulding(BuldingCreator.getInstance().createBulding(Buldings.Hospital, i, j));
 
