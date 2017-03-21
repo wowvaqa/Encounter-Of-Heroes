@@ -61,6 +61,8 @@ public class AssetsMapEditor extends DefaultAssets {
         getManager().load("mapEditor/interface/brushWindow/terrainBrushDown.png", Texture.class, getParameter());
         getManager().load("mapEditor/interface/brushWindow/mobsBrushUp.png", Texture.class, getParameter());
         getManager().load("mapEditor/interface/brushWindow/mobsBrushDown.png", Texture.class, getParameter());
+        getManager().load("mapEditor/interface/brushWindow/mixtureBrushUp.png", Texture.class, getParameter());
+        getManager().load("mapEditor/interface/brushWindow/mixtureBrushDown.png", Texture.class, getParameter());
         getManager().load("mapEditor/interface/brushWindow/playerBrushUp.png", Texture.class, getParameter());
         getManager().load("mapEditor/interface/brushWindow/playerBrushDown.png", Texture.class, getParameter());
         getManager().load("mapEditor/interface/brushWindow/buldingBrushUp.png", Texture.class, getParameter());
@@ -110,6 +112,8 @@ public class AssetsMapEditor extends DefaultAssets {
         getManager().load("mapEditor/interface/tresureBoxWindow/goldBrushUp.png", Texture.class, getParameter());
         getManager().load("mapEditor/interface/tresureBoxWindow/goldBrushDown.png", Texture.class, getParameter());
         getManager().load("mapEditor/items/goldCoins.png", Texture.class, getParameter());
+        getManager().load("mapEditor/mixtures/healthPotion.png", Texture.class, getParameter());
+        getManager().load("mapEditor/mixtures/manaPotion.png", Texture.class, getParameter());
         /*******************************************************************************************
          * BULDING BUTTONS
          ******************************************************************************************/
@@ -194,6 +198,13 @@ public class AssetsMapEditor extends DefaultAssets {
         getManager().load("mapEditor/interface/zoomButtonOutUp.png", Texture.class, getParameter());
         getManager().load("mapEditor/interface/zoomButtonInDown.png", Texture.class, getParameter());
         getManager().load("mapEditor/interface/zoomButtonInUp.png", Texture.class, getParameter());
+        /*******************************************************************************************
+         * MIXTURES BUTTONS
+         ******************************************************************************************/
+        getManager().load("mapEditor/interface/mixtureWindow/healthPotionBrushUp.png", Texture.class, getParameter());
+        getManager().load("mapEditor/interface/mixtureWindow/healthPotionBrushDown.png", Texture.class, getParameter());
+        getManager().load("mapEditor/interface/mixtureWindow/manaPotionBrushUp.png", Texture.class, getParameter());
+        getManager().load("mapEditor/interface/mixtureWindow/manaPotionBrushDown.png", Texture.class, getParameter());
 
         getManager().finishLoading();
     }

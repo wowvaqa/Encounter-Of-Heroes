@@ -725,6 +725,7 @@ public class ScreenMapEditor extends DefaultScreen {
             final ImageButton.ImageButtonStyle imageButtonStyleBuldingBrush = new ImageButton.ImageButtonStyle();
             final ImageButton.ImageButtonStyle imageButtonStyleTresureBoxBrush = new ImageButton.ImageButtonStyle();
             final ImageButton.ImageButtonStyle imageButtonStyleRubberBrush = new ImageButton.ImageButtonStyle();
+            final ImageButton.ImageButtonStyle imageButtonStyleMixtureBrush = new ImageButton.ImageButtonStyle();
 
             Texture terrainBrushUp = AssetsMapEditor.getInstance().getManager().get(
                     "mapEditor/interface/brushWindow/terrainBrushUp.png", Texture.class);
@@ -750,6 +751,10 @@ public class ScreenMapEditor extends DefaultScreen {
                     "mapEditor/interface/brushWindow/rubberButtonUp.png", Texture.class);
             Texture rubberBrushDown = AssetsMapEditor.getInstance().getManager().get(
                     "mapEditor/interface/brushWindow/rubberButtonDown.png", Texture.class);
+            Texture mixtureBrushUp = AssetsMapEditor.getInstance().getManager().get(
+                    "mapEditor/interface/brushWindow/mixtureBrushUp.png", Texture.class);
+            Texture mixtureBrushDown = AssetsMapEditor.getInstance().getManager().get(
+                    "mapEditor/interface/brushWindow/mixtureBrushDown.png", Texture.class);
 
             imageButtonStyleTerrainBrush.imageUp = new TextureRegionDrawable(new TextureRegion(terrainBrushUp));
             imageButtonStyleTerrainBrush.imageDown = new TextureRegionDrawable(new TextureRegion(terrainBrushDown));
@@ -763,6 +768,8 @@ public class ScreenMapEditor extends DefaultScreen {
             imageButtonStyleTresureBoxBrush.imageDown = new TextureRegionDrawable(new TextureRegion(tresureBoxBrushDown));
             imageButtonStyleRubberBrush.imageUp = new TextureRegionDrawable(new TextureRegion(rubberBrushUp));
             imageButtonStyleRubberBrush.imageDown = new TextureRegionDrawable(new TextureRegion(rubberBrushDown));
+            imageButtonStyleMixtureBrush.imageUp = new TextureRegionDrawable(new TextureRegion(mixtureBrushUp));
+            imageButtonStyleMixtureBrush.imageDown = new TextureRegionDrawable(new TextureRegion(mixtureBrushDown));
 
             ImageButton imageButtonTerrainBrush = new ImageButton(imageButtonStyleTerrainBrush);
             ImageButton imageButtonPlayerBrush = new ImageButton(imageButtonStylePlayerBrush);
@@ -770,6 +777,7 @@ public class ScreenMapEditor extends DefaultScreen {
             ImageButton imageButtonTresureBoxBrush = new ImageButton(imageButtonStyleTresureBoxBrush);
             ImageButton imageButtonBuldingBrush = new ImageButton(imageButtonStyleBuldingBrush);
             ImageButton imageButtonRubberBrush = new ImageButton(imageButtonStyleRubberBrush);
+            ImageButton imageButtonMixtureBrush = new ImageButton(imageButtonStyleMixtureBrush);
 
             // Listeners
             imageButtonPlayerBrush.addListener(new ClickListener() {
@@ -826,6 +834,15 @@ public class ScreenMapEditor extends DefaultScreen {
                 }
             });
 
+            imageButtonMixtureBrush.addListener(new ClickListener(){
+                @Override
+                public void clicked(InputEvent event, float x, float y) {
+                    super.clicked(event, x, y);
+                    mainStage.addActor(getMixturesWindow());
+                    window.remove();
+                }
+            });
+
             // Close button setup
             TextButton buttonClose = new TextButton("Zamknij", skin);
             buttonClose.addListener(new ClickListener() {
@@ -852,6 +869,8 @@ public class ScreenMapEditor extends DefaultScreen {
             window.add(imageButtonTresureBoxBrush).size(buttonWidth, buttonHeight);
             window.add(imageButtonBuldingBrush).size(buttonWidth, buttonHeight);
             window.add(imageButtonRubberBrush).size(buttonWidth, buttonHeight);
+            window.row();
+            window.add(imageButtonMixtureBrush).size(buttonWidth, buttonHeight);
             window.row();
             window.add(buttonClose).size(100, 50).colspan(window.getColumns()).pad(10);
 
@@ -1530,6 +1549,67 @@ public class ScreenMapEditor extends DefaultScreen {
             window.add(imageButtonMob01);
             window.add(imageButtonMob02);
             window.add(imageButtonMobRandom);
+            window.add(getCancelImageButton(window));
+
+            return window;
+        }
+
+        /*******************************************************************************************
+         * Returns mobs Brush Window
+         *
+         * @return Window object
+         ******************************************************************************************/
+        public Window getMixturesWindow() {
+
+            final Window window = new Window("Skrzynie ze skarbem",
+                    (Skin) AssetsMapEditor.getInstance().getManager().get("styles/skin.json"));
+            window.setMovable(false);
+            window.setModal(true);
+            window.setSize(1000, 400);
+            window.setPosition(
+                    Gdx.graphics.getWidth() - Gdx.graphics.getWidth() / 2 - window.getWidth() / 2,
+                    Gdx.graphics.getHeight() - Gdx.graphics.getHeight() / 2 - window.getHeight() / 2
+            );
+
+            final ImageButton.ImageButtonStyle imageButtonStyleHealthBrush = new ImageButton.ImageButtonStyle();
+            final ImageButton.ImageButtonStyle imageButtonStyleManaBrush = new ImageButton.ImageButtonStyle();
+
+            imageButtonStyleHealthBrush.imageUp = new TextureRegionDrawable(new TextureRegion(
+                    AssetsMapEditor.getInstance().getManager().get("mapEditor/interface/mixtureWindow/healthPotionBrushUp.png", Texture.class)
+            ));
+            imageButtonStyleHealthBrush.imageDown = new TextureRegionDrawable(new TextureRegion(
+                    AssetsMapEditor.getInstance().getManager().get("mapEditor/interface/mixtureWindow/healthPotionBrushDown.png", Texture.class)
+            ));
+            imageButtonStyleManaBrush.imageUp = new TextureRegionDrawable(new TextureRegion(
+                    AssetsMapEditor.getInstance().getManager().get("mapEditor/interface/mixtureWindow/manaPotionBrushUp.png", Texture.class)
+            ));
+            imageButtonStyleManaBrush.imageDown = new TextureRegionDrawable(new TextureRegion(
+                    AssetsMapEditor.getInstance().getManager().get("mapEditor/interface/mixtureWindow/manaPotionBrushDown.png", Texture.class)
+            ));
+
+            ImageButton imageButtonHealth = new ImageButton(imageButtonStyleHealthBrush);
+            ImageButton imageButtonMana = new ImageButton(imageButtonStyleManaBrush);
+
+            imageButtonHealth.addListener(new ClickListener() {
+                @Override
+                public void clicked(InputEvent event, float x, float y) {
+                    mapEditor.drawingType = MapEditor.DrawingType.healthPotionDraw;
+                    imageButtonBrush.setStyle(imageButtonStyleHealthBrush);
+                    window.remove();
+                }
+            });
+
+            imageButtonMana.addListener(new ClickListener() {
+                @Override
+                public void clicked(InputEvent event, float x, float y) {
+                    mapEditor.drawingType = MapEditor.DrawingType.manaPotionDraw;
+                    imageButtonBrush.setStyle(imageButtonStyleManaBrush);
+                    window.remove();
+                }
+            });
+
+            window.add(imageButtonHealth);
+            window.add(imageButtonMana);
             window.add(getCancelImageButton(window));
 
             return window;

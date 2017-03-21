@@ -135,6 +135,24 @@ public class MapEditor {
             setupFieldOfEditorImage(mapStage, fieldOfEditorImage, field);
         }
 
+        if (field.manaPotion) {
+            fieldOfEditorImage = new FieldOfEditorImage(
+                    new TextureRegion(AssetsMapEditor.getInstance().getManager().get(
+                            "mapEditor/mixtures/manaPotion.png", Texture.class)),
+                    field
+            );
+            setupFieldOfEditorImage(mapStage, fieldOfEditorImage, field);
+        }
+
+        if (field.healthPotion) {
+            fieldOfEditorImage = new FieldOfEditorImage(
+                    new TextureRegion(AssetsMapEditor.getInstance().getManager().get(
+                            "mapEditor/mixtures/healthPotion.png", Texture.class)),
+                    field
+            );
+            setupFieldOfEditorImage(mapStage, fieldOfEditorImage, field);
+        }
+
         if (field.towerMagic) {
             fieldOfEditorImage = new FieldOfEditorImage(
                     new TextureRegion(AssetsMapEditor.getInstance().getManager().get(
@@ -362,6 +380,8 @@ public class MapEditor {
         towerWellDraw,
         towerHospitalDraw,
         itemGold,
+        healthPotionDraw,
+        manaPotionDraw,
         none
     }
 
@@ -408,6 +428,8 @@ public class MapEditor {
         public boolean towerWell = false;
         public boolean towerHospital = false;
         public boolean itemGold = false;
+        public boolean manaPotion = false;
+        public boolean healthPotion = false;
         public Terrains terrains;
         public int coordinateXonMap;
         public int coordinateYonMap;
@@ -519,6 +541,12 @@ public class MapEditor {
                         } else if (drawingType.equals(DrawingType.itemGold)) {
                             field.itemGold = true;
                             fillField(field);
+                        } else if (drawingType.equals(DrawingType.manaPotionDraw)) {
+                            field.manaPotion = true;
+                            fillField(field);
+                        } else if (drawingType.equals(DrawingType.healthPotionDraw)) {
+                            field.healthPotion = true;
+                            fillField(field);
                         } else if (drawingType.equals(DrawingType.towerMagicDraw)) {
                             field.towerMagic = true;
                             fillField(field);
@@ -583,6 +611,8 @@ public class MapEditor {
             field.towerWell = false;
             field.towerHospital = false;
             field.itemGold = false;
+            field.manaPotion = false;
+            field.healthPotion = false;
         }
     }
 
@@ -622,6 +652,8 @@ public class MapEditor {
                 mapEditor.fields[i][j].towerWell = mapFile.fields[i][j].towerWell;
                 mapEditor.fields[i][j].towerHospital = mapFile.fields[i][j].towerHospital;
                 mapEditor.fields[i][j].itemGold = mapFile.fields[i][j].itemGold;
+                mapEditor.fields[i][j].manaPotion = mapFile.fields[i][j].manaPotion;
+                mapEditor.fields[i][j].healthPotion = mapFile.fields[i][j].healthPotion;
 
                 switch (mapFile.fields[i][j].terrains) {
                     case Grass:
@@ -680,6 +712,9 @@ public class MapEditor {
                 mapFile.fields[i][j].towerWell = mapEditor.fields[i][j].towerWell;
                 mapFile.fields[i][j].towerHospital = mapEditor.fields[i][j].towerHospital;
                 mapFile.fields[i][j].itemGold = mapEditor.fields[i][j].itemGold;
+                mapFile.fields[i][j].manaPotion = mapEditor.fields[i][j].manaPotion;
+                mapFile.fields[i][j].healthPotion = mapEditor.fields[i][j].healthPotion;
+
 
                 switch (mapEditor.fields[i][j].terrains) {
                     case Grass:
