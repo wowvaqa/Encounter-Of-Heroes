@@ -1,7 +1,7 @@
 
 manaPotion.png
 format: RGBA8888
-filter: Nearest,Nearest
+filter: Linear,Linear
 repeat: none
 0000
   rotate: false
@@ -10,48 +10,6 @@ repeat: none
   orig: 250, 250
   offset: 0, 0
   index: 0
-0001
-  rotate: false
-  xy: 253, 505
-  size: 250, 250
-  orig: 250, 250
-  offset: 0, 0
-  index: 1
-0002
-  rotate: false
-  xy: 253, 757
-  size: 250, 250
-  orig: 250, 250
-  offset: 0, 0
-  index: 2
-0003
-  rotate: false
-  xy: 1261, 505
-  size: 250, 250
-  orig: 250, 250
-  offset: 0, 0
-  index: 3
-0004
-  rotate: false
-  xy: 1009, 757
-  size: 250, 250
-  orig: 250, 250
-  offset: 0, 0
-  index: 4
-0005
-  rotate: false
-  xy: 505, 1
-  size: 250, 250
-  orig: 250, 250
-  offset: 0, 0
-  index: 5
-0006
-  rotate: false
-  xy: 757, 1
-  size: 250, 250
-  orig: 250, 250
-  offset: 0, 0
-  index: 6
 0007
   rotate: false
   xy: 1, 505
@@ -59,6 +17,13 @@ repeat: none
   orig: 250, 250
   offset: 0, 0
   index: 7
+0002
+  rotate: false
+  xy: 253, 757
+  size: 250, 250
+  orig: 250, 250
+  offset: 0, 0
+  index: 2
 0017
   rotate: false
   xy: 1, 253
@@ -66,6 +31,13 @@ repeat: none
   orig: 250, 250
   offset: 0, 0
   index: 17
+0001
+  rotate: false
+  xy: 253, 505
+  size: 250, 250
+  orig: 250, 250
+  offset: 0, 0
+  index: 1
 0021
   rotate: false
   xy: 505, 757
@@ -122,51 +94,84 @@ repeat: none
   orig: 250, 250
   offset: 0, 0
   index: 18
-0015
+0004
+  rotate: false
+  xy: 505, 1
+  size: 250, 250
+  orig: 250, 250
+  offset: 0, 0
+  index: 4
+0005
   rotate: false
   xy: 757, 253
   size: 250, 250
   orig: 250, 250
   offset: 0, 0
+  index: 5
+0015
+  rotate: false
+  xy: 757, 1
+  size: 250, 250
+  orig: 250, 250
+  offset: 0, 0
   index: 15
+
+manaPotion2.png
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
 0022
   rotate: false
-  xy: 1009, 505
+  xy: 1, 253
   size: 250, 250
   orig: 250, 250
   offset: 0, 0
   index: 22
 0010
   rotate: false
-  xy: 1261, 757
+  xy: 1, 1
   size: 250, 250
   orig: 250, 250
   offset: 0, 0
   index: 10
+0006
+  rotate: false
+  xy: 253, 253
+  size: 250, 250
+  orig: 250, 250
+  offset: 0, 0
+  index: 6
 0009
   rotate: false
-  xy: 1009, 253
+  xy: 253, 1
   size: 250, 250
   orig: 250, 250
   offset: 0, 0
   index: 9
+0003
+  rotate: false
+  xy: 505, 253
+  size: 250, 250
+  orig: 250, 250
+  offset: 0, 0
+  index: 3
 0020
   rotate: false
-  xy: 1513, 757
+  xy: 505, 1
   size: 250, 250
   orig: 250, 250
   offset: 0, 0
   index: 20
 0013
   rotate: false
-  xy: 1009, 1
+  xy: 757, 253
   size: 250, 250
   orig: 250, 250
   offset: 0, 0
   index: 13
 0008
   rotate: false
-  xy: 1261, 253
+  xy: 757, 1
   size: 250, 250
   orig: 250, 250
   offset: 0, 0
