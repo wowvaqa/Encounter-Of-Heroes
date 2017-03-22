@@ -1,8 +1,6 @@
 package com.mygdx.eoh.effects;
 
-import com.badlogic.gdx.Net;
 import com.badlogic.gdx.graphics.g2d.Animation;
-import com.badlogic.gdx.utils.SnapshotArray;
 import com.mygdx.eoh.animation.AnimatedImage;
 import com.mygdx.eoh.animation.AnimationSpellCreator;
 import com.mygdx.eoh.enums.InstantEffects;
@@ -17,7 +15,6 @@ import com.mygdx.eoh.net.Network;
 import java.util.Random;
 
 /**
- *
  * Created by v on 2017-02-21.
  */
 
@@ -39,16 +36,16 @@ public class InstantEffect extends AnimatedImage {
     @Override
     public void act(float delta) {
         super.act(delta);
-        if (this.getAnimation().isAnimationFinished(this.getStateTime())){
+        if (this.getAnimation().isAnimationFinished(this.getStateTime())) {
             GameStatus.getInstance().getMapStage().getActors().removeValue(this, true);
         }
     }
 
-    public void action(PlayerMob castingPlayer, PlayerMob defendingPlayer){
+    public void action(PlayerMob castingPlayer, PlayerMob defendingPlayer) {
 
         Random rnd = new Random();
 
-        switch (instantEffects){
+        switch (instantEffects) {
             case FiraballDamage:
 
                 int damage;
@@ -58,7 +55,7 @@ public class InstantEffect extends AnimatedImage {
                 this.damage = damage;
                 FightManager.setActualHPofMob(defendingPlayer, damage);
 
-                if (NetStatus.getInstance().getClient() != null){
+                if (NetStatus.getInstance().getClient() != null) {
                     Network.InstantEffectNet instantEffectNet = new Network.InstantEffectNet();
                     instantEffectNet.damage = damage;
                     instantEffectNet.instantEffectNumber = 0;
@@ -87,13 +84,13 @@ public class InstantEffect extends AnimatedImage {
 
                 defendingPlayer.getLongEffectsTable().clear();
 
-                for (LongEffect longEffect1: defendingPlayer.getLongEffects()){
+                for (LongEffect longEffect1 : defendingPlayer.getLongEffects()) {
                     defendingPlayer.getLongEffectsTable().add(longEffect1).size(50, 50).padRight(5);
                 }
 
                 damage = 0;
 
-                if (NetStatus.getInstance().getClient() != null && !NetStatus.getInstance().isInstantEffectNet()){
+                if (NetStatus.getInstance().getClient() != null && !NetStatus.getInstance().isInstantEffectNet()) {
                     Network.InstantEffectNet instantEffectNet = new Network.InstantEffectNet();
                     instantEffectNet.damage = damage;
                     instantEffectNet.instantEffectNumber = 1;
@@ -108,17 +105,17 @@ public class InstantEffect extends AnimatedImage {
                 break;
             case HealthPotion:
                 defendingPlayer.setActualhp(defendingPlayer.getActualhp() + 5);
-                if (defendingPlayer.getActualhp() > defendingPlayer.getMaxHp()){
+                if (defendingPlayer.getActualhp() > defendingPlayer.getMaxHp()) {
                     defendingPlayer.setActualhp(defendingPlayer.getMaxHp());
                 }
                 break;
             case ManaPotion:
                 defendingPlayer.setActualMana(defendingPlayer.getActualMana() + 5);
-                if (defendingPlayer.getActualMana() > defendingPlayer.getMaxMana()){
+                if (defendingPlayer.getActualMana() > defendingPlayer.getMaxMana()) {
                     defendingPlayer.setActualMana(defendingPlayer.getMaxMana());
                 }
 
-                if (defendingPlayer.getActualMana() >= defendingPlayer.getMaxMana() && defendingPlayer.getManaBar().isManaBarAdd()){
+                if (defendingPlayer.getActualMana() >= defendingPlayer.getMaxMana() && defendingPlayer.getManaBar().isManaBarAdd()) {
                     defendingPlayer.getManaBar().remove();
                     defendingPlayer.getManaBar().setManaBarAdd(false);
                 }
