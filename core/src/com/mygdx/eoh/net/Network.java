@@ -151,6 +151,13 @@ public class Network {
         public int hpLeft;
     }
 
+    /**
+     * Instant effects numbers:
+     * 0 - fireball damage
+     * 1 - attack upgrade
+     * 2 - health potion use
+     * 3 - mana potion use
+     */
     static public class InstantEffectNet{
         public int enemyId;
         public int instantEffectNumber;

@@ -1,5 +1,6 @@
 package com.mygdx.eoh.effects;
 
+import com.badlogic.gdx.Net;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.mygdx.eoh.animation.AnimatedImage;
 import com.mygdx.eoh.animation.AnimationSpellCreator;
@@ -15,6 +16,7 @@ import com.mygdx.eoh.net.Network;
 import java.util.Random;
 
 /**
+ * Instant effect class.
  * Created by v on 2017-02-21.
  */
 
@@ -41,6 +43,12 @@ public class InstantEffect extends AnimatedImage {
         }
     }
 
+    /**
+     * Making action of instant effect
+     *
+     * @param castingPlayer   Player who created effect.
+     * @param defendingPlayer Player affected by the effect.
+     */
     public void action(PlayerMob castingPlayer, PlayerMob defendingPlayer) {
 
         Random rnd = new Random();
@@ -108,6 +116,19 @@ public class InstantEffect extends AnimatedImage {
                 if (defendingPlayer.getActualhp() > defendingPlayer.getMaxHp()) {
                     defendingPlayer.setActualhp(defendingPlayer.getMaxHp());
                 }
+
+                if (NetStatus.getInstance().getClient() != null && !NetStatus.getInstance().isInstantEffectNet()) {
+                    Network.InstantEffectNet instantEffectNet = new Network.InstantEffectNet();
+                    instantEffectNet.enemyId = NetStatus.getInstance().getEnemyId();
+                    instantEffectNet.instantEffectNumber = 2;
+                    instantEffectNet.locationXofDefender = defendingPlayer.getCoordinateXonMap();
+                    instantEffectNet.locationYofDefender = defendingPlayer.getCoordinateYonMap();
+                    instantEffectNet.locationXofCaster = castingPlayer.getCoordinateXonMap();
+                    instantEffectNet.locationYofCaster = castingPlayer.getCoordinateYonMap();
+                    NetStatus.getInstance().getClient().sendTCP(instantEffectNet);
+
+                }
+
                 break;
             case ManaPotion:
                 defendingPlayer.setActualMana(defendingPlayer.getActualMana() + 5);
@@ -115,9 +136,21 @@ public class InstantEffect extends AnimatedImage {
                     defendingPlayer.setActualMana(defendingPlayer.getMaxMana());
                 }
 
+                // Turn off mana bar of player mob.
                 if (defendingPlayer.getActualMana() >= defendingPlayer.getMaxMana() && defendingPlayer.getManaBar().isManaBarAdd()) {
                     defendingPlayer.getManaBar().remove();
                     defendingPlayer.getManaBar().setManaBarAdd(false);
+                }
+
+                if (NetStatus.getInstance().getClient() != null && !NetStatus.getInstance().isInstantEffectNet()) {
+                    Network.InstantEffectNet instantEffectNet = new Network.InstantEffectNet();
+                    instantEffectNet.enemyId = NetStatus.getInstance().getEnemyId();
+                    instantEffectNet.instantEffectNumber = 3;
+                    instantEffectNet.locationXofDefender = defendingPlayer.getCoordinateXonMap();
+                    instantEffectNet.locationYofDefender = defendingPlayer.getCoordinateYonMap();
+                    instantEffectNet.locationXofCaster = castingPlayer.getCoordinateXonMap();
+                    instantEffectNet.locationYofCaster = castingPlayer.getCoordinateYonMap();
+                    NetStatus.getInstance().getClient().sendTCP(instantEffectNet);
                 }
                 break;
         }

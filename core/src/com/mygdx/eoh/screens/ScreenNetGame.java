@@ -4,6 +4,7 @@ import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.Window;
+import com.mygdx.eoh.animation.AnimationCreator;
 import com.mygdx.eoh.animation.AnimationSpellCreator;
 import com.mygdx.eoh.assets.AssetsGameScreen;
 import com.mygdx.eoh.creators.BuldingCreator;
@@ -14,6 +15,7 @@ import com.mygdx.eoh.defaultClasses.DefaultGameScreen;
 import com.mygdx.eoh.defaultClasses.DefaultGestureDetector;
 import com.mygdx.eoh.defaultClasses.DefaultGestureListener;
 import com.mygdx.eoh.effects.InstantEffect;
+import com.mygdx.eoh.enums.AnimationTypes;
 import com.mygdx.eoh.enums.Buldings;
 import com.mygdx.eoh.enums.InstantEffects;
 import com.mygdx.eoh.enums.PlayerMobClasses;
@@ -332,6 +334,44 @@ public class ScreenNetGame extends DefaultGameScreen {
 
                     GameStatus.getInstance().getMapStage().addActor(instantEffect);
 
+                    break;
+                // Health potion use
+                case 2:
+                    instantEffect = new InstantEffect(
+                            AnimationCreator.getInstance().makeAnimation(AnimationTypes.PotionUseAnimation),
+                            false, InstantEffects.HealthPotion
+                    );
+
+                    instantEffect.action(
+                            GameStatus.getInstance().getMap().getFields()[NetStatus.getInstance().getLocationXofCaster()][NetStatus.getInstance().getLocationYofCaster()].getPlayerMob(),
+                            GameStatus.getInstance().getMap().getFields()[NetStatus.getInstance().getLocationXofDefender()][NetStatus.getInstance().getLocationYofDefender()].getPlayerMob()
+                    );
+
+                    instantEffect.setPosition(
+                            NetStatus.getInstance().getLocationXofDefender() * Options.tileSize,
+                            NetStatus.getInstance().getLocationYofDefender() * Options.tileSize
+                    );
+
+                    GameStatus.getInstance().getMapStage().addActor(instantEffect);
+                    break;
+                // Mana potion use
+                case 3:
+                    instantEffect = new InstantEffect(
+                            AnimationCreator.getInstance().makeAnimation(AnimationTypes.PotionUseAnimation),
+                            false, InstantEffects.HealthPotion
+                    );
+
+                    instantEffect.action(
+                            GameStatus.getInstance().getMap().getFields()[NetStatus.getInstance().getLocationXofCaster()][NetStatus.getInstance().getLocationYofCaster()].getPlayerMob(),
+                            GameStatus.getInstance().getMap().getFields()[NetStatus.getInstance().getLocationXofDefender()][NetStatus.getInstance().getLocationYofDefender()].getPlayerMob()
+                    );
+
+                    instantEffect.setPosition(
+                            NetStatus.getInstance().getLocationXofDefender() * Options.tileSize,
+                            NetStatus.getInstance().getLocationYofDefender() * Options.tileSize
+                    );
+
+                    GameStatus.getInstance().getMapStage().addActor(instantEffect);
                     break;
 
                 default:
