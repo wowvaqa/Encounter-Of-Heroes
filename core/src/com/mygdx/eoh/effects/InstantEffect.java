@@ -117,6 +117,11 @@ public class InstantEffect extends AnimatedImage {
                 if (defendingPlayer.getActualMana() > defendingPlayer.getMaxMana()){
                     defendingPlayer.setActualMana(defendingPlayer.getMaxMana());
                 }
+
+                if (defendingPlayer.getActualMana() >= defendingPlayer.getMaxMana() && defendingPlayer.getManaBar().isManaBarAdd()){
+                    defendingPlayer.getManaBar().remove();
+                    defendingPlayer.getManaBar().setManaBarAdd(false);
+                }
                 break;
         }
     }
