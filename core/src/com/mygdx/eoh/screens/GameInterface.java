@@ -17,6 +17,7 @@ import com.mygdx.eoh.enums.Screens;
 import com.mygdx.eoh.gameClasses.BuyPlayerMob;
 import com.mygdx.eoh.gameClasses.GameStatus;
 import com.mygdx.eoh.gameClasses.TurnManager;
+import com.mygdx.eoh.items.ItemsWindow;
 import com.mygdx.eoh.magic.SpellWindow;
 import com.mygdx.eoh.net.NetStatus;
 
@@ -220,6 +221,16 @@ public class GameInterface {
                 super.clicked(event, x, y);
                 GameStatus.getInstance().getMainStage().addActor(
                         SpellWindow.getInstance().getSpellWindow(GameStatus.getInstance().getSelectedPlayerMob())
+                );
+            }
+        });
+
+        imageButtonBag.addListener(new ClickListener() {
+            @Override
+            public void clicked(InputEvent event, float x, float y) {
+                super.clicked(event, x, y);
+                GameStatus.getInstance().getMainStage().addActor(
+                        ItemsWindow.getInstance().getItemsWindow(GameStatus.getInstance().getSelectedPlayerMob())
                 );
             }
         });

@@ -145,6 +145,7 @@ public class AssetsGameScreen extends DefaultAssets {
          ******************************************************************************************/
         getManager().load("game/items/mixtures/healthPotion.atlas", TextureAtlas.class);
         getManager().load("game/items/mixtures/manaPotion.atlas", TextureAtlas.class);
+        getManager().load("game/items/mixtures/potionUseAnimation.atlas", TextureAtlas.class);
 
         getManager().finishLoading();
     }

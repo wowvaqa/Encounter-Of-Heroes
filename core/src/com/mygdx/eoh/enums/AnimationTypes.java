@@ -45,5 +45,6 @@ public enum AnimationTypes {
     WizardAttackW,
     ItemGold,
     HealthPotionAnimation,
-    ManaPotionAnimation
+    ManaPotionAnimation,
+    PotionUseAnimation
 }

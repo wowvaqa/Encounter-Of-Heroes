@@ -106,6 +106,18 @@ public class InstantEffect extends AnimatedImage {
                 }
 
                 break;
+            case HealthPotion:
+                defendingPlayer.setActualhp(defendingPlayer.getActualhp() + 5);
+                if (defendingPlayer.getActualhp() > defendingPlayer.getMaxHp()){
+                    defendingPlayer.setActualhp(defendingPlayer.getMaxHp());
+                }
+                break;
+            case ManaPotion:
+                defendingPlayer.setActualMana(defendingPlayer.getActualMana() + 5);
+                if (defendingPlayer.getActualMana() > defendingPlayer.getMaxMana()){
+                    defendingPlayer.setActualMana(defendingPlayer.getMaxMana());
+                }
+                break;
         }
     }
 

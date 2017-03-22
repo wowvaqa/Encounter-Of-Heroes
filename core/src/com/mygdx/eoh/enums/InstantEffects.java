@@ -8,5 +8,7 @@ package com.mygdx.eoh.enums;
 public enum InstantEffects {
     FiraballDamage,
     AttackUpgrade,
+    HealthPotion,
+    ManaPotion,
     BurnDamage;
 }

@@ -24,6 +24,7 @@ import com.mygdx.eoh.defaultClasses.DefaultMob;
 import com.mygdx.eoh.defaultClasses.DefaultPlayerColorIcon;
 import com.mygdx.eoh.enums.PlayerMobClasses;
 import com.mygdx.eoh.enums.Spells;
+import com.mygdx.eoh.items.Item;
 import com.mygdx.eoh.magic.Spell;
 
 import java.util.ArrayList;
@@ -64,6 +65,7 @@ public class PlayerMob extends DefaultMob {
 
     private ArrayList<Spell> spells;
     private SnapshotArray<LongEffect> longEffects;
+    private SnapshotArray<Item> items;
 
 
     public PlayerMob(Animation animation, boolean isLooped, Map map, Player playerOwner, PlayerMobClasses playerMobClass) {
@@ -71,6 +73,7 @@ public class PlayerMob extends DefaultMob {
 
         this.spells = new ArrayList<Spell>();
         this.longEffects = new SnapshotArray<LongEffect>();
+        this.items = new SnapshotArray<Item>();
         this.playerMobClass = playerMobClass;
         setAnimationTypes();
         this.map = map;
@@ -393,6 +396,10 @@ public class PlayerMob extends DefaultMob {
         return map.getFields()[this.getCoordinateXonMap()][this.getCoordinateYonMap()];
     }
 
+    /**
+     * Gets player mob statistic window
+     * @return Statistics of selected player mob
+     */
     public Window getPlayerMobWindow() {
         final Window window = new Window("", AssetsGameScreen.getInstance().getManager().get("styles/skin.json", Skin.class));
         window.setSize(700, 400);
@@ -458,6 +465,8 @@ public class PlayerMob extends DefaultMob {
 
         return window;
     }
+
+
 
     /**
      * Decresing actual mana.
@@ -566,6 +575,10 @@ public class PlayerMob extends DefaultMob {
 
     public Table getLongEffectsTable() {
         return longEffectsTable;
+    }
+
+    public SnapshotArray<Item> getItems() {
+        return items;
     }
 
     @Override

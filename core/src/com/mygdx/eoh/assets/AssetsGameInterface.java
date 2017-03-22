@@ -65,6 +65,13 @@ public class AssetsGameInterface extends DefaultAssets {
         getManager().load("game/interface/spellButtons/fireballButtonDOWN.png", Texture.class, getParameter());
         getManager().load("game/interface/spellButtons/AttackUpgradeButtonUP.png", Texture.class, getParameter());
         getManager().load("game/interface/spellButtons/AttackUpgradeButtonDOWN.png", Texture.class, getParameter());
+        /*******************************************************************************************
+         * SPELLS BUTTONS
+         ******************************************************************************************/
+        getManager().load("game/interface/mixturesButtons/healthPotionButtonDOWN.png", Texture.class, getParameter());
+        getManager().load("game/interface/mixturesButtons/healthPotionButtonUP.png", Texture.class, getParameter());
+        getManager().load("game/interface/mixturesButtons/manaPotionButtonDOWN.png", Texture.class, getParameter());
+        getManager().load("game/interface/mixturesButtons/manaPotionButtonUP.png", Texture.class, getParameter());
 
         /*******************************************************************************************
          * EFFECTS ANIMATIONS

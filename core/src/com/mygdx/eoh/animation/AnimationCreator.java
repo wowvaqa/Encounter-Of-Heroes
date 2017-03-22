@@ -482,9 +482,17 @@ public class AnimationCreator {
                     walkFrames[i] = textureAtlas.getRegions().get(i);
                 }
                 break;
+            case PotionUseAnimation:
+                animationSpeed = 0.09f;
+                textureAtlas = AssetsGameScreen.getInstance().getManager().get("game/items/mixtures/potionUseAnimation.atlas", TextureAtlas.class);
 
+                walkFrames = new TextureRegion[textureAtlas.getRegions().size];
+
+                for (int i = 0; i < textureAtlas.getRegions().size; i++) {
+                    walkFrames[i] = textureAtlas.getRegions().get(i);
+                }
+                break;
         }
-
         return new Animation(animationSpeed, walkFrames);
     }
 }
