@@ -15,6 +15,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.Window;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.utils.Align;
 import com.badlogic.gdx.utils.SnapshotArray;
+import com.mygdx.eoh.Equipment.Equip;
 import com.mygdx.eoh.animation.AnimationCreator;
 import com.mygdx.eoh.effects.LongEffect;
 import com.mygdx.eoh.enums.AnimationTypes;
@@ -66,6 +67,11 @@ public class PlayerMob extends DefaultMob {
     private ArrayList<Spell> spells;
     private SnapshotArray<LongEffect> longEffects;
     private SnapshotArray<Item> items;
+    private SnapshotArray<Equip> equip;
+
+    private Equip armor;
+    private Equip weapon;
+    private Equip artifact;
 
 
     public PlayerMob(Animation animation, boolean isLooped, Map map, Player playerOwner, PlayerMobClasses playerMobClass) {
@@ -74,6 +80,7 @@ public class PlayerMob extends DefaultMob {
         this.spells = new ArrayList<Spell>();
         this.longEffects = new SnapshotArray<LongEffect>();
         this.items = new SnapshotArray<Item>();
+        this.equip = new SnapshotArray<Equip>();
         this.playerMobClass = playerMobClass;
         setAnimationTypes();
         this.map = map;
@@ -579,6 +586,34 @@ public class PlayerMob extends DefaultMob {
 
     public SnapshotArray<Item> getItems() {
         return items;
+    }
+
+    public SnapshotArray<Equip> getEquip() {
+        return equip;
+    }
+
+    public Equip getArmor() {
+        return armor;
+    }
+
+    public void setArmor(Equip armor) {
+        this.armor = armor;
+    }
+
+    public Equip getWeapon() {
+        return weapon;
+    }
+
+    public void setWeapon(Equip weapon) {
+        this.weapon = weapon;
+    }
+
+    public Equip getArtifact() {
+        return artifact;
+    }
+
+    public void setArtifact(Equip artifact) {
+        this.artifact = artifact;
     }
 
     @Override

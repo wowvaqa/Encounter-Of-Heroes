@@ -46,7 +46,6 @@ public class Item extends AnimatedImage {
 
             if (GameStatus.getInstance().getCurrentPlayerTurn().equals(playerMob.getPlayerOwner())) {
                 playerMob.getPlayerOwner().changeGoldLabel(playerMob.getPlayerOwner());
-                //((Label) GameStatus.getInstance().getUpperBarTable().getCells().get(2).getActor()).setText("" + playerMob.getPlayerOwner().getGold());
             }
         }
 
@@ -63,6 +62,14 @@ public class Item extends AnimatedImage {
             this.playerOwner = playerMob;
             playerMob.getFieldOfPlayerMob().getItem().remove();
             playerMob.getFieldOfPlayerMob().setItem(null);
+
+        }
+
+        if (this.itemType.equals(AvailableItems.TresureBoxLvl1)) {
+
+        }
+
+        if (this.itemType.equals(AvailableItems.TresureBoxLvl2)) {
 
         }
     }

@@ -62,6 +62,10 @@ public class NetStatus {
     private int loggedPlayers;
     //If amount of logged players was changed then TURE
     private boolean loggedPlayersChange = false;
+    //If game client is host of network game then TRUE
+    private boolean host;
+    //If game client isn't host of network game then FALSE
+    private boolean guest;
 
     //Statistic of player
     private int gamesPlayed;
@@ -383,5 +387,21 @@ public class NetStatus {
 
     public void setLocationYofDefender(int locationYofDefender) {
         this.locationYofDefender = locationYofDefender;
+    }
+
+    public boolean isHost() {
+        return host;
+    }
+
+    public void setHost(boolean host) {
+        this.host = host;
+    }
+
+    public boolean isGuest() {
+        return guest;
+    }
+
+    public void setGuest(boolean guest) {
+        this.guest = guest;
     }
 }

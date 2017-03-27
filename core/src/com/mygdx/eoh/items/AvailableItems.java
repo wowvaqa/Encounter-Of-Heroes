@@ -8,5 +8,7 @@ package com.mygdx.eoh.items;
 public enum AvailableItems {
     Gold,
     HealthPotion,
-    ManaPotion;
+    ManaPotion,
+    TresureBoxLvl1,
+    TresureBoxLvl2
 }

@@ -49,21 +49,21 @@ public class Network {
     /**
      * Buying new player Mob
      */
-    static public class BuyPlayerMob{
+    static public class BuyPlayerMob {
         public int enemyID;
         public int enemyClass;
         public int locXofCastleOnMap;
         public int locYofCastleOnMap;
     }
 
-    static public class ChangePlayerStatistic{
+    static public class ChangePlayerStatistic {
         public String Login;
         public int gamesWon;
         public int gamesLost;
         public int gamesPlayed;
     }
 
-    static public class PlayerStatsRequest{
+    static public class PlayerStatsRequest {
         public String Login;
         public int gamesWon;
         public int gamesLost;
@@ -71,24 +71,24 @@ public class Network {
         public int rank;
     }
 
-    static public class Unlog{
+    static public class Unlog {
     }
 
-    static public class Victory{
+    static public class Victory {
         public int enemyID;
     }
 
     /**
      * Disconnecting from battle
      */
-    static public class DisconnonectedFromBattle{
+    static public class DisconnonectedFromBattle {
 
     }
 
     /**
      * Request and answer about logged players in server.
      */
-    static public class PlayersOnlineAnswer{
+    static public class PlayersOnlineAnswer {
         public int amountOfOnlinePlayers;
     }
 
@@ -131,7 +131,7 @@ public class Network {
         public int playerMobClass;
     }
 
-    static public class MovePlayerMob{
+    static public class MovePlayerMob {
         public int enemyId;
         public int inedxPlayerOwner;
         public int indexInArray;
@@ -158,7 +158,7 @@ public class Network {
      * 2 - health potion use
      * 3 - mana potion use
      */
-    static public class InstantEffectNet{
+    static public class InstantEffectNet {
         public int enemyId;
         public int instantEffectNumber;
         public int damage;
@@ -168,7 +168,7 @@ public class Network {
         public int locationYofCaster;
     }
 
-    static public class SpellCastNet{
+    static public class SpellCastNet {
         public int enemyId;
         public int locationXofCaster;
         public int locationYofCaster;
@@ -180,15 +180,15 @@ public class Network {
         public int playerIndex;
     }
 
-    static public class ClientReadyToStartBattle{
+    static public class ClientReadyToStartBattle {
         public int enemyId;
     }
 
-    static public enum GameTypes{
+    static public enum GameTypes {
         freeForAll, twoTeams;
     }
 
-    static public enum CountOfPlayers{
+    static public enum CountOfPlayers {
         one, two, three, four;
     }
 }

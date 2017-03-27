@@ -1,5 +1,7 @@
 package com.mygdx.eoh.creators;
 
+import com.mygdx.eoh.Equipment.Equip;
+import com.mygdx.eoh.Equipment.EquipKinds;
 import com.mygdx.eoh.animation.AnimationCreator;
 import com.mygdx.eoh.enums.AnimationTypes;
 import com.mygdx.eoh.enums.PlayerMobClasses;
@@ -71,6 +73,12 @@ public class PlayerMobCreator {
                 playerMob.getCoordinateYonMap() * Options.tileSize);
         field.setPlayerMob(playerMob);
         GameStatus.getInstance().getPlayers().get(numberOfPlayerOwner).getPlayerMobs().add(playerMob);
+
+        playerMob.setArmor(Equip.createEquip(EquipKinds.None));
+        playerMob.setWeapon(Equip.createEquip(EquipKinds.None));
+        playerMob.setArtifact(Equip.createEquip(EquipKinds.None));
+
+        playerMob.getEquip().add(Equip.createEquip(EquipKinds.WoodenStick));
 
         return playerMob;
     }

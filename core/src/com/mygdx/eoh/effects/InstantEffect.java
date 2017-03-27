@@ -1,6 +1,5 @@
 package com.mygdx.eoh.effects;
 
-import com.badlogic.gdx.Net;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.mygdx.eoh.animation.AnimatedImage;
 import com.mygdx.eoh.animation.AnimationSpellCreator;
