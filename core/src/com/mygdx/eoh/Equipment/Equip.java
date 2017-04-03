@@ -4,6 +4,7 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
+import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.scenes.scene2d.utils.DragListener;
 import com.mygdx.eoh.assets.AssetsGameInterface;
 
@@ -47,7 +48,18 @@ public class Equip extends Image {
                 equip.dragImage = new Image(
                         AssetsGameInterface.getInstance().getManager().get("game/interface/equipmentIcons/woodStickIcon.png", Texture.class)
                 );
-                equip.dragImage.setSize(100, 100);
+                equip.dragImage.setSize(50, 50);
+                break;
+            case LeatherPants:
+                equip = new Equip(
+                        AssetsGameInterface.getInstance().getManager().get("game/interface/equipmentIcons/leatherPantsIcon.png", Texture.class)
+                );
+                equip.equipKind = EquipKinds.LeatherPants;
+                equip.equipType = EquipTypes.Armor;
+                equip.dragImage = new Image(
+                        AssetsGameInterface.getInstance().getManager().get("game/interface/equipmentIcons/leatherPantsIcon.png", Texture.class)
+                );
+                equip.dragImage.setSize(50, 50);
                 break;
             default:
                 equip = new Equip(
@@ -63,6 +75,14 @@ public class Equip extends Image {
             public void enter(InputEvent event, float x, float y, int pointer, Actor fromActor) {
                 super.enter(event, x, y, pointer, fromActor);
                 Equip.selectedEquip = equip;
+            }
+        });
+
+        equip.addListener(new ClickListener(){
+            @Override
+            public void clicked(InputEvent event, float x, float y) {
+                super.clicked(event, x, y);
+                System.out.println("Equip clicked!");
             }
         });
         return equip;

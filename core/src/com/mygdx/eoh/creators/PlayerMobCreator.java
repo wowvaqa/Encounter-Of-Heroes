@@ -79,6 +79,7 @@ public class PlayerMobCreator {
         playerMob.setArtifact(Equip.createEquip(EquipKinds.None));
 
         playerMob.getEquip().add(Equip.createEquip(EquipKinds.WoodenStick));
+        playerMob.getEquip().add(Equip.createEquip(EquipKinds.LeatherPants));
 
         return playerMob;
     }

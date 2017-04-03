@@ -6,5 +6,6 @@ package com.mygdx.eoh.Equipment;
 
 public enum EquipKinds {
     None,
-    WoodenStick
+    WoodenStick,
+    LeatherPants
 }
