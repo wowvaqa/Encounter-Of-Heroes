@@ -80,6 +80,7 @@ public class PlayerMobCreator {
 
         playerMob.getEquip().add(Equip.createEquip(EquipKinds.WoodenStick));
         playerMob.getEquip().add(Equip.createEquip(EquipKinds.LeatherPants));
+        playerMob.getEquip().add(Equip.createEquip(EquipKinds.GoldRing));
 
         return playerMob;
     }

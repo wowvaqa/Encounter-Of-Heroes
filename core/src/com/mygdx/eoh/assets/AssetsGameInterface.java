@@ -84,6 +84,7 @@ public class AssetsGameInterface extends DefaultAssets {
         getManager().load("game/interface/equipmentIcons/noneIcon.png", Texture.class, getParameter());
         getManager().load("game/interface/equipmentIcons/woodStickIcon.png", Texture.class, getParameter());
         getManager().load("game/interface/equipmentIcons/leatherPantsIcon.png", Texture.class, getParameter());
+        getManager().load("game/interface/equipmentIcons/goldRingIcon.png", Texture.class, getParameter());
 
 
         getManager().finishLoading();
