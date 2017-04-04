@@ -8,5 +8,8 @@ public enum EquipKinds {
     None,
     WoodenStick,
     LeatherPants,
-    GoldRing
+    GoldRing,
+    MagicStaff,
+    LeatherArmor,
+    SphereOfSpeed
 }

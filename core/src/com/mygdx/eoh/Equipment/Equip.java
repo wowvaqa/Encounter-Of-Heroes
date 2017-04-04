@@ -80,6 +80,42 @@ public class Equip extends Image {
                 );
                 equip.dragImage.setSize(50, 50);
                 break;
+            case MagicStaff:
+                equip = new Equip(
+                        AssetsGameInterface.getInstance().getManager().get("game/interface/equipmentIcons/magicStaffIcon.png", Texture.class)
+                );
+                equip.equipKind = EquipKinds.MagicStaff;
+                equip.equipType = EquipTypes.Weapon;
+                equip.description = "Magiczna laska";
+                equip.dragImage = new Image(
+                        AssetsGameInterface.getInstance().getManager().get("game/interface/equipmentIcons/magicStaffIcon.png", Texture.class)
+                );
+                equip.dragImage.setSize(50, 50);
+                break;
+            case LeatherArmor:
+                equip = new Equip(
+                        AssetsGameInterface.getInstance().getManager().get("game/interface/equipmentIcons/leatherArmorIcon.png", Texture.class)
+                );
+                equip.equipKind = EquipKinds.LeatherArmor;
+                equip.equipType = EquipTypes.Armor;
+                equip.description = "Skórzana zbroja";
+                equip.dragImage = new Image(
+                        AssetsGameInterface.getInstance().getManager().get("game/interface/equipmentIcons/leatherArmorIcon.png", Texture.class)
+                );
+                equip.dragImage.setSize(50, 50);
+                break;
+            case SphereOfSpeed:
+                equip = new Equip(
+                        AssetsGameInterface.getInstance().getManager().get("game/interface/equipmentIcons/sphereOfSpeedIcon.png", Texture.class)
+                );
+                equip.equipKind = EquipKinds.SphereOfSpeed;
+                equip.equipType = EquipTypes.Artifact;
+                equip.description = "Kula szybkości";
+                equip.dragImage = new Image(
+                        AssetsGameInterface.getInstance().getManager().get("game/interface/equipmentIcons/sphereOfSpeedIcon.png", Texture.class)
+                );
+                equip.dragImage.setSize(50, 50);
+                break;
             default:
                 equip = new Equip(
                         AssetsGameInterface.getInstance().getManager().get("game/interface/equipmentIcons/noneIcon.png", Texture.class)

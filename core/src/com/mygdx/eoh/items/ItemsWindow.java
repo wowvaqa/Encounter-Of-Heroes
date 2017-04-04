@@ -11,6 +11,7 @@ import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.scenes.scene2d.utils.DragAndDrop;
 import com.badlogic.gdx.utils.Align;
 import com.mygdx.eoh.Equipment.Equip;
+import com.mygdx.eoh.Equipment.EquipKinds;
 import com.mygdx.eoh.Equipment.EquipTypes;
 import com.mygdx.eoh.assets.AssetsGameScreen;
 import com.mygdx.eoh.gameClasses.PlayerMob;
@@ -123,10 +124,20 @@ public class ItemsWindow {
             @Override
             public void drop(DragAndDrop.Source source, DragAndDrop.Payload payload, float x, float y, int pointer) {
                 if (((Equip)payload.getObject()).getEquipType().equals(EquipTypes.Weapon)){
+                    if (playerMob.getWeapon().getEquipKind() != EquipKinds.None){
+                        playerMob.getEquip().add(playerMob.getWeapon());
+                    }
                     playerMob.setWeapon((Equip)payload.getObject());
+
                 } else if (((Equip)payload.getObject()).getEquipType().equals(EquipTypes.Armor)){
+                    if (playerMob.getArmor().getEquipKind() != EquipKinds.None){
+                        playerMob.getEquip().add(playerMob.getArmor());
+                    }
                     playerMob.setArmor((Equip)payload.getObject());
                 } else if (((Equip)payload.getObject()).getEquipType().equals(EquipTypes.Artifact)){
+                    if (playerMob.getArtifact().getEquipKind() != EquipKinds.None){
+                        playerMob.getEquip().add(playerMob.getArtifact());
+                    }
                     playerMob.setArtifact((Equip)payload.getObject());
                 }
                 equippedTable.reset();
@@ -137,6 +148,11 @@ public class ItemsWindow {
                 equippedTable.add(playerMob.getArmor()).size(100, 100).pad(5);
                 equippedTable.add(new Label("Artefakt: ", AssetsGameScreen.getInstance().getManager().get("styles/skin.json", Skin.class), "black16"));
                 equippedTable.add(playerMob.getArtifact()).size(100, 100).pad(5);
+
+                equipTable.reset();
+                for (Equip equip: playerMob.getEquip()){
+                    equipTable.add(equip).size(100, 100).pad(5);
+                }
 
             }
         });

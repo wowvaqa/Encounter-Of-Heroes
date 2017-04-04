@@ -81,6 +81,9 @@ public class PlayerMobCreator {
         playerMob.getEquip().add(Equip.createEquip(EquipKinds.WoodenStick));
         playerMob.getEquip().add(Equip.createEquip(EquipKinds.LeatherPants));
         playerMob.getEquip().add(Equip.createEquip(EquipKinds.GoldRing));
+        playerMob.getEquip().add(Equip.createEquip(EquipKinds.MagicStaff));
+        playerMob.getEquip().add(Equip.createEquip(EquipKinds.LeatherArmor));
+        playerMob.getEquip().add(Equip.createEquip(EquipKinds.SphereOfSpeed));
 
         return playerMob;
     }
