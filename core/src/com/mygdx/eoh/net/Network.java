@@ -44,6 +44,17 @@ public class Network {
         kryo.register(InstantEffectNet.class);
         kryo.register(SpellCastNet.class);
         kryo.register(ClientReadyToStartBattle.class);
+        kryo.register(EquipRemove.class);
+        kryo.register(EquipAssumeCancel.class);
+        kryo.register(EquipAssume.class);
+    }
+
+    static public enum GameTypes {
+        freeForAll, twoTeams;
+    }
+
+    static public enum CountOfPlayers {
+        one, two, three, four;
     }
 
     /**
@@ -184,11 +195,22 @@ public class Network {
         public int enemyId;
     }
 
-    static public enum GameTypes {
-        freeForAll, twoTeams;
+    static public class EquipRemove {
+        public int enemyId;
+        public int locationXofPlayerMob;
+        public int locationYofPlayerMob;
+        public int equipIndex;
     }
 
-    static public enum CountOfPlayers {
-        one, two, three, four;
+    static public class EquipAssumeCancel {
+        public int enemyId;
+        public int locationXofPlayerMob;
+        public int locationYofPlayerMob;
+    }
+
+    static public class EquipAssume {
+        public int enemyId;
+        public int locationXofPlayerMob;
+        public int locationYofPlayerMob;
     }
 }

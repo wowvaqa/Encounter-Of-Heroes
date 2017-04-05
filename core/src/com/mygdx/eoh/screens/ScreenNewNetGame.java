@@ -1,6 +1,5 @@
 package com.mygdx.eoh.screens;
 
-import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.ui.Dialog;
@@ -103,7 +102,7 @@ public class ScreenNewNetGame extends DefaultScreen {
             client.start();
             try {
                 //client.connect(5000, "85.255.9.69", 54555, 54777);
-                client.connect(10000, "192.168.1.9", 54555, 54777);
+                client.connect(10000, "192.168.1.7", 54555, 54777);
                 interfaceManager.lblServerStatus.setText("Serwer: połączony");
                 Gdx.app.log("Client", "Connected");
                 NetStatus.getInstance().playerStatusRequest();
@@ -131,7 +130,7 @@ public class ScreenNewNetGame extends DefaultScreen {
             }
         }
 
-        if (NetStatus.getInstance().isLoginSuccess()){
+        if (NetStatus.getInstance().isLoginSuccess()) {
             Dialog dialog = new Dialog("", AssetsMainMenu.getInstance().getManager().get("styles/skin.json", Skin.class));
             dialog.text("Logowanie udane");
             dialog.button("OK");
@@ -140,7 +139,7 @@ public class ScreenNewNetGame extends DefaultScreen {
             interfaceManager.lblLoginStatus.setText(NetStatus.getInstance().getNetLogin());
         }
 
-        if (NetStatus.getInstance().isLoginUnsuccess()){
+        if (NetStatus.getInstance().isLoginUnsuccess()) {
             Dialog dialog = new Dialog("", AssetsMainMenu.getInstance().getManager().get("styles/skin.json", Skin.class));
             dialog.text("Logowanie udane");
             dialog.button("OK");
@@ -156,7 +155,7 @@ public class ScreenNewNetGame extends DefaultScreen {
             NetStatus.getInstance().setRegisterSuccess(false);
         }
 
-        if (NetStatus.getInstance().isRegisterFail()){
+        if (NetStatus.getInstance().isRegisterFail()) {
             Dialog dialog = new Dialog("", AssetsMainMenu.getInstance().getManager().get("styles/skin.json", Skin.class));
             dialog.text("Rejestracja nieudana");
             dialog.button("OK");
@@ -164,12 +163,12 @@ public class ScreenNewNetGame extends DefaultScreen {
             NetStatus.getInstance().setRegisterFail(false);
         }
 
-        if (NetStatus.getInstance().getLoggedPlayersChange()){
+        if (NetStatus.getInstance().getLoggedPlayersChange()) {
             interfaceManager.lblOnlinePlayersAmount.setText("" + NetStatus.getInstance().getLoggedPlayers());
             NetStatus.getInstance().setLoggedPlayersChange(false);
         }
 
-        if (NetStatus.getInstance().isUnLogin()){
+        if (NetStatus.getInstance().isUnLogin()) {
             Dialog dialog = new Dialog("", AssetsMainMenu.getInstance().getManager().get("styles/skin.json", Skin.class));
             dialog.text("Wylogowanie");
             dialog.button("OK");
@@ -178,13 +177,13 @@ public class ScreenNewNetGame extends DefaultScreen {
             interfaceManager.lblLoginStatus.setText("Nie zalogowany");
         }
 
-        if (NetStatus.getInstance().isStatisticReceive()){
+        if (NetStatus.getInstance().isStatisticReceive()) {
             interfaceManager.lblgamesPlayed.setText("Gry: " + Integer.toString(NetStatus.getInstance().getGamesPlayed()));
             interfaceManager.lblgamesWon.setText("Wygrane: " + Integer.toString(NetStatus.getInstance().getGamesWon()));
             interfaceManager.lblgamesLost.setText("Przegrane: " + Integer.toString(NetStatus.getInstance().getGamesLost()));
             String rank;
 
-            switch (NetStatus.getInstance().getRank()){
+            switch (NetStatus.getInstance().getRank()) {
                 case 0:
                     rank = "Szeregowiec";
                     break;
@@ -399,7 +398,7 @@ public class ScreenNewNetGame extends DefaultScreen {
                         Network.StartBattle startBattle = new Network.StartBattle();
                         startBattle.gameTypes = Network.GameTypes.freeForAll;
                         startBattle.countOfPlayers = Network.CountOfPlayers.two;
-                        if (GameStatus.getInstance().getNewPlayerMobClass().equals(PlayerMobClasses.Knight)){
+                        if (GameStatus.getInstance().getNewPlayerMobClass().equals(PlayerMobClasses.Knight)) {
                             startBattle.playerMobClass = 0;
                         } else {
                             startBattle.playerMobClass = 1;
@@ -428,14 +427,14 @@ public class ScreenNewNetGame extends DefaultScreen {
                 }
             });
 
-            tbNextClass.addListener(new ClickListener(){
+            tbNextClass.addListener(new ClickListener() {
                 @Override
                 public void clicked(InputEvent event, float x, float y) {
                     super.clicked(event, x, y);
-                    if (GameStatus.getInstance().getNewPlayerMobClass().equals(PlayerMobClasses.Knight)){
+                    if (GameStatus.getInstance().getNewPlayerMobClass().equals(PlayerMobClasses.Knight)) {
                         GameStatus.getInstance().setNewPlayerMobClass(PlayerMobClasses.Wizard);
                         lblPlayerMobClass.setText("Klasa: Czarodziej");
-                    } else if (GameStatus.getInstance().getNewPlayerMobClass().equals(PlayerMobClasses.Wizard)){
+                    } else if (GameStatus.getInstance().getNewPlayerMobClass().equals(PlayerMobClasses.Wizard)) {
                         GameStatus.getInstance().setNewPlayerMobClass(PlayerMobClasses.Knight);
                         lblPlayerMobClass.setText("Klasa: Rycerz");
                     }

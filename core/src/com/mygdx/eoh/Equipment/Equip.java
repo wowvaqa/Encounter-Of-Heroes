@@ -18,6 +18,8 @@ import com.mygdx.eoh.gameClasses.GameStatus;
 
 public class Equip extends Image {
 
+    public static Equip selectedEquip;
+    public static int selectedEquipIndex;
     // Type of equip (armor, weapon etc.)
     private EquipTypes equipType;
     // Kind of equip (wooden stick, swork etc.)
@@ -29,21 +31,20 @@ public class Equip extends Image {
     // Description of item.
     private String description;
 
-    public static Equip selectedEquip;
-
     private Equip(Texture texture) {
         super(texture);
     }
 
     /**
      * For create new equip object
+     *
      * @return new equip object
      */
-    public static Equip createEquip(EquipKinds equipKind){
+    public static Equip createEquip(EquipKinds equipKind) {
 
         final Equip equip;
 
-        switch (equipKind){
+        switch (equipKind) {
             case WoodenStick:
                 equip = new Equip(
                         AssetsGameInterface.getInstance().getManager().get("game/interface/equipmentIcons/woodStickIcon.png", Texture.class)
@@ -122,10 +123,11 @@ public class Equip extends Image {
                 );
                 equip.equipKind = EquipKinds.None;
                 equip.equipType = EquipTypes.None;
+                equip.description = "none";
                 break;
         }
 
-        equip.addListener(new DragListener(){
+        equip.addListener(new DragListener() {
             @Override
             public void enter(InputEvent event, float x, float y, int pointer, Actor fromActor) {
                 super.enter(event, x, y, pointer, fromActor);
@@ -133,23 +135,23 @@ public class Equip extends Image {
             }
         });
 
-        equip.addListener(new ClickListener(){
+        equip.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
                 super.clicked(event, x, y);
-                        new Dialog("", (Skin) AssetsGameInterface.getInstance().getManager().get("styles/skin.json")) {
-                            {
-                                text(equip.getDescription());
-                                button("OK", "ok");
-                            }
+                new Dialog("", (Skin) AssetsGameInterface.getInstance().getManager().get("styles/skin.json")) {
+                    {
+                        text(equip.getDescription());
+                        button("OK", "ok");
+                    }
 
-                            @Override
-                            protected void result(Object object) {
-                                super.result(object);
-                                if (object.equals("ok")) {
-                                }
-                            }
-                        }.show(GameStatus.getInstance().getMainStage());
+                    @Override
+                    protected void result(Object object) {
+                        super.result(object);
+                        if (object.equals("ok")) {
+                        }
+                    }
+                }.show(GameStatus.getInstance().getMainStage());
             }
         });
         return equip;

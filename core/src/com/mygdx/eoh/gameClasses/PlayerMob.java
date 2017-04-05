@@ -17,12 +17,12 @@ import com.badlogic.gdx.utils.Align;
 import com.badlogic.gdx.utils.SnapshotArray;
 import com.mygdx.eoh.Equipment.Equip;
 import com.mygdx.eoh.animation.AnimationCreator;
-import com.mygdx.eoh.effects.LongEffect;
-import com.mygdx.eoh.enums.AnimationTypes;
 import com.mygdx.eoh.assets.AssetsGameScreen;
 import com.mygdx.eoh.creators.SpellCreator;
 import com.mygdx.eoh.defaultClasses.DefaultMob;
 import com.mygdx.eoh.defaultClasses.DefaultPlayerColorIcon;
+import com.mygdx.eoh.effects.LongEffect;
+import com.mygdx.eoh.enums.AnimationTypes;
 import com.mygdx.eoh.enums.PlayerMobClasses;
 import com.mygdx.eoh.enums.Spells;
 import com.mygdx.eoh.items.Item;
@@ -97,10 +97,27 @@ public class PlayerMob extends DefaultMob {
     }
 
     /**
+     * Returns index in array of PlayerMobs
+     *
+     * @param playerMob   Which PlayerMob object index will be return
+     * @param playerOwner Player who is owner of PlayerMob
+     * @return index
+     */
+    static int getPlayerMobIndex(PlayerMob playerMob, Player playerOwner) {
+        int index = 0;
+        for (PlayerMob tmpPlayerMob : playerOwner.getPlayerMobs()) {
+            if (tmpPlayerMob.equals(playerMob))
+                break;
+            index += 1;
+        }
+        return index;
+    }
+
+    /**
      * Create spells.
      */
-    private void createSpells(){
-        switch (playerMobClass){
+    private void createSpells() {
+        switch (playerMobClass) {
             case Wizard:
                 spells.add(SpellCreator.getInstance().createSpell(this, Spells.Fireball));
                 break;
@@ -163,7 +180,7 @@ public class PlayerMob extends DefaultMob {
         infoPlayerMobTable.add(apLabel).padRight(10);
     }
 
-    private void createLongEffectsTable(){
+    private void createLongEffectsTable() {
         longEffectsTable = new Table();
     }
 
@@ -209,6 +226,14 @@ public class PlayerMob extends DefaultMob {
                         moveManager.showMoveInterface(GameStatus.getInstance().getMapStage(), playerMob);
                         moveManager.showAttackInterface(GameStatus.getInstance().getMapStage(), playerMob);
                     }
+
+                    System.out.println("Bron: " + getWeapon().getDescription());
+                    System.out.println("Pancerz: " + getArmor().getDescription());
+                    System.out.println("Artefakt: " + getArtifact().getDescription());
+
+                    for (int i = 0; i < playerMob.getEquip().size; i++) {
+                        System.out.println("Ekwipunek (" + i + "): " + playerMob.getEquip().get(i).getDescription());
+                    }
                 }
             }
         });
@@ -231,7 +256,7 @@ public class PlayerMob extends DefaultMob {
                 playerMob, locationXofAttackedMob, locationYofAttackedMob));
     }
 
-    public void changeToCastAnimation(PlayerMob playerMob){
+    public void changeToCastAnimation(PlayerMob playerMob) {
         playerMob.setLooped(false);
         playerMob.setStateTime(0);
         playerMob.setAnimation(AnimationCreator.getInstance().makeAnimation(cast, playerMob));
@@ -405,6 +430,7 @@ public class PlayerMob extends DefaultMob {
 
     /**
      * Gets player mob statistic window
+     *
      * @return Statistics of selected player mob
      */
     public Window getPlayerMobWindow() {
@@ -473,27 +499,24 @@ public class PlayerMob extends DefaultMob {
         return window;
     }
 
-
-
     /**
      * Decresing actual mana.
+     *
      * @param mana How many point
      */
-    public void decreseMana(int mana){
+    public void decreseMana(int mana) {
         this.setActualMana(this.getActualMana() - mana);
     }
 
     /**
      * Returns index in array of PlayerMobs
      *
-     * @param playerMob   Which PlayerMob object index will be return
-     * @param playerOwner Player who is owner of PlayerMob
-     * @return index
+     * @return number of index.
      */
-    static int getPlayerMobIndex(PlayerMob playerMob, Player playerOwner) {
+    public int getPlayerMobIndex() {
         int index = 0;
         for (PlayerMob tmpPlayerMob : playerOwner.getPlayerMobs()) {
-            if (tmpPlayerMob.equals(playerMob))
+            if (tmpPlayerMob.equals(this))
                 break;
             index += 1;
         }

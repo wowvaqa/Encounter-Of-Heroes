@@ -4,6 +4,9 @@ import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.Window;
+import com.mygdx.eoh.Equipment.Equip;
+import com.mygdx.eoh.Equipment.EquipKinds;
+import com.mygdx.eoh.Equipment.EquipTypes;
 import com.mygdx.eoh.animation.AnimationCreator;
 import com.mygdx.eoh.animation.AnimationSpellCreator;
 import com.mygdx.eoh.assets.AssetsGameScreen;
@@ -27,6 +30,7 @@ import com.mygdx.eoh.gameClasses.GameStatus;
 import com.mygdx.eoh.gameClasses.Map;
 import com.mygdx.eoh.gameClasses.Options;
 import com.mygdx.eoh.gameClasses.Player;
+import com.mygdx.eoh.gameClasses.PlayerMob;
 import com.mygdx.eoh.gameClasses.Positioning;
 import com.mygdx.eoh.items.AvailableItems;
 import com.mygdx.eoh.items.ItemCreator;
@@ -234,7 +238,7 @@ public class ScreenNetGame extends DefaultGameScreen {
     public void render(float delta) {
         super.render(delta);
 
-        if (!cameraStartPosition){
+        if (!cameraStartPosition) {
 
             System.out.println("Cam posi X: " + getMapStageCamera().position.x);
             System.out.println("Cam posi Y: " + getMapStageCamera().position.y);
@@ -411,6 +415,57 @@ public class ScreenNetGame extends DefaultGameScreen {
 
             NetStatus.getInstance().setNewPlayerMob(false);
         }
+
+        if (NetStatus.getInstance().isEquipRemove()) {
+            Equip.selectedEquip =
+                    GameStatus.getInstance().getMap().getFields()[
+                            NetStatus.getInstance().getEquipRemoveLocXofPlayerMob()
+                            ][NetStatus.getInstance().getEquipRemoveLocYofPlayerMob()
+                            ].getPlayerMob().getEquip().get(
+                            NetStatus.getInstance().getEquipIndex()
+                    );
+
+            GameStatus.getInstance().getMap().getFields()[
+                    NetStatus.getInstance().getEquipRemoveLocXofPlayerMob()
+                    ][NetStatus.getInstance().getEquipRemoveLocYofPlayerMob()
+                    ].getPlayerMob().getEquip().removeValue(Equip.selectedEquip, true);
+
+            NetStatus.getInstance().setEquipRemove(false);
+        }
+
+        if (NetStatus.getInstance().isEquipAssumeCancel()) {
+            GameStatus.getInstance().getMap().getFields()[
+                    NetStatus.getInstance().getEquipAssumeCancelLocX()
+                    ][NetStatus.getInstance().getEquipAssumeCancelLocY()
+                    ].getPlayerMob().getEquip().add(Equip.selectedEquip);
+            NetStatus.getInstance().setEquipAssumeCancel(false);
+        }
+
+        if (NetStatus.getInstance().isEquipAssume()) {
+
+            PlayerMob playerMobTmp;
+
+            playerMobTmp = GameStatus.getInstance().getMap().getFields()[
+                    NetStatus.getInstance().getEquipAssumeLocX()
+                    ][NetStatus.getInstance().getEquipAssumeLocY()
+                    ].getPlayerMob();
+
+            if (Equip.selectedEquip.getEquipType() == EquipTypes.Weapon) {
+                if (playerMobTmp.getWeapon().getEquipKind() != EquipKinds.None)
+                    playerMobTmp.getEquip().add(playerMobTmp.getWeapon());
+                playerMobTmp.setWeapon(Equip.selectedEquip);
+            } else if (Equip.selectedEquip.getEquipType() == EquipTypes.Armor) {
+                if (playerMobTmp.getArmor().getEquipKind() != EquipKinds.None)
+                    playerMobTmp.getEquip().add(playerMobTmp.getArmor());
+                playerMobTmp.setArmor(Equip.selectedEquip);
+            } else if (Equip.selectedEquip.getEquipType() == EquipTypes.Artifact) {
+                if (playerMobTmp.getArtifact().getEquipKind() != EquipKinds.None)
+                    playerMobTmp.getEquip().add(playerMobTmp.getArtifact());
+                playerMobTmp.setArtifact(Equip.selectedEquip);
+            }
+
+            NetStatus.getInstance().setEquipAssume(false);
+        }
     }
 
     /**
@@ -418,7 +473,7 @@ public class ScreenNetGame extends DefaultGameScreen {
      *
      * @return Window class object.
      */
-    public Window getWaitingWindow() {
+    private Window getWaitingWindow() {
         final Window window = new Window("", AssetsGameScreen.getInstance().getManager().get("styles/skin.json", Skin.class));
         window.setSize(400, 300);
         window.setModal(true);
@@ -429,7 +484,6 @@ public class ScreenNetGame extends DefaultGameScreen {
 
         return window;
     }
-
 
 
     @Override

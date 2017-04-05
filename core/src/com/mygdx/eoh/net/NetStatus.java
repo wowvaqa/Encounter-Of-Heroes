@@ -66,6 +66,20 @@ public class NetStatus {
     private boolean host;
     //If game client isn't host of network game then FALSE
     private boolean guest;
+    //If Equip removed from equipment then TURE:
+    private boolean equipRemove;
+    //Varibles for remove equip
+    private int equipRemoveLocXofPlayerMob;
+    private int equipRemoveLocYofPlayerMob;
+    private int equipIndex;
+    //Varibles for cancel assume eqip
+    private boolean equipAssumeCancel;
+    private int equipAssumeCancelLocX;
+    private int equipAssumeCancelLocY;
+    //Varibles for equip assume
+    private boolean equipAssume;
+    private int equipAssumeLocX;
+    private int equipAssumeLocY;
 
     //Statistic of player
     private int gamesPlayed;
@@ -79,17 +93,21 @@ public class NetStatus {
     //When user login from other machine when he is logged then TRUE
     private boolean unLogin = false;
 
+    private NetStatus() {
+    }
+
     public static NetStatus getInstance() {
         return instance;
     }
 
-    private NetStatus() {
+    public static void setInstance(NetStatus instance) {
+        NetStatus.instance = instance;
     }
 
     /**
      * Send request for player statistic.
      */
-    public void playerStatusRequest(){
+    public void playerStatusRequest() {
         if (NetStatus.getInstance().getNetLogin() != null) {
             Network.PlayerStatsRequest playerStatsRequest = new Network.PlayerStatsRequest();
             playerStatsRequest.Login = NetStatus.getInstance().getNetLogin();
@@ -119,10 +137,6 @@ public class NetStatus {
 
     public void setEnemyId(int enemyId) {
         this.enemyId = enemyId;
-    }
-
-    public static void setInstance(NetStatus instance) {
-        NetStatus.instance = instance;
     }
 
     public String getNetLogin() {
@@ -403,5 +417,85 @@ public class NetStatus {
 
     public void setGuest(boolean guest) {
         this.guest = guest;
+    }
+
+    public boolean isEquipRemove() {
+        return equipRemove;
+    }
+
+    public void setEquipRemove(boolean equipRemove) {
+        this.equipRemove = equipRemove;
+    }
+
+    public int getEquipRemoveLocXofPlayerMob() {
+        return equipRemoveLocXofPlayerMob;
+    }
+
+    public void setEquipRemoveLocXofPlayerMob(int equipRemoveLocXofPlayerMob) {
+        this.equipRemoveLocXofPlayerMob = equipRemoveLocXofPlayerMob;
+    }
+
+    public int getEquipRemoveLocYofPlayerMob() {
+        return equipRemoveLocYofPlayerMob;
+    }
+
+    public void setEquipRemoveLocYofPlayerMob(int equipRemoveLocYofPlayerMob) {
+        this.equipRemoveLocYofPlayerMob = equipRemoveLocYofPlayerMob;
+    }
+
+    public int getEquipIndex() {
+        return equipIndex;
+    }
+
+    public void setEquipIndex(int equipIndex) {
+        this.equipIndex = equipIndex;
+    }
+
+    public boolean isEquipAssumeCancel() {
+        return equipAssumeCancel;
+    }
+
+    public void setEquipAssumeCancel(boolean equipAssumeCancel) {
+        this.equipAssumeCancel = equipAssumeCancel;
+    }
+
+    public int getEquipAssumeCancelLocX() {
+        return equipAssumeCancelLocX;
+    }
+
+    public void setEquipAssumeCancelLocX(int equipAssumeCancelLocX) {
+        this.equipAssumeCancelLocX = equipAssumeCancelLocX;
+    }
+
+    public int getEquipAssumeCancelLocY() {
+        return equipAssumeCancelLocY;
+    }
+
+    public void setEquipAssumeCancelLocY(int equipAssumeCancelLocY) {
+        this.equipAssumeCancelLocY = equipAssumeCancelLocY;
+    }
+
+    public boolean isEquipAssume() {
+        return equipAssume;
+    }
+
+    public void setEquipAssume(boolean equipAssume) {
+        this.equipAssume = equipAssume;
+    }
+
+    public int getEquipAssumeLocX() {
+        return equipAssumeLocX;
+    }
+
+    public void setEquipAssumeLocX(int equipAssumeLocX) {
+        this.equipAssumeLocX = equipAssumeLocX;
+    }
+
+    public int getEquipAssumeLocY() {
+        return equipAssumeLocY;
+    }
+
+    public void setEquipAssumeLocY(int equipAssumeLocY) {
+        this.equipAssumeLocY = equipAssumeLocY;
     }
 }
