@@ -17,6 +17,6 @@ public class AndroidLauncher extends AndroidApplication {
         mWakeLock.acquire();
 
         AndroidApplicationConfiguration config = new AndroidApplicationConfiguration();
-        initialize(new Main(), config);
+        initialize(new Eoh(), config);
     }
 }
