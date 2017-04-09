@@ -9,6 +9,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.scenes.scene2d.utils.DragListener;
 import com.mygdx.eoh.assets.AssetsGameInterface;
+import com.mygdx.eoh.effects.EquipModificator;
 import com.mygdx.eoh.gameClasses.GameStatus;
 
 /**
@@ -30,6 +31,8 @@ public class Equip extends Image {
     private Image dragImage;
     // Description of item.
     private String description;
+    // Equipment modificator of player mob statistics
+    private EquipModificator equipModificator;
 
     private Equip(Texture texture) {
         super(texture);
@@ -182,5 +185,13 @@ public class Equip extends Image {
 
     public String getDescription() {
         return description;
+    }
+
+    public EquipModificator getEquipModificator() {
+        return equipModificator;
+    }
+
+    public void setEquipModificator(EquipModificator equipModificator) {
+        this.equipModificator = equipModificator;
     }
 }
