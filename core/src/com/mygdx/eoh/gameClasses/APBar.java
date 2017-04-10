@@ -11,7 +11,7 @@ import com.mygdx.eoh.animation.AnimatedImage;
 
 public class APBar extends AnimatedImage {
     private PlayerMob playerMobParent;
-    private boolean apBarAdd= false;
+    private boolean apBarAdd = false;
 
     APBar(Animation animation, boolean isLooped, PlayerMob playerMob) {
         super(animation, isLooped);
@@ -21,15 +21,12 @@ public class APBar extends AnimatedImage {
         this.setTouchable(Touchable.disabled);
     }
 
-    private void changePosition(){
-        this.setPosition(playerMobParent.getX(), playerMobParent.getY());
-    }
-
     /**
      * Change length of animation frame
+     *
      * @param playerMob Player mob to recalculate apBar frame duration.
      */
-    static void recalculateApBarFrameDuration(PlayerMob playerMob){
+    static void recalculateApBarFrameDuration(PlayerMob playerMob) {
 
         float animationSpeed = (17.0f - (playerMob.getActualSpeed() + ModifierGetter.getSpeedModifier(playerMob)) * 0.5f) / 24;
         System.out.println("Frame duration of APBAR: " + animationSpeed);
@@ -42,6 +39,10 @@ public class APBar extends AnimatedImage {
         );
     }
 
+    private void changePosition() {
+        this.setPosition(playerMobParent.getX(), playerMobParent.getY());
+    }
+
     /***********************************************************************************************
      * OVERRIDE METHODS
      ***********************************************************************************************/
@@ -49,7 +50,7 @@ public class APBar extends AnimatedImage {
     public void act(float delta) {
         super.act(delta);
 
-        if (getAnimation().isAnimationFinished(getStateTime())){
+        if (getAnimation().isAnimationFinished(getStateTime())) {
             playerMobParent.setActionPoints(playerMobParent.getActionPoints() + 1);
             this.setStateTime(0);
             this.apBarAdd = false;
@@ -60,11 +61,11 @@ public class APBar extends AnimatedImage {
             this.remove();
         }
 
-        if (this.getX() != playerMobParent.getX()){
+        if (this.getX() != playerMobParent.getX()) {
             changePosition();
         }
 
-        if (this.getY() != playerMobParent.getY()){
+        if (this.getY() != playerMobParent.getY()) {
             changePosition();
         }
     }
