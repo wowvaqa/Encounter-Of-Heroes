@@ -1,7 +1,5 @@
 package com.mygdx.eoh.gameClasses;
 
-import com.mygdx.eoh.effects.LongEffect;
-
 import java.util.Random;
 
 /**
@@ -16,7 +14,7 @@ public class FightManager {
      * @param object PlayerMob object
      * @return Factor of attack
      */
-    static public int getFactorOfAttack(Object object) {
+    private static int getFactorOfAttack(Object object) {
 
         int attack = 0;
         Random rnd = new Random();
@@ -34,12 +32,12 @@ public class FightManager {
      * @param object PlayerMob object
      * @return Factor of defence
      */
-    static public int getFactorOfDefence(Object object) {
+    private static int getFactorOfDefence(Object object) {
         int defence = 0;
         Random rnd = new Random();
 
         if (object.getClass().equals(PlayerMob.class)) {
-            defence = rnd.nextInt(((PlayerMob) object).getActualDefence() + 1);
+            defence = rnd.nextInt(((PlayerMob) object).getActualDefence() + ModificatorGetter.getDefenceModificator(((PlayerMob) object)) + 1);
         }
         System.out.println("Defence Factor: " + defence);
         return defence;
@@ -52,7 +50,7 @@ public class FightManager {
      * @param defendingMob PlayerMob class object
      * @return Damage
      */
-    static public int getDamage(Object attackingMob, Object defendingMob) {
+    static int getDamage(Object attackingMob, Object defendingMob) {
         int damage;
         FightManager.decreseAP(attackingMob, 1);
         damage = getFactorOfAttack(attackingMob) - getFactorOfDefence(defendingMob);
