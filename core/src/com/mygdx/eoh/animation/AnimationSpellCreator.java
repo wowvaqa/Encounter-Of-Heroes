@@ -1,6 +1,5 @@
 package com.mygdx.eoh.animation;
 
-import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
@@ -8,6 +7,7 @@ import com.mygdx.eoh.assets.AssetsGameInterface;
 import com.mygdx.eoh.assets.AssetsGameScreen;
 import com.mygdx.eoh.enums.InstantEffects;
 import com.mygdx.eoh.enums.LongEffects;
+import com.mygdx.eoh.gameClasses.ModifierGetter;
 import com.mygdx.eoh.gameClasses.PlayerMob;
 
 /**
@@ -17,11 +17,11 @@ import com.mygdx.eoh.gameClasses.PlayerMob;
 public class AnimationSpellCreator {
     private static AnimationSpellCreator instance = new AnimationSpellCreator();
 
-    public static AnimationSpellCreator getInstance() {
-        return instance;
+    private AnimationSpellCreator() {
     }
 
-    private AnimationSpellCreator() {
+    public static AnimationSpellCreator getInstance() {
+        return instance;
     }
 
     public Animation makeSpellAnimation(InstantEffects instantEffects) {
@@ -64,7 +64,7 @@ public class AnimationSpellCreator {
         return new Animation(animationSpeed, walkFrames);
     }
 
-    public Animation makeLongEffectAnimation(LongEffects longEffects, PlayerMob caster){
+    public Animation makeLongEffectAnimation(LongEffects longEffects, PlayerMob caster) {
         float animationSpeed;
         float effectDuration;
 
@@ -73,7 +73,7 @@ public class AnimationSpellCreator {
 
         switch (longEffects) {
             case AttackUpgrade:
-                animationSpeed = caster.getActualPower() * 2.0f;
+                animationSpeed = (caster.getActualPower() + ModifierGetter.getPowerModifier(caster)) * 2.0f;
                 System.out.println("Animation Speed: " + animationSpeed);
                 textureAtlas = AssetsGameInterface.getInstance().getManager().get("game/interface/spellEffectsAnimations/attackUpgradeEffectIcon.atlas", TextureAtlas.class);
                 walkFrames = new TextureRegion[textureAtlas.getRegions().size];
@@ -83,7 +83,7 @@ public class AnimationSpellCreator {
                 }
                 break;
             default:
-                animationSpeed = caster.getActualPower() * 2.0f;
+                animationSpeed = (caster.getActualPower() + ModifierGetter.getPowerModifier(caster)) * 2.0f;
                 textureAtlas = AssetsGameInterface.getInstance().getManager().get("game/interface/spellEffectsAnimations/attackUpgradeEffectIcon.atlas", TextureAtlas.class);
                 walkFrames = new TextureRegion[textureAtlas.getRegions().size];
 
