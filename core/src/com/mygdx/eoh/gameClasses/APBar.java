@@ -13,7 +13,7 @@ public class APBar extends AnimatedImage {
     private PlayerMob playerMobParent;
     private boolean apBarAdd= false;
 
-    public APBar(Animation animation, boolean isLooped, PlayerMob playerMob) {
+    APBar(Animation animation, boolean isLooped, PlayerMob playerMob) {
         super(animation, isLooped);
         this.playerMobParent = playerMob;
         this.setSize(Options.tileSize, Options.tileSize);
@@ -23,6 +23,23 @@ public class APBar extends AnimatedImage {
 
     private void changePosition(){
         this.setPosition(playerMobParent.getX(), playerMobParent.getY());
+    }
+
+    /**
+     * Change length of animation frame
+     * @param playerMob Player mob to recalculate apBar frame duration.
+     */
+    static void recalculateApBarFrameDuration(PlayerMob playerMob){
+
+        float animationSpeed = (17.0f - (playerMob.getActualSpeed() + ModifierGetter.getSpeedModifier(playerMob)) * 0.5f) / 24;
+        System.out.println("Frame duration of APBAR: " + animationSpeed);
+
+        if (animationSpeed <= 0)
+            animationSpeed = 0.001f;
+
+        playerMob.getApBar().getAnimation().setFrameDuration(
+                animationSpeed
+        );
     }
 
     /***********************************************************************************************
