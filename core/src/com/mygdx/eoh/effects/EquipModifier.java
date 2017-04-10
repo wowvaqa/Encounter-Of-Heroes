@@ -22,7 +22,7 @@ public class EquipModifier {
      * @param equipKind Kind of weapon.
      * @return New modifier.
      */
-    public static EquipModifier createEquipModificator(EquipKinds equipKind) {
+    public static EquipModifier createEquipModifier(EquipKinds equipKind) {
         EquipModifier equipModifier = new EquipModifier();
         switch (equipKind) {
             case WoodenStick:
