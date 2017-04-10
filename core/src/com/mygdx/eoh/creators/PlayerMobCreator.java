@@ -53,7 +53,7 @@ public class PlayerMobCreator {
         playerMob.setActualPower(2);
         playerMob.setPower(2);
         playerMob.setActualWisdom(10);
-        playerMob.setWisdom(2);
+        playerMob.setWisdom(10);
         playerMob.setMaxHp(5);
         playerMob.setMaxMana(10);
         playerMob.setActualMana(10);
