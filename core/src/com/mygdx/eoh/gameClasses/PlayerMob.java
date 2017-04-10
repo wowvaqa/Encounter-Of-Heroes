@@ -166,7 +166,7 @@ public class PlayerMob extends DefaultMob {
         infoPlayerMobTable = new Table();
         hpLabel = new Label("" + this.getActualhp() + "/" + this.getMaxHp(), AssetsGameScreen.getInstance().getManager().get("styles/skin.json", Skin.class));
         apLabel = new Label("" + this.getActualhp(), AssetsGameScreen.getInstance().getManager().get("styles/skin.json", Skin.class));
-        manaLabel = new Label("" + this.getActualMana() + "/" + this.getMaxMana(), AssetsGameScreen.getInstance().getManager().get("styles/skin.json", Skin.class));
+        manaLabel = new Label("" + this.getActualMana() + "/" + (this.getMaxMana() + ModifierGetter.getWisdomModifier(this)), AssetsGameScreen.getInstance().getManager().get("styles/skin.json", Skin.class));
 
         Image hpImage = new Image(AssetsGameScreen.getInstance().getManager().get("game/interface/hpIcon.png", Texture.class));
         Image manaImage = new Image(AssetsGameScreen.getInstance().getManager().get("game/interface/manaIcon.png", Texture.class));
@@ -261,7 +261,7 @@ public class PlayerMob extends DefaultMob {
         playerMob.setStateTime(0);
         playerMob.setAnimation(AnimationCreator.getInstance().makeAnimation(cast, playerMob));
 
-        float velocity = 2.0f - playerMob.getActualWisdom() * 0.05f;
+        float velocity = 2.0f - (playerMob.getActualWisdom() + ModifierGetter.getWisdomModifier(playerMob)) * 0.05f;
 
         playerMob.addAction(Actions.delay(velocity * 2));
     }
@@ -317,7 +317,8 @@ public class PlayerMob extends DefaultMob {
     private SequenceAction getSequenceForAttack(
             PlayerMob playerMob, int mapXcoordinateOfEnemy, int mapYcoordinageOfEnemy) {
 
-        float velocity = 2.0f - playerMob.getActualSpeed() * 0.05f;
+        float velocity = 2.0f - (playerMob.getActualSpeed() + ModifierGetter.getSpeedModifier(playerMob)) * 0.05f;
+
         //  NORTH
         if (playerMob.getCoordinateXonMap() == mapXcoordinateOfEnemy &&
                 playerMob.getCoordinateYonMap() > mapYcoordinageOfEnemy) {
@@ -358,12 +359,12 @@ public class PlayerMob extends DefaultMob {
     public void act(float delta) {
         super.act(delta);
 
-        if (this.getActionPoints() < this.getActualSpeed() && !this.getApBar().isApBarAdd()) {
+        if (this.getActionPoints() < this.getActualSpeed() + ModifierGetter.getSpeedModifier(this) && !this.getApBar().isApBarAdd()) {
             this.getStage().addActor(this.getApBar());
             this.getApBar().setApBarAdd(true);
         }
 
-        if (this.getActualMana() < this.getMaxMana() && !this.getManaBar().isManaBarAdd()) {
+        if (this.getActualMana() < this.getMaxMana() + ModifierGetter.getWisdomModifier(this) && !this.getManaBar().isManaBarAdd()) {
             this.getStage().addActor(this.getManaBar());
             this.getManaBar().setManaBarAdd(true);
         }
@@ -470,15 +471,17 @@ public class PlayerMob extends DefaultMob {
 
         statisticTable.row();
 
-        int finalAttack = 0;
-        finalAttack = getActualAttack() + ModificatorGetter.getAttackModificator(this);
+        int finalAttack = getActualAttack() + ModifierGetter.getAttackModifier(this);
+        int finalDefence = getActualDefence() + ModifierGetter.getDefenceModifier(this);
+        int finalSpeed = getActualSpeed() + ModifierGetter.getSpeedModifier(this);
+        int finalPower = getActualPower() + ModifierGetter.getPowerModifier(this);
+        int finalWisdom = getActualWisdom() + ModifierGetter.getWisdomModifier(this);
 
-        //statisticTable.add(new Label("" + getActualAttack() + attackModificator + "/" + getAttack() + "", AssetsGameScreen.getInstance().getManager().get("styles/skin.json", Skin.class))).pad(5);
         statisticTable.add(new Label("" + finalAttack + "/" + getAttack() + "", AssetsGameScreen.getInstance().getManager().get("styles/skin.json", Skin.class))).pad(5);
-        statisticTable.add(new Label("" + getActualDefence() + "/" + getDefence() + "", AssetsGameScreen.getInstance().getManager().get("styles/skin.json", Skin.class))).pad(5);
-        statisticTable.add(new Label("" + getActualSpeed() + "/" + getSpeed() + "", AssetsGameScreen.getInstance().getManager().get("styles/skin.json", Skin.class))).pad(5);
-        statisticTable.add(new Label("" + getActualPower() + "/" + getPower() + "", AssetsGameScreen.getInstance().getManager().get("styles/skin.json", Skin.class))).pad(5);
-        statisticTable.add(new Label("" + getActualWisdom() + "/" + getWisdom() + "", AssetsGameScreen.getInstance().getManager().get("styles/skin.json", Skin.class))).pad(5);
+        statisticTable.add(new Label("" + finalDefence + "/" + getDefence() + "", AssetsGameScreen.getInstance().getManager().get("styles/skin.json", Skin.class))).pad(5);
+        statisticTable.add(new Label("" + finalSpeed + "/" + getSpeed() + "", AssetsGameScreen.getInstance().getManager().get("styles/skin.json", Skin.class))).pad(5);
+        statisticTable.add(new Label("" + finalPower + "/" + getPower() + "", AssetsGameScreen.getInstance().getManager().get("styles/skin.json", Skin.class))).pad(5);
+        statisticTable.add(new Label("" + finalWisdom + "/" + getWisdom() + "", AssetsGameScreen.getInstance().getManager().get("styles/skin.json", Skin.class))).pad(5);
 
 
         TextButton tbCancel = new TextButton("OK", AssetsGameScreen.getInstance().getManager().get("styles/skin.json", Skin.class));
@@ -621,6 +624,8 @@ public class PlayerMob extends DefaultMob {
 
     public void setArmor(Equip armor) {
         this.armor = armor;
+        APBar.recalculateApBarFrameDuration(this);
+        ManaBar.recalculateManaBarFrameDuration(this);
     }
 
     public Equip getWeapon() {
@@ -629,6 +634,8 @@ public class PlayerMob extends DefaultMob {
 
     public void setWeapon(Equip weapon) {
         this.weapon = weapon;
+        APBar.recalculateApBarFrameDuration(this);
+        ManaBar.recalculateManaBarFrameDuration(this);
     }
 
     public Equip getArtifact() {
@@ -637,6 +644,8 @@ public class PlayerMob extends DefaultMob {
 
     public void setArtifact(Equip artifact) {
         this.artifact = artifact;
+        APBar.recalculateApBarFrameDuration(this);
+        ManaBar.recalculateManaBarFrameDuration(this);
     }
 
     @Override
@@ -654,7 +663,7 @@ public class PlayerMob extends DefaultMob {
     @Override
     public void setActualMana(int actualMana) {
         super.setActualMana(actualMana);
-        getManaLabel().setText("" + actualMana + "/" + getMaxMana());
+        getManaLabel().setText("" + actualMana + "/" + (getMaxMana() + ModifierGetter.getWisdomModifier(this)));
     }
 
     @Override
