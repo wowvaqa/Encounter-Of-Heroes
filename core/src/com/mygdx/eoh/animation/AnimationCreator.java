@@ -5,6 +5,7 @@ import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.mygdx.eoh.assets.AssetsGameScreen;
+import com.mygdx.eoh.gameClasses.ModifierGetter;
 import com.mygdx.eoh.gameClasses.PlayerMob;
 
 /**
@@ -22,8 +23,9 @@ public class AnimationCreator {
         return instance;
     }
 
-    public Animation makeAnimation(com.mygdx.eoh.enums.AnimationTypes animationType, PlayerMob playerMob){
-        float animationSpeed = (2.0f - playerMob.getActualSpeed() * 0.05f) / 24;
+    public Animation makeAnimation(com.mygdx.eoh.enums.AnimationTypes animationType, PlayerMob playerMob) {
+        //float animationSpeed = (2.0f - playerMob.getActualSpeed() * 0.05f) / 24;
+        float animationSpeed = (2.0f - (playerMob.getActualSpeed() + ModifierGetter.getSpeedModifier(playerMob)) * 0.05f) / 24;
 
         TextureRegion[] walkFrames = null;
         TextureAtlas textureAtlas;
@@ -31,7 +33,7 @@ public class AnimationCreator {
         switch (animationType) {
 
             case ApBarAnimation:
-                animationSpeed = (15.0f - playerMob.getActualSpeed() * 0.05f) / 24;
+                animationSpeed = (15.0f - (playerMob.getActualSpeed() + ModifierGetter.getSpeedModifier(playerMob)) * 0.05f) / 24;
                 textureAtlas = AssetsGameScreen.getInstance().getManager().get("game/mobsAnimations/apBarAnimation/apBarAnimation.atlas", TextureAtlas.class);
 
                 walkFrames = new TextureRegion[textureAtlas.getRegions().size];
@@ -42,7 +44,7 @@ public class AnimationCreator {
                 break;
 
             case ManaBarAnimation:
-                animationSpeed = (15.0f - playerMob.getActualWisdom() * 0.05f) / 24;
+                animationSpeed = (15.0f - (playerMob.getActualWisdom() + ModifierGetter.getWisdomModifier(playerMob)) * 0.05f) / 24;
                 textureAtlas = AssetsGameScreen.getInstance().getManager().get("game/mobsAnimations/manaBarAnimation/manaBarAnimation.atlas", TextureAtlas.class);
 
                 walkFrames = new TextureRegion[textureAtlas.getRegions().size];
@@ -134,7 +136,7 @@ public class AnimationCreator {
             case KnightCast:
                 textureAtlas = AssetsGameScreen.getInstance().getManager().get("game/mobsAnimations/knightAnimations/knightCast.atlas", TextureAtlas.class);
 
-                animationSpeed = (2.0f - playerMob.getActualWisdom() * 0.05f) / 24;
+                animationSpeed = (2.0f - (playerMob.getActualWisdom() + ModifierGetter.getWisdomModifier(playerMob)) * 0.05f) / 24;
 
                 walkFrames = new TextureRegion[textureAtlas.getRegions().size];
 
