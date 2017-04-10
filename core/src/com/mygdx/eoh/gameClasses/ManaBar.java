@@ -13,7 +13,7 @@ public class ManaBar extends AnimatedImage {
     private PlayerMob playerMobParent;
     private boolean manaBarAdd = false;
 
-    protected ManaBar(Animation animation, boolean isLooped, PlayerMob playerMob) {
+    ManaBar(Animation animation, boolean isLooped, PlayerMob playerMob) {
         super(animation, isLooped);
         this.playerMobParent = playerMob;
         this.setSize(Options.tileSize, Options.tileSize);
@@ -21,7 +21,25 @@ public class ManaBar extends AnimatedImage {
         this.setTouchable(Touchable.disabled);
     }
 
-    private void changePosition(){
+    /**
+     * Change length of animation frame
+     *
+     * @param playerMob Player mob to recalculate frame duration.
+     */
+    static void recalculateManaBarFrameDuration(PlayerMob playerMob) {
+
+        float animationSpeed = (17.0f - (playerMob.getActualWisdom() + ModifierGetter.getWisdomModifier(playerMob)) * 0.5f) / 24;
+        System.out.println("Frame duration of MANABar: " + animationSpeed);
+
+        if (animationSpeed <= 0)
+            animationSpeed = 0.001f;
+
+        playerMob.getManaBar().getAnimation().setFrameDuration(
+                animationSpeed
+        );
+    }
+
+    private void changePosition() {
         this.setPosition(playerMobParent.getX(), playerMobParent.getY());
     }
 
@@ -29,7 +47,7 @@ public class ManaBar extends AnimatedImage {
     public void act(float delta) {
         super.act(delta);
 
-        if (getAnimation().isAnimationFinished(getStateTime())){
+        if (getAnimation().isAnimationFinished(getStateTime())) {
             playerMobParent.setActualMana(playerMobParent.getActualMana() + 1);
             this.setStateTime(0);
             this.manaBarAdd = false;
@@ -40,11 +58,11 @@ public class ManaBar extends AnimatedImage {
             this.remove();
         }
 
-        if (this.getX() != playerMobParent.getX()){
+        if (this.getX() != playerMobParent.getX()) {
             changePosition();
         }
 
-        if (this.getY() != playerMobParent.getY()){
+        if (this.getY() != playerMobParent.getY()) {
             changePosition();
         }
     }
