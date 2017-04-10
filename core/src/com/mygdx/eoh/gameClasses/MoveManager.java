@@ -6,9 +6,9 @@ import com.badlogic.gdx.scenes.scene2d.actions.Actions;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.mygdx.eoh.animation.AnimationCreator;
-import com.mygdx.eoh.enums.AnimationTypes;
 import com.mygdx.eoh.assets.AssetsGameScreen;
 import com.mygdx.eoh.defaultClasses.DefaultDamageLabel;
+import com.mygdx.eoh.enums.AnimationTypes;
 import com.mygdx.eoh.enums.LocationToCheck;
 import com.mygdx.eoh.enums.SpellsKinds;
 import com.mygdx.eoh.magic.CastButton;
@@ -77,6 +77,7 @@ public class MoveManager {
 
     /**
      * Removes cast buttons from stage.
+     *
      * @param playerMob Which player mob object buttons
      */
     public static void removeCastButtons(PlayerMob playerMob) {
@@ -97,7 +98,7 @@ public class MoveManager {
     }
 
     private static void removeAllCastButtons() {
-        for (CastButton castButton : GameStatus.getInstance().getCastButtons()){
+        for (CastButton castButton : GameStatus.getInstance().getCastButtons()) {
             castButton.remove();
         }
     }
@@ -181,6 +182,45 @@ public class MoveManager {
         return false;
     }
 
+    /**
+     * Turn off selected Player Mobs
+     */
+    public static void turnOffSelectedPlayersMobs() {
+        for (Player player : GameStatus.getInstance().getPlayers()) {
+            for (PlayerMob playerMob : player.getPlayerMobs()) {
+                playerMob.getMoveManager().setMoveButtonsCreated(false);
+                playerMob.getMoveManager().setAttackButtonsCreated(false);
+                playerMob.getMoveManager().setShowMoveButtons(false);
+                playerMob.getMoveManager().setShowAttackButtons(false);
+                playerMob.setSelected(false);
+                playerMob.setAnimation(AnimationCreator.getInstance().makeAnimation(playerMob.getStanding()));
+                playerMob.getAnimation().getKeyFrameIndex(0);
+            }
+        }
+        GameStatus.getInstance().getEquipmentTable().setVisible(false);
+        GameStatus.getInstance().getHeroTable().setVisible(false);
+        GameStatus.getInstance().getSpellEffectsTable().clear();
+        GameStatus.getInstance().getUpperBarRightTable().clear();
+        removeButtons();
+        //DefaultGameScreen.sortZindex();
+    }
+
+    public static void unselectCastles(Map map) {
+        //MoveManager.turnOffSelectedPlayersMobs();
+        for (int i = 0; i < map.getFieldsColumns(); i++) {
+            for (int j = 0; j < map.getFieldsRows(); j++) {
+                if (map.getFields()[i][j].getCastleMob() != null) {
+                    if (map.getFields()[i][j].getCastleMob().isSelected()) {
+                        map.getFields()[i][j].getCastleMob().setSelected(false);
+                        map.getFields()[i][j].getCastleMob().changeAnimationToUnselected();
+                    }
+                }
+            }
+        }
+
+        GameStatus.getInstance().getEquipmentTable().clear();
+    }
+
     public void showMoveInterface(Stage stage, PlayerMob playerMob) {
 
         makeMoveButtons(stage, playerMob, gs);
@@ -208,10 +248,11 @@ public class MoveManager {
 
     /**
      * Show spell cast interface on stage
+     *
      * @param stage
      * @param spell
      */
-    public void showCastInterface(Stage stage, Spell spell){
+    public void showCastInterface(Stage stage, Spell spell) {
         MoveManager.removeButtons(spell.getPlayerOwner());
         for (int i = spell.getPlayerOwner().getCoordinateXonMap() - 1; i < spell.getPlayerOwner().getCoordinateXonMap() + 2; i++) {
             for (int j = spell.getPlayerOwner().getCoordinateYonMap() - 1; j < spell.getPlayerOwner().getCoordinateYonMap() + 2; j++) {
@@ -222,7 +263,7 @@ public class MoveManager {
                             GameStatus.getInstance().getCastButtons().add(castButton);
                             stage.addActor(castButton);
                         }
-                    } else if (spell.getSpellKind().equals(SpellsKinds.OnlyFriends)){
+                    } else if (spell.getSpellKind().equals(SpellsKinds.OnlyFriends)) {
                         if (checkFriend(i, j, gs.getMap(), spell.getPlayerOwner())) {
                             CastButton castButton = new CastButton(AnimationCreator.getInstance().makeAnimation(AnimationTypes.CastMove), true, i, j, spell);
                             GameStatus.getInstance().getCastButtons().add(castButton);
@@ -243,10 +284,10 @@ public class MoveManager {
         return false;
     }
 
-    private boolean checkFriend(int coordinateX, int coordinateY, Map map, PlayerMob playerMob){
+    private boolean checkFriend(int coordinateX, int coordinateY, Map map, PlayerMob playerMob) {
         if (map.getFields()[coordinateX][coordinateY].getPlayerMob() != null &&
                 map.getFields()[coordinateX][coordinateY].getPlayerMob().getPlayerOwner().equals(playerMob.getPlayerOwner()))
-        return true;
+            return true;
         else return false;
     }
 
@@ -473,13 +514,13 @@ public class MoveManager {
      * @param playerMob Who may be moved.
      */
     public void movePlayerMobNorthRecivedFromNET(PlayerMob playerMob) {
-        float actionDuration = 2.0f - playerMob.getActualSpeed() * 0.05f;
+        float act = 2.0f - playerMob.getActualSpeed() * 0.05f;
         FightManager.decreseAP(playerMob, 1);
         playerMob.setLooped(false);
         playerMob.setStateTime(0);
         playerMob.setAnimation(AnimationCreator.getInstance().makeAnimation(
                 playerMob.getWalkN(), playerMob));
-        playerMob.addAction(Actions.moveBy(0, Options.tileSize, actionDuration));
+        playerMob.addAction(Actions.moveBy(0, Options.tileSize, getActionDuration(playerMob)));
         playerMob.getPlayerColorImage().addAction(Actions.moveBy(0, Options.tileSize, 0.50f));
         gs.getMap().getFields()[playerMob.getCoordinateXonMap()][playerMob.getCoordinateYonMap()].setPlayerMob(null);
         playerMob.setCoordinateYonMap(playerMob.getCoordinateYonMap() + 1);
@@ -501,13 +542,12 @@ public class MoveManager {
      * @param playerMob Who may be moved.
      */
     public void movePlayerMobSouthRecivedFromNET(PlayerMob playerMob) {
-        float actionDuration = 2.0f - playerMob.getActualSpeed() * 0.05f;
         FightManager.decreseAP(playerMob, 1);
         playerMob.setLooped(false);
         playerMob.setStateTime(0);
         playerMob.setAnimation(AnimationCreator.getInstance().makeAnimation(playerMob.getWalkS(), playerMob));
         playerMob.getAnimation().getKeyFrameIndex(0);
-        playerMob.addAction(Actions.moveBy(0, -Options.tileSize, actionDuration));
+        playerMob.addAction(Actions.moveBy(0, -Options.tileSize, getActionDuration(playerMob)));
         playerMob.getPlayerColorImage().addAction(Actions.moveBy(0, -Options.tileSize, 0.50f));
         gs.getMap().getFields()[playerMob.getCoordinateXonMap()][playerMob.getCoordinateYonMap()].setPlayerMob(null);
         playerMob.setCoordinateYonMap(playerMob.getCoordinateYonMap() - 1);
@@ -534,13 +574,12 @@ public class MoveManager {
      * @param playerMob Who may be moved.
      */
     public void movePlayerMobWestRecivedFromNET(PlayerMob playerMob) {
-        float actionDuration = 2.0f - playerMob.getActualSpeed() * 0.05f;
         FightManager.decreseAP(playerMob, 1);
         playerMob.setLooped(false);
         playerMob.setStateTime(0);
         playerMob.setAnimation(AnimationCreator.getInstance().makeAnimation(playerMob.getWalkW(), playerMob));
         playerMob.getAnimation().getKeyFrameIndex(0);
-        playerMob.addAction(Actions.moveBy(-Options.tileSize, 0, actionDuration));
+        playerMob.addAction(Actions.moveBy(-Options.tileSize, 0, getActionDuration(playerMob)));
         playerMob.getPlayerColorImage().addAction(Actions.moveBy(-Options.tileSize, 0, 0.50f));
         gs.getMap().getFields()[playerMob.getCoordinateXonMap()][playerMob.getCoordinateYonMap()].setPlayerMob(null);
         playerMob.setCoordinateXonMap(playerMob.getCoordinateXonMap() - 1);
@@ -561,19 +600,22 @@ public class MoveManager {
         movePlayerMobEastRecivedFromNET(playerMob);
     }
 
+    private float getActionDuration(PlayerMob playerMob) {
+        return 2.0f - (playerMob.getActualSpeed() + ModifierGetter.getSpeedModifier(playerMob)) * 0.05f;
+    }
+
     /**
      * Move PlayerMob into east when move comes from network.
      *
      * @param playerMob Who may be moved.
      */
     public void movePlayerMobEastRecivedFromNET(PlayerMob playerMob) {
-        float actionDuration = 2.0f - playerMob.getActualSpeed() * 0.05f;
         FightManager.decreseAP(playerMob, 1);
         playerMob.setLooped(false);
         playerMob.setStateTime(0);
         playerMob.setAnimation(AnimationCreator.getInstance().makeAnimation(playerMob.getWalkE(), playerMob));
         playerMob.getAnimation().getKeyFrameIndex(0);
-        playerMob.addAction(Actions.moveBy(Options.tileSize, 0, actionDuration));
+        playerMob.addAction(Actions.moveBy(Options.tileSize, 0, getActionDuration(playerMob)));
         playerMob.getPlayerColorImage().addAction(Actions.moveBy(Options.tileSize, 0, 0.50f));
         gs.getMap().getFields()[playerMob.getCoordinateXonMap()][playerMob.getCoordinateYonMap()].setPlayerMob(null);
         playerMob.setCoordinateXonMap(playerMob.getCoordinateXonMap() + 1);
@@ -600,12 +642,11 @@ public class MoveManager {
      * @param playerMob Who may be moved.
      */
     public void movePlayerMobNorthEastRecivedFromNET(PlayerMob playerMob) {
-        float actionDuration = 2.0f - playerMob.getActualSpeed() * 0.05f;
         FightManager.decreseAP(playerMob, 1);
         playerMob.setLooped(false);
         playerMob.setStateTime(0);
         playerMob.setAnimation(AnimationCreator.getInstance().makeAnimation(playerMob.getWalkE(), playerMob));
-        playerMob.addAction(Actions.moveBy(Options.tileSize, Options.tileSize, actionDuration));
+        playerMob.addAction(Actions.moveBy(Options.tileSize, Options.tileSize, getActionDuration(playerMob)));
         playerMob.getPlayerColorImage().addAction(Actions.moveBy(Options.tileSize, Options.tileSize, 0.50f));
         gs.getMap().getFields()[playerMob.getCoordinateXonMap()][playerMob.getCoordinateYonMap()].setPlayerMob(null);
         playerMob.setCoordinateXonMap(playerMob.getCoordinateXonMap() + 1);
@@ -633,13 +674,12 @@ public class MoveManager {
      * @param playerMob Who may be moved.
      */
     public void movePlayerMobNorthWestRecivedFromNET(PlayerMob playerMob) {
-        float actionDuration = 2.0f - playerMob.getActualSpeed() * 0.05f;
         FightManager.decreseAP(playerMob, 1);
         playerMob.setLooped(false);
         playerMob.setStateTime(0);
         playerMob.setAnimation(AnimationCreator.getInstance().makeAnimation(
                 playerMob.getWalkW(), playerMob));
-        playerMob.addAction(Actions.moveBy(-Options.tileSize, Options.tileSize, actionDuration));
+        playerMob.addAction(Actions.moveBy(-Options.tileSize, Options.tileSize, getActionDuration(playerMob)));
         playerMob.getPlayerColorImage().addAction(Actions.moveBy(-Options.tileSize, Options.tileSize, 0.50f));
         gs.getMap().getFields()[playerMob.getCoordinateXonMap()][playerMob.getCoordinateYonMap()].setPlayerMob(null);
         playerMob.setCoordinateXonMap(playerMob.getCoordinateXonMap() - 1);
@@ -667,13 +707,12 @@ public class MoveManager {
      * @param playerMob Who may be moved.
      */
     public void movePlayerMobSouthEastRecivedFromNET(PlayerMob playerMob) {
-        float actionDuration = 2.0f - playerMob.getActualSpeed() * 0.05f;
         FightManager.decreseAP(playerMob, 1);
         playerMob.setLooped(false);
         playerMob.setStateTime(0);
         playerMob.setAnimation(AnimationCreator.getInstance().makeAnimation(playerMob.getWalkE(), playerMob));
         playerMob.getAnimation().getKeyFrameIndex(0);
-        playerMob.addAction(Actions.moveBy(Options.tileSize, -Options.tileSize, actionDuration));
+        playerMob.addAction(Actions.moveBy(Options.tileSize, -Options.tileSize, getActionDuration(playerMob)));
         playerMob.getPlayerColorImage().addAction(Actions.moveBy(Options.tileSize, -Options.tileSize, 0.50f));
         gs.getMap().getFields()[playerMob.getCoordinateXonMap()][playerMob.getCoordinateYonMap()].setPlayerMob(null);
         playerMob.setCoordinateXonMap(playerMob.getCoordinateXonMap() + 1);
@@ -701,13 +740,12 @@ public class MoveManager {
      * @param playerMob Who may be moved.
      */
     public void movePlayerMobSouthWestRecivedFromNET(PlayerMob playerMob) {
-        float actionDuration = 2.0f - playerMob.getActualSpeed() * 0.05f;
         FightManager.decreseAP(playerMob, 1);
         playerMob.setLooped(false);
         playerMob.setStateTime(0);
         playerMob.setAnimation(AnimationCreator.getInstance().makeAnimation(playerMob.getWalkW(), playerMob));
         playerMob.getAnimation().getKeyFrameIndex(0);
-        playerMob.addAction(Actions.moveBy(-Options.tileSize, -Options.tileSize, actionDuration));
+        playerMob.addAction(Actions.moveBy(-Options.tileSize, -Options.tileSize, getActionDuration(playerMob)));
         playerMob.getPlayerColorImage().addAction(Actions.moveBy(-Options.tileSize, -Options.tileSize, 0.50f));
         gs.getMap().getFields()[playerMob.getCoordinateXonMap()][playerMob.getCoordinateYonMap()].setPlayerMob(null);
         playerMob.setCoordinateXonMap(playerMob.getCoordinateXonMap() - 1);
@@ -725,12 +763,12 @@ public class MoveManager {
         this.moveButtonsCreated = moveButtonsCreated;
     }
 
-    public void setAttackButtonsCreated(boolean attackButtonsCreated) {
-        this.attackButtonsCreated = attackButtonsCreated;
-    }
-
     public boolean isAttackButtonsCreated() {
         return attackButtonsCreated;
+    }
+
+    public void setAttackButtonsCreated(boolean attackButtonsCreated) {
+        this.attackButtonsCreated = attackButtonsCreated;
     }
 
     public boolean isShowMoveButtons() {
@@ -763,44 +801,5 @@ public class MoveManager {
                 locationXonMap * Options.tileSize + Options.tileSize / 2,
                 locationYonMap * Options.tileSize + Options.tileSize / 2);
         stage.addActor(defaultDamageLabel);
-    }
-
-    /**
-     * Turn off selected Player Mobs
-     */
-    public static void turnOffSelectedPlayersMobs() {
-        for (Player player : GameStatus.getInstance().getPlayers()) {
-            for (PlayerMob playerMob : player.getPlayerMobs()) {
-                playerMob.getMoveManager().setMoveButtonsCreated(false);
-                playerMob.getMoveManager().setAttackButtonsCreated(false);
-                playerMob.getMoveManager().setShowMoveButtons(false);
-                playerMob.getMoveManager().setShowAttackButtons(false);
-                playerMob.setSelected(false);
-                playerMob.setAnimation(AnimationCreator.getInstance().makeAnimation(playerMob.getStanding()));
-                playerMob.getAnimation().getKeyFrameIndex(0);
-            }
-        }
-        GameStatus.getInstance().getEquipmentTable().setVisible(false);
-        GameStatus.getInstance().getHeroTable().setVisible(false);
-        GameStatus.getInstance().getSpellEffectsTable().clear();
-        GameStatus.getInstance().getUpperBarRightTable().clear();
-        removeButtons();
-        //DefaultGameScreen.sortZindex();
-    }
-
-    public static void unselectCastles(Map map) {
-        //MoveManager.turnOffSelectedPlayersMobs();
-        for (int i = 0; i < map.getFieldsColumns(); i++) {
-            for (int j = 0; j < map.getFieldsRows(); j++) {
-                if (map.getFields()[i][j].getCastleMob() != null) {
-                    if (map.getFields()[i][j].getCastleMob().isSelected()) {
-                        map.getFields()[i][j].getCastleMob().setSelected(false);
-                        map.getFields()[i][j].getCastleMob().changeAnimationToUnselected();
-                    }
-                }
-            }
-        }
-
-        GameStatus.getInstance().getEquipmentTable().clear();
     }
 }
