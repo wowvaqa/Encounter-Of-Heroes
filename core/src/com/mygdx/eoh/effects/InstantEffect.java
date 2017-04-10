@@ -7,6 +7,7 @@ import com.mygdx.eoh.enums.InstantEffects;
 import com.mygdx.eoh.enums.LongEffects;
 import com.mygdx.eoh.gameClasses.FightManager;
 import com.mygdx.eoh.gameClasses.GameStatus;
+import com.mygdx.eoh.gameClasses.ModifierGetter;
 import com.mygdx.eoh.gameClasses.Options;
 import com.mygdx.eoh.gameClasses.PlayerMob;
 import com.mygdx.eoh.net.NetStatus;
@@ -56,7 +57,8 @@ public class InstantEffect extends AnimatedImage {
             case FiraballDamage:
 
                 int damage;
-                damage = ((rnd.nextInt(castingPlayer.getActualPower()) + 1) + 3) - (rnd.nextInt(defendingPlayer.getActualDefence()) + 1);
+                damage = ((rnd.nextInt((castingPlayer.getActualPower()) + ModifierGetter.getPowerModifier(castingPlayer)) + 1) + 3) -
+                        ((rnd.nextInt(defendingPlayer.getActualDefence()) + ModifierGetter.getDefenceModifier(defendingPlayer)) + 1);
                 if (damage < 0)
                     damage = 0;
                 this.damage = damage;
@@ -85,7 +87,7 @@ public class InstantEffect extends AnimatedImage {
                         LongEffects.AttackUpgrade,
                         defendingPlayer
                 );
-                longEffect.setAttackModificator(1);
+                longEffect.setAttackModifier(1);
 
                 defendingPlayer.getLongEffects().add(longEffect);
 
@@ -131,12 +133,12 @@ public class InstantEffect extends AnimatedImage {
                 break;
             case ManaPotion:
                 defendingPlayer.setActualMana(defendingPlayer.getActualMana() + 5);
-                if (defendingPlayer.getActualMana() > defendingPlayer.getMaxMana()) {
-                    defendingPlayer.setActualMana(defendingPlayer.getMaxMana());
+                if (defendingPlayer.getActualMana() > defendingPlayer.getMaxMana() + ModifierGetter.getWisdomModifier(defendingPlayer)) {
+                    defendingPlayer.setActualMana(defendingPlayer.getMaxMana() + ModifierGetter.getWisdomModifier(defendingPlayer));
                 }
 
                 // Turn off mana bar of player mob.
-                if (defendingPlayer.getActualMana() >= defendingPlayer.getMaxMana() && defendingPlayer.getManaBar().isManaBarAdd()) {
+                if (defendingPlayer.getActualMana() >= defendingPlayer.getMaxMana() + ModifierGetter.getWisdomModifier(defendingPlayer) && defendingPlayer.getManaBar().isManaBarAdd()) {
                     defendingPlayer.getManaBar().remove();
                     defendingPlayer.getManaBar().setManaBarAdd(false);
                 }
