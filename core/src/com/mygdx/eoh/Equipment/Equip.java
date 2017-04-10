@@ -13,7 +13,7 @@ import com.badlogic.gdx.scenes.scene2d.utils.DragListener;
 import com.badlogic.gdx.utils.SnapshotArray;
 import com.mygdx.eoh.assets.AssetsGameInterface;
 import com.mygdx.eoh.assets.AssetsGameScreen;
-import com.mygdx.eoh.effects.EquipModificator;
+import com.mygdx.eoh.effects.EquipModifier;
 import com.mygdx.eoh.gameClasses.GameStatus;
 import com.mygdx.eoh.gameClasses.Positioning;
 
@@ -35,11 +35,11 @@ public class Equip extends Image {
     // Description of item.
     private String description;
     // Equipment modificators of player mob statistics
-    private SnapshotArray<EquipModificator> equipModificators;
+    private SnapshotArray<EquipModifier> equipModifiers;
 
     private Equip(Texture texture) {
         super(texture);
-        equipModificators = new SnapshotArray<EquipModificator>();
+        equipModifiers = new SnapshotArray<EquipModifier>();
     }
 
     /**
@@ -58,7 +58,7 @@ public class Equip extends Image {
                 );
                 equip.equipKind = EquipKinds.WoodenStick;
                 equip.equipType = EquipTypes.Weapon;
-                equip.equipModificators.add(EquipModificator.createEquipModificator(equipKind));
+                equip.equipModifiers.add(EquipModifier.createEquipModificator(equipKind));
                 equip.description = "Drewniany kij";
                 equip.dragImage = new Image(
                         AssetsGameInterface.getInstance().getManager().get("game/interface/equipmentIcons/woodStickIcon.png", Texture.class)
@@ -71,7 +71,7 @@ public class Equip extends Image {
                 );
                 equip.equipKind = EquipKinds.LeatherPants;
                 equip.equipType = EquipTypes.Armor;
-                equip.equipModificators.add(EquipModificator.createEquipModificator(equipKind));
+                equip.equipModifiers.add(EquipModifier.createEquipModificator(equipKind));
                 equip.description = "Skórzane spodnie";
                 equip.dragImage = new Image(
                         AssetsGameInterface.getInstance().getManager().get("game/interface/equipmentIcons/leatherPantsIcon.png", Texture.class)
@@ -84,7 +84,7 @@ public class Equip extends Image {
                 );
                 equip.equipKind = EquipKinds.GoldRing;
                 equip.equipType = EquipTypes.Artifact;
-                equip.equipModificators.add(EquipModificator.createEquipModificator(equipKind));
+                equip.equipModifiers.add(EquipModifier.createEquipModificator(equipKind));
                 equip.description = "Złoty pierścień";
                 equip.dragImage = new Image(
                         AssetsGameInterface.getInstance().getManager().get("game/interface/equipmentIcons/goldRingIcon.png", Texture.class)
@@ -97,7 +97,7 @@ public class Equip extends Image {
                 );
                 equip.equipKind = EquipKinds.MagicStaff;
                 equip.equipType = EquipTypes.Weapon;
-                equip.equipModificators.add(EquipModificator.createEquipModificator(equipKind));
+                equip.equipModifiers.add(EquipModifier.createEquipModificator(equipKind));
                 equip.description = "Magiczna laska";
                 equip.dragImage = new Image(
                         AssetsGameInterface.getInstance().getManager().get("game/interface/equipmentIcons/magicStaffIcon.png", Texture.class)
@@ -110,7 +110,7 @@ public class Equip extends Image {
                 );
                 equip.equipKind = EquipKinds.LeatherArmor;
                 equip.equipType = EquipTypes.Armor;
-                equip.equipModificators.add(EquipModificator.createEquipModificator(equipKind));
+                equip.equipModifiers.add(EquipModifier.createEquipModificator(equipKind));
                 equip.description = "Skórzana zbroja";
                 equip.dragImage = new Image(
                         AssetsGameInterface.getInstance().getManager().get("game/interface/equipmentIcons/leatherArmorIcon.png", Texture.class)
@@ -123,7 +123,7 @@ public class Equip extends Image {
                 );
                 equip.equipKind = EquipKinds.SphereOfSpeed;
                 equip.equipType = EquipTypes.Artifact;
-                equip.equipModificators.add(EquipModificator.createEquipModificator(equipKind));
+                equip.equipModifiers.add(EquipModifier.createEquipModificator(equipKind));
                 equip.description = "Kula szybkości";
                 equip.dragImage = new Image(
                         AssetsGameInterface.getInstance().getManager().get("game/interface/equipmentIcons/sphereOfSpeedIcon.png", Texture.class)
@@ -137,7 +137,7 @@ public class Equip extends Image {
                 );
                 equip.equipKind = EquipKinds.None;
                 equip.equipType = EquipTypes.None;
-                equip.equipModificators.add(EquipModificator.createEquipModificator(equipKind));
+                equip.equipModifiers.add(EquipModifier.createEquipModificator(equipKind));
                 equip.description = "none";
                 break;
         }
@@ -177,7 +177,7 @@ public class Equip extends Image {
         });
 
         window.row();
-        Label labelAtc = new Label("" + EquipModificator.getAttackModificators(equip), (Skin) AssetsGameInterface.getInstance().getManager().get("styles/skin.json"));
+        Label labelAtc = new Label("" + EquipModifier.getAttackModifiers(equip), (Skin) AssetsGameInterface.getInstance().getManager().get("styles/skin.json"));
         window.add(new Image(
                 AssetsGameScreen.getInstance().getManager().get("game/interface/attackIcon.png", Texture.class))).pad(5).size(50, 50);
         window.add(labelAtc);
@@ -185,25 +185,25 @@ public class Equip extends Image {
 
         window.add(new Image(
                 AssetsGameScreen.getInstance().getManager().get("game/interface/defenceIcon.png", Texture.class))).pad(5).size(50, 50);
-        Label labelDef = new Label("" + EquipModificator.getDefenceModificators(equip), (Skin) AssetsGameInterface.getInstance().getManager().get("styles/skin.json"));
+        Label labelDef = new Label("" + EquipModifier.getDefenceModifiers(equip), (Skin) AssetsGameInterface.getInstance().getManager().get("styles/skin.json"));
         window.add(labelDef);
         window.row();
 
         window.add(new Image(
                 AssetsGameScreen.getInstance().getManager().get("game/interface/speedIcon.png", Texture.class))).pad(5).size(50, 50);
-        Label labelSpd = new Label("" + EquipModificator.getSpeedModificators(equip), (Skin) AssetsGameInterface.getInstance().getManager().get("styles/skin.json"));
+        Label labelSpd = new Label("" + EquipModifier.getSpeedModifiers(equip), (Skin) AssetsGameInterface.getInstance().getManager().get("styles/skin.json"));
         window.add(labelSpd);
         window.row();
 
         window.add(new Image(
                 AssetsGameScreen.getInstance().getManager().get("game/interface/powerIcon.png", Texture.class))).pad(5).size(50, 50);
-        Label labelPwr = new Label("" + EquipModificator.getPowerModificators(equip), (Skin) AssetsGameInterface.getInstance().getManager().get("styles/skin.json"));
+        Label labelPwr = new Label("" + EquipModifier.getPowerModifiers(equip), (Skin) AssetsGameInterface.getInstance().getManager().get("styles/skin.json"));
         window.add(labelPwr);
         window.row();
 
         window.add(new Image(
                 AssetsGameScreen.getInstance().getManager().get("game/interface/wisdomIcon.png", Texture.class))).pad(5).size(50, 50);
-        Label labelWsd = new Label("" + EquipModificator.getWisdomModificators(equip), (Skin) AssetsGameInterface.getInstance().getManager().get("styles/skin.json"));
+        Label labelWsd = new Label("" + EquipModifier.getWisdomModifiers(equip), (Skin) AssetsGameInterface.getInstance().getManager().get("styles/skin.json"));
         window.add(labelWsd);
         window.row();
 
@@ -233,7 +233,7 @@ public class Equip extends Image {
         return description;
     }
 
-    public SnapshotArray<EquipModificator> getEquipModificators() {
-        return equipModificators;
+    public SnapshotArray<EquipModifier> getEquipModifiers() {
+        return equipModifiers;
     }
 }
