@@ -20,7 +20,7 @@ public class FightManager {
         Random rnd = new Random();
 
         if (object.getClass().equals(PlayerMob.class)) {
-            attack = rnd.nextInt(((PlayerMob) object).getActualAttack() + ModificatorGetter.getAttackModificator(((PlayerMob) object)) + 1);
+            attack = rnd.nextInt(((PlayerMob) object).getActualAttack() + ModifierGetter.getAttackModifier(((PlayerMob) object)) + 1);
         }
         System.out.println("Attack Factor: " + attack);
         return attack;
@@ -37,7 +37,7 @@ public class FightManager {
         Random rnd = new Random();
 
         if (object.getClass().equals(PlayerMob.class)) {
-            defence = rnd.nextInt(((PlayerMob) object).getActualDefence() + ModificatorGetter.getDefenceModificator(((PlayerMob) object)) + 1);
+            defence = rnd.nextInt(((PlayerMob) object).getActualDefence() + ModifierGetter.getDefenceModifier(((PlayerMob) object)) + 1);
         }
         System.out.println("Defence Factor: " + defence);
         return defence;
