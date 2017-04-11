@@ -2,6 +2,7 @@ package com.mygdx.eoh.items;
 
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
+import com.badlogic.gdx.scenes.scene2d.ui.ScrollPane;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
@@ -57,7 +58,7 @@ public class ItemsWindow {
         equippedTable.add(playerMob.getArtifact()).size(100, 100).pad(5);
 
         for (Equip equip : playerMob.getEquip()) {
-            equipTable.add(equip).size(100, 100).pad(5);
+            equipTable.add(equip).size(100, 100).pad(5).padBottom(25).padTop(25);
         }
 
         for (Item item : playerMob.getItems()) {
@@ -87,11 +88,13 @@ public class ItemsWindow {
             }
         });
 
-        window.add(itemsTable).align(Align.top);
-        window.row();
+        ScrollPane scrollPane = new ScrollPane(equipTable, AssetsGameScreen.getInstance().getManager().get("styles/skin.json", Skin.class));
+
         window.add(equippedTable);
         window.row();
-        window.add(equipTable);
+        window.add(scrollPane);
+        window.row();
+        window.add(itemsTable).align(Align.bottom);
         window.row();
         window.add(tbCancel).pad(5).size(175, 50);
 
@@ -132,7 +135,7 @@ public class ItemsWindow {
                     playerMob.getEquip().add((Equip) payload.getObject());
                     equipTable.reset();
                     for (Equip equip : playerMob.getEquip()) {
-                        equipTable.add(equip).size(100, 100).pad(5);
+                        equipTable.add(equip).size(100, 100).pad(5).padTop(25).padBottom(25);
                     }
 
                     if (NetStatus.getInstance().getClient() != null) {
@@ -193,7 +196,7 @@ public class ItemsWindow {
 
                 equipTable.reset();
                 for (Equip equip : playerMob.getEquip()) {
-                    equipTable.add(equip).size(100, 100).pad(5);
+                    equipTable.add(equip).size(100, 100).pad(5).padBottom(25).padTop(25);
                 }
 
             }
