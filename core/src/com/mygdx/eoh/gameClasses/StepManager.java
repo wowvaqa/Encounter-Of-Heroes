@@ -1,7 +1,7 @@
 package com.mygdx.eoh.gameClasses;
 
 /**
- *
+ * When player mob step into something then class is needed.
  * Created by v on 2017-01-02.
  */
 
@@ -28,13 +28,21 @@ class StepManager {
             playerMob.getFieldOfPlayerMob().getItem().itemAction(playerMob);
 
         }
+
+        if (playerMob.getFieldOfPlayerMob().getTreasure() != null &&
+                !playerMob.getFieldOfPlayerMob().getTreasure().isStepIn()) {
+
+            System.out.println("Nadepnieto na skrzynie ze skarbem :)");
+            playerMob.getFieldOfPlayerMob().getTreasure().setStepIn(true);
+            GameStatus.getInstance().getMainStage().addActor(playerMob.getFieldOfPlayerMob().getTreasure().getTreasureWindow());
+        }
     }
 
-    public boolean isCheckStepping() {
+    boolean isCheckStepping() {
         return checkStepping;
     }
 
-    public void setCheckStepping(boolean checkStepping) {
+    void setCheckStepping(boolean checkStepping) {
         this.checkStepping = checkStepping;
     }
 }
