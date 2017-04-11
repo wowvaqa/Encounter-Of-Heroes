@@ -214,6 +214,54 @@ public class Equip extends Image {
         return window;
     }
 
+    /**
+     * Change equip Kind into network understandable equip kind
+     *
+     * @param equipKinds equip kind to change
+     * @return equip kind network number
+     */
+    public static int getNetworkEquipKind(EquipKinds equipKinds) {
+        switch (equipKinds) {
+            case WoodenStick:
+                return 0;
+            case LeatherPants:
+                return 1;
+            case GoldRing:
+                return 2;
+            case MagicStaff:
+                return 3;
+            case LeatherArmor:
+                return 4;
+            case SphereOfSpeed:
+                return 5;
+        }
+        return 0;
+    }
+
+    /**
+     * Change network equip kind into game equip kind
+     *
+     * @param equipKind equip kind network number
+     * @return game equip kind
+     */
+    public static EquipKinds getEquipKindFromNetwork(int equipKind) {
+        switch (equipKind) {
+            case 0:
+                return EquipKinds.WoodenStick;
+            case 1:
+                return EquipKinds.LeatherPants;
+            case 2:
+                return EquipKinds.GoldRing;
+            case 3:
+                return EquipKinds.MagicStaff;
+            case 4:
+                return EquipKinds.LeatherArmor;
+            case 5:
+                return EquipKinds.SphereOfSpeed;
+        }
+        return EquipKinds.WoodenStick;
+    }
+
     /***********************************************************************************************
      * GETTERS & SETTERS
      **********************************************************************************************/
