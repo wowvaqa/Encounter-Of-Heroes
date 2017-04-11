@@ -47,7 +47,7 @@ class EquipmentLevels {
 
     EquipKinds drawLevel2Equip() {
         Random rnd = new Random();
-        return equipLevel1.get(rnd.nextInt(equipLevel2.size));
+        return equipLevel2.get(rnd.nextInt(equipLevel2.size));
     }
 
 }
