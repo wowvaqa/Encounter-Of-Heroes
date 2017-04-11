@@ -1,5 +1,7 @@
 package com.mygdx.eoh.gameClasses;
 
+import com.mygdx.eoh.net.NetStatus;
+
 /**
  * When player mob step into something then class is needed.
  * Created by v on 2017-01-02.
@@ -32,9 +34,15 @@ class StepManager {
         if (playerMob.getFieldOfPlayerMob().getTreasure() != null &&
                 !playerMob.getFieldOfPlayerMob().getTreasure().isStepIn()) {
 
-            System.out.println("Nadepnieto na skrzynie ze skarbem :)");
-            playerMob.getFieldOfPlayerMob().getTreasure().setStepIn(true);
-            GameStatus.getInstance().getMainStage().addActor(playerMob.getFieldOfPlayerMob().getTreasure().getTreasureWindow());
+            if (NetStatus.getInstance().getClient() == null) {
+                System.out.println("Nadepnieto na skrzynie ze skarbem :)");
+                playerMob.getFieldOfPlayerMob().getTreasure().setStepIn(true);
+                GameStatus.getInstance().getMainStage().addActor(playerMob.getFieldOfPlayerMob().getTreasure().getTreasureWindow());
+            } else if (playerMob.getPlayerOwner() == GameStatus.getInstance().getCurrentPlayerTurn()) {
+                System.out.println("Nadepnieto na skrzynie ze skarbem GRA SIECIOWA :)");
+                playerMob.getFieldOfPlayerMob().getTreasure().setStepIn(true);
+                GameStatus.getInstance().getMainStage().addActor(playerMob.getFieldOfPlayerMob().getTreasure().getTreasureWindow());
+            }
         }
     }
 
