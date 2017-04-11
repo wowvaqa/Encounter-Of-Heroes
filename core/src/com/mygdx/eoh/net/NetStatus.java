@@ -80,6 +80,11 @@ public class NetStatus {
     private boolean equipAssume;
     private int equipAssumeLocX;
     private int equipAssumeLocY;
+    //Varibles for equip create
+    private boolean equipCreate;
+    private int equipCreateLocX;
+    private int equipCreateLocY;
+    private int equipCreateEquipKind;
 
     //Statistic of player
     private int gamesPlayed;
@@ -497,5 +502,37 @@ public class NetStatus {
 
     public void setEquipAssumeLocY(int equipAssumeLocY) {
         this.equipAssumeLocY = equipAssumeLocY;
+    }
+
+    public boolean isEquipCreate() {
+        return equipCreate;
+    }
+
+    public void setEquipCreate(boolean equipCreate) {
+        this.equipCreate = equipCreate;
+    }
+
+    public int getEquipCreateLocX() {
+        return equipCreateLocX;
+    }
+
+    public void setEquipCreateLocX(int equipCreateLocX) {
+        this.equipCreateLocX = equipCreateLocX;
+    }
+
+    public int getEquipCreateLocY() {
+        return equipCreateLocY;
+    }
+
+    public void setEquipCreateLocY(int equipCreateLocY) {
+        this.equipCreateLocY = equipCreateLocY;
+    }
+
+    public int getEquipCreateEquipKind() {
+        return equipCreateEquipKind;
+    }
+
+    public void setEquipCreateEquipKind(int equipCreateEquipKind) {
+        this.equipCreateEquipKind = equipCreateEquipKind;
     }
 }
