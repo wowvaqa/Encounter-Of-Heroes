@@ -1,7 +1,6 @@
 package com.mygdx.eoh.defaultClasses;
 
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.ai.utils.Collision;
 import com.badlogic.gdx.graphics.Camera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.scenes.scene2d.Stage;
@@ -10,28 +9,19 @@ import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.utils.Align;
-import com.badlogic.gdx.utils.Sort;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.mygdx.eoh.Options.OptionsInGame;
 import com.mygdx.eoh.assets.AssetsGameScreen;
-import com.mygdx.eoh.gameClasses.APBar;
-import com.mygdx.eoh.gameClasses.AttackButton;
-import com.mygdx.eoh.gameClasses.Bulding;
-import com.mygdx.eoh.gameClasses.CastleMob;
-import com.mygdx.eoh.gameClasses.Field;
 import com.mygdx.eoh.gameClasses.GameStatus;
 import com.mygdx.eoh.gameClasses.Grid;
 import com.mygdx.eoh.gameClasses.Map;
 import com.mygdx.eoh.gameClasses.Options;
-import com.mygdx.eoh.gameClasses.PlayerMob;
 import com.mygdx.eoh.mapEditor.MapFile;
 import com.mygdx.eoh.net.NetStatus;
 import com.mygdx.eoh.screens.GameInterface;
 import com.mygdx.eoh.screens.ScreenManager;
 
 import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
 
 /**
  * Default Game Screen
@@ -342,6 +332,15 @@ public abstract class DefaultGameScreen extends DefaultScreen {
                     }
                 }
             }
+
+            for (int i = 0; i < map.getFieldsColumns(); i++) {
+                for (int j = 0; j < map.getFieldsRows(); j++) {
+                    if (map.getFields()[i][j].getTreasure() != null) {
+                        mapStage.addActor(map.getFields()[i][j].getTreasure());
+                    }
+                }
+            }
+
 
             for (int i = 0; i < map.getFieldsColumns(); i++) {
                 for (int j = 0; j < map.getFieldsRows(); j++) {

@@ -3,10 +3,9 @@ package com.mygdx.eoh.gameClasses;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
+import com.mygdx.eoh.Equipment.Treasure;
 import com.mygdx.eoh.enums.Terrains;
 import com.mygdx.eoh.items.Item;
-
-import java.util.Comparator;
 
 /**
  * Representation of field
@@ -28,6 +27,7 @@ public class Field extends Image {
     private Item item;
     private PlayerMob playerMob;
     private CastleMob castleMob;
+    private Treasure treasure;
 
     public Field() {
         super();
@@ -134,6 +134,14 @@ public class Field extends Image {
 
     public void setItem(Item item) {
         this.item = item;
+    }
+
+    public Treasure getTreasure() {
+        return treasure;
+    }
+
+    public void setTreasure(Treasure treasure) {
+        this.treasure = treasure;
     }
 }
 

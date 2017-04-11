@@ -46,5 +46,6 @@ public enum AnimationTypes {
     ItemGold,
     HealthPotionAnimation,
     ManaPotionAnimation,
-    PotionUseAnimation
+    PotionUseAnimation,
+    TreasureAnimation
 }
