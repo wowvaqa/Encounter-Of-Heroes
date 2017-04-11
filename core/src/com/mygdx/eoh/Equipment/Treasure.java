@@ -16,6 +16,8 @@ import com.mygdx.eoh.gameClasses.GameStatus;
 import com.mygdx.eoh.gameClasses.Options;
 import com.mygdx.eoh.gameClasses.PlayerMob;
 import com.mygdx.eoh.gameClasses.Positioning;
+import com.mygdx.eoh.net.NetStatus;
+import com.mygdx.eoh.net.Network;
 
 /**
  * Treasure Box where players can find equipment.
@@ -58,11 +60,11 @@ public class Treasure extends AnimatedImage {
         switch (level) {
             case 1:
                 treasure.getEquips().add(Equip.createEquip(EquipmentLevels.getInstance().drawLevel1Equip()));
-                treasure.getEquips().add(Equip.createEquip(EquipmentLevels.getInstance().drawLevel1Equip()));
+                //treasure.getEquips().add(Equip.createEquip(EquipmentLevels.getInstance().drawLevel1Equip()));
                 break;
             case 2:
                 treasure.getEquips().add(Equip.createEquip(EquipmentLevels.getInstance().drawLevel2Equip()));
-                treasure.getEquips().add(Equip.createEquip(EquipmentLevels.getInstance().drawLevel2Equip()));
+                //treasure.getEquips().add(Equip.createEquip(EquipmentLevels.getInstance().drawLevel2Equip()));
                 break;
         }
 
@@ -72,6 +74,7 @@ public class Treasure extends AnimatedImage {
 
     /**
      * Returns Window with equipment when player mob step into treasure.
+     *
      * @return Window with equipment.
      */
     public Window getTreasureWindow() {
@@ -109,6 +112,15 @@ public class Treasure extends AnimatedImage {
 
                 for (Equip equip : treasure.getEquips()) {
                     playerMob.getEquip().add(equip);
+
+                    if (NetStatus.getInstance().getClient() != null) {
+                        Network.CreateEquip createEquip = new Network.CreateEquip();
+                        createEquip.enemyId = NetStatus.getInstance().getEnemyId();
+                        createEquip.locXofPlayerMob = playerMob.getCoordinateXonMap();
+                        createEquip.locYofPlayerMob = playerMob.getCoordinateYonMap();
+                        createEquip.equipKind = Equip.getNetworkEquipKind(equip.getEquipKind());
+                        NetStatus.getInstance().getClient().sendTCP(createEquip);
+                    }
                 }
 
                 equips.clear();
