@@ -3,11 +3,12 @@ package com.mygdx.eoh.screens;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
-import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Dialog;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
+import com.mygdx.eoh.Equipment.Treasure;
 import com.mygdx.eoh.assets.AssetsGameScreen;
+import com.mygdx.eoh.creators.BuldingCreator;
 import com.mygdx.eoh.creators.PlayerMobCreator;
 import com.mygdx.eoh.defaultClasses.DefaultCamera;
 import com.mygdx.eoh.defaultClasses.DefaultGameScreen;
@@ -16,7 +17,6 @@ import com.mygdx.eoh.defaultClasses.DefaultGestureListener;
 import com.mygdx.eoh.enums.Buldings;
 import com.mygdx.eoh.enums.PlayerMobClasses;
 import com.mygdx.eoh.enums.Terrains;
-import com.mygdx.eoh.creators.BuldingCreator;
 import com.mygdx.eoh.gameClasses.Field;
 import com.mygdx.eoh.gameClasses.FileOperations;
 import com.mygdx.eoh.gameClasses.GameStatus;
@@ -100,26 +100,33 @@ class ScreenSingleGame extends DefaultGameScreen {
                             "game/terrains/terrain.atlas", TextureAtlas.class).findRegion("grass"));
                 }
 
-                if (mapfile.fields[i][j].itemGold){
+                if (mapfile.fields[i][j].itemGold) {
                     fields[i][j].setItem(ItemCreator.getInstance().createItem(AvailableItems.Gold, i, j));
                 }
 
-                if (mapfile.fields[i][j].manaPotion){
+                if (mapfile.fields[i][j].manaPotion) {
                     fields[i][j].setItem(ItemCreator.getInstance().createItem(AvailableItems.ManaPotion, i, j));
                 }
 
-                if (mapfile.fields[i][j].healthPotion){
+                if (mapfile.fields[i][j].healthPotion) {
                     fields[i][j].setItem(ItemCreator.getInstance().createItem(AvailableItems.HealthPotion, i, j));
                 }
 
                 if (mapfile.fields[i][j].towerHospital)
                     fields[i][j].setBulding(BuldingCreator.getInstance().createBulding(Buldings.Hospital, i, j));
 
+                if (mapfile.fields[i][j].tresureBoxLvl1) {
+                    fields[i][j].setTreasure(Treasure.createTreasure(1, i, j));
+                }
 
-                if (mapfile.fields[i][j].player1StartLocation){
+                if (mapfile.fields[i][j].tresureBoxLvl2) {
+                    fields[i][j].setTreasure(Treasure.createTreasure(2, i, j));
+                }
+
+                if (mapfile.fields[i][j].player1StartLocation) {
                     fields[i][j].setPlayerMob(
                             PlayerMobCreator.getInstance().createPlayerMob(
-                                    PlayerMobClasses.Knight ,map, 0, i, j, fields[i][j]
+                                    PlayerMobClasses.Knight, map, 0, i, j, fields[i][j]
                             )
                     );
                     fields[i][j].setCastleMob(
@@ -129,7 +136,7 @@ class ScreenSingleGame extends DefaultGameScreen {
                     );
                 }
 
-                if (mapfile.fields[i][j].player2StartLocation){
+                if (mapfile.fields[i][j].player2StartLocation) {
                     fields[i][j].setPlayerMob(
                             PlayerMobCreator.getInstance().createPlayerMob(
                                     PlayerMobClasses.Wizard, map, 1, i, j, fields[i][j]
@@ -142,7 +149,7 @@ class ScreenSingleGame extends DefaultGameScreen {
                     );
                 }
 
-                if (mapfile.fields[i][j].player3StartLocation){
+                if (mapfile.fields[i][j].player3StartLocation) {
                     fields[i][j].setPlayerMob(
                             PlayerMobCreator.getInstance().createPlayerMob(
                                     PlayerMobClasses.Knight, map, 2, i, j, fields[i][j]
@@ -155,7 +162,7 @@ class ScreenSingleGame extends DefaultGameScreen {
                     );
                 }
 
-                if (mapfile.fields[i][j].player4StartLocation){
+                if (mapfile.fields[i][j].player4StartLocation) {
                     fields[i][j].setPlayerMob(
                             PlayerMobCreator.getInstance().createPlayerMob(
                                     PlayerMobClasses.Knight, map, 3, i, j, fields[i][j]
@@ -272,7 +279,7 @@ class ScreenSingleGame extends DefaultGameScreen {
     public void render(float delta) {
         super.render(delta);
 
-        if (!cameraStartPosition){
+        if (!cameraStartPosition) {
 
             System.out.println("Cam posi X: " + getMapStageCamera().position.x);
             System.out.println("Cam posi Y: " + getMapStageCamera().position.y);
