@@ -319,6 +319,7 @@ public class DefaultClient extends Client {
                     NetStatus.getInstance().setLocationXofSpellCaster(((Network.SpellCastNet) object).locationXofCaster);
                     NetStatus.getInstance().setLocationYofSpellCaster(((Network.SpellCastNet) object).locationYofCaster);
                     NetStatus.getInstance().setSpellManaCost(((Network.SpellCastNet) object).spellManaCost);
+                    return;
                 }
 
                 /***********************************************************************************
@@ -328,6 +329,7 @@ public class DefaultClient extends Client {
                     System.out.println("Otrzymano zgłoszenie gotowości do rozpoczęcia potyczki.");
                     System.out.println("EnemyID: " + ((Network.ClientReadyToStartBattle) object).enemyId);
                     NetStatus.getInstance().setGameReady(true);
+                    return;
                 }
 
                 /*****************************************************************************************
@@ -344,6 +346,7 @@ public class DefaultClient extends Client {
                     NetStatus.getInstance().setEquipRemoveLocXofPlayerMob(((Network.EquipRemove) object).locationXofPlayerMob);
                     NetStatus.getInstance().setEquipRemoveLocYofPlayerMob(((Network.EquipRemove) object).locationYofPlayerMob);
                     NetStatus.getInstance().setEquipRemove(true);
+                    return;
                 }
 
                 /*****************************************************************************************
@@ -358,6 +361,7 @@ public class DefaultClient extends Client {
                     NetStatus.getInstance().setEquipAssumeCancelLocX(((Network.EquipAssumeCancel) object).locationXofPlayerMob);
                     NetStatus.getInstance().setEquipAssumeCancelLocY(((Network.EquipAssumeCancel) object).locationYofPlayerMob);
                     NetStatus.getInstance().setEquipAssumeCancel(true);
+                    return;
                 }
 
                 /*****************************************************************************************
@@ -372,6 +376,24 @@ public class DefaultClient extends Client {
                     NetStatus.getInstance().setEquipAssumeLocX(((Network.EquipAssume) object).locationXofPlayerMob);
                     NetStatus.getInstance().setEquipAssumeLocY(((Network.EquipAssume) object).locationYofPlayerMob);
                     NetStatus.getInstance().setEquipAssume(true);
+                    return;
+                }
+
+                /***********************************************************************************
+                 * EQUIP CREATE
+                 * *********************************************************************************/
+                if (object instanceof Network.CreateEquip) {
+                    System.out.println("Otrzymano EquipCreate");
+                    System.out.println("Enemy ID: " + ((Network.CreateEquip) object).enemyId);
+                    System.out.println("Loc X of plyerMob: " + ((Network.CreateEquip) object).locXofPlayerMob);
+                    System.out.println("Loc Y of plyerMob: " + ((Network.CreateEquip) object).locYofPlayerMob);
+                    System.out.println("Equip Kind: " + ((Network.CreateEquip) object).equipKind);
+
+                    NetStatus.getInstance().setEquipCreateLocX(((Network.CreateEquip) object).locXofPlayerMob);
+                    NetStatus.getInstance().setEquipCreateLocY(((Network.CreateEquip) object).locYofPlayerMob);
+                    NetStatus.getInstance().setEquipCreateEquipKind(((Network.CreateEquip) object).equipKind);
+                    NetStatus.getInstance().setEquipCreate(true);
+                    return;
                 }
             }
         });
