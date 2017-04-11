@@ -7,6 +7,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.Window;
 import com.mygdx.eoh.Equipment.Equip;
 import com.mygdx.eoh.Equipment.EquipKinds;
 import com.mygdx.eoh.Equipment.EquipTypes;
+import com.mygdx.eoh.Equipment.Treasure;
 import com.mygdx.eoh.animation.AnimationCreator;
 import com.mygdx.eoh.animation.AnimationSpellCreator;
 import com.mygdx.eoh.assets.AssetsGameScreen;
@@ -130,6 +131,20 @@ public class ScreenNetGame extends DefaultGameScreen {
                 if (mapfile.fields[i][j].towerHospital)
                     fields[i][j].setBulding(BuldingCreator.getInstance().createBulding(Buldings.Hospital, i, j));
 
+                /***********************************************************************************
+                 * TREASURE CREATION
+                 **********************************************************************************/
+                if (mapfile.fields[i][j].tresureBoxLvl1) {
+                    fields[i][j].setTreasure(Treasure.createTreasure(1, i, j));
+                }
+
+                if (mapfile.fields[i][j].tresureBoxLvl2) {
+                    fields[i][j].setTreasure(Treasure.createTreasure(2, i, j));
+                }
+
+                /***********************************************************************************
+                 * PLAYER MOB CLASSES
+                 **********************************************************************************/
                 PlayerMobClasses player1mobClass;
                 PlayerMobClasses player2mobClass;
 
@@ -141,6 +156,9 @@ public class ScreenNetGame extends DefaultGameScreen {
                     player2mobClass = GameStatus.getInstance().getNewPlayerMobClass();
                 }
 
+                /***********************************************************************************
+                 * PLAYERS START LOCATIONS
+                 **********************************************************************************/
                 if (mapfile.fields[i][j].player1StartLocation) {
                     fields[i][j].setPlayerMob(
                             PlayerMobCreator.getInstance().createPlayerMob(
@@ -465,6 +483,36 @@ public class ScreenNetGame extends DefaultGameScreen {
             }
 
             NetStatus.getInstance().setEquipAssume(false);
+        }
+
+        /*******************************************************************************************
+         * EQUIP CREATE
+         ******************************************************************************************/
+        if (NetStatus.getInstance().isEquipCreate()) {
+
+            PlayerMob playerMobTmp;
+
+            playerMobTmp = GameStatus.getInstance().getMap().getFields()
+                    [NetStatus.getInstance().getEquipCreateLocX()]
+                    [NetStatus.getInstance().getEquipCreateLocY()]
+                    .getPlayerMob();
+
+            playerMobTmp.getEquip().add(Equip.createEquip(
+                    Equip.getEquipKindFromNetwork(NetStatus.getInstance().getEquipCreateEquipKind())
+            ));
+
+            GameStatus.getInstance().getMap().getFields()
+                    [NetStatus.getInstance().getEquipCreateLocX()]
+                    [NetStatus.getInstance().getEquipCreateLocY()]
+                    .getTreasure().remove();
+
+            GameStatus.getInstance().getMap().getFields()
+                    [NetStatus.getInstance().getEquipCreateLocX()]
+                    [NetStatus.getInstance().getEquipCreateLocY()]
+                    .setTreasure(null);
+
+            System.out.println("TWORZE EKWIPUNEK!!!!!!!!!!!!!!!!!!!!!!!!!");
+            NetStatus.getInstance().setEquipCreate(false);
         }
     }
 
