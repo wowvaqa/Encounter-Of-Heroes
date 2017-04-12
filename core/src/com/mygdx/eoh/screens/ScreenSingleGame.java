@@ -15,6 +15,7 @@ import com.mygdx.eoh.defaultClasses.DefaultGameScreen;
 import com.mygdx.eoh.defaultClasses.DefaultGestureDetector;
 import com.mygdx.eoh.defaultClasses.DefaultGestureListener;
 import com.mygdx.eoh.enums.Buldings;
+import com.mygdx.eoh.enums.FreeMobsKinds;
 import com.mygdx.eoh.enums.PlayerMobClasses;
 import com.mygdx.eoh.enums.Terrains;
 import com.mygdx.eoh.gameClasses.Field;
@@ -26,6 +27,7 @@ import com.mygdx.eoh.gameClasses.Player;
 import com.mygdx.eoh.items.AvailableItems;
 import com.mygdx.eoh.items.ItemCreator;
 import com.mygdx.eoh.mapEditor.MapFile;
+import com.mygdx.eoh.mob.FreeMobCreator;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -121,6 +123,10 @@ class ScreenSingleGame extends DefaultGameScreen {
 
                 if (mapfile.fields[i][j].tresureBoxLvl2) {
                     fields[i][j].setTreasure(Treasure.createTreasure(2, i, j));
+                }
+
+                if (mapfile.fields[i][j].mobRandomLevel1) {
+                    fields[i][j].setFreeMob(FreeMobCreator.getInstance().createFreeMob(FreeMobsKinds.Skeleton, i, j));
                 }
 
                 if (mapfile.fields[i][j].player1StartLocation) {

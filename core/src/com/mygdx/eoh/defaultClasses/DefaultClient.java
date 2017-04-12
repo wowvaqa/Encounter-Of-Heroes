@@ -158,29 +158,58 @@ public class DefaultClient extends Client {
                     int locXofAttacker = ((Network.AttackPlayerMob) object).locationXofAttacker;
                     int locYofAttacker = ((Network.AttackPlayerMob) object).locationYofAttacker;
 
-                    GameStatus.getInstance().getMap().getFields()[locX][locY].getPlayerMob().setActualhp(
-                            ((Network.AttackPlayerMob) object).hpLeft
-                    );
-
-                    if (GameStatus.getInstance().getMap().getFields()[locX][locY].getPlayerMob().getActualhp() < 1) {
-                        GameStatus.getInstance().getMap().getFields()[locX][locY].getPlayerMob().addFadeOutActionWhenPlayerMobIsDead(
-                                GameStatus.getInstance().getMap().getFields()[locX][locY].getPlayerMob()
+                    if (GameStatus.getInstance().getMap().getFields()[locX][locY].getPlayerMob() != null) {
+                        GameStatus.getInstance().getMap().getFields()[locX][locY].getPlayerMob().setActualhp(
+                                ((Network.AttackPlayerMob) object).hpLeft
                         );
+
+                        if (GameStatus.getInstance().getMap().getFields()[locX][locY].getPlayerMob().getActualhp() < 1) {
+                            GameStatus.getInstance().getMap().getFields()[locX][locY].getPlayerMob().addFadeOutActionWhenPlayerMobIsDead(
+                                    GameStatus.getInstance().getMap().getFields()[locX][locY].getPlayerMob()
+                            );
+                        }
+
+                        GameStatus.getInstance().getMap().getFields()[locX][locY].getPlayerMob().getMoveManager().showDamageLabel(
+                                ((Network.AttackPlayerMob) object).damage,
+                                locX, locY,
+                                GameStatus.getInstance().getMap().getFields()[locX][locY].getPlayerMob().getStage()
+                        );
+
+                        GameStatus.getInstance().getMap().getFields()[locX][locY].getPlayerMob().changeToAttackAnimation(
+                                GameStatus.getInstance().getMap().getFields()[locXofAttacker][locYofAttacker].getPlayerMob(),
+                                locX, locY
+                        );
+
+                        FightManager.decreseAP(
+                                GameStatus.getInstance().getMap().getFields()[locXofAttacker][locYofAttacker].getPlayerMob(), 1);
+
+                    } else if (GameStatus.getInstance().getMap().getFields()[locX][locY].getFreeMob() != null) {
+                        GameStatus.getInstance().getMap().getFields()[locX][locY].getFreeMob().setActualhp(
+                                ((Network.AttackPlayerMob) object).hpLeft);
+
+                        if (GameStatus.getInstance().getMap().getFields()[locX][locY].getFreeMob().getActualhp() < 1) {
+                            GameStatus.getInstance().getMap().getFields()[locX][locY].getFreeMob().addFadeOutActionWhenPlayerMobIsDead(
+                                    GameStatus.getInstance().getMap().getFields()[locX][locY].getFreeMob()
+                            );
+                        }
+
+                        GameStatus.getInstance().getMap().getFields()[locXofAttacker][locYofAttacker].getPlayerMob().getMoveManager().showDamageLabel(
+                                ((Network.AttackPlayerMob) object).damage,
+                                locX, locY,
+                                //GameStatus.getInstance().getMap().getFields()[locX][locY].getPlayerMob().getStage()
+                                GameStatus.getInstance().getMapStage()
+                        );
+
+                        GameStatus.getInstance().getMap().getFields()[locXofAttacker][locYofAttacker].getPlayerMob().changeToAttackAnimation(
+                                GameStatus.getInstance().getMap().getFields()[locXofAttacker][locYofAttacker].getPlayerMob(),
+                                locX, locY
+                        );
+
+                        FightManager.decreseAP(
+                                GameStatus.getInstance().getMap().getFields()[locXofAttacker][locYofAttacker].getPlayerMob(), 1);
                     }
 
-                    GameStatus.getInstance().getMap().getFields()[locX][locY].getPlayerMob().getMoveManager().showDamageLabel(
-                            ((Network.AttackPlayerMob) object).damage,
-                            locX, locY,
-                            GameStatus.getInstance().getMap().getFields()[locX][locY].getPlayerMob().getStage()
-                    );
 
-                    GameStatus.getInstance().getMap().getFields()[locX][locY].getPlayerMob().changeToAttackAnimation(
-                            GameStatus.getInstance().getMap().getFields()[locXofAttacker][locYofAttacker].getPlayerMob(),
-                            locX, locY
-                    );
-
-                    FightManager.decreseAP(
-                            GameStatus.getInstance().getMap().getFields()[locXofAttacker][locYofAttacker].getPlayerMob(), 1);
                     return;
                 }
 

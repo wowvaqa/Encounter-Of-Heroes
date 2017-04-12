@@ -16,6 +16,7 @@ import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.utils.Align;
 import com.badlogic.gdx.utils.SnapshotArray;
 import com.mygdx.eoh.Equipment.Equip;
+import com.mygdx.eoh.Options.OptionsInGame;
 import com.mygdx.eoh.animation.AnimationCreator;
 import com.mygdx.eoh.assets.AssetsGameScreen;
 import com.mygdx.eoh.creators.SpellCreator;
@@ -27,6 +28,7 @@ import com.mygdx.eoh.enums.PlayerMobClasses;
 import com.mygdx.eoh.enums.Spells;
 import com.mygdx.eoh.items.Item;
 import com.mygdx.eoh.magic.Spell;
+import com.mygdx.eoh.mob.FreeMob;
 
 import java.util.ArrayList;
 
@@ -111,6 +113,25 @@ public class PlayerMob extends DefaultMob {
             index += 1;
         }
         return index;
+    }
+
+    /**
+     * Unselect selected mobs on stage.
+     */
+    public static void unselectSelectedPlayerMobs() {
+        GameStatus.getInstance().getUpperBarRightTable().clear();
+        for (int i = 0; i < GameStatus.getInstance().getMap().getFieldsColumns(); i++) {
+            for (int j = 0; j < GameStatus.getInstance().getMap().getFieldsRows(); j++) {
+                if (GameStatus.getInstance().getMap().getFields()[i][j].getPlayerMob() != null) {
+                    GameStatus.getInstance().getMap().getFields()[i][j].getPlayerMob().setSelected(false);
+                    GameStatus.getInstance().getMap().getFields()[i][j].getPlayerMob().moveManager.setMoveButtonsCreated(false);
+                    GameStatus.getInstance().getMap().getFields()[i][j].getPlayerMob().moveManager.setAttackButtonsCreated(false);
+                    GameStatus.getInstance().getMap().getFields()[i][j].getPlayerMob().moveManager.setShowMoveButtons(false);
+                    GameStatus.getInstance().getMap().getFields()[i][j].getPlayerMob().moveManager.setShowAttackButtons(false);
+                    MoveManager.removeButtons();
+                }
+            }
+        }
     }
 
     /**
@@ -202,6 +223,7 @@ public class PlayerMob extends DefaultMob {
 
                     MoveManager.unselectCastles(map);
                     unselectSelectedPlayerMobs();
+                    FreeMob.unselectFreeMobs();
 
                     GameStatus.getInstance().getSpellEffectsTable().add(playerMob.getLongEffectsTable());
 
@@ -227,12 +249,14 @@ public class PlayerMob extends DefaultMob {
                         moveManager.showAttackInterface(GameStatus.getInstance().getMapStage(), playerMob);
                     }
 
-                    System.out.println("Bron: " + getWeapon().getDescription());
-                    System.out.println("Pancerz: " + getArmor().getDescription());
-                    System.out.println("Artefakt: " + getArtifact().getDescription());
+                    if (OptionsInGame.getInstance().isShowEquipInfo()) {
+                        System.out.println("Bron: " + getWeapon().getDescription());
+                        System.out.println("Pancerz: " + getArmor().getDescription());
+                        System.out.println("Artefakt: " + getArtifact().getDescription());
 
-                    for (int i = 0; i < playerMob.getEquip().size; i++) {
-                        System.out.println("Ekwipunek (" + i + "): " + playerMob.getEquip().get(i).getDescription());
+                        for (int i = 0; i < playerMob.getEquip().size; i++) {
+                            System.out.println("Ekwipunek (" + i + "): " + playerMob.getEquip().get(i).getDescription());
+                        }
                     }
                 }
             }
@@ -355,6 +379,25 @@ public class PlayerMob extends DefaultMob {
         return new SequenceAction(Actions.moveBy(-250, -250, velocity), Actions.moveBy(250, 250, velocity));
     }
 
+    /**
+     * Unselect seclected mobs on stage.
+     */
+//    private void unselectSelectedPlayerMobs() {
+//        GameStatus.getInstance().getUpperBarRightTable().clear();
+//        for (int i = 0; i < map.getFieldsColumns(); i++) {
+//            for (int j = 0; j < map.getFieldsRows(); j++) {
+//                if (map.getFields()[i][j].getPlayerMob() != null) {
+//                    map.getFields()[i][j].getPlayerMob().setSelected(false);
+//                    map.getFields()[i][j].getPlayerMob().moveManager.setMoveButtonsCreated(false);
+//                    map.getFields()[i][j].getPlayerMob().moveManager.setAttackButtonsCreated(false);
+//                    map.getFields()[i][j].getPlayerMob().moveManager.setShowMoveButtons(false);
+//                    map.getFields()[i][j].getPlayerMob().moveManager.setShowAttackButtons(false);
+//                    MoveManager.removeButtons();
+//                }
+//            }
+//        }
+//    }
+
     @Override
     public void act(float delta) {
         super.act(delta);
@@ -398,25 +441,6 @@ public class PlayerMob extends DefaultMob {
             }
         } else if (this.getActions().size > 0) {
             this.setTouchable(Touchable.disabled);
-        }
-    }
-
-    /**
-     * Unselect seclected mobs on stage.
-     */
-    private void unselectSelectedPlayerMobs() {
-        GameStatus.getInstance().getUpperBarRightTable().clear();
-        for (int i = 0; i < map.getFieldsColumns(); i++) {
-            for (int j = 0; j < map.getFieldsRows(); j++) {
-                if (map.getFields()[i][j].getPlayerMob() != null) {
-                    map.getFields()[i][j].getPlayerMob().setSelected(false);
-                    map.getFields()[i][j].getPlayerMob().moveManager.setMoveButtonsCreated(false);
-                    map.getFields()[i][j].getPlayerMob().moveManager.setAttackButtonsCreated(false);
-                    map.getFields()[i][j].getPlayerMob().moveManager.setShowMoveButtons(false);
-                    map.getFields()[i][j].getPlayerMob().moveManager.setShowAttackButtons(false);
-                    MoveManager.removeButtons();
-                }
-            }
         }
     }
 

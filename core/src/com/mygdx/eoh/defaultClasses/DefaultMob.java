@@ -36,6 +36,10 @@ public class DefaultMob extends AnimatedImage {
     private int actualSpeed;
     private int actionPoints;
 
+    public DefaultMob(Animation animation, boolean isLooped) {
+        super(animation, isLooped);
+    }
+
     /**
      * Removes dead mobs from map.
      */
@@ -52,13 +56,14 @@ public class DefaultMob extends AnimatedImage {
                         GameStatus.getInstance().getMap().getFields()[i][j].getPlayerMob().remove();
                         GameStatus.getInstance().getMap().getFields()[i][j].setPlayerMob(null);
                     }
+                } else if (GameStatus.getInstance().getMap().getFields()[i][j].getFreeMob() != null) {
+                    if (GameStatus.getInstance().getMap().getFields()[i][j].getFreeMob().getActualhp() < 1) {
+                        GameStatus.getInstance().getMap().getFields()[i][j].getFreeMob().remove();
+                        GameStatus.getInstance().getMap().getFields()[i][j].setFreeMob(null);
+                    }
                 }
             }
         }
-    }
-
-    public DefaultMob(Animation animation, boolean isLooped) {
-        super(animation, isLooped);
     }
 
     public int getCoordinateXonMap() {

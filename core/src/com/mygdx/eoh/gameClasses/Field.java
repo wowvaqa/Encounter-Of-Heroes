@@ -6,6 +6,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.mygdx.eoh.Equipment.Treasure;
 import com.mygdx.eoh.enums.Terrains;
 import com.mygdx.eoh.items.Item;
+import com.mygdx.eoh.mob.FreeMob;
 
 /**
  * Representation of field
@@ -28,6 +29,7 @@ public class Field extends Image {
     private PlayerMob playerMob;
     private CastleMob castleMob;
     private Treasure treasure;
+    private FreeMob freeMob;
 
     public Field() {
         super();
@@ -142,6 +144,14 @@ public class Field extends Image {
 
     public void setTreasure(Treasure treasure) {
         this.treasure = treasure;
+    }
+
+    public FreeMob getFreeMob() {
+        return freeMob;
+    }
+
+    public void setFreeMob(FreeMob freeMob) {
+        this.freeMob = freeMob;
     }
 }
 

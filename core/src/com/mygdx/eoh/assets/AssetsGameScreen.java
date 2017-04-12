@@ -89,7 +89,9 @@ public class AssetsGameScreen extends DefaultAssets {
         getManager().load("game/mobsAnimations/wizardAnimations/wizardAttackS.atlas", TextureAtlas.class);
         getManager().load("game/mobsAnimations/wizardAnimations/wizardAttackE.atlas", TextureAtlas.class);
         getManager().load("game/mobsAnimations/wizardAnimations/wizardAttackW.atlas", TextureAtlas.class);
-
+        // SKELETON
+        getManager().load("game/mobsAnimations/skeletonAnimation/skeletonStanding.atlas", TextureAtlas.class);
+        getManager().load("game/mobsAnimations/skeletonAnimation/skeletonStandingSelected.atlas", TextureAtlas.class);
         /*******************************************************************************************
          * Castle animation.
          ******************************************************************************************/

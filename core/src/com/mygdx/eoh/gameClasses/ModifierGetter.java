@@ -2,6 +2,7 @@ package com.mygdx.eoh.gameClasses;
 
 import com.mygdx.eoh.effects.EquipModifier;
 import com.mygdx.eoh.effects.LongEffect;
+import com.mygdx.eoh.mob.FreeMob;
 
 /**
  *
@@ -29,19 +30,28 @@ public class ModifierGetter {
     }
 
     /**
-     * Returns the sum of all defence modificators from long effects and equipment
-     * @param playerMob Player Mob
+     * Returns the sum of all defence modifiers from long effects and equipment
+     * @param object Player Mob, Free mob
      * @return Sum of all modifiers from long effects and equipment.
      */
-    public static int getDefenceModifier(PlayerMob playerMob){
+    public static int getDefenceModifier(Object object) {
         int defenceModifier = 0;
-        for (LongEffect longEffect: playerMob.getLongEffects()){
-            defenceModifier += longEffect.getDefenceModifier();
+
+        // PLAYER MOB CLASS
+        if (object.getClass().equals(PlayerMob.class)) {
+            for (LongEffect longEffect : ((PlayerMob) object).getLongEffects()) {
+                defenceModifier += longEffect.getDefenceModifier();
+            }
+
+            defenceModifier += EquipModifier.getDefenceModifiers(((PlayerMob) object).getWeapon());
+            defenceModifier += EquipModifier.getDefenceModifiers(((PlayerMob) object).getArmor());
+            defenceModifier += EquipModifier.getDefenceModifiers(((PlayerMob) object).getArtifact());
         }
 
-        defenceModifier += EquipModifier.getDefenceModifiers(playerMob.getWeapon());
-        defenceModifier += EquipModifier.getDefenceModifiers(playerMob.getArmor());
-        defenceModifier += EquipModifier.getDefenceModifiers(playerMob.getArtifact());
+        // FREE MOB CLASS
+        if (object.getClass().equals(FreeMob.class)) {
+
+        }
 
         return defenceModifier;
     }

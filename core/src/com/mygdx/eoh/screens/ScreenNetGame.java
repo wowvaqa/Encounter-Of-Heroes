@@ -21,6 +21,7 @@ import com.mygdx.eoh.defaultClasses.DefaultGestureListener;
 import com.mygdx.eoh.effects.InstantEffect;
 import com.mygdx.eoh.enums.AnimationTypes;
 import com.mygdx.eoh.enums.Buldings;
+import com.mygdx.eoh.enums.FreeMobsKinds;
 import com.mygdx.eoh.enums.InstantEffects;
 import com.mygdx.eoh.enums.PlayerMobClasses;
 import com.mygdx.eoh.enums.Terrains;
@@ -36,6 +37,7 @@ import com.mygdx.eoh.gameClasses.Positioning;
 import com.mygdx.eoh.items.AvailableItems;
 import com.mygdx.eoh.items.ItemCreator;
 import com.mygdx.eoh.mapEditor.MapFile;
+import com.mygdx.eoh.mob.FreeMobCreator;
 import com.mygdx.eoh.net.NetStatus;
 import com.mygdx.eoh.net.Network;
 
@@ -140,6 +142,13 @@ public class ScreenNetGame extends DefaultGameScreen {
 
                 if (mapfile.fields[i][j].tresureBoxLvl2) {
                     fields[i][j].setTreasure(Treasure.createTreasure(2, i, j));
+                }
+
+                /***********************************************************************************
+                 * FREE MOB CLASSES
+                 **********************************************************************************/
+                if (mapfile.fields[i][j].mobSkeletonLocation) {
+                    fields[i][j].setFreeMob(FreeMobCreator.getInstance().createFreeMob(FreeMobsKinds.Skeleton, i, j));
                 }
 
                 /***********************************************************************************
@@ -320,12 +329,26 @@ public class ScreenNetGame extends DefaultGameScreen {
                     );
 
                     GameStatus.getInstance().getMapStage().addActor(instantEffect);
-                    FightManager.setActualHPofMob(
-                            GameStatus.getInstance().getMap().getFields()
-                                    [NetStatus.getInstance().getLocationXofDefender()]
-                                    [NetStatus.getInstance().getLocationYofDefender()].getPlayerMob(),
-                            NetStatus.getInstance().getIntVarible()
-                    );
+
+                    if (GameStatus.getInstance().getMap().getFields()
+                            [NetStatus.getInstance().getLocationXofDefender()]
+                            [NetStatus.getInstance().getLocationYofDefender()].getPlayerMob() != null) {
+                        FightManager.setActualHPofMob(
+                                GameStatus.getInstance().getMap().getFields()
+                                        [NetStatus.getInstance().getLocationXofDefender()]
+                                        [NetStatus.getInstance().getLocationYofDefender()].getPlayerMob(),
+                                NetStatus.getInstance().getIntVarible()
+                        );
+                    } else if (GameStatus.getInstance().getMap().getFields()
+                            [NetStatus.getInstance().getLocationXofDefender()]
+                            [NetStatus.getInstance().getLocationYofDefender()].getFreeMob() != null) {
+                        FightManager.setActualHPofMob(
+                                GameStatus.getInstance().getMap().getFields()
+                                        [NetStatus.getInstance().getLocationXofDefender()]
+                                        [NetStatus.getInstance().getLocationYofDefender()].getFreeMob(),
+                                NetStatus.getInstance().getIntVarible()
+                        );
+                    }
 
                     DefaultDamageLabel defaultDamageLabel = new DefaultDamageLabel(
                             Integer.toString(NetStatus.getInstance().getIntVarible()),

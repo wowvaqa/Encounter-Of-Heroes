@@ -4,9 +4,10 @@ import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.mygdx.eoh.animation.AnimationCreator;
-import com.mygdx.eoh.enums.AnimationTypes;
 import com.mygdx.eoh.defaultClasses.DefaultMob;
 import com.mygdx.eoh.defaultClasses.DefaultPlayerColorIcon;
+import com.mygdx.eoh.enums.AnimationTypes;
+import com.mygdx.eoh.mob.FreeMob;
 
 /**
  * Representation of castle.
@@ -53,6 +54,7 @@ public class CastleMob extends DefaultMob {
 
                     MoveManager.turnOffSelectedPlayersMobs();
                     MoveManager.unselectCastles(map);
+                    FreeMob.unselectFreeMobs();
 
                     if (castleMob.playerOwner == GameStatus.getInstance().getCurrentPlayerTurn()) {
                         GameStatus.getInstance().getEquipmentTable().add(

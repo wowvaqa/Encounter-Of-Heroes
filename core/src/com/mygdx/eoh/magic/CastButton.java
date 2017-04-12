@@ -9,7 +9,6 @@ import com.mygdx.eoh.assets.AssetsGameScreen;
 import com.mygdx.eoh.defaultClasses.DefaultDamageLabel;
 import com.mygdx.eoh.effects.InstantEffect;
 import com.mygdx.eoh.gameClasses.GameStatus;
-import com.mygdx.eoh.gameClasses.MoveManager;
 import com.mygdx.eoh.gameClasses.Options;
 import com.mygdx.eoh.gameClasses.PlayerMob;
 import com.mygdx.eoh.net.NetStatus;
@@ -59,7 +58,10 @@ public class CastButton extends AnimatedImage {
                 for (InstantEffect instantEffect: spell.getInstantEffects()){
                     instantEffect.setPosition(getX(), getY());
                     instantEffect.setStateTime(0);
-                    instantEffect.action(spell.getPlayerOwner(), GameStatus.getInstance().getMap().getFields()[locationXonMap][locationYonMap].getPlayerMob());
+                    if (GameStatus.getInstance().getMap().getFields()[locationXonMap][locationYonMap].getPlayerMob() != null)
+                        instantEffect.action(spell.getPlayerOwner(), GameStatus.getInstance().getMap().getFields()[locationXonMap][locationYonMap].getPlayerMob());
+                    else if (GameStatus.getInstance().getMap().getFields()[locationXonMap][locationYonMap].getFreeMob() != null)
+                        instantEffect.action(spell.getPlayerOwner(), GameStatus.getInstance().getMap().getFields()[locationXonMap][locationYonMap].getFreeMob());
                     GameStatus.getInstance().getMapStage().addActor(instantEffect);
                     showDamageLabel(instantEffect.getDamage(), locationXonMap, locationYonMap);
                 }

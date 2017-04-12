@@ -1,5 +1,7 @@
 package com.mygdx.eoh.gameClasses;
 
+import com.mygdx.eoh.mob.FreeMob;
+
 import java.util.Random;
 
 /**
@@ -37,8 +39,13 @@ public class FightManager {
         Random rnd = new Random();
 
         if (object.getClass().equals(PlayerMob.class)) {
-            defence = rnd.nextInt(((PlayerMob) object).getActualDefence() + ModifierGetter.getDefenceModifier(((PlayerMob) object)) + 1);
+            defence = rnd.nextInt(((PlayerMob) object).getActualDefence() + ModifierGetter.getDefenceModifier(object) + 1);
         }
+
+        if (object.getClass().equals(FreeMob.class)) {
+            defence = rnd.nextInt(((FreeMob) object).getActualDefence() + ModifierGetter.getDefenceModifier(object) + 1);
+        }
+
         System.out.println("Defence Factor: " + defence);
         return defence;
     }
@@ -75,6 +82,14 @@ public class FightManager {
                 ((PlayerMob) object).addFadeOutActionWhenPlayerMobIsDead((PlayerMob) object);
             }
             System.out.println("Actual HP of mob: " + ((PlayerMob) object).getActualhp());
+        } else if (object.getClass().equals(FreeMob.class)) {
+            ((FreeMob) object).setActualhp(
+                    ((FreeMob) object).getActualhp() - damage
+            );
+            if (((FreeMob) object).getActualhp() < 1) {
+                ((FreeMob) object).addFadeOutActionWhenPlayerMobIsDead((FreeMob) object);
+            }
+            System.out.println("Actual HP of mob: " + ((FreeMob) object).getActualhp());
         }
     }
 

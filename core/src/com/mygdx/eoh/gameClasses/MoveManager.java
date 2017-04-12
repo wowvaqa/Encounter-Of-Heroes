@@ -126,55 +126,64 @@ public class MoveManager {
             case North:
                 if (playerMob.getCoordinateYonMap() == map.getFieldsRows() - 1)
                     return false;
-                else {
-                    return map.getFields()[playerMob.getCoordinateXonMap()][playerMob.getCoordinateYonMap() + 1].getPlayerMob() == null;
-                }
+                else if (map.getFields()[playerMob.getCoordinateXonMap()][playerMob.getCoordinateYonMap() + 1].getPlayerMob() != null ||
+                        map.getFields()[playerMob.getCoordinateXonMap()][playerMob.getCoordinateYonMap() + 1].getFreeMob() != null)
+                    return false;
+                else
+                    return true;
             case South:
                 if (playerMob.getCoordinateYonMap() == 0)
                     return false;
-                else if (map.getFields()[playerMob.getCoordinateXonMap()][playerMob.getCoordinateYonMap() - 1].getPlayerMob() != null)
+                else if (map.getFields()[playerMob.getCoordinateXonMap()][playerMob.getCoordinateYonMap() - 1].getPlayerMob() != null ||
+                        map.getFields()[playerMob.getCoordinateXonMap()][playerMob.getCoordinateYonMap() - 1].getFreeMob() != null)
                     return false;
                 else
                     return true;
             case East:
                 if (playerMob.getCoordinateXonMap() == map.getFieldsColumns() - 1)
                     return false;
-                else if (map.getFields()[playerMob.getCoordinateXonMap() + 1][playerMob.getCoordinateYonMap()].getPlayerMob() != null)
+                else if (map.getFields()[playerMob.getCoordinateXonMap() + 1][playerMob.getCoordinateYonMap()].getPlayerMob() != null ||
+                        map.getFields()[playerMob.getCoordinateXonMap() + 1][playerMob.getCoordinateYonMap()].getFreeMob() != null)
                     return false;
                 else
                     return true;
             case West:
                 if (playerMob.getCoordinateXonMap() == 0)
                     return false;
-                else if (map.getFields()[playerMob.getCoordinateXonMap() - 1][playerMob.getCoordinateYonMap()].getPlayerMob() != null)
+                else if (map.getFields()[playerMob.getCoordinateXonMap() - 1][playerMob.getCoordinateYonMap()].getPlayerMob() != null ||
+                        map.getFields()[playerMob.getCoordinateXonMap() - 1][playerMob.getCoordinateYonMap()].getFreeMob() != null)
                     return false;
                 else
                     return true;
             case NorthEast:
                 if (playerMob.getCoordinateXonMap() == map.getFieldsColumns() - 1 || playerMob.getCoordinateYonMap() == map.getFieldsRows() - 1)
                     return false;
-                else if (map.getFields()[playerMob.getCoordinateXonMap() + 1][playerMob.getCoordinateYonMap() + 1].getPlayerMob() != null)
+                else if (map.getFields()[playerMob.getCoordinateXonMap() + 1][playerMob.getCoordinateYonMap() + 1].getPlayerMob() != null ||
+                        map.getFields()[playerMob.getCoordinateXonMap() + 1][playerMob.getCoordinateYonMap() + 1].getFreeMob() != null)
                     return false;
                 else
                     return true;
             case NorthWest:
                 if (playerMob.getCoordinateXonMap() == 0 || playerMob.getCoordinateYonMap() == map.getFieldsRows() - 1)
                     return false;
-                else if (map.getFields()[playerMob.getCoordinateXonMap() - 1][playerMob.getCoordinateYonMap() + 1].getPlayerMob() != null)
+                else if (map.getFields()[playerMob.getCoordinateXonMap() - 1][playerMob.getCoordinateYonMap() + 1].getPlayerMob() != null ||
+                        map.getFields()[playerMob.getCoordinateXonMap() - 1][playerMob.getCoordinateYonMap() + 1].getFreeMob() != null)
                     return false;
                 else
                     return true;
             case SouthEast:
                 if (playerMob.getCoordinateXonMap() == map.getFieldsColumns() - 1 || playerMob.getCoordinateYonMap() == 0)
                     return false;
-                else if (map.getFields()[playerMob.getCoordinateXonMap() + 1][playerMob.getCoordinateYonMap() - 1].getPlayerMob() != null)
+                else if (map.getFields()[playerMob.getCoordinateXonMap() + 1][playerMob.getCoordinateYonMap() - 1].getPlayerMob() != null ||
+                        map.getFields()[playerMob.getCoordinateXonMap() + 1][playerMob.getCoordinateYonMap() - 1].getFreeMob() != null)
                     return false;
                 else
                     return true;
             case SouthWest:
                 if (playerMob.getCoordinateXonMap() == 0 || playerMob.getCoordinateYonMap() == 0)
                     return false;
-                else if (map.getFields()[playerMob.getCoordinateXonMap() - 1][playerMob.getCoordinateYonMap() - 1].getPlayerMob() != null)
+                else if (map.getFields()[playerMob.getCoordinateXonMap() - 1][playerMob.getCoordinateYonMap() - 1].getPlayerMob() != null ||
+                        map.getFields()[playerMob.getCoordinateXonMap() - 1][playerMob.getCoordinateYonMap() - 1].getFreeMob() != null)
                     return false;
                 else
                     return true;
@@ -281,6 +290,12 @@ public class MoveManager {
             return true;
 
         }
+
+        if (map.getFields()[coordinateX][coordinateY].getFreeMob() != null) {
+            return true;
+
+        }
+
         return false;
     }
 

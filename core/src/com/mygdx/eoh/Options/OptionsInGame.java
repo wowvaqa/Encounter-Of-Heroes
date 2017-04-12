@@ -10,7 +10,6 @@ import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.ui.Window;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.mygdx.eoh.assets.AssetsGameScreen;
-import com.mygdx.eoh.defaultClasses.DefaultGameScreen;
 import com.mygdx.eoh.gameClasses.GameStatus;
 import com.mygdx.eoh.gameClasses.Grid;
 import com.mygdx.eoh.gameClasses.Positioning;
@@ -28,6 +27,7 @@ public class OptionsInGame {
 
     private Window singleGameOptionsWindow;
     private boolean grid = true;
+    private boolean showEquipInfo = false;
     private ArrayList<Grid> gridArrayList;
 
     private OptionsInGame() {
@@ -49,6 +49,7 @@ public class OptionsInGame {
         //Skin skin = AssetsGameScreen.getInstance().getManager().get("styles/skin.json", Skin.class);
 
         Label labelGrid = new Label("Grid: ", AssetsGameScreen.getInstance().getManager().get("styles/skin.json", Skin.class));
+        Label showEquipInfo = new Label("Show equip info: ", AssetsGameScreen.getInstance().getManager().get("styles/skin.json", Skin.class));
         final Label labelGridInfo = new Label("ON", AssetsGameScreen.getInstance().getManager().get("styles/skin.json", Skin.class));
 
         TextButton tbGridOn = new TextButton("On", AssetsGameScreen.getInstance().getManager().get("styles/skin.json", Skin.class));
@@ -68,6 +69,26 @@ public class OptionsInGame {
                 super.clicked(event, x, y);
                 labelGridInfo.setText("OFF");
                 grid = false;
+            }
+        });
+
+        TextButton showEquipInfoOn = new TextButton("On", AssetsGameScreen.getInstance().getManager().get("styles/skin.json", Skin.class));
+        tbGridOn.addListener(new ClickListener() {
+            @Override
+            public void clicked(InputEvent event, float x, float y) {
+                super.clicked(event, x, y);
+                //labelGridInfo.setText("ON");
+                setShowEquipInfo(true);
+            }
+        });
+
+        TextButton showEquipInfoOff = new TextButton("Off", AssetsGameScreen.getInstance().getManager().get("styles/skin.json", Skin.class));
+        tbGridOff.addListener(new ClickListener() {
+            @Override
+            public void clicked(InputEvent event, float x, float y) {
+                super.clicked(event, x, y);
+                //labelGridInfo.setText("OFF");
+                setShowEquipInfo(false);
             }
         });
 
@@ -97,6 +118,10 @@ public class OptionsInGame {
         singleGameOptionsWindow.add(labelGridInfo).pad(5).size(100, 50);
         singleGameOptionsWindow.add(tbGridOn).pad(5);
         singleGameOptionsWindow.add(tbGridOff).pad(5);
+        singleGameOptionsWindow.row();
+        singleGameOptionsWindow.add(showEquipInfo).pad(5);
+        singleGameOptionsWindow.add(showEquipInfoOn).pad(5);
+        singleGameOptionsWindow.add(showEquipInfoOff).pad(5);
         singleGameOptionsWindow.row();
 
         singleGameOptionsWindow.add(tbOk).pad(5).size(175, 50).colspan(4);
@@ -139,5 +164,13 @@ public class OptionsInGame {
 
     public void setGridArrayList(ArrayList<Grid> gridArrayList) {
         this.gridArrayList = gridArrayList;
+    }
+
+    public boolean isShowEquipInfo() {
+        return showEquipInfo;
+    }
+
+    public void setShowEquipInfo(boolean showEquipInfo) {
+        this.showEquipInfo = showEquipInfo;
     }
 }

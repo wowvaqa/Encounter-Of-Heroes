@@ -10,6 +10,7 @@ import com.mygdx.eoh.gameClasses.GameStatus;
 import com.mygdx.eoh.gameClasses.ModifierGetter;
 import com.mygdx.eoh.gameClasses.Options;
 import com.mygdx.eoh.gameClasses.PlayerMob;
+import com.mygdx.eoh.mob.FreeMob;
 import com.mygdx.eoh.net.NetStatus;
 import com.mygdx.eoh.net.Network;
 
@@ -47,33 +48,58 @@ public class InstantEffect extends AnimatedImage {
      * Making action of instant effect
      *
      * @param castingPlayer   Player who created effect.
-     * @param defendingPlayer Player affected by the effect.
+     * @param defendingMob PlayerMob or FreeMob  affected by the effect.
      */
-    public void action(PlayerMob castingPlayer, PlayerMob defendingPlayer) {
+    public void action(PlayerMob castingPlayer, Object defendingMob) {
 
         Random rnd = new Random();
 
         switch (instantEffects) {
             case FiraballDamage:
 
-                int damage;
-                damage = ((rnd.nextInt((castingPlayer.getActualPower()) + ModifierGetter.getPowerModifier(castingPlayer)) + 1) + 3) -
-                        ((rnd.nextInt(defendingPlayer.getActualDefence()) + ModifierGetter.getDefenceModifier(defendingPlayer)) + 1);
-                if (damage < 0)
-                    damage = 0;
-                this.damage = damage;
-                FightManager.setActualHPofMob(defendingPlayer, damage);
+                int damage = 0;
+                if (defendingMob.getClass().equals(PlayerMob.class)) {
+                    damage = ((rnd.nextInt((castingPlayer.getActualPower()) + ModifierGetter.getPowerModifier(castingPlayer)) + 1) + 3) -
+                            ((rnd.nextInt(((PlayerMob) defendingMob).getActualDefence()) + ModifierGetter.getDefenceModifier(defendingMob)) + 1);
 
-                if (NetStatus.getInstance().getClient() != null) {
-                    Network.InstantEffectNet instantEffectNet = new Network.InstantEffectNet();
-                    instantEffectNet.damage = damage;
-                    instantEffectNet.instantEffectNumber = 0;
-                    instantEffectNet.locationXofDefender = defendingPlayer.getCoordinateXonMap();
-                    instantEffectNet.locationYofDefender = defendingPlayer.getCoordinateYonMap();
-                    instantEffectNet.locationXofCaster = castingPlayer.getCoordinateXonMap();
-                    instantEffectNet.locationYofCaster = castingPlayer.getCoordinateYonMap();
-                    instantEffectNet.enemyId = NetStatus.getInstance().getEnemyId();
-                    NetStatus.getInstance().getClient().sendTCP(instantEffectNet);
+                    if (damage < 0)
+                        damage = 0;
+                    this.damage = damage;
+                    FightManager.setActualHPofMob(defendingMob, damage);
+
+                    if (NetStatus.getInstance().getClient() != null) {
+                        Network.InstantEffectNet instantEffectNet = new Network.InstantEffectNet();
+                        instantEffectNet.damage = damage;
+                        instantEffectNet.instantEffectNumber = 0;
+                        instantEffectNet.locationXofDefender = ((PlayerMob) defendingMob).getCoordinateXonMap();
+                        instantEffectNet.locationYofDefender = ((PlayerMob) defendingMob).getCoordinateYonMap();
+                        instantEffectNet.locationXofCaster = castingPlayer.getCoordinateXonMap();
+                        instantEffectNet.locationYofCaster = castingPlayer.getCoordinateYonMap();
+                        instantEffectNet.enemyId = NetStatus.getInstance().getEnemyId();
+                        NetStatus.getInstance().getClient().sendTCP(instantEffectNet);
+                    }
+                }
+
+                if (defendingMob.getClass().equals(FreeMob.class)) {
+                    damage = ((rnd.nextInt((castingPlayer.getActualPower()) + ModifierGetter.getPowerModifier(castingPlayer)) + 1) + 3) -
+                            ((rnd.nextInt(((FreeMob) defendingMob).getActualDefence()) + ModifierGetter.getDefenceModifier(defendingMob)) + 1);
+
+                    if (damage < 0)
+                        damage = 0;
+                    this.damage = damage;
+                    FightManager.setActualHPofMob(defendingMob, damage);
+
+                    if (NetStatus.getInstance().getClient() != null) {
+                        Network.InstantEffectNet instantEffectNet = new Network.InstantEffectNet();
+                        instantEffectNet.damage = damage;
+                        instantEffectNet.instantEffectNumber = 0;
+                        instantEffectNet.locationXofDefender = ((FreeMob) defendingMob).getCoordinateXonMap();
+                        instantEffectNet.locationYofDefender = ((FreeMob) defendingMob).getCoordinateYonMap();
+                        instantEffectNet.locationXofCaster = castingPlayer.getCoordinateXonMap();
+                        instantEffectNet.locationYofCaster = castingPlayer.getCoordinateYonMap();
+                        instantEffectNet.enemyId = NetStatus.getInstance().getEnemyId();
+                        NetStatus.getInstance().getClient().sendTCP(instantEffectNet);
+                    }
                 }
 
                 break;
@@ -82,19 +108,19 @@ public class InstantEffect extends AnimatedImage {
                 castingPlayer.changeToCastAnimation(castingPlayer);
 
                 LongEffect longEffect = new LongEffect(
-                        AnimationSpellCreator.getInstance().makeLongEffectAnimation(LongEffects.AttackUpgrade, defendingPlayer),
+                        AnimationSpellCreator.getInstance().makeLongEffectAnimation(LongEffects.AttackUpgrade, ((PlayerMob) defendingMob)),
                         false,
                         LongEffects.AttackUpgrade,
-                        defendingPlayer
+                        ((PlayerMob) defendingMob)
                 );
                 longEffect.setAttackModifier(1);
 
-                defendingPlayer.getLongEffects().add(longEffect);
+                ((PlayerMob) defendingMob).getLongEffects().add(longEffect);
 
-                defendingPlayer.getLongEffectsTable().clear();
+                ((PlayerMob) defendingMob).getLongEffectsTable().clear();
 
-                for (LongEffect longEffect1 : defendingPlayer.getLongEffects()) {
-                    defendingPlayer.getLongEffectsTable().add(longEffect1).size(50, 50).padRight(5);
+                for (LongEffect longEffect1 : ((PlayerMob) defendingMob).getLongEffects()) {
+                    ((PlayerMob) defendingMob).getLongEffectsTable().add(longEffect1).size(50, 50).padRight(5);
                 }
 
                 damage = 0;
@@ -103,8 +129,8 @@ public class InstantEffect extends AnimatedImage {
                     Network.InstantEffectNet instantEffectNet = new Network.InstantEffectNet();
                     instantEffectNet.damage = damage;
                     instantEffectNet.instantEffectNumber = 1;
-                    instantEffectNet.locationXofDefender = defendingPlayer.getCoordinateXonMap();
-                    instantEffectNet.locationYofDefender = defendingPlayer.getCoordinateYonMap();
+                    instantEffectNet.locationXofDefender = ((PlayerMob) defendingMob).getCoordinateXonMap();
+                    instantEffectNet.locationYofDefender = ((PlayerMob) defendingMob).getCoordinateYonMap();
                     instantEffectNet.locationXofCaster = castingPlayer.getCoordinateXonMap();
                     instantEffectNet.locationYofCaster = castingPlayer.getCoordinateYonMap();
                     instantEffectNet.enemyId = NetStatus.getInstance().getEnemyId();
@@ -113,17 +139,17 @@ public class InstantEffect extends AnimatedImage {
 
                 break;
             case HealthPotion:
-                defendingPlayer.setActualhp(defendingPlayer.getActualhp() + 5);
-                if (defendingPlayer.getActualhp() > defendingPlayer.getMaxHp()) {
-                    defendingPlayer.setActualhp(defendingPlayer.getMaxHp());
+                ((PlayerMob) defendingMob).setActualhp(((PlayerMob) defendingMob).getActualhp() + 5);
+                if (((PlayerMob) defendingMob).getActualhp() > ((PlayerMob) defendingMob).getMaxHp()) {
+                    ((PlayerMob) defendingMob).setActualhp(((PlayerMob) defendingMob).getMaxHp());
                 }
 
                 if (NetStatus.getInstance().getClient() != null && !NetStatus.getInstance().isInstantEffectNet()) {
                     Network.InstantEffectNet instantEffectNet = new Network.InstantEffectNet();
                     instantEffectNet.enemyId = NetStatus.getInstance().getEnemyId();
                     instantEffectNet.instantEffectNumber = 2;
-                    instantEffectNet.locationXofDefender = defendingPlayer.getCoordinateXonMap();
-                    instantEffectNet.locationYofDefender = defendingPlayer.getCoordinateYonMap();
+                    instantEffectNet.locationXofDefender = ((PlayerMob) defendingMob).getCoordinateXonMap();
+                    instantEffectNet.locationYofDefender = ((PlayerMob) defendingMob).getCoordinateYonMap();
                     instantEffectNet.locationXofCaster = castingPlayer.getCoordinateXonMap();
                     instantEffectNet.locationYofCaster = castingPlayer.getCoordinateYonMap();
                     NetStatus.getInstance().getClient().sendTCP(instantEffectNet);
@@ -132,23 +158,23 @@ public class InstantEffect extends AnimatedImage {
 
                 break;
             case ManaPotion:
-                defendingPlayer.setActualMana(defendingPlayer.getActualMana() + 5);
-                if (defendingPlayer.getActualMana() > defendingPlayer.getMaxMana() + ModifierGetter.getWisdomModifier(defendingPlayer)) {
-                    defendingPlayer.setActualMana(defendingPlayer.getMaxMana() + ModifierGetter.getWisdomModifier(defendingPlayer));
+                ((PlayerMob) defendingMob).setActualMana(((PlayerMob) defendingMob).getActualMana() + 5);
+                if (((PlayerMob) defendingMob).getActualMana() > ((PlayerMob) defendingMob).getMaxMana() + ModifierGetter.getWisdomModifier(((PlayerMob) defendingMob))) {
+                    ((PlayerMob) defendingMob).setActualMana(((PlayerMob) defendingMob).getMaxMana() + ModifierGetter.getWisdomModifier(((PlayerMob) defendingMob)));
                 }
 
                 // Turn off mana bar of player mob.
-                if (defendingPlayer.getActualMana() >= defendingPlayer.getMaxMana() + ModifierGetter.getWisdomModifier(defendingPlayer) && defendingPlayer.getManaBar().isManaBarAdd()) {
-                    defendingPlayer.getManaBar().remove();
-                    defendingPlayer.getManaBar().setManaBarAdd(false);
+                if (((PlayerMob) defendingMob).getActualMana() >= ((PlayerMob) defendingMob).getMaxMana() + ModifierGetter.getWisdomModifier(((PlayerMob) defendingMob)) && ((PlayerMob) defendingMob).getManaBar().isManaBarAdd()) {
+                    ((PlayerMob) defendingMob).getManaBar().remove();
+                    ((PlayerMob) defendingMob).getManaBar().setManaBarAdd(false);
                 }
 
                 if (NetStatus.getInstance().getClient() != null && !NetStatus.getInstance().isInstantEffectNet()) {
                     Network.InstantEffectNet instantEffectNet = new Network.InstantEffectNet();
                     instantEffectNet.enemyId = NetStatus.getInstance().getEnemyId();
                     instantEffectNet.instantEffectNumber = 3;
-                    instantEffectNet.locationXofDefender = defendingPlayer.getCoordinateXonMap();
-                    instantEffectNet.locationYofDefender = defendingPlayer.getCoordinateYonMap();
+                    instantEffectNet.locationXofDefender = ((PlayerMob) defendingMob).getCoordinateXonMap();
+                    instantEffectNet.locationYofDefender = ((PlayerMob) defendingMob).getCoordinateYonMap();
                     instantEffectNet.locationXofCaster = castingPlayer.getCoordinateXonMap();
                     instantEffectNet.locationYofCaster = castingPlayer.getCoordinateYonMap();
                     NetStatus.getInstance().getClient().sendTCP(instantEffectNet);

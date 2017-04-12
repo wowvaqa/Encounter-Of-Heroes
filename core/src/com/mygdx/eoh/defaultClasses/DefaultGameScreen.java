@@ -341,6 +341,13 @@ public abstract class DefaultGameScreen extends DefaultScreen {
                 }
             }
 
+            for (int i = 0; i < map.getFieldsColumns(); i++) {
+                for (int j = 0; j < map.getFieldsRows(); j++) {
+                    if (map.getFields()[i][j].getFreeMob() != null) {
+                        mapStage.addActor(map.getFields()[i][j].getFreeMob());
+                    }
+                }
+            }
 
             for (int i = 0; i < map.getFieldsColumns(); i++) {
                 for (int j = 0; j < map.getFieldsRows(); j++) {

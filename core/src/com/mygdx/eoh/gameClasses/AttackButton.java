@@ -12,7 +12,6 @@ import com.mygdx.eoh.net.NetStatus;
 import com.mygdx.eoh.net.Network;
 
 /**
- *
  * Created by v on 2017-01-11.
  */
 
@@ -20,6 +19,15 @@ public class AttackButton extends AnimatedImage {
 
     private PlayerMob buttonOwner;
 
+    /**
+     * Attack button constructor
+     *
+     * @param animation      Animation of button
+     * @param isLooped       is looped
+     * @param locationXonMap location X of button on map
+     * @param locationYonMap location Y of button on map
+     * @param playerMob      button owner.
+     */
     AttackButton(Animation animation, boolean isLooped, final int locationXonMap,
                  final int locationYonMap, final PlayerMob playerMob) {
         super(animation, isLooped);
@@ -34,22 +42,29 @@ public class AttackButton extends AnimatedImage {
                 super.clicked(event, x, y);
 
                 buttonOwner.changeToAttackAnimation(buttonOwner, locationXonMap, locationYonMap);
-//                    buttonOwner.setLooped(false);
-//                    buttonOwner.setStateTime(0);
-//                    buttonOwner.setAnimation(buttonOwner.getAnimationForAttack(
-//                            playerMob, locationXonMap, locationYonMap));
-//                    buttonOwner.getAnimation().getKeyFrameIndex(0);
-//                    buttonOwner.addAction(buttonOwner.getSequenceForAttack(
-//                            playerMob, locationXonMap, locationYonMap));
 
-                int damage = FightManager.getDamage(playerMob, GameStatus.getInstance().getMap().getFields()[locationXonMap][locationYonMap].getPlayerMob());
+                int damage = 0;
+
+                if (GameStatus.getInstance().getMap().getFields()[locationXonMap][locationYonMap].getPlayerMob() != null) {
+                    damage = FightManager.getDamage(playerMob, GameStatus.getInstance().getMap().getFields()[locationXonMap][locationYonMap].getPlayerMob());
+                }
+
+                if (GameStatus.getInstance().getMap().getFields()[locationXonMap][locationYonMap].getFreeMob() != null) {
+                    damage = FightManager.getDamage(playerMob, GameStatus.getInstance().getMap().getFields()[locationXonMap][locationYonMap].getFreeMob());
+                }
 
                 showDamageLabel(damage, locationXonMap, locationYonMap, getStage());
 
                 if (NetStatus.getInstance().getClient() != null) {
-                    attackOfPlayerMobNET(locationXonMap, locationYonMap, damage,
-                            GameStatus.getInstance().getMap().getFields()[locationXonMap][locationYonMap].getPlayerMob().getActualhp(),
-                            buttonOwner.getCoordinateXonMap(), buttonOwner.getCoordinateYonMap());
+                    if (GameStatus.getInstance().getMap().getFields()[locationXonMap][locationYonMap].getPlayerMob() != null) {
+                        attackOfPlayerMobNET(locationXonMap, locationYonMap, damage,
+                                GameStatus.getInstance().getMap().getFields()[locationXonMap][locationYonMap].getPlayerMob().getActualhp(),
+                                buttonOwner.getCoordinateXonMap(), buttonOwner.getCoordinateYonMap());
+                    } else if (GameStatus.getInstance().getMap().getFields()[locationXonMap][locationYonMap].getFreeMob() != null) {
+                        attackOfPlayerMobNET(locationXonMap, locationYonMap, damage,
+                                GameStatus.getInstance().getMap().getFields()[locationXonMap][locationYonMap].getFreeMob().getActualhp(),
+                                buttonOwner.getCoordinateXonMap(), buttonOwner.getCoordinateYonMap());
+                    }
                 }
             }
         });
@@ -65,20 +80,39 @@ public class AttackButton extends AnimatedImage {
 
     private void attackOfPlayerMobNET(int locationXofEnemy, int locationYofEnemy,
                                       int damage, int hpLeft, int locationXofAttacker, int locationYofAttacker) {
-        Network.AttackPlayerMob attackPlayerMob = new Network.AttackPlayerMob();
-        attackPlayerMob.enemyId = NetStatus.getInstance().getEnemyId();
-        attackPlayerMob.locationXofEnemy = locationXofEnemy;
-        attackPlayerMob.locationYofEnemy = locationYofEnemy;
-        attackPlayerMob.indexInArray = PlayerMob.getPlayerMobIndex(
-                GameStatus.getInstance().getMap().getFields()[locationXofEnemy][locationYofEnemy].getPlayerMob(),
-                GameStatus.getInstance().getMap().getFields()[locationXofEnemy][locationYofEnemy].getPlayerMob().getPlayerOwner());
-        attackPlayerMob.indexPlayerOwner =
-                GameStatus.getInstance().getMap().getFields()[locationXofEnemy][locationYofEnemy].getPlayerMob().getPlayerOwner().getInedxOfPlayerInArrayOfPlayer();
-        attackPlayerMob.damage = damage;
-        attackPlayerMob.hpLeft = hpLeft;
-        attackPlayerMob.locationXofAttacker = locationXofAttacker;
-        attackPlayerMob.locationYofAttacker = locationYofAttacker;
-        NetStatus.getInstance().getClient().sendTCP(attackPlayerMob);
+
+        if (GameStatus.getInstance().getMap().getFields()[locationXofEnemy][locationYofEnemy].getPlayerMob() != null) {
+
+            Network.AttackPlayerMob attackPlayerMob = new Network.AttackPlayerMob();
+            attackPlayerMob.enemyId = NetStatus.getInstance().getEnemyId();
+            attackPlayerMob.locationXofEnemy = locationXofEnemy;
+            attackPlayerMob.locationYofEnemy = locationYofEnemy;
+            attackPlayerMob.indexInArray = PlayerMob.getPlayerMobIndex(
+                    GameStatus.getInstance().getMap().getFields()[locationXofEnemy][locationYofEnemy].getPlayerMob(),
+                    GameStatus.getInstance().getMap().getFields()[locationXofEnemy][locationYofEnemy].getPlayerMob().getPlayerOwner());
+            attackPlayerMob.indexPlayerOwner =
+                    GameStatus.getInstance().getMap().getFields()[locationXofEnemy][locationYofEnemy].getPlayerMob().getPlayerOwner().getInedxOfPlayerInArrayOfPlayer();
+            attackPlayerMob.damage = damage;
+            attackPlayerMob.hpLeft = hpLeft;
+            attackPlayerMob.locationXofAttacker = locationXofAttacker;
+            attackPlayerMob.locationYofAttacker = locationYofAttacker;
+            NetStatus.getInstance().getClient().sendTCP(attackPlayerMob);
+
+        } else if (GameStatus.getInstance().getMap().getFields()[locationXofEnemy][locationYofEnemy].getFreeMob() != null) {
+
+            Network.AttackPlayerMob attackPlayerMob = new Network.AttackPlayerMob();
+            attackPlayerMob.enemyId = NetStatus.getInstance().getEnemyId();
+            attackPlayerMob.locationXofEnemy = locationXofEnemy;
+            attackPlayerMob.locationYofEnemy = locationYofEnemy;
+            attackPlayerMob.indexInArray = -1;
+            attackPlayerMob.indexPlayerOwner = -1;
+            attackPlayerMob.damage = damage;
+            attackPlayerMob.hpLeft = hpLeft;
+            attackPlayerMob.locationXofAttacker = locationXofAttacker;
+            attackPlayerMob.locationYofAttacker = locationYofAttacker;
+            NetStatus.getInstance().getClient().sendTCP(attackPlayerMob);
+        }
+
     }
 
 //    /**
