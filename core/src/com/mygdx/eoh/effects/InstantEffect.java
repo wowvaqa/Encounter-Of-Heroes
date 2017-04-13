@@ -84,6 +84,9 @@ public class InstantEffect extends AnimatedImage {
                     damage = ((rnd.nextInt((castingPlayer.getActualPower()) + ModifierGetter.getPowerModifier(castingPlayer)) + 1) + 3) -
                             ((rnd.nextInt(((FreeMob) defendingMob).getActualDefence()) + ModifierGetter.getDefenceModifier(defendingMob)) + 1);
 
+                    ((FreeMob) defendingMob).setAttacked(true);
+                    ((FreeMob) defendingMob).setAttackingPlayerMob(castingPlayer);
+
                     if (damage < 0)
                         damage = 0;
                     this.damage = damage;

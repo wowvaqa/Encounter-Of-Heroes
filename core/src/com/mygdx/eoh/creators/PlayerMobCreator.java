@@ -19,11 +19,11 @@ import com.mygdx.eoh.gameClasses.PlayerMob;
 public class PlayerMobCreator {
     private static PlayerMobCreator instance = new PlayerMobCreator();
 
-    public static PlayerMobCreator getInstance() {
-        return instance;
+    private PlayerMobCreator() {
     }
 
-    private PlayerMobCreator() {
+    public static PlayerMobCreator getInstance() {
+        return instance;
     }
 
     public PlayerMob createPlayerMob(PlayerMobClasses playerMobClass, Map map, int numberOfPlayerOwner, int locX, int locY, Field field){
@@ -49,12 +49,12 @@ public class PlayerMobCreator {
         playerMob.setActualAttack(5);
         playerMob.setDefence(5);
         playerMob.setActualDefence(5);
-        playerMob.setActualhp(5);
+        playerMob.setActualhp(10);
         playerMob.setActualPower(2);
         playerMob.setPower(2);
         playerMob.setActualWisdom(10);
         playerMob.setWisdom(10);
-        playerMob.setMaxHp(5);
+        playerMob.setMaxHp(10);
         playerMob.setMaxMana(10);
         playerMob.setActualMana(10);
         playerMob.setActionPoints(playerMob.getActualSpeed());

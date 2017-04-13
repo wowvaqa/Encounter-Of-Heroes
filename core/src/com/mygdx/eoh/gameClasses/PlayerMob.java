@@ -105,7 +105,7 @@ public class PlayerMob extends DefaultMob {
      * @param playerOwner Player who is owner of PlayerMob
      * @return index
      */
-    static int getPlayerMobIndex(PlayerMob playerMob, Player playerOwner) {
+    public static int getPlayerMobIndex(PlayerMob playerMob, Player playerOwner) {
         int index = 0;
         for (PlayerMob tmpPlayerMob : playerOwner.getPlayerMobs()) {
             if (tmpPlayerMob.equals(playerMob))

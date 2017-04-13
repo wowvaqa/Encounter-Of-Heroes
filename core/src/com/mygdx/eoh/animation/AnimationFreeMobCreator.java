@@ -52,6 +52,51 @@ public class AnimationFreeMobCreator {
                     walkFrames[i] = textureAtlas.getRegions().get(i);
                 }
                 break;
+
+            case SkeletonAttackN:
+                animationSpeed = (2.0f - (5) * 0.05f) / 24;
+                textureAtlas = AssetsGameScreen.getInstance().getManager().get("game/mobsAnimations/skeletonAnimation/skeletonAttackN.atlas", TextureAtlas.class);
+
+                walkFrames = new TextureRegion[textureAtlas.getRegions().size];
+
+                for (int i = 0; i < textureAtlas.getRegions().size; i++) {
+                    walkFrames[i] = textureAtlas.getRegions().get(i);
+                }
+                break;
+
+            case SkeletonAttackS:
+                animationSpeed = (2.0f - (5) * 0.05f) / 24;
+                textureAtlas = AssetsGameScreen.getInstance().getManager().get("game/mobsAnimations/skeletonAnimation/skeletonAttackS.atlas", TextureAtlas.class);
+
+                walkFrames = new TextureRegion[textureAtlas.getRegions().size];
+
+                for (int i = 0; i < textureAtlas.getRegions().size; i++) {
+                    walkFrames[i] = textureAtlas.getRegions().get(i);
+                }
+                break;
+
+            case SkeletonAttackE:
+                animationSpeed = (2.0f - (5) * 0.05f) / 24;
+                textureAtlas = AssetsGameScreen.getInstance().getManager().get("game/mobsAnimations/skeletonAnimation/skeletonAttackE.atlas", TextureAtlas.class);
+
+                walkFrames = new TextureRegion[textureAtlas.getRegions().size];
+
+                for (int i = 0; i < textureAtlas.getRegions().size; i++) {
+                    walkFrames[i] = textureAtlas.getRegions().get(i);
+                }
+                break;
+
+            case SkeletonAttackW:
+                animationSpeed = (2.0f - (5) * 0.05f) / 24;
+                textureAtlas = AssetsGameScreen.getInstance().getManager().get("game/mobsAnimations/skeletonAnimation/skeletonAttackW.atlas", TextureAtlas.class);
+
+                walkFrames = new TextureRegion[textureAtlas.getRegions().size];
+
+                for (int i = 0; i < textureAtlas.getRegions().size; i++) {
+                    walkFrames[i] = textureAtlas.getRegions().get(i);
+                }
+                break;
+
         }
 
         if (walkFrames == null) throw new AssertionError();

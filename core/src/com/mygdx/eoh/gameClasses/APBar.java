@@ -3,6 +3,7 @@ package com.mygdx.eoh.gameClasses;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.scenes.scene2d.Touchable;
 import com.mygdx.eoh.animation.AnimatedImage;
+import com.mygdx.eoh.mob.FreeMob;
 
 /**
  * Representation of animated bar of player mob.
@@ -11,11 +12,20 @@ import com.mygdx.eoh.animation.AnimatedImage;
 
 public class APBar extends AnimatedImage {
     private PlayerMob playerMobParent;
+    private FreeMob freeMobParent;
     private boolean apBarAdd = false;
 
-    APBar(Animation animation, boolean isLooped, PlayerMob playerMob) {
+    public APBar(Animation animation, boolean isLooped, PlayerMob playerMob) {
         super(animation, isLooped);
         this.playerMobParent = playerMob;
+        this.setSize(Options.tileSize, Options.tileSize);
+        setZIndex(4);
+        this.setTouchable(Touchable.disabled);
+    }
+
+    public APBar(Animation animation, boolean isLooped, FreeMob freeMob) {
+        super(animation, isLooped);
+        this.freeMobParent = freeMob;
         this.setSize(Options.tileSize, Options.tileSize);
         setZIndex(4);
         this.setTouchable(Touchable.disabled);
@@ -26,7 +36,7 @@ public class APBar extends AnimatedImage {
      *
      * @param playerMob Player mob to recalculate apBar frame duration.
      */
-    static void recalculateApBarFrameDuration(PlayerMob playerMob) {
+    static public void recalculateApBarFrameDuration(PlayerMob playerMob) {
 
         float animationSpeed = (17.0f - (playerMob.getActualSpeed() + ModifierGetter.getSpeedModifier(playerMob)) * 0.5f) / 24;
         System.out.println("Frame duration of APBAR: " + animationSpeed);
@@ -40,7 +50,10 @@ public class APBar extends AnimatedImage {
     }
 
     private void changePosition() {
-        this.setPosition(playerMobParent.getX(), playerMobParent.getY());
+        if (playerMobParent != null)
+            this.setPosition(playerMobParent.getX(), playerMobParent.getY());
+        if (freeMobParent != null)
+            this.setPosition(freeMobParent.getX(), freeMobParent.getY());
     }
 
     /***********************************************************************************************
@@ -51,21 +64,36 @@ public class APBar extends AnimatedImage {
         super.act(delta);
 
         if (getAnimation().isAnimationFinished(getStateTime())) {
-            playerMobParent.setActionPoints(playerMobParent.getActionPoints() + 1);
+            if (playerMobParent != null)
+                playerMobParent.setActionPoints(playerMobParent.getActionPoints() + 1);
+            if (freeMobParent != null)
+                freeMobParent.setActionPoints(freeMobParent.getActionPoints() + 1);
             this.setStateTime(0);
             this.apBarAdd = false;
             this.remove();
         }
 
-        if (playerMobParent.getActualhp() < 1) {
+        if (playerMobParent != null && playerMobParent.getActualhp() < 1) {
             this.remove();
         }
 
-        if (this.getX() != playerMobParent.getX()) {
+        if (freeMobParent != null && freeMobParent.getActualhp() < 1) {
+            this.remove();
+        }
+
+        if (playerMobParent != null && this.getX() != playerMobParent.getX()) {
             changePosition();
         }
 
-        if (this.getY() != playerMobParent.getY()) {
+        if (freeMobParent != null && this.getX() != freeMobParent.getX()) {
+            changePosition();
+        }
+
+        if (playerMobParent != null && this.getY() != playerMobParent.getY()) {
+            changePosition();
+        }
+
+        if (freeMobParent != null && this.getY() != freeMobParent.getY()) {
             changePosition();
         }
     }
@@ -73,14 +101,6 @@ public class APBar extends AnimatedImage {
     /***********************************************************************************************
      * GETTERS & SETTERS
      ***********************************************************************************************/
-    public PlayerMob getPlayerMobParent() {
-        return playerMobParent;
-    }
-
-    public void setPlayerMobParent(PlayerMob playerMobParent) {
-        this.playerMobParent = playerMobParent;
-    }
-
     public boolean isApBarAdd() {
         return apBarAdd;
     }

@@ -24,6 +24,10 @@ public class FightManager {
         if (object.getClass().equals(PlayerMob.class)) {
             attack = rnd.nextInt(((PlayerMob) object).getActualAttack() + ModifierGetter.getAttackModifier(((PlayerMob) object)) + 1);
         }
+
+        if (object.getClass().equals(FreeMob.class)) {
+            attack = rnd.nextInt(((FreeMob) object).getActualAttack() + ModifierGetter.getAttackModifier(((FreeMob) object)) + 1);
+        }
         System.out.println("Attack Factor: " + attack);
         return attack;
     }
@@ -57,7 +61,7 @@ public class FightManager {
      * @param defendingMob PlayerMob class object
      * @return Damage
      */
-    static int getDamage(Object attackingMob, Object defendingMob) {
+    public static int getDamage(Object attackingMob, Object defendingMob) {
         int damage;
         FightManager.decreseAP(attackingMob, 1);
         damage = getFactorOfAttack(attackingMob) - getFactorOfDefence(defendingMob);
@@ -104,6 +108,12 @@ public class FightManager {
             int ap = ((PlayerMob) object).getActionPoints();
             ap -= factor;
             ((PlayerMob) object).setActionPoints(ap);
+        }
+
+        if (object.getClass().equals(FreeMob.class)) {
+            int ap = ((FreeMob) object).getActionPoints();
+            ap -= factor;
+            ((FreeMob) object).setActionPoints(ap);
         }
     }
 }

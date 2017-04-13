@@ -58,10 +58,11 @@ public class FreeMobCreator {
                 freeMob.setActualAttack(5);
                 freeMob.setDefence(5);
                 freeMob.setActualDefence(5);
-                freeMob.setSpeed(5);
-                freeMob.setActualSpeed(5);
+                freeMob.setSpeed(3);
+                freeMob.setActualSpeed(3);
                 freeMob.setActualhp(10);
                 freeMob.setMaxHp(10);
+                freeMob.setActionPoints(3);
                 break;
         }
     }

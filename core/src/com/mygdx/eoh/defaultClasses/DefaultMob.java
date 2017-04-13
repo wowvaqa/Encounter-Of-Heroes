@@ -3,6 +3,7 @@ package com.mygdx.eoh.defaultClasses;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.mygdx.eoh.animation.AnimatedImage;
 import com.mygdx.eoh.gameClasses.GameStatus;
+import com.mygdx.eoh.gameClasses.MoveManager;
 
 /**
  * Representation of default mob
@@ -54,6 +55,7 @@ public class DefaultMob extends AnimatedImage {
                         GameStatus.getInstance().getMap().getFields()[i][j].getPlayerMob().getPlayerColorImage().remove();
                         GameStatus.getInstance().getMap().getFields()[i][j].getPlayerMob().getPlayerOwner().chceckLoseCondition();
                         GameStatus.getInstance().getMap().getFields()[i][j].getPlayerMob().remove();
+                        MoveManager.removeButtons(GameStatus.getInstance().getMap().getFields()[i][j].getPlayerMob());
                         GameStatus.getInstance().getMap().getFields()[i][j].setPlayerMob(null);
                     }
                 } else if (GameStatus.getInstance().getMap().getFields()[i][j].getFreeMob() != null) {

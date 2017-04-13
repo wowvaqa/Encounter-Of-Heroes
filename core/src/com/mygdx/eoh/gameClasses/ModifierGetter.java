@@ -13,18 +13,25 @@ public class ModifierGetter {
 
     /**
      * Returns the sum of all attack modifiers from long effects and equipment
-     * @param playerMob Player mob
+     * @param object Player mob
      * @return Sum of all modifiers from long effects and equipment.
      */
-    static int getAttackModifier(PlayerMob playerMob){
+    static int getAttackModifier(Object object) {
         int attackModifier = 0;
-        for (LongEffect longEffect: playerMob.getLongEffects()){
-            attackModifier += longEffect.getAttackModifier();
+
+        if (object.getClass().equals(PlayerMob.class)) {
+            for (LongEffect longEffect : ((PlayerMob) object).getLongEffects()) {
+                attackModifier += longEffect.getAttackModifier();
+            }
+
+            attackModifier += EquipModifier.getAttackModifiers(((PlayerMob) object).getWeapon());
+            attackModifier += EquipModifier.getAttackModifiers(((PlayerMob) object).getArmor());
+            attackModifier += EquipModifier.getAttackModifiers(((PlayerMob) object).getArtifact());
         }
 
-        attackModifier += EquipModifier.getAttackModifiers(playerMob.getWeapon());
-        attackModifier += EquipModifier.getAttackModifiers(playerMob.getArmor());
-        attackModifier += EquipModifier.getAttackModifiers(playerMob.getArtifact());
+        if (object.getClass().equals(FreeMob.class)) {
+
+        }
 
         return attackModifier;
     }
@@ -58,18 +65,25 @@ public class ModifierGetter {
 
     /**
      * Returns the sum of all speed modificators from long effects and equipment
-     * @param playerMob Player Mob
+     * @param object Player Mob
      * @return Sum of all modifiers from long effects and equipment.
      */
-    public static int getSpeedModifier(PlayerMob playerMob){
+    public static int getSpeedModifier(Object object) {
         int speedModifier = 0;
-        for (LongEffect longEffect: playerMob.getLongEffects()){
-            speedModifier += longEffect.getSpeedModifier();
+
+        if (object.getClass().equals(PlayerMob.class)) {
+            for (LongEffect longEffect : ((PlayerMob) object).getLongEffects()) {
+                speedModifier += longEffect.getSpeedModifier();
+            }
+
+            speedModifier += EquipModifier.getSpeedModifiers(((PlayerMob) object).getWeapon());
+            speedModifier += EquipModifier.getSpeedModifiers(((PlayerMob) object).getArmor());
+            speedModifier += EquipModifier.getSpeedModifiers(((PlayerMob) object).getArtifact());
         }
 
-        speedModifier += EquipModifier.getSpeedModifiers(playerMob.getWeapon());
-        speedModifier += EquipModifier.getSpeedModifiers(playerMob.getArmor());
-        speedModifier += EquipModifier.getSpeedModifiers(playerMob.getArtifact());
+        if (object.getClass().equals(FreeMob.class)) {
+
+        }
 
         return speedModifier;
     }
@@ -94,18 +108,25 @@ public class ModifierGetter {
 
     /**
      * Returns the sum of all wisdom modificators from long effects and equipment
-     * @param playerMob Player Mob
+     * @param object Player Mob, Free mob
      * @return Sum of all modifiers from long effects and equipment.
      */
-    public static int getWisdomModifier(PlayerMob playerMob){
+    public static int getWisdomModifier(Object object) {
         int wisdomModifier = 0;
-        for (LongEffect longEffect: playerMob.getLongEffects()){
-            wisdomModifier += longEffect.getWisdomModifier();
+
+        if (object.getClass().equals(PlayerMob.class)) {
+            for (LongEffect longEffect : ((PlayerMob) object).getLongEffects()) {
+                wisdomModifier += longEffect.getWisdomModifier();
+            }
+
+            wisdomModifier += EquipModifier.getWisdomModifiers(((PlayerMob) object).getWeapon());
+            wisdomModifier += EquipModifier.getWisdomModifiers(((PlayerMob) object).getArmor());
+            wisdomModifier += EquipModifier.getWisdomModifiers(((PlayerMob) object).getArtifact());
         }
 
-        wisdomModifier += EquipModifier.getWisdomModifiers(playerMob.getWeapon());
-        wisdomModifier += EquipModifier.getWisdomModifiers(playerMob.getArmor());
-        wisdomModifier += EquipModifier.getWisdomModifiers(playerMob.getArtifact());
+        if (object.getClass().equals(FreeMob.class)) {
+
+        }
 
         return wisdomModifier;
     }
