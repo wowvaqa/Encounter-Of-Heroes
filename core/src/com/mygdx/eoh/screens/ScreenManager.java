@@ -56,6 +56,11 @@ public final class ScreenManager {
                 currentScreen = new ScreenNetGame(GameStatus.getInstance());
                 game.setScreen((ScreenNetGame) currentScreen);
                 break;
+            case ScreenLoading:
+                disposeCurrentScreen(currentScreen);
+                currentScreen = new ScreenLoading();
+                game.setScreen((ScreenLoading) currentScreen);
+                break;
         }
     }
 
@@ -75,6 +80,9 @@ public final class ScreenManager {
                 screen.dispose();
             } else if (object.getClass().equals(ScreenNetGame.class)) {
                 ScreenNetGame screen = (ScreenNetGame) object;
+                screen.dispose();
+            } else if (object.getClass().equals(ScreenLoading.class)){
+                ScreenLoading screen = (ScreenLoading) object;
                 screen.dispose();
             }
         }

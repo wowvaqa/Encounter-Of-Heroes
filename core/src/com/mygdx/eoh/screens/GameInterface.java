@@ -171,9 +171,13 @@ public class GameInterface {
                 AssetsGameInterface.getInstance().dispose();
                 AssetsGameScreen.getInstance().dispose();
                 if (NetStatus.getInstance().getClient() != null) {
-                    ScreenManager.getInstance().setScreen(Screens.ScreenNewNetGame);
+                    ScreenLoading.destinationScreen = Screens.ScreenNewNetGame;
+//                    ScreenManager.getInstance().setScreen(Screens.ScreenNewNetGame);
+                    ScreenManager.getInstance().setScreen(Screens.ScreenLoading);
                 } else {
-                    ScreenManager.getInstance().setScreen(Screens.ScreenMainMenu);
+                    ScreenLoading.destinationScreen = Screens.ScreenMainMenu;
+//                    ScreenManager.getInstance().setScreen(Screens.ScreenMainMenu);
+                    ScreenManager.getInstance().setScreen(Screens.ScreenLoading);
                 }
             }
         });

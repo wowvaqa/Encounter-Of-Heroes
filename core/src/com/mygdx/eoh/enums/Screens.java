@@ -8,5 +8,6 @@ public enum Screens {
     ScreenSingleGame,
     ScreenNewNetGame,
     ScreenMapEditor,
-    ScreenNetGame
+    ScreenNetGame,
+    ScreenLoading
 }

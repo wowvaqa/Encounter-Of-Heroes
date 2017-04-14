@@ -120,7 +120,9 @@ public class ScreenMainMenu extends DefaultScreen {
                 @Override
                 public void clicked(InputEvent event, float x, float y) {
                     super.clicked(event, x, y);
-                    ScreenManager.getInstance().setScreen(com.mygdx.eoh.enums.Screens.ScreenSingleGame);
+                    //ScreenManager.getInstance().setScreen(com.mygdx.eoh.enums.Screens.ScreenSingleGame);
+                    ScreenLoading.destinationScreen = Screens.ScreenSingleGame;
+                    ScreenManager.getInstance().setScreen(Screens.ScreenLoading);
                 }
             });
 
@@ -128,7 +130,9 @@ public class ScreenMainMenu extends DefaultScreen {
                 @Override
                 public void clicked(InputEvent event, float x, float y) {
                     super.clicked(event, x, y);
-                    ScreenManager.getInstance().setScreen(Screens.ScreenNewNetGame);
+                    ScreenLoading.destinationScreen = Screens.ScreenNewNetGame;
+//                    ScreenManager.getInstance().setScreen(Screens.ScreenNewNetGame);
+                    ScreenManager.getInstance().setScreen(Screens.ScreenLoading);
                 }
             });
 
