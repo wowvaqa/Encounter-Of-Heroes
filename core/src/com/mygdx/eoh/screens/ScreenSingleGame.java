@@ -249,7 +249,7 @@ class ScreenSingleGame extends DefaultGameScreen {
     }
 
     private MapFile loadMap(Stage mainStage) {
-        FileHandle file = Gdx.files.local("maps/1.map");
+        FileHandle file = Gdx.files.internal("maps/1.map");
         //MapEditor map = new MapEditor();
         MapFile map = new MapFile();
 
