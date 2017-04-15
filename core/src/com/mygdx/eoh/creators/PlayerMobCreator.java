@@ -62,15 +62,9 @@ public class PlayerMobCreator {
         playerMob.setPosition(
                 playerMob.getCoordinateXonMap() * Options.tileSize,
                 playerMob.getCoordinateYonMap() * Options.tileSize);
-        playerMob.getPlayerColorImage().setPosition(
-                playerMob.getCoordinateXonMap() * Options.tileSize,
-                playerMob.getCoordinateYonMap() * Options.tileSize);
-        playerMob.getApBar().setPosition(
-                playerMob.getCoordinateXonMap() * Options.tileSize,
-                playerMob.getCoordinateYonMap() * Options.tileSize);
-        playerMob.getManaBar().setPosition(
-                playerMob.getCoordinateXonMap() * Options.tileSize,
-                playerMob.getCoordinateYonMap() * Options.tileSize);
+//        playerMob.getPlayerColorImage().setPosition(
+//                playerMob.getCoordinateXonMap() * Options.tileSize,
+//                playerMob.getCoordinateYonMap() * Options.tileSize);
         field.setPlayerMob(playerMob);
         GameStatus.getInstance().getPlayers().get(numberOfPlayerOwner).getPlayerMobs().add(playerMob);
 
@@ -111,9 +105,9 @@ public class PlayerMobCreator {
         castleMob.setPosition(
                 castleMob.getCoordinateXonMap() * Options.tileSize,
                 castleMob.getCoordinateYonMap() * Options.tileSize);
-        castleMob.getPlayerColorImage().setPosition(
-                castleMob.getCoordinateXonMap() * Options.tileSize,
-                castleMob.getCoordinateYonMap() * Options.tileSize);
+//        castleMob.getPlayerColorImage().setPosition(
+//                castleMob.getCoordinateXonMap() * Options.tileSize,
+//                castleMob.getCoordinateYonMap() * Options.tileSize);
         field.setCastleMob(castleMob);
         GameStatus.getInstance().getPlayers().get(numberOfPlayerOwner).getCastleMobs().add(castleMob);
         //GameStatus.getInstance().getPlayers().get(numberOfPlayerOwner).getPlayerMobs().add(playerMob);

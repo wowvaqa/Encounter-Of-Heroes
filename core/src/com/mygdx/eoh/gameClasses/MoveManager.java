@@ -462,8 +462,6 @@ public class MoveManager {
             GameStatus.getInstance().getMoveButtons().add(moveButtonSE);
             GameStatus.getInstance().getMoveButtons().add(moveButtonSW);
             GameStatus.getInstance().getMoveButtons().add(cancelMove);
-
-            //DefaultGameScreen.sortZindex();
         }
     }
 
@@ -536,12 +534,10 @@ public class MoveManager {
         playerMob.setAnimation(AnimationCreator.getInstance().makeAnimation(
                 playerMob.getWalkN(), playerMob));
         playerMob.addAction(Actions.moveBy(0, Options.tileSize, getActionDuration(playerMob)));
-        playerMob.getPlayerColorImage().addAction(Actions.moveBy(0, Options.tileSize, 0.50f));
         gs.getMap().getFields()[playerMob.getCoordinateXonMap()][playerMob.getCoordinateYonMap()].setPlayerMob(null);
         playerMob.setCoordinateYonMap(playerMob.getCoordinateYonMap() + 1);
         gs.getMap().getFields()[playerMob.getCoordinateXonMap()][playerMob.getCoordinateYonMap()].setPlayerMob(playerMob);
         playerMob.getStepManager().setCheckStepping(true);
-        //DefaultGameScreen.sortZindex();
     }
 
     private void movePlayerMobSouth(PlayerMob playerMob) {
@@ -563,12 +559,10 @@ public class MoveManager {
         playerMob.setAnimation(AnimationCreator.getInstance().makeAnimation(playerMob.getWalkS(), playerMob));
         playerMob.getAnimation().getKeyFrameIndex(0);
         playerMob.addAction(Actions.moveBy(0, -Options.tileSize, getActionDuration(playerMob)));
-        playerMob.getPlayerColorImage().addAction(Actions.moveBy(0, -Options.tileSize, 0.50f));
         gs.getMap().getFields()[playerMob.getCoordinateXonMap()][playerMob.getCoordinateYonMap()].setPlayerMob(null);
         playerMob.setCoordinateYonMap(playerMob.getCoordinateYonMap() - 1);
         gs.getMap().getFields()[playerMob.getCoordinateXonMap()][playerMob.getCoordinateYonMap()].setPlayerMob(playerMob);
         playerMob.getStepManager().setCheckStepping(true);
-        //DefaultGameScreen.sortZindex();
     }
 
     /**
@@ -595,12 +589,10 @@ public class MoveManager {
         playerMob.setAnimation(AnimationCreator.getInstance().makeAnimation(playerMob.getWalkW(), playerMob));
         playerMob.getAnimation().getKeyFrameIndex(0);
         playerMob.addAction(Actions.moveBy(-Options.tileSize, 0, getActionDuration(playerMob)));
-        playerMob.getPlayerColorImage().addAction(Actions.moveBy(-Options.tileSize, 0, 0.50f));
         gs.getMap().getFields()[playerMob.getCoordinateXonMap()][playerMob.getCoordinateYonMap()].setPlayerMob(null);
         playerMob.setCoordinateXonMap(playerMob.getCoordinateXonMap() - 1);
         gs.getMap().getFields()[playerMob.getCoordinateXonMap()][playerMob.getCoordinateYonMap()].setPlayerMob(playerMob);
         playerMob.getStepManager().setCheckStepping(true);
-        //DefaultGameScreen.sortZindex();
     }
 
     /**
@@ -631,12 +623,10 @@ public class MoveManager {
         playerMob.setAnimation(AnimationCreator.getInstance().makeAnimation(playerMob.getWalkE(), playerMob));
         playerMob.getAnimation().getKeyFrameIndex(0);
         playerMob.addAction(Actions.moveBy(Options.tileSize, 0, getActionDuration(playerMob)));
-        playerMob.getPlayerColorImage().addAction(Actions.moveBy(Options.tileSize, 0, 0.50f));
         gs.getMap().getFields()[playerMob.getCoordinateXonMap()][playerMob.getCoordinateYonMap()].setPlayerMob(null);
         playerMob.setCoordinateXonMap(playerMob.getCoordinateXonMap() + 1);
         gs.getMap().getFields()[playerMob.getCoordinateXonMap()][playerMob.getCoordinateYonMap()].setPlayerMob(playerMob);
         playerMob.getStepManager().setCheckStepping(true);
-        //DefaultGameScreen.sortZindex();
     }
 
     /**
@@ -662,13 +652,11 @@ public class MoveManager {
         playerMob.setStateTime(0);
         playerMob.setAnimation(AnimationCreator.getInstance().makeAnimation(playerMob.getWalkE(), playerMob));
         playerMob.addAction(Actions.moveBy(Options.tileSize, Options.tileSize, getActionDuration(playerMob)));
-        playerMob.getPlayerColorImage().addAction(Actions.moveBy(Options.tileSize, Options.tileSize, 0.50f));
         gs.getMap().getFields()[playerMob.getCoordinateXonMap()][playerMob.getCoordinateYonMap()].setPlayerMob(null);
         playerMob.setCoordinateXonMap(playerMob.getCoordinateXonMap() + 1);
         playerMob.setCoordinateYonMap(playerMob.getCoordinateYonMap() + 1);
         gs.getMap().getFields()[playerMob.getCoordinateXonMap()][playerMob.getCoordinateYonMap()].setPlayerMob(playerMob);
         playerMob.getStepManager().setCheckStepping(true);
-        //DefaultGameScreen.sortZindex();
     }
 
     /**
@@ -695,13 +683,11 @@ public class MoveManager {
         playerMob.setAnimation(AnimationCreator.getInstance().makeAnimation(
                 playerMob.getWalkW(), playerMob));
         playerMob.addAction(Actions.moveBy(-Options.tileSize, Options.tileSize, getActionDuration(playerMob)));
-        playerMob.getPlayerColorImage().addAction(Actions.moveBy(-Options.tileSize, Options.tileSize, 0.50f));
         gs.getMap().getFields()[playerMob.getCoordinateXonMap()][playerMob.getCoordinateYonMap()].setPlayerMob(null);
         playerMob.setCoordinateXonMap(playerMob.getCoordinateXonMap() - 1);
         playerMob.setCoordinateYonMap(playerMob.getCoordinateYonMap() + 1);
         gs.getMap().getFields()[playerMob.getCoordinateXonMap()][playerMob.getCoordinateYonMap()].setPlayerMob(playerMob);
         playerMob.getStepManager().setCheckStepping(true);
-        //DefaultGameScreen.sortZindex();
     }
 
     /**
@@ -728,13 +714,11 @@ public class MoveManager {
         playerMob.setAnimation(AnimationCreator.getInstance().makeAnimation(playerMob.getWalkE(), playerMob));
         playerMob.getAnimation().getKeyFrameIndex(0);
         playerMob.addAction(Actions.moveBy(Options.tileSize, -Options.tileSize, getActionDuration(playerMob)));
-        playerMob.getPlayerColorImage().addAction(Actions.moveBy(Options.tileSize, -Options.tileSize, 0.50f));
         gs.getMap().getFields()[playerMob.getCoordinateXonMap()][playerMob.getCoordinateYonMap()].setPlayerMob(null);
         playerMob.setCoordinateXonMap(playerMob.getCoordinateXonMap() + 1);
         playerMob.setCoordinateYonMap(playerMob.getCoordinateYonMap() - 1);
         gs.getMap().getFields()[playerMob.getCoordinateXonMap()][playerMob.getCoordinateYonMap()].setPlayerMob(playerMob);
         playerMob.getStepManager().setCheckStepping(true);
-        //DefaultGameScreen.sortZindex();
     }
 
     /**
@@ -761,13 +745,11 @@ public class MoveManager {
         playerMob.setAnimation(AnimationCreator.getInstance().makeAnimation(playerMob.getWalkW(), playerMob));
         playerMob.getAnimation().getKeyFrameIndex(0);
         playerMob.addAction(Actions.moveBy(-Options.tileSize, -Options.tileSize, getActionDuration(playerMob)));
-        playerMob.getPlayerColorImage().addAction(Actions.moveBy(-Options.tileSize, -Options.tileSize, 0.50f));
         gs.getMap().getFields()[playerMob.getCoordinateXonMap()][playerMob.getCoordinateYonMap()].setPlayerMob(null);
         playerMob.setCoordinateXonMap(playerMob.getCoordinateXonMap() - 1);
         playerMob.setCoordinateYonMap(playerMob.getCoordinateYonMap() - 1);
         gs.getMap().getFields()[playerMob.getCoordinateXonMap()][playerMob.getCoordinateYonMap()].setPlayerMob(playerMob);
         playerMob.getStepManager().setCheckStepping(true);
-        //DefaultGameScreen.sortZindex();
     }
 
     public boolean isMoveButtonsCreated() {
