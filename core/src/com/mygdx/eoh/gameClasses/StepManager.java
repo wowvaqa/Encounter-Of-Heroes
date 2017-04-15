@@ -37,11 +37,11 @@ class StepManager {
             if (NetStatus.getInstance().getClient() == null) {
                 System.out.println("Nadepnieto na skrzynie ze skarbem :)");
                 playerMob.getFieldOfPlayerMob().getTreasure().setStepIn(true);
-                GameStatus.getInstance().getMainStage().addActor(playerMob.getFieldOfPlayerMob().getTreasure().getTreasureWindow());
+                GameStatus.getInstance().getMainStage().addActor(playerMob.getFieldOfPlayerMob().getTreasure().getTreasureWindow(playerMob));
             } else if (playerMob.getPlayerOwner() == GameStatus.getInstance().getCurrentPlayerTurn()) {
                 System.out.println("Nadepnieto na skrzynie ze skarbem GRA SIECIOWA :)");
                 playerMob.getFieldOfPlayerMob().getTreasure().setStepIn(true);
-                GameStatus.getInstance().getMainStage().addActor(playerMob.getFieldOfPlayerMob().getTreasure().getTreasureWindow());
+                GameStatus.getInstance().getMainStage().addActor(playerMob.getFieldOfPlayerMob().getTreasure().getTreasureWindow(playerMob));
             }
         }
     }

@@ -18,7 +18,7 @@ public class APBar extends AnimatedImage {
     public APBar(Animation animation, boolean isLooped, PlayerMob playerMob) {
         super(animation, isLooped);
         this.playerMobParent = playerMob;
-        this.setSize(Options.tileSize, Options.tileSize);
+        this.setSize(50, 50);
         setZIndex(4);
         this.setTouchable(Touchable.disabled);
     }
@@ -26,7 +26,7 @@ public class APBar extends AnimatedImage {
     public APBar(Animation animation, boolean isLooped, FreeMob freeMob) {
         super(animation, isLooped);
         this.freeMobParent = freeMob;
-        this.setSize(Options.tileSize, Options.tileSize);
+        this.setSize(50, 50);
         setZIndex(4);
         this.setTouchable(Touchable.disabled);
     }
@@ -51,9 +51,9 @@ public class APBar extends AnimatedImage {
 
     private void changePosition() {
         if (playerMobParent != null)
-            this.setPosition(playerMobParent.getX(), playerMobParent.getY());
+            this.setPosition(playerMobParent.getX() + 5, playerMobParent.getY() + 5);
         if (freeMobParent != null)
-            this.setPosition(freeMobParent.getX(), freeMobParent.getY());
+            this.setPosition(freeMobParent.getX() + 5, freeMobParent.getY() + 5);
     }
 
     /***********************************************************************************************

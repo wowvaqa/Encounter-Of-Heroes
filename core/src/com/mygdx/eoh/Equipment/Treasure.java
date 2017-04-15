@@ -14,6 +14,7 @@ import com.mygdx.eoh.assets.AssetsGameScreen;
 import com.mygdx.eoh.enums.AnimationTypes;
 import com.mygdx.eoh.gameClasses.GameStatus;
 import com.mygdx.eoh.gameClasses.Options;
+import com.mygdx.eoh.gameClasses.Player;
 import com.mygdx.eoh.gameClasses.PlayerMob;
 import com.mygdx.eoh.gameClasses.Positioning;
 import com.mygdx.eoh.net.NetStatus;
@@ -77,11 +78,11 @@ public class Treasure extends AnimatedImage {
      *
      * @return Window with equipment.
      */
-    public Window getTreasureWindow() {
+    public Window getTreasureWindow(PlayerMob playerMob) {
         final Window window = new Window("", AssetsGameScreen.getInstance().getManager().get("styles/skin.json", Skin.class));
 
         final Treasure treasure = this;
-        final PlayerMob playerMob = GameStatus.getInstance().getSelectedPlayerMob();
+        //playerMob = GameStatus.getInstance().getSelectedPlayerMob();
 
         window.setSize(600, 400);
         window.setModal(true);
@@ -105,19 +106,20 @@ public class Treasure extends AnimatedImage {
             }
         });
 
+        final PlayerMob finalPlayerMob = playerMob;
         textButtonTakeAll.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
                 super.clicked(event, x, y);
 
                 for (Equip equip : treasure.getEquips()) {
-                    playerMob.getEquip().add(equip);
+                    finalPlayerMob.getEquip().add(equip);
 
                     if (NetStatus.getInstance().getClient() != null) {
                         Network.CreateEquip createEquip = new Network.CreateEquip();
                         createEquip.enemyId = NetStatus.getInstance().getEnemyId();
-                        createEquip.locXofPlayerMob = playerMob.getCoordinateXonMap();
-                        createEquip.locYofPlayerMob = playerMob.getCoordinateYonMap();
+                        createEquip.locXofPlayerMob = finalPlayerMob.getCoordinateXonMap();
+                        createEquip.locYofPlayerMob = finalPlayerMob.getCoordinateYonMap();
                         createEquip.equipKind = Equip.getNetworkEquipKind(equip.getEquipKind());
                         NetStatus.getInstance().getClient().sendTCP(createEquip);
                     }
