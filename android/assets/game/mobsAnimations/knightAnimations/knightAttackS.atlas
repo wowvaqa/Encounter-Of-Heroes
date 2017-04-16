@@ -1,178 +1,178 @@
 
 knightAttackS.png
-format: RGBA8888
-filter: Nearest,Nearest
+format: RGBA4444
+filter: Linear,Linear
 repeat: none
 0048
   rotate: false
-  xy: 1, 757
-  size: 250, 250
-  orig: 250, 250
+  xy: 0, 384
+  size: 128, 128
+  orig: 128, 128
   offset: 0, 0
   index: -1
 0049
   rotate: false
-  xy: 1, 505
-  size: 250, 250
-  orig: 250, 250
+  xy: 0, 256
+  size: 128, 128
+  orig: 128, 128
   offset: 0, 0
   index: -1
 0050
   rotate: false
-  xy: 253, 757
-  size: 250, 250
-  orig: 250, 250
+  xy: 128, 384
+  size: 128, 128
+  orig: 128, 128
   offset: 0, 0
   index: -1
 0051
   rotate: false
-  xy: 1, 253
-  size: 250, 250
-  orig: 250, 250
+  xy: 0, 128
+  size: 128, 128
+  orig: 128, 128
   offset: 0, 0
   index: -1
 0052
   rotate: false
-  xy: 253, 505
-  size: 250, 250
-  orig: 250, 250
+  xy: 0, 0
+  size: 128, 128
+  orig: 128, 128
   offset: 0, 0
   index: -1
 0053
   rotate: false
-  xy: 505, 757
-  size: 250, 250
-  orig: 250, 250
+  xy: 128, 256
+  size: 128, 128
+  orig: 128, 128
   offset: 0, 0
   index: -1
 0054
   rotate: false
-  xy: 1, 1
-  size: 250, 250
-  orig: 250, 250
+  xy: 256, 384
+  size: 128, 128
+  orig: 128, 128
   offset: 0, 0
   index: -1
 0055
   rotate: false
-  xy: 253, 253
-  size: 250, 250
-  orig: 250, 250
+  xy: 384, 384
+  size: 128, 128
+  orig: 128, 128
   offset: 0, 0
   index: -1
 0056
   rotate: false
-  xy: 505, 505
-  size: 250, 250
-  orig: 250, 250
+  xy: 128, 128
+  size: 128, 128
+  orig: 128, 128
   offset: 0, 0
   index: -1
 0057
   rotate: false
-  xy: 757, 757
-  size: 250, 250
-  orig: 250, 250
+  xy: 128, 0
+  size: 128, 128
+  orig: 128, 128
   offset: 0, 0
   index: -1
 0058
   rotate: false
-  xy: 253, 1
-  size: 250, 250
-  orig: 250, 250
+  xy: 256, 256
+  size: 128, 128
+  orig: 128, 128
   offset: 0, 0
   index: -1
 0059
   rotate: false
-  xy: 505, 253
-  size: 250, 250
-  orig: 250, 250
+  xy: 384, 256
+  size: 128, 128
+  orig: 128, 128
   offset: 0, 0
   index: -1
 0060
   rotate: false
-  xy: 757, 505
-  size: 250, 250
-  orig: 250, 250
+  xy: 256, 128
+  size: 128, 128
+  orig: 128, 128
   offset: 0, 0
   index: -1
 0061
   rotate: false
-  xy: 505, 1
-  size: 250, 250
-  orig: 250, 250
+  xy: 256, 0
+  size: 128, 128
+  orig: 128, 128
   offset: 0, 0
   index: -1
 0062
   rotate: false
-  xy: 757, 253
-  size: 250, 250
-  orig: 250, 250
+  xy: 384, 128
+  size: 128, 128
+  orig: 128, 128
   offset: 0, 0
   index: -1
 0063
   rotate: false
-  xy: 757, 1
-  size: 250, 250
-  orig: 250, 250
+  xy: 384, 0
+  size: 128, 128
+  orig: 128, 128
   offset: 0, 0
   index: -1
 
 knightAttackS2.png
-format: RGBA8888
-filter: Nearest,Nearest
+format: RGBA4444
+filter: Linear,Linear
 repeat: none
 0064
   rotate: false
-  xy: 1, 253
-  size: 250, 250
-  orig: 250, 250
+  xy: 0, 128
+  size: 128, 128
+  orig: 128, 128
   offset: 0, 0
   index: -1
 0065
   rotate: false
-  xy: 1, 1
-  size: 250, 250
-  orig: 250, 250
+  xy: 0, 0
+  size: 128, 128
+  orig: 128, 128
   offset: 0, 0
   index: -1
 0066
   rotate: false
-  xy: 253, 253
-  size: 250, 250
-  orig: 250, 250
+  xy: 128, 128
+  size: 128, 128
+  orig: 128, 128
   offset: 0, 0
   index: -1
 0067
   rotate: false
-  xy: 253, 1
-  size: 250, 250
-  orig: 250, 250
+  xy: 128, 0
+  size: 128, 128
+  orig: 128, 128
   offset: 0, 0
   index: -1
 0068
   rotate: false
-  xy: 505, 253
-  size: 250, 250
-  orig: 250, 250
+  xy: 256, 128
+  size: 128, 128
+  orig: 128, 128
   offset: 0, 0
   index: -1
 0069
   rotate: false
-  xy: 505, 1
-  size: 250, 250
-  orig: 250, 250
+  xy: 256, 0
+  size: 128, 128
+  orig: 128, 128
   offset: 0, 0
   index: -1
 0070
   rotate: false
-  xy: 757, 253
-  size: 250, 250
-  orig: 250, 250
+  xy: 384, 128
+  size: 128, 128
+  orig: 128, 128
   offset: 0, 0
   index: -1
 0071
   rotate: false
-  xy: 757, 1
-  size: 250, 250
-  orig: 250, 250
+  xy: 384, 0
+  size: 128, 128
+  orig: 128, 128
   offset: 0, 0
   index: -1
