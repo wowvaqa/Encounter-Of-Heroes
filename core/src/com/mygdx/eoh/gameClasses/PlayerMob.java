@@ -176,7 +176,7 @@ public class PlayerMob extends DefaultMob {
             attackE = AnimationTypes.WizardAttackE;
             standing = AnimationTypes.WizardStanding;
             selected = AnimationTypes.WizardSelected;
-            cast = AnimationTypes.KnightCast;
+            cast = AnimationTypes.WizardCast;
         }
     }
 
@@ -296,7 +296,7 @@ public class PlayerMob extends DefaultMob {
      * @param playerMob PlayerMob object
      */
     public void addFadeOutActionWhenPlayerMobIsDead(PlayerMob playerMob) {
-        playerMob.addAction(Actions.fadeOut(0.5f));
+        playerMob.addAction(Actions.fadeOut(0.25f));
     }
 
     private Animation getAnimationForAttack(
@@ -402,6 +402,9 @@ public class PlayerMob extends DefaultMob {
     public void act(float delta) {
         super.act(delta);
 
+        ManaBar.recalculateManaBarFrameDuration(this);
+        APBar.recalculateApBarFrameDuration(this);
+
         if (this.getActionPoints() < this.getActualSpeed() + ModifierGetter.getSpeedModifier(this) && !this.getApBar().isApBarAdd()) {
             this.getStage().addActor(this.getApBar());
             this.getApBar().setApBarAdd(true);
@@ -419,6 +422,9 @@ public class PlayerMob extends DefaultMob {
         }
 
         if (this.getActions().size == 0 && this.getActualhp() < 1) {
+            MoveManager.removeButtons(this);
+            this.moveManager.setMoveButtonsCreated(false);
+            this.moveManager.setAttackButtonsCreated(false);
             DefaultMob.removeDeadMobs();
         } else if (this.getActions().size == 0) {
             this.setTouchable(Touchable.enabled);
@@ -426,7 +432,7 @@ public class PlayerMob extends DefaultMob {
                 this.stepManager.checkStep();
             }
             if (!isSelected) {
-                this.setLooped(true);
+                //this.setLooped(true);
                 this.setAnimation(AnimationCreator.getInstance().makeAnimation(standing));
                 this.setLooped(true);
             } else {
@@ -466,19 +472,19 @@ public class PlayerMob extends DefaultMob {
 
         Table expirienceTable = new Table();
         expirienceTable.padBottom(20);
-        expirienceTable.add(new Label("Poziom: " + getLevel(), AssetsGameScreen.getInstance().getManager().get("styles/skin.json", Skin.class)));
+        expirienceTable.add(new Label("Level: " + getLevel(), AssetsGameScreen.getInstance().getManager().get("styles/skin.json", Skin.class), "black32"));
         expirienceTable.row();
-        expirienceTable.add(new Label("Punkty doświadczenia: " + getActualExp(), AssetsGameScreen.getInstance().getManager().get("styles/skin.json", Skin.class)));
+        expirienceTable.add(new Label("Experience points: " + getActualExp(), AssetsGameScreen.getInstance().getManager().get("styles/skin.json", Skin.class), "black32"));
         expirienceTable.row();
-        expirienceTable.add(new Label("Następny poziom: " + getLevelingArray()[getLevel() + 1], AssetsGameScreen.getInstance().getManager().get("styles/skin.json", Skin.class)));
+        expirienceTable.add(new Label("Next level: " + getLevelingArray()[getLevel() + 1], AssetsGameScreen.getInstance().getManager().get("styles/skin.json", Skin.class), "black32"));
 
         Table statisticTable = new Table();
 
-        statisticTable.add(new Label("Atak", AssetsGameScreen.getInstance().getManager().get("styles/skin.json", Skin.class))).pad(5);
-        statisticTable.add(new Label("Obrona", AssetsGameScreen.getInstance().getManager().get("styles/skin.json", Skin.class))).pad(5);
-        statisticTable.add(new Label("Szybkosc", AssetsGameScreen.getInstance().getManager().get("styles/skin.json", Skin.class))).pad(5);
-        statisticTable.add(new Label("Moc", AssetsGameScreen.getInstance().getManager().get("styles/skin.json", Skin.class))).pad(5);
-        statisticTable.add(new Label("Wiedza", AssetsGameScreen.getInstance().getManager().get("styles/skin.json", Skin.class))).pad(5);
+        statisticTable.add(new Label("Attack", AssetsGameScreen.getInstance().getManager().get("styles/skin.json", Skin.class), "black32")).pad(5);
+        statisticTable.add(new Label("Defence", AssetsGameScreen.getInstance().getManager().get("styles/skin.json", Skin.class), "black32")).pad(5);
+        statisticTable.add(new Label("Speed", AssetsGameScreen.getInstance().getManager().get("styles/skin.json", Skin.class), "black32")).pad(5);
+        statisticTable.add(new Label("Power", AssetsGameScreen.getInstance().getManager().get("styles/skin.json", Skin.class), "black32")).pad(5);
+        statisticTable.add(new Label("Knowledge", AssetsGameScreen.getInstance().getManager().get("styles/skin.json", Skin.class), "black32")).pad(5);
 
         statisticTable.row();
 
@@ -501,14 +507,20 @@ public class PlayerMob extends DefaultMob {
         int finalPower = getActualPower() + ModifierGetter.getPowerModifier(this);
         int finalWisdom = getActualWisdom() + ModifierGetter.getWisdomModifier(this);
 
-        statisticTable.add(new Label("" + finalAttack + "/" + getAttack() + "", AssetsGameScreen.getInstance().getManager().get("styles/skin.json", Skin.class))).pad(5);
-        statisticTable.add(new Label("" + finalDefence + "/" + getDefence() + "", AssetsGameScreen.getInstance().getManager().get("styles/skin.json", Skin.class))).pad(5);
-        statisticTable.add(new Label("" + finalSpeed + "/" + getSpeed() + "", AssetsGameScreen.getInstance().getManager().get("styles/skin.json", Skin.class))).pad(5);
-        statisticTable.add(new Label("" + finalPower + "/" + getPower() + "", AssetsGameScreen.getInstance().getManager().get("styles/skin.json", Skin.class))).pad(5);
-        statisticTable.add(new Label("" + finalWisdom + "/" + getWisdom() + "", AssetsGameScreen.getInstance().getManager().get("styles/skin.json", Skin.class))).pad(5);
+//        statisticTable.add(new Label("" + finalAttack + "/" + getAttack() + "", AssetsGameScreen.getInstance().getManager().get("styles/skin.json", Skin.class))).pad(5);
+//        statisticTable.add(new Label("" + finalDefence + "/" + getDefence() + "", AssetsGameScreen.getInstance().getManager().get("styles/skin.json", Skin.class))).pad(5);
+//        statisticTable.add(new Label("" + finalSpeed + "/" + getSpeed() + "", AssetsGameScreen.getInstance().getManager().get("styles/skin.json", Skin.class))).pad(5);
+//        statisticTable.add(new Label("" + finalPower + "/" + getPower() + "", AssetsGameScreen.getInstance().getManager().get("styles/skin.json", Skin.class))).pad(5);
+//        statisticTable.add(new Label("" + finalWisdom + "/" + getWisdom() + "", AssetsGameScreen.getInstance().getManager().get("styles/skin.json", Skin.class))).pad(5);
+
+        statisticTable.add(new Label("" + finalAttack, AssetsGameScreen.getInstance().getManager().get("styles/skin.json", Skin.class), "black32")).pad(5);
+        statisticTable.add(new Label("" + finalDefence, AssetsGameScreen.getInstance().getManager().get("styles/skin.json", Skin.class), "black32")).pad(5);
+        statisticTable.add(new Label("" + finalSpeed, AssetsGameScreen.getInstance().getManager().get("styles/skin.json", Skin.class), "black32")).pad(5);
+        statisticTable.add(new Label("" + finalPower, AssetsGameScreen.getInstance().getManager().get("styles/skin.json", Skin.class), "black32")).pad(5);
+        statisticTable.add(new Label("" + finalWisdom, AssetsGameScreen.getInstance().getManager().get("styles/skin.json", Skin.class), "black32")).pad(5);
 
 
-        TextButton tbCancel = new TextButton("OK", AssetsGameScreen.getInstance().getManager().get("styles/skin.json", Skin.class));
+        TextButton tbCancel = new TextButton("CLOSE", AssetsGameScreen.getInstance().getManager().get("styles/skin.json", Skin.class));
         tbCancel.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {

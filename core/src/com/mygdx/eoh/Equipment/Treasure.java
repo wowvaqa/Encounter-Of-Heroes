@@ -14,7 +14,6 @@ import com.mygdx.eoh.assets.AssetsGameScreen;
 import com.mygdx.eoh.enums.AnimationTypes;
 import com.mygdx.eoh.gameClasses.GameStatus;
 import com.mygdx.eoh.gameClasses.Options;
-import com.mygdx.eoh.gameClasses.Player;
 import com.mygdx.eoh.gameClasses.PlayerMob;
 import com.mygdx.eoh.gameClasses.Positioning;
 import com.mygdx.eoh.net.NetStatus;
@@ -95,8 +94,8 @@ public class Treasure extends AnimatedImage {
             table.add(equip).size(100, 100).pad(5);
         }
 
-        TextButton textButtonClose = new TextButton("Zamknij", AssetsGameScreen.getInstance().getManager().get("styles/skin.json", Skin.class));
-        TextButton textButtonTakeAll = new TextButton("Weź wszystko", AssetsGameScreen.getInstance().getManager().get("styles/skin.json", Skin.class));
+        TextButton textButtonClose = new TextButton("CLOSE", AssetsGameScreen.getInstance().getManager().get("styles/skin.json", Skin.class));
+        TextButton textButtonTakeAll = new TextButton("TAKE ALL", AssetsGameScreen.getInstance().getManager().get("styles/skin.json", Skin.class));
 
         textButtonClose.addListener(new ClickListener() {
             @Override

@@ -50,11 +50,11 @@ public class ItemsWindow {
         final Table equipTable = new Table();
         final Table equippedTable = new Table();
 
-        equippedTable.add(new Label("Broń: ", AssetsGameScreen.getInstance().getManager().get("styles/skin.json", Skin.class), "black16"));
+        equippedTable.add(new Label("Weapon: ", AssetsGameScreen.getInstance().getManager().get("styles/skin.json", Skin.class), "black16"));
         equippedTable.add(playerMob.getWeapon()).size(100, 100).pad(5);
-        equippedTable.add(new Label("Pancerz: ", AssetsGameScreen.getInstance().getManager().get("styles/skin.json", Skin.class), "black16"));
+        equippedTable.add(new Label("Armor: ", AssetsGameScreen.getInstance().getManager().get("styles/skin.json", Skin.class), "black16"));
         equippedTable.add(playerMob.getArmor()).size(100, 100).pad(5);
-        equippedTable.add(new Label("Artefakt: ", AssetsGameScreen.getInstance().getManager().get("styles/skin.json", Skin.class), "black16"));
+        equippedTable.add(new Label("Artifact: ", AssetsGameScreen.getInstance().getManager().get("styles/skin.json", Skin.class), "black16"));
         equippedTable.add(playerMob.getArtifact()).size(100, 100).pad(5);
 
         for (Equip equip : playerMob.getEquip()) {
@@ -79,7 +79,7 @@ public class ItemsWindow {
             itemsTable.add(new Label(item.getItemName(), AssetsGameScreen.getInstance().getManager().get("styles/skin.json", Skin.class), "black16")).pad(5);
         }
 
-        TextButton tbCancel = new TextButton("Zamknij", AssetsGameScreen.getInstance().getManager().get("styles/skin.json", Skin.class));
+        TextButton tbCancel = new TextButton("CLOSE", AssetsGameScreen.getInstance().getManager().get("styles/skin.json", Skin.class));
         tbCancel.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
@@ -187,11 +187,11 @@ public class ItemsWindow {
 
                 equippedTable.reset();
 
-                equippedTable.add(new Label("Broń: ", AssetsGameScreen.getInstance().getManager().get("styles/skin.json", Skin.class), "black16"));
+                equippedTable.add(new Label("Weapon: ", AssetsGameScreen.getInstance().getManager().get("styles/skin.json", Skin.class), "black16"));
                 equippedTable.add(playerMob.getWeapon()).size(100, 100).pad(5);
-                equippedTable.add(new Label("Pancerz: ", AssetsGameScreen.getInstance().getManager().get("styles/skin.json", Skin.class), "black16"));
+                equippedTable.add(new Label("Armor: ", AssetsGameScreen.getInstance().getManager().get("styles/skin.json", Skin.class), "black16"));
                 equippedTable.add(playerMob.getArmor()).size(100, 100).pad(5);
-                equippedTable.add(new Label("Artefakt: ", AssetsGameScreen.getInstance().getManager().get("styles/skin.json", Skin.class), "black16"));
+                equippedTable.add(new Label("Artifact: ", AssetsGameScreen.getInstance().getManager().get("styles/skin.json", Skin.class), "black16"));
                 equippedTable.add(playerMob.getArtifact()).size(100, 100).pad(5);
 
                 equipTable.reset();

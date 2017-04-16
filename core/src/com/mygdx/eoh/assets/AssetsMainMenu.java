@@ -30,6 +30,7 @@ public class AssetsMainMenu extends DefaultAssets {
         super.createAssets();
 
         getManager().load("styles/skin.json", Skin.class);
+        getManager().load("mainMenu/interface/titleLogo.png", Texture.class, getParameter());
         getManager().load("mainMenu/interface/buttonSinglePlayerUp.png", Texture.class, getParameter());
         getManager().load("mainMenu/interface/buttonSinglePlayerDown.png", Texture.class, getParameter());
         getManager().load("mainMenu/interface/buttonHotSeatUp.png", Texture.class, getParameter());

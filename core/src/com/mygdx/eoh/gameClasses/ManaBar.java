@@ -28,8 +28,8 @@ public class ManaBar extends AnimatedImage {
      */
     static void recalculateManaBarFrameDuration(PlayerMob playerMob) {
 
-        float animationSpeed = (17.0f - (playerMob.getActualWisdom() + ModifierGetter.getWisdomModifier(playerMob)) * 0.5f) / 24;
-        System.out.println("Frame duration of MANABar: " + animationSpeed);
+        float animationSpeed = (100.0f - (playerMob.getActualWisdom() + ModifierGetter.getWisdomModifier(playerMob)) * 5.000f) / 24;
+        //System.out.println("Frame duration of MANABar: " + animationSpeed);
 
         if (animationSpeed <= 0)
             animationSpeed = 0.001f;

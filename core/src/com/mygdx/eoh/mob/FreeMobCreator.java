@@ -54,14 +54,14 @@ public class FreeMobCreator {
     private void createStatistic(FreeMob freeMob) {
         switch (freeMob.getFreeMobsKind()) {
             case Skeleton:
-                freeMob.setAttack(5);
-                freeMob.setActualAttack(5);
-                freeMob.setDefence(5);
-                freeMob.setActualDefence(5);
+                freeMob.setAttack(4);
+                freeMob.setActualAttack(4);
+                freeMob.setDefence(4);
+                freeMob.setActualDefence(4);
                 freeMob.setSpeed(3);
                 freeMob.setActualSpeed(3);
-                freeMob.setActualhp(10);
-                freeMob.setMaxHp(10);
+                freeMob.setActualhp(8);
+                freeMob.setMaxHp(8);
                 freeMob.setActionPoints(3);
                 break;
         }

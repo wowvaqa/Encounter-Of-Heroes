@@ -20,11 +20,11 @@ import com.mygdx.eoh.net.Network;
 public class BuyPlayerMob {
     private static BuyPlayerMob instance = new BuyPlayerMob();
 
-    public static BuyPlayerMob getInstance() {
-        return instance;
+    private BuyPlayerMob() {
     }
 
-    private BuyPlayerMob() {
+    public static BuyPlayerMob getInstance() {
+        return instance;
     }
 
     /**
@@ -38,13 +38,13 @@ public class BuyPlayerMob {
         window.setModal(true);
         Positioning.setWindowToCenter(window);
 
-        Label lblAsk = new Label("Czy chcesz kupić nowego bohatera?", AssetsGameScreen.getInstance().getManager().get("styles/skin.json", Skin.class));
-        Label lblPrice = new Label("Cena: 100 GOLD", AssetsGameScreen.getInstance().getManager().get("styles/skin.json", Skin.class));
-        final Label lblClass = new Label("Klasa: Rycerz", AssetsGameScreen.getInstance().getManager().get("styles/skin.json", Skin.class));
+        Label lblAsk = new Label("Do you want to buy a new hero?", AssetsGameScreen.getInstance().getManager().get("styles/skin.json", Skin.class));
+        Label lblPrice = new Label("Price: 100 GOLD", AssetsGameScreen.getInstance().getManager().get("styles/skin.json", Skin.class));
+        final Label lblClass = new Label("Class: Knight", AssetsGameScreen.getInstance().getManager().get("styles/skin.json", Skin.class));
 
-        TextButton tbNext = new TextButton("Następny", AssetsGameScreen.getInstance().getManager().get("styles/skin.json", Skin.class));
-        TextButton tbYes = new TextButton("TAK", AssetsGameScreen.getInstance().getManager().get("styles/skin.json", Skin.class));
-        TextButton tbNo = new TextButton("NIE", AssetsGameScreen.getInstance().getManager().get("styles/skin.json", Skin.class));
+        TextButton tbNext = new TextButton("NEXT", AssetsGameScreen.getInstance().getManager().get("styles/skin.json", Skin.class));
+        TextButton tbYes = new TextButton("YES", AssetsGameScreen.getInstance().getManager().get("styles/skin.json", Skin.class));
+        TextButton tbNo = new TextButton("NO", AssetsGameScreen.getInstance().getManager().get("styles/skin.json", Skin.class));
 
         GameStatus.getInstance().setNewPlayerMobClass(PlayerMobClasses.Knight);
 
@@ -84,8 +84,8 @@ public class BuyPlayerMob {
                     }
                 } else {
                     Dialog dialog = new Dialog("", AssetsGameScreen.getInstance().getManager().get("styles/skin.json", Skin.class));
-                    dialog.text("Za mało złota");
-                    dialog.button("Zamknij");
+                    dialog.text("Not enough gold");
+                    dialog.button("CLOSE");
                     dialog.show(GameStatus.getInstance().getMainStage());
                 }
 
@@ -107,10 +107,10 @@ public class BuyPlayerMob {
                 super.clicked(event, x, y);
                 if (GameStatus.getInstance().getNewPlayerMobClass().equals(PlayerMobClasses.Knight)){
                     GameStatus.getInstance().setNewPlayerMobClass(PlayerMobClasses.Wizard);
-                    lblClass.setText("Klasa: Czarodziej");
+                    lblClass.setText("Class: Wizard");
                 } else if (GameStatus.getInstance().getNewPlayerMobClass().equals(PlayerMobClasses.Wizard)){
                     GameStatus.getInstance().setNewPlayerMobClass(PlayerMobClasses.Knight);
-                    lblClass.setText("Klasa: Rycerz");
+                    lblClass.setText("Class: Knight");
                 }
             }
         });

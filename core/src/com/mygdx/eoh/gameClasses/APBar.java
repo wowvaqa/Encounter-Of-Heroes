@@ -39,7 +39,7 @@ public class APBar extends AnimatedImage {
     static public void recalculateApBarFrameDuration(PlayerMob playerMob) {
 
         float animationSpeed = (17.0f - (playerMob.getActualSpeed() + ModifierGetter.getSpeedModifier(playerMob)) * 0.5f) / 24;
-        System.out.println("Frame duration of APBAR: " + animationSpeed);
+        //System.out.println("Frame duration of APBAR: " + animationSpeed);
 
         if (animationSpeed <= 0)
             animationSpeed = 0.001f;

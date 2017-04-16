@@ -43,21 +43,12 @@ public class PlayerMobCreator {
             playerMob.getLevelingArray()[i] = playerMob.getLevelingArray()[i - 1] + 50;
         }
 
-        playerMob.setSpeed(10);
-        playerMob.setActualSpeed(10);
-        playerMob.setAttack(5);
-        playerMob.setActualAttack(5);
-        playerMob.setDefence(5);
-        playerMob.setActualDefence(5);
-        playerMob.setActualhp(10);
-        playerMob.setActualPower(2);
-        playerMob.setPower(2);
-        playerMob.setActualWisdom(10);
-        playerMob.setWisdom(10);
-        playerMob.setMaxHp(10);
-        playerMob.setMaxMana(10);
-        playerMob.setActualMana(10);
-        playerMob.setActionPoints(playerMob.getActualSpeed());
+        if (playerMobClass.equals(PlayerMobClasses.Knight))
+            createStatisticForKnight(playerMob);
+        else if (playerMobClass.equals(PlayerMobClasses.Wizard))
+            createStatisticForWizard(playerMob);
+
+
         playerMob.setSize(Options.tileSize, Options.tileSize);
         playerMob.setPosition(
                 playerMob.getCoordinateXonMap() * Options.tileSize,
@@ -72,14 +63,60 @@ public class PlayerMobCreator {
         playerMob.setWeapon(Equip.createEquip(EquipKinds.None));
         playerMob.setArtifact(Equip.createEquip(EquipKinds.None));
 
-        playerMob.getEquip().add(Equip.createEquip(EquipKinds.WoodenStick));
-        playerMob.getEquip().add(Equip.createEquip(EquipKinds.LeatherPants));
-        playerMob.getEquip().add(Equip.createEquip(EquipKinds.GoldRing));
-        playerMob.getEquip().add(Equip.createEquip(EquipKinds.MagicStaff));
-        playerMob.getEquip().add(Equip.createEquip(EquipKinds.LeatherArmor));
-        playerMob.getEquip().add(Equip.createEquip(EquipKinds.SphereOfSpeed));
+//        playerMob.getEquip().add(Equip.createEquip(EquipKinds.WoodenStick));
+//        playerMob.getEquip().add(Equip.createEquip(EquipKinds.LeatherPants));
+//        playerMob.getEquip().add(Equip.createEquip(EquipKinds.GoldRing));
+//        playerMob.getEquip().add(Equip.createEquip(EquipKinds.MagicStaff));
+//        playerMob.getEquip().add(Equip.createEquip(EquipKinds.LeatherArmor));
+//        playerMob.getEquip().add(Equip.createEquip(EquipKinds.SphereOfSpeed));
 
         return playerMob;
+    }
+
+    /**
+     * Creates statistic for Knight
+     *
+     * @param playerMob
+     */
+    private void createStatisticForKnight(PlayerMob playerMob) {
+        playerMob.setSpeed(5);
+        playerMob.setActualSpeed(5);
+        playerMob.setAttack(5);
+        playerMob.setActualAttack(5);
+        playerMob.setDefence(5);
+        playerMob.setActualDefence(5);
+        playerMob.setActualhp(10);
+        playerMob.setActualPower(2);
+        playerMob.setPower(2);
+        playerMob.setActualWisdom(2);
+        playerMob.setWisdom(2);
+        playerMob.setMaxHp(10);
+        playerMob.setMaxMana(2);
+        playerMob.setActualMana(2);
+        playerMob.setActionPoints(playerMob.getActualSpeed());
+    }
+
+    /**
+     * Creates statistic for Wizard
+     *
+     * @param playerMob
+     */
+    private void createStatisticForWizard(PlayerMob playerMob) {
+        playerMob.setSpeed(5);
+        playerMob.setActualSpeed(5);
+        playerMob.setAttack(4);
+        playerMob.setActualAttack(4);
+        playerMob.setDefence(4);
+        playerMob.setActualDefence(4);
+        playerMob.setActualhp(10);
+        playerMob.setActualPower(3);
+        playerMob.setPower(3);
+        playerMob.setActualWisdom(3);
+        playerMob.setWisdom(3);
+        playerMob.setMaxHp(10);
+        playerMob.setMaxMana(3);
+        playerMob.setActualMana(3);
+        playerMob.setActionPoints(playerMob.getActualSpeed());
     }
 
     /**

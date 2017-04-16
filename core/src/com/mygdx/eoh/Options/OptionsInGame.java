@@ -49,7 +49,7 @@ public class OptionsInGame {
         //Skin skin = AssetsGameScreen.getInstance().getManager().get("styles/skin.json", Skin.class);
 
         Label labelGrid = new Label("Grid: ", AssetsGameScreen.getInstance().getManager().get("styles/skin.json", Skin.class));
-        Label showEquipInfo = new Label("Show equip info: ", AssetsGameScreen.getInstance().getManager().get("styles/skin.json", Skin.class));
+        //Label showEquipInfo = new Label("Show equip info: ", AssetsGameScreen.getInstance().getManager().get("styles/skin.json", Skin.class));
         final Label labelGridInfo = new Label("ON", AssetsGameScreen.getInstance().getManager().get("styles/skin.json", Skin.class));
 
         TextButton tbGridOn = new TextButton("On", AssetsGameScreen.getInstance().getManager().get("styles/skin.json", Skin.class));
@@ -118,10 +118,10 @@ public class OptionsInGame {
         singleGameOptionsWindow.add(labelGridInfo).pad(5).size(100, 50);
         singleGameOptionsWindow.add(tbGridOn).pad(5);
         singleGameOptionsWindow.add(tbGridOff).pad(5);
-        singleGameOptionsWindow.row();
-        singleGameOptionsWindow.add(showEquipInfo).pad(5);
-        singleGameOptionsWindow.add(showEquipInfoOn).pad(5);
-        singleGameOptionsWindow.add(showEquipInfoOff).pad(5);
+//        singleGameOptionsWindow.row();
+//        singleGameOptionsWindow.add(showEquipInfo).pad(5);
+//        singleGameOptionsWindow.add(showEquipInfoOn).pad(5);
+//        singleGameOptionsWindow.add(showEquipInfoOff).pad(5);
         singleGameOptionsWindow.row();
 
         singleGameOptionsWindow.add(tbOk).pad(5).size(175, 50).colspan(4);

@@ -102,20 +102,20 @@ public class ScreenNetGame extends DefaultGameScreen {
                     fields[i][j] = new Field(AssetsGameScreen.getInstance().getManager().get(
                             "game/terrains/terrain.atlas", TextureAtlas.class).findRegion(
                             Map.getTextureRegionName(i, j, mapfile, Terrains.River)
-                    ));
+                    ), Terrains.River);
                 } else if (mapfile.fields[i][j].terrains.equals(MapFile.Terrains.Mountain)) {
                     fields[i][j] = new Field(AssetsGameScreen.getInstance().getManager().get(
                             "game/terrains/terrain.atlas", TextureAtlas.class).findRegion(
                             Map.getTextureRegionName(i, j, mapfile, Terrains.Mountain)
-                    ));
+                    ), Terrains.Mountain);
                 } else if (mapfile.fields[i][j].terrains.equals(MapFile.Terrains.Forest)) {
                     fields[i][j] = new Field(AssetsGameScreen.getInstance().getManager().get(
                             "game/terrains/terrain.atlas", TextureAtlas.class).findRegion(
                             Map.getTextureRegionName(i, j, mapfile, Terrains.Forest)
-                    ));
+                    ), Terrains.Forest);
                 } else {
                     fields[i][j] = new Field(AssetsGameScreen.getInstance().getManager().get(
-                            "game/terrains/terrain.atlas", TextureAtlas.class).findRegion("grass"));
+                            "game/terrains/terrain.atlas", TextureAtlas.class).findRegion("grass"), Terrains.Grass);
                 }
 
                 if (mapfile.fields[i][j].itemGold) {
@@ -289,11 +289,16 @@ public class ScreenNetGame extends DefaultGameScreen {
 
         if (NetStatus.getInstance().isSpellCastNet()) {
 
-            GameStatus.getInstance().getMap().getFields()
+            if (GameStatus.getInstance().getMap().getFields()
                     [NetStatus.getInstance().getLocationXofSpellCaster()]
-                    [NetStatus.getInstance().getLocationYofSpellCaster()].getPlayerMob().decreseMana(
-                    NetStatus.getInstance().getSpellManaCost()
-            );
+                    [NetStatus.getInstance().getLocationYofSpellCaster()].getPlayerMob() != null) {
+
+                GameStatus.getInstance().getMap().getFields()
+                        [NetStatus.getInstance().getLocationXofSpellCaster()]
+                        [NetStatus.getInstance().getLocationYofSpellCaster()].getPlayerMob().decreseMana(
+                        NetStatus.getInstance().getSpellManaCost()
+                );
+            }
 
             System.out.println("MANA: " + GameStatus.getInstance().getMap().getFields()
                     [NetStatus.getInstance().getLocationXofSpellCaster()]

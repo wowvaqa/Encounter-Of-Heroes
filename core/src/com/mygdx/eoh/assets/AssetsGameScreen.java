@@ -81,6 +81,7 @@ public class AssetsGameScreen extends DefaultAssets {
         // WIZARD
         getManager().load("game/mobsAnimations/wizardAnimations/wizardStanding.atlas", TextureAtlas.class);
         getManager().load("game/mobsAnimations/wizardAnimations/wizardSelected.atlas", TextureAtlas.class);
+        getManager().load("game/mobsAnimations/wizardAnimations/wizardCast.atlas", TextureAtlas.class);
         getManager().load("game/mobsAnimations/wizardAnimations/wizardWalkN.atlas", TextureAtlas.class);
         getManager().load("game/mobsAnimations/wizardAnimations/wizardWalkS.atlas", TextureAtlas.class);
         getManager().load("game/mobsAnimations/wizardAnimations/wizardWalkW.atlas", TextureAtlas.class);
@@ -141,16 +142,19 @@ public class AssetsGameScreen extends DefaultAssets {
          * AP & MANA bar animation
          ******************************************************************************************/
         getManager().load("game/mobsAnimations/apBarAnimation/apBarAnimation.atlas", TextureAtlas.class);
-        getManager().load("game/mobsAnimations/manaBarAnimation/manaBarAnimation.atlas", TextureAtlas.class);
+        getManager().load("game/mobsAnimations/manaBarAnimation/mpBarAnimation.atlas", TextureAtlas.class);
         /*******************************************************************************************
          * Items
          ******************************************************************************************/
-        getManager().load("game/items/gold/itemGold.atlas", TextureAtlas.class);
+        //getManager().load("game/items/gold/itemGold.atlas", TextureAtlas.class);
+        getManager().load("game/items/gold/itemGold.png", Texture.class, getParameter());
         /*******************************************************************************************
          * Mixtures
          ******************************************************************************************/
-        getManager().load("game/items/mixtures/healthPotion.atlas", TextureAtlas.class);
-        getManager().load("game/items/mixtures/manaPotion.atlas", TextureAtlas.class);
+        //getManager().load("game/items/mixtures/healthPotion.atlas", TextureAtlas.class);
+        //getManager().load("game/items/mixtures/manaPotion.atlas", TextureAtlas.class);
+        getManager().load("game/items/mixtures/healthPotion.png", Texture.class, getParameter());
+        getManager().load("game/items/mixtures/manaPotion.png", Texture.class, getParameter());
         getManager().load("game/items/mixtures/potionUseAnimation.atlas", TextureAtlas.class);
         /*******************************************************************************************
          * Treasure

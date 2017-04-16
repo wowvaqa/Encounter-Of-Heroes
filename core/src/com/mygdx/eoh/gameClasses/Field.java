@@ -35,12 +35,14 @@ public class Field extends Image {
         super();
     }
 
-    public Field(Texture texture) {
+    public Field(Texture texture, Terrains terrain) {
         super(texture);
+        this.terrain = terrain;
     }
 
-    public Field(TextureRegion region) {
+    public Field(TextureRegion region, Terrains terrain) {
         super(region);
+        this.terrain = terrain;
     }
 
 

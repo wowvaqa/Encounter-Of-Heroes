@@ -1,6 +1,5 @@
 package com.mygdx.eoh.screens;
 
-import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.ui.Dialog;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
@@ -102,22 +101,22 @@ public class ScreenNewNetGame extends DefaultScreen {
         if (!client.isConnected()) {
             client.start();
             try {
-                //client.connect(5000, "85.255.9.69", 54555, 54777);
-                client.connect(10000, "192.168.1.5", 54555, 54777);
-                interfaceManager.lblServerStatus.setText("Serwer: połączony");
-                Gdx.app.log("Client", "Connected");
+                client.connect(10000, "85.255.9.69", 54555, 54777);
+                //client.connect(10000, "192.168.1.6", 54555, 54777);
+                interfaceManager.lblServerStatus.setText("Server: CONNECTED");
+                //Gdx.app.log("Client", "Connected");
                 NetStatus.getInstance().playerStatusRequest();
             } catch (IOException e) {
                 Dialog dialog = new Dialog("", AssetsMainMenu.getInstance().getManager().get("styles/skin.json", Skin.class));
-                interfaceManager.lblServerStatus.setText("Serwer: nie połączony");
-                dialog.text("Nieudane połączenie z serwerem");
-                dialog.button("OK");
+                interfaceManager.lblServerStatus.setText("Server: NOT CONNECTED");
+                dialog.text("Failed connection to server");
+                dialog.button("CLOSE");
                 dialog.show(getMainStage());
                 //Gdx.app.log("Client", "Error with connection");
                 e.printStackTrace();
             }
         } else {
-            interfaceManager.lblServerStatus.setText("Serwer: połączony");
+            interfaceManager.lblServerStatus.setText("Server: CONNECTED");
             NetStatus.getInstance().playerStatusRequest();
         }
     }
@@ -134,8 +133,8 @@ public class ScreenNewNetGame extends DefaultScreen {
 
         if (NetStatus.getInstance().isLoginSuccess()) {
             Dialog dialog = new Dialog("", AssetsMainMenu.getInstance().getManager().get("styles/skin.json", Skin.class));
-            dialog.text("Logowanie udane");
-            dialog.button("OK");
+            dialog.text("Successful login");
+            dialog.button("CLOSE");
             dialog.show(this.getMainStage());
             NetStatus.getInstance().setLoginSuccess(false);
             interfaceManager.lblLoginStatus.setText(NetStatus.getInstance().getNetLogin());
@@ -143,23 +142,23 @@ public class ScreenNewNetGame extends DefaultScreen {
 
         if (NetStatus.getInstance().isLoginUnsuccess()) {
             Dialog dialog = new Dialog("", AssetsMainMenu.getInstance().getManager().get("styles/skin.json", Skin.class));
-            dialog.text("Logowanie udane");
-            dialog.button("OK");
+            dialog.text("Failed login");
+            dialog.button("CLOSE");
             dialog.show(this.getMainStage());
             NetStatus.getInstance().setLoginUnsuccess(false);
         }
 
         if (NetStatus.getInstance().isRegisterSuccess()) {
             Dialog dialog = new Dialog("", AssetsMainMenu.getInstance().getManager().get("styles/skin.json", Skin.class));
-            dialog.text("Rejestracja pomyślna");
-            dialog.button("OK");
+            dialog.text("Successful registration");
+            dialog.button("CLOSE");
             dialog.show(this.getMainStage());
             NetStatus.getInstance().setRegisterSuccess(false);
         }
 
         if (NetStatus.getInstance().isRegisterFail()) {
             Dialog dialog = new Dialog("", AssetsMainMenu.getInstance().getManager().get("styles/skin.json", Skin.class));
-            dialog.text("Rejestracja nieudana");
+            dialog.text("Failed registration");
             dialog.button("OK");
             dialog.show(this.getMainStage());
             NetStatus.getInstance().setRegisterFail(false);
@@ -172,27 +171,27 @@ public class ScreenNewNetGame extends DefaultScreen {
 
         if (NetStatus.getInstance().isUnLogin()) {
             Dialog dialog = new Dialog("", AssetsMainMenu.getInstance().getManager().get("styles/skin.json", Skin.class));
-            dialog.text("Wylogowanie");
+            dialog.text("Logged out");
             dialog.button("OK");
             dialog.show(this.getMainStage());
             NetStatus.getInstance().setUnLogin(false);
-            interfaceManager.lblLoginStatus.setText("Nie zalogowany");
+            interfaceManager.lblLoginStatus.setText("Not logged in");
         }
 
         if (NetStatus.getInstance().isStatisticReceive()) {
-            interfaceManager.lblgamesPlayed.setText("Gry: " + Integer.toString(NetStatus.getInstance().getGamesPlayed()));
-            interfaceManager.lblgamesWon.setText("Wygrane: " + Integer.toString(NetStatus.getInstance().getGamesWon()));
-            interfaceManager.lblgamesLost.setText("Przegrane: " + Integer.toString(NetStatus.getInstance().getGamesLost()));
+            interfaceManager.lblgamesPlayed.setText("Games played: " + Integer.toString(NetStatus.getInstance().getGamesPlayed()));
+            interfaceManager.lblgamesWon.setText("Games won: " + Integer.toString(NetStatus.getInstance().getGamesWon()));
+            interfaceManager.lblgamesLost.setText("Games lost: " + Integer.toString(NetStatus.getInstance().getGamesLost()));
             String rank;
 
             switch (NetStatus.getInstance().getRank()) {
                 case 0:
-                    rank = "Szeregowiec";
+                    rank = "PRIVATE";
                     break;
                 default:
                     rank = "-";
             }
-            interfaceManager.lblrank.setText("Ranga: " + rank);
+            interfaceManager.lblrank.setText("Rank: " + rank);
             NetStatus.getInstance().setStatisticReceive(false);
         }
     }
@@ -214,7 +213,7 @@ public class ScreenNewNetGame extends DefaultScreen {
         window.setModal(true);
         Positioning.setWindowToCenter(window);
 
-        TextButton tbCancel = new TextButton("Anuluj", AssetsMainMenu.getInstance().getManager().get("styles/skin.json", Skin.class));
+        TextButton tbCancel = new TextButton("CANCEL", AssetsMainMenu.getInstance().getManager().get("styles/skin.json", Skin.class));
         tbCancel.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
@@ -226,7 +225,7 @@ public class ScreenNewNetGame extends DefaultScreen {
         final TextField tfLogin = new TextField("", AssetsMainMenu.getInstance().getManager().get("styles/skin.json", Skin.class));
         final TextField tfPassword = new TextField("", AssetsMainMenu.getInstance().getManager().get("styles/skin.json", Skin.class));
 
-        final TextButton tbLogIn = new TextButton("Zaloguj", AssetsMainMenu.getInstance().getManager().get("styles/skin.json", Skin.class));
+        final TextButton tbLogIn = new TextButton("LOG IN", AssetsMainMenu.getInstance().getManager().get("styles/skin.json", Skin.class));
         tbLogIn.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
@@ -245,8 +244,8 @@ public class ScreenNewNetGame extends DefaultScreen {
             }
         });
 
-        Label lblLogin = new Label("Login:", AssetsMainMenu.getInstance().getManager().get("styles/skin.json", Skin.class));
-        Label lblPassword = new Label("Hasło:", AssetsMainMenu.getInstance().getManager().get("styles/skin.json", Skin.class));
+        Label lblLogin = new Label("Login:", AssetsMainMenu.getInstance().getManager().get("styles/skin.json", Skin.class), "black32");
+        Label lblPassword = new Label("Password:", AssetsMainMenu.getInstance().getManager().get("styles/skin.json", Skin.class), "black32");
 
         Table buttonTable = new Table();
         buttonTable.add(tbLogIn).pad(5);
@@ -273,7 +272,7 @@ public class ScreenNewNetGame extends DefaultScreen {
         window.setModal(true);
         Positioning.setWindowToCenter(window);
 
-        TextButton tbCancel = new TextButton("Anuluj", AssetsMainMenu.getInstance().getManager().get("styles/skin.json", Skin.class));
+        TextButton tbCancel = new TextButton("Cancel", AssetsMainMenu.getInstance().getManager().get("styles/skin.json", Skin.class));
         tbCancel.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
@@ -285,7 +284,7 @@ public class ScreenNewNetGame extends DefaultScreen {
         final TextField tfLogin = new TextField("", AssetsMainMenu.getInstance().getManager().get("styles/skin.json", Skin.class));
         final TextField tfPassword = new TextField("", AssetsMainMenu.getInstance().getManager().get("styles/skin.json", Skin.class));
 
-        TextButton tbLogIn = new TextButton("Zarejestruj", AssetsMainMenu.getInstance().getManager().get("styles/skin.json", Skin.class));
+        TextButton tbLogIn = new TextButton("Sign up", AssetsMainMenu.getInstance().getManager().get("styles/skin.json", Skin.class));
         tbLogIn.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
@@ -302,8 +301,8 @@ public class ScreenNewNetGame extends DefaultScreen {
             }
         });
 
-        Label lblLogin = new Label("Login:", AssetsMainMenu.getInstance().getManager().get("styles/skin.json", Skin.class));
-        Label lblPassword = new Label("Hasło:", AssetsMainMenu.getInstance().getManager().get("styles/skin.json", Skin.class));
+        Label lblLogin = new Label("Login:", AssetsMainMenu.getInstance().getManager().get("styles/skin.json", Skin.class), "black32");
+        Label lblPassword = new Label("Password:", AssetsMainMenu.getInstance().getManager().get("styles/skin.json", Skin.class), "black32");
 
         window.add(lblLogin).colspan(2);
         window.row();
@@ -349,26 +348,26 @@ public class ScreenNewNetGame extends DefaultScreen {
         }
 
         private void createButtons() {
-            lblgamesPlayed = new Label("Gry: -", AssetsMainMenu.getInstance().getManager().get("styles/skin.json", Skin.class), "black16");
-            lblgamesWon = new Label("Wygrane: -", AssetsMainMenu.getInstance().getManager().get("styles/skin.json", Skin.class), "black16");
-            lblgamesLost = new Label("Przegrane: -", AssetsMainMenu.getInstance().getManager().get("styles/skin.json", Skin.class), "black16");
-            lblrank = new Label("Ranga: -", AssetsMainMenu.getInstance().getManager().get("styles/skin.json", Skin.class), "black16");
+            lblgamesPlayed = new Label("Games played: -", AssetsMainMenu.getInstance().getManager().get("styles/skin.json", Skin.class), "black16");
+            lblgamesWon = new Label("Games won: -", AssetsMainMenu.getInstance().getManager().get("styles/skin.json", Skin.class), "black16");
+            lblgamesLost = new Label("Games lost: -", AssetsMainMenu.getInstance().getManager().get("styles/skin.json", Skin.class), "black16");
+            lblrank = new Label("Rank: -", AssetsMainMenu.getInstance().getManager().get("styles/skin.json", Skin.class), "black16");
 
             lblLoginStatusDiscription = new Label("Login: ", AssetsMainMenu.getInstance().getManager().get("styles/skin.json", Skin.class), "black16");
-            lblLoginStatus = new Label("Nie zalogowany", AssetsMainMenu.getInstance().getManager().get("styles/skin.json", Skin.class), "black16");
-            lblServerStatus = new Label("Serwer: nie połączony", AssetsMainMenu.getInstance().getManager().get("styles/skin.json", Skin.class), "black16");
+            lblLoginStatus = new Label("Not logged in", AssetsMainMenu.getInstance().getManager().get("styles/skin.json", Skin.class), "black16");
+            lblServerStatus = new Label("Server: NOT CONNECTED", AssetsMainMenu.getInstance().getManager().get("styles/skin.json", Skin.class), "black16");
             //lblStatusOfLogin = lblLoginStatus;
-            lblOnlinePlayers = new Label("Gracze online: ", AssetsMainMenu.getInstance().getManager().get("styles/skin.json", Skin.class), "black16");
+            lblOnlinePlayers = new Label("Players online: ", AssetsMainMenu.getInstance().getManager().get("styles/skin.json", Skin.class), "black16");
             lblOnlinePlayersAmount = new Label("", AssetsMainMenu.getInstance().getManager().get("styles/skin.json", Skin.class), "black16");
             //labelAmountOfOnlinePlayers = lblOnlinePlayersAmount;
 
-            lblPlayerMobClass = new Label("Klasa: Rycerz", AssetsMainMenu.getInstance().getManager().get("styles/skin.json", Skin.class), "black32");
-            tbNextClass = new TextButton("Natępna klasa", AssetsMainMenu.getInstance().getManager().get("styles/skin.json", Skin.class));
+            lblPlayerMobClass = new Label("Class: Knight", AssetsMainMenu.getInstance().getManager().get("styles/skin.json", Skin.class), "black32");
+            tbNextClass = new TextButton("Next class", AssetsMainMenu.getInstance().getManager().get("styles/skin.json", Skin.class));
 
-            tbLogin = new TextButton("Logowanie", AssetsMainMenu.getInstance().getManager().get("styles/skin.json", Skin.class));
-            tbRegister = new TextButton("Rejestracja", AssetsMainMenu.getInstance().getManager().get("styles/skin.json", Skin.class));
-            tbPlay = new TextButton("GRAJ", AssetsMainMenu.getInstance().getManager().get("styles/skin.json", Skin.class));
-            tbExit = new TextButton("Exit", AssetsMainMenu.getInstance().getManager().get("styles/skin.json", Skin.class));
+            tbLogin = new TextButton("Log In", AssetsMainMenu.getInstance().getManager().get("styles/skin.json", Skin.class));
+            tbRegister = new TextButton("Sign up", AssetsMainMenu.getInstance().getManager().get("styles/skin.json", Skin.class));
+            tbPlay = new TextButton("PLAY", AssetsMainMenu.getInstance().getManager().get("styles/skin.json", Skin.class));
+            tbExit = new TextButton("EXIT", AssetsMainMenu.getInstance().getManager().get("styles/skin.json", Skin.class));
         }
 
         /**
@@ -384,7 +383,7 @@ public class ScreenNewNetGame extends DefaultScreen {
                     if (NetStatus.getInstance().getNetLogin() == null) {
                         new Dialog("", (Skin) AssetsMainMenu.getInstance().getManager().get("styles/skin.json")) {
                             {
-                                text("Gracz nie zalogowany");
+                                text("Player not logged in");
                                 button("OK", "ok");
                             }
 
@@ -413,8 +412,8 @@ public class ScreenNewNetGame extends DefaultScreen {
 
                         new Dialog("", (Skin) AssetsMainMenu.getInstance().getManager().get("styles/skin.json")) {
                             {
-                                text("Szukam przeciwnika...");
-                                button("Anuluj", "ANULUJ");
+                                text("Looking for enemy...");
+                                button("CANCEL", "ANULUJ");
                             }
 
                             @Override
@@ -435,10 +434,10 @@ public class ScreenNewNetGame extends DefaultScreen {
                     super.clicked(event, x, y);
                     if (GameStatus.getInstance().getNewPlayerMobClass().equals(PlayerMobClasses.Knight)) {
                         GameStatus.getInstance().setNewPlayerMobClass(PlayerMobClasses.Wizard);
-                        lblPlayerMobClass.setText("Klasa: Czarodziej");
+                        lblPlayerMobClass.setText("Class: Wizard");
                     } else if (GameStatus.getInstance().getNewPlayerMobClass().equals(PlayerMobClasses.Wizard)) {
                         GameStatus.getInstance().setNewPlayerMobClass(PlayerMobClasses.Knight);
-                        lblPlayerMobClass.setText("Klasa: Rycerz");
+                        lblPlayerMobClass.setText("Class: Knight");
                     }
                 }
             });
@@ -447,9 +446,9 @@ public class ScreenNewNetGame extends DefaultScreen {
                 @Override
                 public void clicked(InputEvent event, float x, float y) {
                     super.clicked(event, x, y);
-                    if (tbLogin.getText().equals("Wyloguj")) {
-                        tbLogin.setText("Zaloguj");
-                        lblLoginStatus.setText("Nie zalogowany");
+                    if (tbLogin.getText().equals("Log out")) {
+                        tbLogin.setText("Log In");
+                        lblLoginStatus.setText("Not Loged In");
                     } else {
                         getMainStage().addActor(getLoginWindow());
                     }

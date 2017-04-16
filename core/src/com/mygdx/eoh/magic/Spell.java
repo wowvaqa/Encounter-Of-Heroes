@@ -70,7 +70,8 @@ public class Spell {
                     @Override
                     public void clicked(InputEvent event, float x, float y) {
                         super.clicked(event, x, y);
-                        spell.getPlayerOwner().getMoveManager().showCastInterface(GameStatus.getInstance().getMapStage(), spell);
+                        if (playerOwner.getActualMana() >= manaCost)
+                            spell.getPlayerOwner().getMoveManager().showCastInterface(GameStatus.getInstance().getMapStage(), spell);
                     }
                 });
 
@@ -104,7 +105,8 @@ public class Spell {
                     @Override
                     public void clicked(InputEvent event, float x, float y) {
                         super.clicked(event, x, y);
-                        spell.getPlayerOwner().getMoveManager().showCastInterface(GameStatus.getInstance().getMapStage(), spell);
+                        if (playerOwner.getActualMana() >= manaCost)
+                            spell.getPlayerOwner().getMoveManager().showCastInterface(GameStatus.getInstance().getMapStage(), spell);
                     }
                 });
 

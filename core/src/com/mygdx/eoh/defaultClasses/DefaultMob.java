@@ -44,24 +44,42 @@ public class DefaultMob extends AnimatedImage {
     /**
      * Removes dead mobs from map.
      */
-    public static void removeDeadMobs(){
-        for (int i = 0; i < GameStatus.getInstance().getMap().getFieldsColumns(); i ++){
-            for (int j = 0; j < GameStatus.getInstance().getMap().getFieldsRows(); j ++){
+    public static void removeDeadMobs() {
+        for (int i = 0; i < GameStatus.getInstance().getMap().getFieldsColumns(); i++) {
+            for (int j = 0; j < GameStatus.getInstance().getMap().getFieldsRows(); j++) {
                 if (GameStatus.getInstance().getMap().getFields()[i][j].getPlayerMob() != null) {
                     if (GameStatus.getInstance().getMap().getFields()[i][j].getPlayerMob().getActualhp() < 1) {
                         GameStatus.getInstance().getMap().getFields()[i][j].getPlayerMob().getPlayerOwner().getPlayerMobs().remove(
                                 GameStatus.getInstance().getMap().getFields()[i][j].getPlayerMob()
                         );
+                        if (GameStatus.getInstance().getSelectedPlayerMob() != null) {
+                            if (GameStatus.getInstance().getSelectedPlayerMob().equals(
+                                    GameStatus.getInstance().getMap().getFields()[i][j].getPlayerMob()
+                            )) {
+                                GameStatus.getInstance().getEquipmentTable().setVisible(false);
+                                GameStatus.getInstance().getHeroTable().setVisible(false);
+                                GameStatus.getInstance().getSpellEffectsTable().clear();
+                                GameStatus.getInstance().getUpperBarRightTable().clear();
+                            }
+                        }
+
                         GameStatus.getInstance().getMap().getFields()[i][j].getPlayerMob().getPlayerColorImage().remove();
                         GameStatus.getInstance().getMap().getFields()[i][j].getPlayerMob().getPlayerOwner().chceckLoseCondition();
                         GameStatus.getInstance().getMap().getFields()[i][j].getPlayerMob().remove();
                         MoveManager.removeButtons(GameStatus.getInstance().getMap().getFields()[i][j].getPlayerMob());
                         GameStatus.getInstance().getMap().getFields()[i][j].setPlayerMob(null);
+
+
                     }
                 } else if (GameStatus.getInstance().getMap().getFields()[i][j].getFreeMob() != null) {
                     if (GameStatus.getInstance().getMap().getFields()[i][j].getFreeMob().getActualhp() < 1) {
+                        if (GameStatus.getInstance().getMap().getFields()[i][j].getFreeMob().isSelected()) {
+                            GameStatus.getInstance().getSpellEffectsTable().clear();
+                            GameStatus.getInstance().getUpperBarRightTable().clear();
+                        }
                         GameStatus.getInstance().getMap().getFields()[i][j].getFreeMob().remove();
                         GameStatus.getInstance().getMap().getFields()[i][j].setFreeMob(null);
+
                     }
                 }
             }

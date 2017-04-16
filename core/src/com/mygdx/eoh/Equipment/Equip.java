@@ -59,7 +59,7 @@ public class Equip extends Image {
                 equip.equipKind = EquipKinds.WoodenStick;
                 equip.equipType = EquipTypes.Weapon;
                 equip.equipModifiers.add(EquipModifier.createEquipModifier(equipKind));
-                equip.description = "Drewniany kij";
+                equip.description = "WOODEN STICK";
                 equip.dragImage = new Image(
                         AssetsGameInterface.getInstance().getManager().get("game/interface/equipmentIcons/woodStickIcon.png", Texture.class)
                 );
@@ -72,7 +72,7 @@ public class Equip extends Image {
                 equip.equipKind = EquipKinds.LeatherPants;
                 equip.equipType = EquipTypes.Armor;
                 equip.equipModifiers.add(EquipModifier.createEquipModifier(equipKind));
-                equip.description = "Skórzane spodnie";
+                equip.description = "LEATHER PANTS";
                 equip.dragImage = new Image(
                         AssetsGameInterface.getInstance().getManager().get("game/interface/equipmentIcons/leatherPantsIcon.png", Texture.class)
                 );
@@ -85,7 +85,7 @@ public class Equip extends Image {
                 equip.equipKind = EquipKinds.GoldRing;
                 equip.equipType = EquipTypes.Artifact;
                 equip.equipModifiers.add(EquipModifier.createEquipModifier(equipKind));
-                equip.description = "Złoty pierścień";
+                equip.description = "GOLDEN RING";
                 equip.dragImage = new Image(
                         AssetsGameInterface.getInstance().getManager().get("game/interface/equipmentIcons/goldRingIcon.png", Texture.class)
                 );
@@ -98,7 +98,7 @@ public class Equip extends Image {
                 equip.equipKind = EquipKinds.MagicStaff;
                 equip.equipType = EquipTypes.Weapon;
                 equip.equipModifiers.add(EquipModifier.createEquipModifier(equipKind));
-                equip.description = "Magiczna laska";
+                equip.description = "MAGIC STAFF";
                 equip.dragImage = new Image(
                         AssetsGameInterface.getInstance().getManager().get("game/interface/equipmentIcons/magicStaffIcon.png", Texture.class)
                 );
@@ -111,7 +111,7 @@ public class Equip extends Image {
                 equip.equipKind = EquipKinds.LeatherArmor;
                 equip.equipType = EquipTypes.Armor;
                 equip.equipModifiers.add(EquipModifier.createEquipModifier(equipKind));
-                equip.description = "Skórzana zbroja";
+                equip.description = "LEATHER ARMOR";
                 equip.dragImage = new Image(
                         AssetsGameInterface.getInstance().getManager().get("game/interface/equipmentIcons/leatherArmorIcon.png", Texture.class)
                 );
@@ -124,7 +124,7 @@ public class Equip extends Image {
                 equip.equipKind = EquipKinds.SphereOfSpeed;
                 equip.equipType = EquipTypes.Artifact;
                 equip.equipModifiers.add(EquipModifier.createEquipModifier(equipKind));
-                equip.description = "Kula szybkości";
+                equip.description = "SPHERE OF SPEED";
                 equip.dragImage = new Image(
                         AssetsGameInterface.getInstance().getManager().get("game/interface/equipmentIcons/sphereOfSpeedIcon.png", Texture.class)
                 );

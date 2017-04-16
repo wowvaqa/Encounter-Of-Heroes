@@ -3,11 +3,11 @@ package com.mygdx.eoh.items;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
+import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.badlogic.gdx.utils.SnapshotArray;
-import com.mygdx.eoh.animation.AnimatedImage;
 import com.mygdx.eoh.animation.AnimationCreator;
 import com.mygdx.eoh.assets.AssetsGameInterface;
 import com.mygdx.eoh.effects.InstantEffect;
@@ -21,7 +21,7 @@ import com.mygdx.eoh.gameClasses.PlayerMob;
  * Created by v on 2017-01-31.
  */
 
-public class Item extends AnimatedImage {
+public class Item extends Image {
 
     private PlayerMob playerOwner;
     private AvailableItems itemType;
@@ -30,13 +30,22 @@ public class Item extends AnimatedImage {
     private String itemDescription;
     private SnapshotArray<InstantEffect> instantEffects;
 
-    public Item(AnimationTypes animationTypes, AvailableItems availableItems) {
-        super(AnimationCreator.getInstance().makeAnimation(animationTypes), true);
+    public Item(Texture texture, AvailableItems availableItems) {
+        super(texture);
+
         itemType = availableItems;
         instantEffects = new SnapshotArray<InstantEffect>();
         createActions();
         this.createButton(this);
     }
+
+//    public Item(AnimationTypes animationTypes, AvailableItems availableItems) {
+//        super(AnimationCreator.getInstance().makeAnimation(animationTypes), true);
+//        itemType = availableItems;
+//        instantEffects = new SnapshotArray<InstantEffect>();
+//        createActions();
+//        this.createButton(this);
+//    }
 
     public void itemAction(PlayerMob playerMob) {
         if (this.itemType.equals(AvailableItems.Gold)) {
@@ -76,16 +85,16 @@ public class Item extends AnimatedImage {
 
     private void createActions(){
         if (this.itemType.equals(AvailableItems.ManaPotion)){
-            this.itemName = "Mikstura many";
-            this.itemDescription = "Zwiększa ilość many o 5";
+            this.itemName = "Potion of Mana";
+            this.itemDescription = "Mana + 5";
             instantEffects.add(new InstantEffect(
                     AnimationCreator.getInstance().makeAnimation(AnimationTypes.PotionUseAnimation),
                     false, InstantEffects.ManaPotion));
         }
 
         if (this.itemType.equals(AvailableItems.HealthPotion)){
-            this.itemName = "Mikstura zdrowia";
-            this.itemDescription = "Zwiększa ilość zdrowia o 4";
+            this.itemName = "Potion of health";
+            this.itemDescription = "HP + 4";
             instantEffects.add(new InstantEffect(
                     AnimationCreator.getInstance().makeAnimation(AnimationTypes.PotionUseAnimation),
                     false, InstantEffects.HealthPotion));

@@ -5,6 +5,7 @@ import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.mygdx.eoh.animation.AnimatedImage;
+import com.mygdx.eoh.animation.AnimationSpellCreator;
 import com.mygdx.eoh.assets.AssetsGameScreen;
 import com.mygdx.eoh.defaultClasses.DefaultDamageLabel;
 import com.mygdx.eoh.effects.InstantEffect;
@@ -55,13 +56,17 @@ public class CastButton extends AnimatedImage {
                     NetStatus.getInstance().getClient().sendTCP(spellCastNet);
                 }
 
-                for (InstantEffect instantEffect: spell.getInstantEffects()){
+                for (InstantEffect instantEffect : spell.getInstantEffects()) {
                     instantEffect.setPosition(getX(), getY());
                     instantEffect.setStateTime(0);
                     if (GameStatus.getInstance().getMap().getFields()[locationXonMap][locationYonMap].getPlayerMob() != null)
                         instantEffect.action(spell.getPlayerOwner(), GameStatus.getInstance().getMap().getFields()[locationXonMap][locationYonMap].getPlayerMob());
                     else if (GameStatus.getInstance().getMap().getFields()[locationXonMap][locationYonMap].getFreeMob() != null)
                         instantEffect.action(spell.getPlayerOwner(), GameStatus.getInstance().getMap().getFields()[locationXonMap][locationYonMap].getFreeMob());
+
+                    instantEffect.setAnimation(AnimationSpellCreator.getInstance().makeSpellAnimation(instantEffect.getInstantEffects()));
+                    instantEffect.setStateTime(0);
+                    instantEffect.setLooped(false);
                     GameStatus.getInstance().getMapStage().addActor(instantEffect);
                     showDamageLabel(instantEffect.getDamage(), locationXonMap, locationYonMap);
                 }

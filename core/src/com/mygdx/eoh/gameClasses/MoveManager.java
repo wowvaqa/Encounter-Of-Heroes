@@ -11,6 +11,7 @@ import com.mygdx.eoh.defaultClasses.DefaultDamageLabel;
 import com.mygdx.eoh.enums.AnimationTypes;
 import com.mygdx.eoh.enums.LocationToCheck;
 import com.mygdx.eoh.enums.SpellsKinds;
+import com.mygdx.eoh.enums.Terrains;
 import com.mygdx.eoh.magic.CastButton;
 import com.mygdx.eoh.magic.Spell;
 import com.mygdx.eoh.net.NetStatus;
@@ -127,7 +128,9 @@ public class MoveManager {
                 if (playerMob.getCoordinateYonMap() == map.getFieldsRows() - 1)
                     return false;
                 else if (map.getFields()[playerMob.getCoordinateXonMap()][playerMob.getCoordinateYonMap() + 1].getPlayerMob() != null ||
-                        map.getFields()[playerMob.getCoordinateXonMap()][playerMob.getCoordinateYonMap() + 1].getFreeMob() != null)
+                        map.getFields()[playerMob.getCoordinateXonMap()][playerMob.getCoordinateYonMap() + 1].getFreeMob() != null ||
+                        map.getFields()[playerMob.getCoordinateXonMap()][playerMob.getCoordinateYonMap() + 1].getTerrain().equals(Terrains.Mountain)
+                        )
                     return false;
                 else
                     return true;
@@ -135,7 +138,8 @@ public class MoveManager {
                 if (playerMob.getCoordinateYonMap() == 0)
                     return false;
                 else if (map.getFields()[playerMob.getCoordinateXonMap()][playerMob.getCoordinateYonMap() - 1].getPlayerMob() != null ||
-                        map.getFields()[playerMob.getCoordinateXonMap()][playerMob.getCoordinateYonMap() - 1].getFreeMob() != null)
+                        map.getFields()[playerMob.getCoordinateXonMap()][playerMob.getCoordinateYonMap() - 1].getFreeMob() != null ||
+                        map.getFields()[playerMob.getCoordinateXonMap()][playerMob.getCoordinateYonMap() - 1].getTerrain().equals(Terrains.Mountain))
                     return false;
                 else
                     return true;
@@ -143,7 +147,8 @@ public class MoveManager {
                 if (playerMob.getCoordinateXonMap() == map.getFieldsColumns() - 1)
                     return false;
                 else if (map.getFields()[playerMob.getCoordinateXonMap() + 1][playerMob.getCoordinateYonMap()].getPlayerMob() != null ||
-                        map.getFields()[playerMob.getCoordinateXonMap() + 1][playerMob.getCoordinateYonMap()].getFreeMob() != null)
+                        map.getFields()[playerMob.getCoordinateXonMap() + 1][playerMob.getCoordinateYonMap()].getFreeMob() != null ||
+                        map.getFields()[playerMob.getCoordinateXonMap() + 1][playerMob.getCoordinateYonMap()].getTerrain().equals(Terrains.Mountain))
                     return false;
                 else
                     return true;
@@ -151,7 +156,8 @@ public class MoveManager {
                 if (playerMob.getCoordinateXonMap() == 0)
                     return false;
                 else if (map.getFields()[playerMob.getCoordinateXonMap() - 1][playerMob.getCoordinateYonMap()].getPlayerMob() != null ||
-                        map.getFields()[playerMob.getCoordinateXonMap() - 1][playerMob.getCoordinateYonMap()].getFreeMob() != null)
+                        map.getFields()[playerMob.getCoordinateXonMap() - 1][playerMob.getCoordinateYonMap()].getFreeMob() != null ||
+                        map.getFields()[playerMob.getCoordinateXonMap() - 1][playerMob.getCoordinateYonMap()].getTerrain().equals(Terrains.Mountain))
                     return false;
                 else
                     return true;
@@ -159,7 +165,8 @@ public class MoveManager {
                 if (playerMob.getCoordinateXonMap() == map.getFieldsColumns() - 1 || playerMob.getCoordinateYonMap() == map.getFieldsRows() - 1)
                     return false;
                 else if (map.getFields()[playerMob.getCoordinateXonMap() + 1][playerMob.getCoordinateYonMap() + 1].getPlayerMob() != null ||
-                        map.getFields()[playerMob.getCoordinateXonMap() + 1][playerMob.getCoordinateYonMap() + 1].getFreeMob() != null)
+                        map.getFields()[playerMob.getCoordinateXonMap() + 1][playerMob.getCoordinateYonMap() + 1].getFreeMob() != null ||
+                        map.getFields()[playerMob.getCoordinateXonMap() + 1][playerMob.getCoordinateYonMap() + 1].getTerrain().equals(Terrains.Mountain))
                     return false;
                 else
                     return true;
@@ -167,7 +174,8 @@ public class MoveManager {
                 if (playerMob.getCoordinateXonMap() == 0 || playerMob.getCoordinateYonMap() == map.getFieldsRows() - 1)
                     return false;
                 else if (map.getFields()[playerMob.getCoordinateXonMap() - 1][playerMob.getCoordinateYonMap() + 1].getPlayerMob() != null ||
-                        map.getFields()[playerMob.getCoordinateXonMap() - 1][playerMob.getCoordinateYonMap() + 1].getFreeMob() != null)
+                        map.getFields()[playerMob.getCoordinateXonMap() - 1][playerMob.getCoordinateYonMap() + 1].getFreeMob() != null ||
+                        map.getFields()[playerMob.getCoordinateXonMap() - 1][playerMob.getCoordinateYonMap() + 1].getTerrain().equals(Terrains.Mountain))
                     return false;
                 else
                     return true;
@@ -175,7 +183,8 @@ public class MoveManager {
                 if (playerMob.getCoordinateXonMap() == map.getFieldsColumns() - 1 || playerMob.getCoordinateYonMap() == 0)
                     return false;
                 else if (map.getFields()[playerMob.getCoordinateXonMap() + 1][playerMob.getCoordinateYonMap() - 1].getPlayerMob() != null ||
-                        map.getFields()[playerMob.getCoordinateXonMap() + 1][playerMob.getCoordinateYonMap() - 1].getFreeMob() != null)
+                        map.getFields()[playerMob.getCoordinateXonMap() + 1][playerMob.getCoordinateYonMap() - 1].getFreeMob() != null ||
+                        map.getFields()[playerMob.getCoordinateXonMap() + 1][playerMob.getCoordinateYonMap() - 1].getTerrain().equals(Terrains.Mountain))
                     return false;
                 else
                     return true;
@@ -183,7 +192,8 @@ public class MoveManager {
                 if (playerMob.getCoordinateXonMap() == 0 || playerMob.getCoordinateYonMap() == 0)
                     return false;
                 else if (map.getFields()[playerMob.getCoordinateXonMap() - 1][playerMob.getCoordinateYonMap() - 1].getPlayerMob() != null ||
-                        map.getFields()[playerMob.getCoordinateXonMap() - 1][playerMob.getCoordinateYonMap() - 1].getFreeMob() != null)
+                        map.getFields()[playerMob.getCoordinateXonMap() - 1][playerMob.getCoordinateYonMap() - 1].getFreeMob() != null ||
+                        map.getFields()[playerMob.getCoordinateXonMap() - 1][playerMob.getCoordinateYonMap() - 1].getTerrain().equals(Terrains.Mountain))
                     return false;
                 else
                     return true;

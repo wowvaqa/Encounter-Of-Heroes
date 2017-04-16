@@ -4,6 +4,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
+import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
@@ -26,15 +27,19 @@ public class ScreenMainMenu extends DefaultScreen {
 
         Interface interfaceManager = new Interface();
 
+        super.getMainTable().add(new Image(AssetsMainMenu.getInstance().getManager().get("mainMenu/interface/titleLogo.png", Texture.class))).size(350, 168).padBottom(25);
+        super.getMainTable().row();
         super.getMainTable().add(interfaceManager.imageButtonSinglePlayer).size(150, 57).pad(2);
         super.getMainTable().row();
         super.getMainTable().add(interfaceManager.imageButtonHotSeat).size(150, 57).pad(2);
         super.getMainTable().row();
         super.getMainTable().add(interfaceManager.imageButtonMapEditor).size(150, 57).pad(2);
         super.getMainTable().row();
-        super.getMainTable().add(interfaceManager.imageButtonOptions).size(150, 57).pad(2);
-        super.getMainTable().row();
+        //super.getMainTable().add(interfaceManager.imageButtonOptions).size(150, 57).pad(2);
+        //super.getMainTable().row();
         super.getMainTable().add(interfaceManager.imageButtonExit).size(150, 57).pad(2);
+        super.getMainTable().row();
+        super.getMainTable().add(new Label("version 0.0001 ALPHA", AssetsMainMenu.getInstance().getManager().get("styles/skin.json", Skin.class), "black16"));
     }
 
     @Override

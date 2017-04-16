@@ -1,6 +1,7 @@
 package com.mygdx.eoh.items;
 
-import com.mygdx.eoh.enums.AnimationTypes;
+import com.badlogic.gdx.graphics.Texture;
+import com.mygdx.eoh.assets.AssetsGameScreen;
 import com.mygdx.eoh.gameClasses.Options;
 
 /**
@@ -10,11 +11,11 @@ import com.mygdx.eoh.gameClasses.Options;
 public class ItemCreator {
     private static ItemCreator instance = new ItemCreator();
 
-    public static ItemCreator getInstance() {
-        return instance;
+    private ItemCreator() {
     }
 
-    private ItemCreator() {
+    public static ItemCreator getInstance() {
+        return instance;
     }
 
     public Item createItem(AvailableItems availableItems, int locXonMap, int locYonMap){
@@ -31,21 +32,24 @@ public class ItemCreator {
     }
 
     private Item createGold(float locXonMap, float locYonMap) {
-        Item item = new Item(AnimationTypes.ItemGold, AvailableItems.Gold);
+        //Item item = new Item(AnimationTypes.ItemGold, AvailableItems.Gold);
+        Item item = new Item(AssetsGameScreen.getInstance().getManager().get("game/items/gold/itemGold.png", Texture.class), AvailableItems.Gold);
         item.setPosition(locXonMap * Options.tileSize, locYonMap * Options.tileSize);
         item.setSize(Options.tileSize, Options.tileSize);
         return item;
     }
 
     private Item createManaPotion(float locXonMap, float locYonMap) {
-        Item item = new Item(AnimationTypes.ManaPotionAnimation, AvailableItems.ManaPotion);
+        //Item item = new Item(AnimationTypes.ManaPotionAnimation, AvailableItems.ManaPotion);
+        Item item = new Item(AssetsGameScreen.getInstance().getManager().get("game/items/mixtures/manaPotion.png", Texture.class), AvailableItems.ManaPotion);
         item.setPosition(locXonMap * Options.tileSize, locYonMap * Options.tileSize);
         item.setSize(Options.tileSize, Options.tileSize);
         return item;
     }
 
     private Item createHealthPotion(float locXonMap, float locYonMap) {
-        Item item = new Item(AnimationTypes.HealthPotionAnimation, AvailableItems.HealthPotion);
+        //Item item = new Item(AnimationTypes.HealthPotionAnimation, AvailableItems.HealthPotion);
+        Item item = new Item(AssetsGameScreen.getInstance().getManager().get("game/items/mixtures/healthPotion.png", Texture.class), AvailableItems.HealthPotion);
         item.setPosition(locXonMap * Options.tileSize, locYonMap * Options.tileSize);
         item.setSize(Options.tileSize, Options.tileSize);
         return item;

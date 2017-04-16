@@ -25,6 +25,7 @@ public enum AnimationTypes {
     CancelMove,
     AttackMove,
     CastMove,
+    WizardCast,
     KnightWalkN,
     KnightWalkS,
     KnightWalkE,

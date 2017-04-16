@@ -1,6 +1,7 @@
 package com.mygdx.eoh.effects;
 
 import com.badlogic.gdx.graphics.g2d.Animation;
+import com.badlogic.gdx.scenes.scene2d.Touchable;
 import com.mygdx.eoh.animation.AnimatedImage;
 import com.mygdx.eoh.animation.AnimationSpellCreator;
 import com.mygdx.eoh.enums.InstantEffects;
@@ -33,14 +34,17 @@ public class InstantEffect extends AnimatedImage {
         this.setSize(Options.tileSize, Options.tileSize);
 
         this.instantEffects = instantEffects;
+        setTouchable(Touchable.disabled);
         //this.longEffects = new SnapshotArray<LongEffect>();
     }
 
     @Override
     public void act(float delta) {
         super.act(delta);
-        if (this.getAnimation().isAnimationFinished(this.getStateTime())) {
-            GameStatus.getInstance().getMapStage().getActors().removeValue(this, true);
+        if (instantEffects.equals(InstantEffects.HealthPotion) || instantEffects.equals(InstantEffects.ManaPotion)) {
+            if (this.getAnimation().isAnimationFinished(this.getStateTime())) {
+                GameStatus.getInstance().getMapStage().getActors().removeValue(this, true);
+            }
         }
     }
 
@@ -191,5 +195,9 @@ public class InstantEffect extends AnimatedImage {
      */
     public int getDamage() {
         return damage;
+    }
+
+    public InstantEffects getInstantEffects() {
+        return instantEffects;
     }
 }

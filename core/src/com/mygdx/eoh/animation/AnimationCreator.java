@@ -45,7 +45,7 @@ public class AnimationCreator {
 
             case ManaBarAnimation:
                 animationSpeed = (15.0f - (playerMob.getActualWisdom() + ModifierGetter.getWisdomModifier(playerMob)) * 0.05f) / 24;
-                textureAtlas = AssetsGameScreen.getInstance().getManager().get("game/mobsAnimations/manaBarAnimation/manaBarAnimation.atlas", TextureAtlas.class);
+                textureAtlas = AssetsGameScreen.getInstance().getManager().get("game/mobsAnimations/manaBarAnimation/mpBarAnimation.atlas", TextureAtlas.class);
 
                 walkFrames = new TextureRegion[textureAtlas.getRegions().size];
 
@@ -227,6 +227,19 @@ public class AnimationCreator {
                     walkFrames[i] = textureAtlas.getRegions().get(i);
                 }
                 break;
+
+            case WizardCast:
+                textureAtlas = AssetsGameScreen.getInstance().getManager().get("game/mobsAnimations/wizardAnimations/wizardCast.atlas", TextureAtlas.class);
+
+                animationSpeed = (2.0f - (playerMob.getActualWisdom() + ModifierGetter.getWisdomModifier(playerMob)) * 0.05f) / 24;
+
+                walkFrames = new TextureRegion[textureAtlas.getRegions().size];
+
+                for (int i = 0; i < textureAtlas.getRegions().size; i++) {
+                    walkFrames[i] = textureAtlas.getRegions().get(i);
+                }
+                break;
+
 
         }
 

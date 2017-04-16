@@ -16,11 +16,11 @@ import com.mygdx.eoh.gameClasses.Positioning;
 public class SpellWindow {
     private static SpellWindow instance = new SpellWindow();
 
-    public static SpellWindow getInstance() {
-        return instance;
+    private SpellWindow() {
     }
 
-    private SpellWindow() {
+    public static SpellWindow getInstance() {
+        return instance;
     }
 
     /**
@@ -33,7 +33,7 @@ public class SpellWindow {
         window.setModal(true);
         Positioning.setWindowToCenter(window);
 
-        TextButton tbClose = new TextButton("Zamknij", AssetsGameScreen.getInstance().getManager().get("styles/skin.json", Skin.class));
+        TextButton tbClose = new TextButton("CLOSE", AssetsGameScreen.getInstance().getManager().get("styles/skin.json", Skin.class));
 
         tbClose.addListener(new ClickListener(){
             @Override
