@@ -11,5 +11,6 @@ public enum EquipKinds {
     GoldRing,
     MagicStaff,
     LeatherArmor,
-    SphereOfSpeed
+    SphereOfSpeed,
+    Sword
 }

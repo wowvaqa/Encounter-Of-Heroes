@@ -55,7 +55,7 @@ public class SpellWindow {
         }
 
         window.row();
-        window.add(tbClose);
+        window.add(tbClose).colspan(2);
 
         return window;
     }

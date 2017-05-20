@@ -28,13 +28,13 @@ public class Equip extends Image {
     public static int selectedEquipIndex;
     // Type of equip (armor, weapon etc.)
     private EquipTypes equipType;
-    // Kind of equip (wooden stick, swork etc.)
+    // Kind of equip (wooden stick, sword etc.)
     private EquipKinds equipKind;
     // Image that will be displayed when dragging
     private Image dragImage;
     // Description of item.
     private String description;
-    // Equipment modificators of player mob statistics
+    // Equipment modifiers of player mob statistics
     private SnapshotArray<EquipModifier> equipModifiers;
 
     private Equip(Texture texture) {
@@ -130,6 +130,21 @@ public class Equip extends Image {
                 );
                 equip.dragImage.setSize(50, 50);
                 break;
+
+            case Sword:
+                equip = new Equip(
+                        AssetsGameInterface.getInstance().getManager().get("game/interface/equipmentIcons/swordIcon.png", Texture.class)
+                );
+                equip.equipKind = EquipKinds.Sword;
+                equip.equipType = EquipTypes.Weapon;
+                equip.equipModifiers.add(EquipModifier.createEquipModifier(equipKind));
+                equip.description = "SWORD";
+                equip.dragImage = new Image(
+                        AssetsGameInterface.getInstance().getManager().get("game/interface/equipmentIcons/swordIcon.png", Texture.class)
+                );
+                equip.dragImage.setSize(50, 50);
+                break;
+
             default:
                 equip = new Equip(
 
@@ -234,6 +249,8 @@ public class Equip extends Image {
                 return 4;
             case SphereOfSpeed:
                 return 5;
+            case Sword:;
+                return 6;
         }
         return 0;
     }
@@ -258,6 +275,8 @@ public class Equip extends Image {
                 return EquipKinds.LeatherArmor;
             case 5:
                 return EquipKinds.SphereOfSpeed;
+            case 6:
+                return EquipKinds.Sword;
         }
         return EquipKinds.WoodenStick;
     }

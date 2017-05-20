@@ -164,6 +164,28 @@ public class InstantEffect extends AnimatedImage {
                 }
 
                 break;
+
+            case Cure:
+                ((PlayerMob) defendingMob).setActualhp(((PlayerMob) defendingMob).getActualhp()
+                        + (((PlayerMob)castingPlayer).getActualPower() + ModifierGetter.getPowerModifier((PlayerMob)castingPlayer)));
+                if (((PlayerMob) defendingMob).getActualhp() > ((PlayerMob) defendingMob).getMaxHp()) {
+                    ((PlayerMob) defendingMob).setActualhp(((PlayerMob) defendingMob).getMaxHp());
+                }
+
+//                if (NetStatus.getInstance().getClient() != null && !NetStatus.getInstance().isInstantEffectNet()) {
+//                    Network.InstantEffectNet instantEffectNet = new Network.InstantEffectNet();
+//                    instantEffectNet.enemyId = NetStatus.getInstance().getEnemyId();
+//                    instantEffectNet.instantEffectNumber = 2;
+//                    instantEffectNet.locationXofDefender = ((PlayerMob) defendingMob).getCoordinateXonMap();
+//                    instantEffectNet.locationYofDefender = ((PlayerMob) defendingMob).getCoordinateYonMap();
+//                    instantEffectNet.locationXofCaster = castingPlayer.getCoordinateXonMap();
+//                    instantEffectNet.locationYofCaster = castingPlayer.getCoordinateYonMap();
+//                    NetStatus.getInstance().getClient().sendTCP(instantEffectNet);
+//
+//                }
+
+                break;
+
             case ManaPotion:
                 ((PlayerMob) defendingMob).setActualMana(((PlayerMob) defendingMob).getActualMana() + 5);
                 if (((PlayerMob) defendingMob).getActualMana() > ((PlayerMob) defendingMob).getMaxMana() + ModifierGetter.getWisdomModifier(((PlayerMob) defendingMob))) {

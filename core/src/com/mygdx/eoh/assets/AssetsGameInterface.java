@@ -65,6 +65,8 @@ public class AssetsGameInterface extends DefaultAssets {
         getManager().load("game/interface/spellButtons/fireballButtonDOWN.png", Texture.class, getParameter());
         getManager().load("game/interface/spellButtons/AttackUpgradeButtonUP.png", Texture.class, getParameter());
         getManager().load("game/interface/spellButtons/AttackUpgradeButtonDOWN.png", Texture.class, getParameter());
+        getManager().load("game/interface/spellButtons/CureButtonUP.png", Texture.class, getParameter());
+        getManager().load("game/interface/spellButtons/CureButtonDOWN.png", Texture.class, getParameter());
         /*******************************************************************************************
          * SPELLS BUTTONS
          ******************************************************************************************/
@@ -88,6 +90,7 @@ public class AssetsGameInterface extends DefaultAssets {
         getManager().load("game/interface/equipmentIcons/magicStaffIcon.png", Texture.class, getParameter());
         getManager().load("game/interface/equipmentIcons/leatherArmorIcon.png", Texture.class, getParameter());
         getManager().load("game/interface/equipmentIcons/sphereOfSpeedIcon.png", Texture.class, getParameter());
+        getManager().load("game/interface/equipmentIcons/swordIcon.png", Texture.class, getParameter());
 
 
         getManager().finishLoading();

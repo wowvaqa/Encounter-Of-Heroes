@@ -10,5 +10,6 @@ public enum InstantEffects {
     AttackUpgrade,
     HealthPotion,
     ManaPotion,
-    BurnDamage;
+    BurnDamage,
+    Cure
 }

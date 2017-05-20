@@ -6,5 +6,6 @@ package com.mygdx.eoh.enums;
 
 public enum Spells {
     Fireball,
-    AttackUpgrade
+    AttackUpgrade,
+    Cure
 }

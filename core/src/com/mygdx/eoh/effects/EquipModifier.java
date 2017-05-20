@@ -49,6 +49,9 @@ public class EquipModifier {
                 equipModifier.setWisdomModifier(1);
                 equipModifier.setSpeedModifier(3);
                 return equipModifier;
+            case Sword:
+                equipModifier.setAttackModifier(2);
+                return equipModifier;
             case None:
                 return equipModifier;
         }

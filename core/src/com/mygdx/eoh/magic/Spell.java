@@ -111,6 +111,41 @@ public class Spell {
                 });
 
                 break;
+
+            case Cure:
+
+                manaCost = 1;
+
+                spellKind = SpellsKinds.OnlyFriends;
+
+                instantEffects.add(
+                        new InstantEffect(
+                                AnimationSpellCreator.getInstance().makeSpellAnimation(InstantEffects.AttackUpgrade), false, InstantEffects.Cure
+                        )
+                );
+
+                imageButtonStyle = new ImageButton.ImageButtonStyle();
+
+                imageButtonStyle.imageUp =  new TextureRegionDrawable(new TextureRegion(
+                        AssetsGameInterface.getInstance().getManager().get("game/interface/spellButtons/CureButtonUP.png", Texture.class)
+                ));
+
+                imageButtonStyle.imageDown =  new TextureRegionDrawable(new TextureRegion(
+                        AssetsGameInterface.getInstance().getManager().get("game/interface/spellButtons/CureButtonDOWN.png", Texture.class)
+                ));
+
+                spellButton = new ImageButton(imageButtonStyle);
+
+                spellButton.addListener(new ClickListener(){
+                    @Override
+                    public void clicked(InputEvent event, float x, float y) {
+                        super.clicked(event, x, y);
+                        if (playerOwner.getActualMana() >= manaCost)
+                            spell.getPlayerOwner().getMoveManager().showCastInterface(GameStatus.getInstance().getMapStage(), spell);
+                    }
+                });
+
+                break;
         }
     }
 

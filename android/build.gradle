@@ -1,6 +1,29 @@
 android {
     buildToolsVersion '25.0.0'
     compileSdkVersion 25
+
+    signingConfigs {
+        release {
+            storeFile file("EOHkeyStore.jks")
+            storePassword "keystoreEOHTFCygvUHB09*&"
+            keyAlias "EOHkeyStore"
+            keyPassword "keyEOHTFCygvUHB09*&"
+        }
+    }
+
+
+    buildTypes {
+        release {
+            signingConfig signingConfigs.release
+        }
+
+//        debug {
+//            debuggable true
+//
+//
+//        }
+    }
+
     sourceSets {
         main {
             manifest.srcFile 'AndroidManifest.xml'

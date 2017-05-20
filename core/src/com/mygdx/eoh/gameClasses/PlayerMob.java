@@ -141,6 +141,7 @@ public class PlayerMob extends DefaultMob {
         switch (playerMobClass) {
             case Wizard:
                 spells.add(SpellCreator.getInstance().createSpell(this, Spells.Fireball));
+                spells.add(SpellCreator.getInstance().createSpell(this, Spells.Cure));
                 break;
             case Knight:
                 spells.add(SpellCreator.getInstance().createSpell(this, Spells.AttackUpgrade));

@@ -1,5 +1,6 @@
 package com.mygdx.eoh.defaultClasses;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.input.GestureDetector;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.Stage;
@@ -87,7 +88,7 @@ public class DefaultGestureListener implements GestureDetector.GestureListener {
 //        }
 //
         ((DefaultCamera) stage.getCamera()).setWorld(mapRows, mapColumns);
-        ((DefaultCamera) stage.getCamera()).translateSafe(-deltaX, deltaY);
+        ((DefaultCamera) stage.getCamera()).translateSafe(-deltaX * ((DefaultCamera) stage.getCamera()).zoom, deltaY * ((DefaultCamera) stage.getCamera()).zoom);
 
         //stage.getCamera().update();
 //
@@ -110,6 +111,8 @@ public class DefaultGestureListener implements GestureDetector.GestureListener {
 
     @Override
     public boolean zoom(float initialDistance, float distance) {
+        float ratio = (initialDistance / distance);
+        ((DefaultCamera) stage.getCamera()).attemptZoom((1 - ratio) / 4);
         return false;
     }
 

@@ -33,6 +33,7 @@ class EquipmentLevels {
         equipLevel1.add(EquipKinds.WoodenStick);
         equipLevel1.add(EquipKinds.LeatherPants);
         equipLevel1.add(EquipKinds.GoldRing);
+        equipLevel1.add(EquipKinds.Sword);
 
         // Level 2 equip
         equipLevel2.add(EquipKinds.MagicStaff);
