@@ -424,6 +424,7 @@ public class ScreenNetGame extends DefaultGameScreen {
                     GameStatus.getInstance().getMapStage().addActor(instantEffect);
                     break;
 
+                // CURE
                 case 4:
                     System.out.println("X: " + NetStatus.getInstance().getLocationXofCaster() + " Y: " + NetStatus.getInstance().getLocationYofCaster());
 
@@ -465,7 +466,7 @@ public class ScreenNetGame extends DefaultGameScreen {
 
                     defaultDamageLabel = new DefaultDamageLabel(
                             Integer.toString(NetStatus.getInstance().getIntVarible()),
-                            (Skin) AssetsGameScreen.getInstance().getManager().get("styles/skin.json"), "fight",
+                            (Skin) AssetsGameScreen.getInstance().getManager().get("styles/skin.json"), "good64",
                             NetStatus.getInstance().getLocationXofDefender() * Options.tileSize + Options.tileSize / 2,
                             NetStatus.getInstance().getLocationYofDefender() * Options.tileSize + Options.tileSize / 2);
                     GameStatus.getInstance().getMapStage().addActor(defaultDamageLabel);

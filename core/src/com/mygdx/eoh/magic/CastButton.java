@@ -9,6 +9,7 @@ import com.mygdx.eoh.animation.AnimationSpellCreator;
 import com.mygdx.eoh.assets.AssetsGameScreen;
 import com.mygdx.eoh.defaultClasses.DefaultDamageLabel;
 import com.mygdx.eoh.effects.InstantEffect;
+import com.mygdx.eoh.enums.InstantEffects;
 import com.mygdx.eoh.gameClasses.GameStatus;
 import com.mygdx.eoh.gameClasses.Options;
 import com.mygdx.eoh.gameClasses.PlayerMob;
@@ -68,7 +69,11 @@ public class CastButton extends AnimatedImage {
                     instantEffect.setStateTime(0);
                     instantEffect.setLooped(false);
                     GameStatus.getInstance().getMapStage().addActor(instantEffect);
-                    showDamageLabel(instantEffect.getDamage(), locationXonMap, locationYonMap);
+                    if (instantEffect.getInstantEffects().equals(InstantEffects.Cure)) {
+                        showGoodEffectLabel(instantEffect.getDamage(), locationXonMap, locationYonMap);
+                    } else {
+                        showDamageLabel(instantEffect.getDamage(), locationXonMap, locationYonMap);
+                    }
                 }
             }
         });
@@ -83,6 +88,19 @@ public class CastButton extends AnimatedImage {
     private void showDamageLabel(int damage, int locationXonMap, int locationYonMap) {
         DefaultDamageLabel defaultDamageLabel = new DefaultDamageLabel(
                 Integer.toString(damage), (Skin) AssetsGameScreen.getInstance().getManager().get("styles/skin.json"), "fight",
+                locationXonMap * Options.tileSize + Options.tileSize / 2,
+                locationYonMap * Options.tileSize + Options.tileSize / 2);
+        GameStatus.getInstance().getMapStage().addActor(defaultDamageLabel);
+    }
+
+    /**
+     * @param damage
+     * @param locationXonMap
+     * @param locationYonMap
+     */
+    private void showGoodEffectLabel(int damage, int locationXonMap, int locationYonMap) {
+        DefaultDamageLabel defaultDamageLabel = new DefaultDamageLabel(
+                Integer.toString(damage), (Skin) AssetsGameScreen.getInstance().getManager().get("styles/skin.json"), "good64",
                 locationXonMap * Options.tileSize + Options.tileSize / 2,
                 locationYonMap * Options.tileSize + Options.tileSize / 2);
         GameStatus.getInstance().getMapStage().addActor(defaultDamageLabel);
