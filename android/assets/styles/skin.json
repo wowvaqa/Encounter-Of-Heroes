@@ -6,8 +6,11 @@ com.badlogic.gdx.graphics.g2d.BitmapFont: {
 	default32: {
 		file: openSans32.fnt
 	}
-	redBorder64: {
-		file: openSans64.fnt
+	greenBordered64: {
+		file: greenBordered64.fnt
+	}
+	redBordered64: {
+		file: redBordered64.fnt
 	}
 }
 com.badlogic.gdx.graphics.Color: {
@@ -36,7 +39,7 @@ com.badlogic.gdx.scenes.scene2d.ui.Label$LabelStyle: {
 		fontColor: white
 	}
 	fight: {
-		font: redBorder64
+		font: redBordered64
 	}
 	black16: {
 		font: default16
@@ -45,6 +48,9 @@ com.badlogic.gdx.scenes.scene2d.ui.Label$LabelStyle: {
 	black32: {
 		font: default32
 		fontColor: black
+	}
+	good64: {
+		font: greenBordered64
 	}
 }
 com.badlogic.gdx.scenes.scene2d.ui.List$ListStyle: {

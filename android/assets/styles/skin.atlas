@@ -30,7 +30,7 @@ size: 1024,1024
 format: RGBA8888
 filter: Linear,Linear
 repeat: none
-openSans641
+redBordered64
   rotate: false
   xy: 1, 1
   size: 512, 512
@@ -39,45 +39,6 @@ openSans641
   index: -1
 
 skin4.png
-size: 1024,1024
-format: RGBA8888
-filter: Linear,Linear
-repeat: none
-openSans642
-  rotate: false
-  xy: 1, 1
-  size: 512, 512
-  orig: 512, 512
-  offset: 0, 0
-  index: -1
-
-skin5.png
-size: 1024,1024
-format: RGBA8888
-filter: Linear,Linear
-repeat: none
-openSans643
-  rotate: false
-  xy: 1, 1
-  size: 512, 512
-  orig: 512, 512
-  offset: 0, 0
-  index: -1
-
-skin6.png
-size: 1024,1024
-format: RGBA8888
-filter: Linear,Linear
-repeat: none
-openSans644
-  rotate: false
-  xy: 1, 1
-  size: 512, 512
-  orig: 512, 512
-  offset: 0, 0
-  index: -1
-
-skin7.png
 size: 1024,1024
 format: RGBA8888
 filter: Linear,Linear
@@ -136,7 +97,7 @@ windowBackground
   orig: 63, 63
   offset: 0, 0
   index: -1
-openSans645
+greenBordered64
   rotate: false
   xy: 1, 157
   size: 512, 512
