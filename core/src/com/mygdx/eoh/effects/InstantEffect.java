@@ -171,9 +171,12 @@ public class InstantEffect extends AnimatedImage {
 
                 ((PlayerMob) defendingMob).setActualhp(((PlayerMob) defendingMob).getActualhp() + cureVarible);
 
+                this.damage = cureVarible;
+
                 if (((PlayerMob) defendingMob).getActualhp() > ((PlayerMob) defendingMob).getMaxHp()) {
                     ((PlayerMob) defendingMob).setActualhp(((PlayerMob) defendingMob).getMaxHp());
                 }
+
 
                 if (NetStatus.getInstance().getClient() != null && !NetStatus.getInstance().isInstantEffectNet()) {
                     Network.InstantEffectNet instantEffectNet = new Network.InstantEffectNet();
