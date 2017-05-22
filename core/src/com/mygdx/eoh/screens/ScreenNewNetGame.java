@@ -26,7 +26,6 @@ import java.io.IOException;
 import java.util.ArrayList;
 
 /**
- *
  * Created by v on 2016-11-14.
  */
 public class ScreenNewNetGame extends DefaultScreen {
@@ -101,8 +100,8 @@ public class ScreenNewNetGame extends DefaultScreen {
         if (!client.isConnected()) {
             client.start();
             try {
-                client.connect(10000, "85.255.9.69", 54555, 54777);
-                //client.connect(10000, "192.168.1.6", 54555, 54777);
+                //client.connect(10000, "85.255.9.69", 54555, 54777);
+                client.connect(10000, "192.168.1.7", 54555, 54777);
                 interfaceManager.lblServerStatus.setText("Server: CONNECTED");
                 //Gdx.app.log("Client", "Connected");
                 NetStatus.getInstance().playerStatusRequest();

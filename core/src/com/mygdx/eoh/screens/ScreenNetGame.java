@@ -424,6 +424,54 @@ public class ScreenNetGame extends DefaultGameScreen {
                     GameStatus.getInstance().getMapStage().addActor(instantEffect);
                     break;
 
+                case 4:
+                    System.out.println("X: " + NetStatus.getInstance().getLocationXofCaster() + " Y: " + NetStatus.getInstance().getLocationYofCaster());
+
+                    GameStatus.getInstance().getMap().getFields()
+                            [NetStatus.getInstance().getLocationXofCaster()]
+                            [NetStatus.getInstance().getLocationYofCaster()].getPlayerMob().changeToCastAnimation(
+                            GameStatus.getInstance().getMap().getFields()
+                                    [NetStatus.getInstance().getLocationXofCaster()]
+                                    [NetStatus.getInstance().getLocationYofCaster()].getPlayerMob()
+                    );
+
+                    instantEffect = new InstantEffect(
+                            AnimationSpellCreator.getInstance().makeSpellAnimation(
+                                    InstantEffects.FiraballDamage),
+                            false, InstantEffects.FiraballDamage
+                    );
+
+                    instantEffect.setPosition(
+                            NetStatus.getInstance().getLocationXofDefender() * Options.tileSize,
+                            NetStatus.getInstance().getLocationYofDefender() * Options.tileSize
+                    );
+
+                    GameStatus.getInstance().getMapStage().addActor(instantEffect);
+
+                    int locXofDefender = NetStatus.getInstance().getLocationXofDefender();
+                    int locYofDefender = NetStatus.getInstance().getLocationYofDefender();
+
+                    GameStatus.getInstance().getMap().getFields()[locXofDefender][locYofDefender].getPlayerMob().setActualhp(
+                            GameStatus.getInstance().getMap().getFields()[locXofDefender][locYofDefender].getPlayerMob().getActualhp() +
+                                    NetStatus.getInstance().getIntVarible()
+                    );
+
+                    if (GameStatus.getInstance().getMap().getFields()[locXofDefender][locYofDefender].getPlayerMob().getActualhp() >
+                            GameStatus.getInstance().getMap().getFields()[locXofDefender][locYofDefender].getPlayerMob().getMaxHp()) {
+                        GameStatus.getInstance().getMap().getFields()[locXofDefender][locYofDefender].getPlayerMob().setActualhp(
+                                GameStatus.getInstance().getMap().getFields()[locXofDefender][locYofDefender].getPlayerMob().getMaxHp()
+                        );
+                    }
+
+                    defaultDamageLabel = new DefaultDamageLabel(
+                            Integer.toString(NetStatus.getInstance().getIntVarible()),
+                            (Skin) AssetsGameScreen.getInstance().getManager().get("styles/skin.json"), "fight",
+                            NetStatus.getInstance().getLocationXofDefender() * Options.tileSize + Options.tileSize / 2,
+                            NetStatus.getInstance().getLocationYofDefender() * Options.tileSize + Options.tileSize / 2);
+                    GameStatus.getInstance().getMapStage().addActor(defaultDamageLabel);
+
+                    break;
+
                 default:
                     instantEffect = new InstantEffect(AnimationSpellCreator.getInstance().makeSpellAnimation(InstantEffects.FiraballDamage), false, InstantEffects.FiraballDamage);
                     instantEffect.setPosition(NetStatus.getInstance().getLocationXofDefender(), NetStatus.getInstance().getLocationYofDefender());
