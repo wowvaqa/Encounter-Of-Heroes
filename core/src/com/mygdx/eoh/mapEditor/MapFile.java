@@ -51,6 +51,7 @@ public class MapFile implements Serializable {
         public boolean mobWolfLocation = false;
         public boolean mobZombieLocation = false;
         public boolean mobSpiderLocation = false;
+        public boolean mobBarbarianLocation = false;
         public boolean mobRandomLevel1 = false;
         public boolean mobRandomLevel2 = false;
         public boolean terrainForest = false;

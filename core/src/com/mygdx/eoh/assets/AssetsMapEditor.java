@@ -152,6 +152,8 @@ public class AssetsMapEditor extends DefaultAssets {
         getManager().load("mapEditor/interface/mobsWindow/mobsBrushWolfDown.png", Texture.class, getParameter());
         getManager().load("mapEditor/interface/mobsWindow/mobsBrushZombieUp.png", Texture.class, getParameter());
         getManager().load("mapEditor/interface/mobsWindow/mobsBrushZombieDown.png", Texture.class, getParameter());
+        getManager().load("mapEditor/interface/mobsWindow/mobsBrushBarbarianUp.png", Texture.class, getParameter());
+        getManager().load("mapEditor/interface/mobsWindow/mobsBrushBarbarianDown.png", Texture.class, getParameter());
 
         getManager().load("mapEditor/players/player1.png", Texture.class, getParameter());
         getManager().load("mapEditor/players/player2.png", Texture.class, getParameter());
@@ -174,6 +176,7 @@ public class AssetsMapEditor extends DefaultAssets {
         getManager().load("mapEditor/mobs/mobSkeleton.png", Texture.class, getParameter());
         getManager().load("mapEditor/mobs/mobWolf.png", Texture.class, getParameter());
         getManager().load("mapEditor/mobs/mobZombie.png", Texture.class, getParameter());
+        getManager().load("mapEditor/mobs/mobBarbarian.png", Texture.class, getParameter());
         getManager().load("mapEditor/mobs/mobRandomLevel1.png", Texture.class, getParameter());
         getManager().load("mapEditor/mobs/mobRandomLevel2.png", Texture.class, getParameter());
 

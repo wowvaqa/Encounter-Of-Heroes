@@ -1493,62 +1493,69 @@ public class ScreenMapEditor extends DefaultScreen {
             );
 
             final ImageButton.ImageButtonStyle imageButtonStyleMob01Brush = new ImageButton.ImageButtonStyle();
-            final ImageButton.ImageButtonStyle imageButtonStyleMob02Brush = new ImageButton.ImageButtonStyle();
-            final ImageButton.ImageButtonStyle imageButtonStyleMobRandomBrush = new ImageButton.ImageButtonStyle();
+            //final ImageButton.ImageButtonStyle imageButtonStyleMob02Brush = new ImageButton.ImageButtonStyle();
+            //final ImageButton.ImageButtonStyle imageButtonStyleMobRandomBrush = new ImageButton.ImageButtonStyle();
 
             imageButtonStyleMob01Brush.imageUp = new TextureRegionDrawable(new TextureRegion(
-                    AssetsMapEditor.getInstance().getManager().get("mapEditor/interface/mobsWindow/mobsBrushSpiderUp.png", Texture.class)
+                    AssetsMapEditor.getInstance().getManager().get("mapEditor/interface/mobsWindow/mobsBrushBarbarianUp.png", Texture.class)
             ));
             imageButtonStyleMob01Brush.imageDown = new TextureRegionDrawable(new TextureRegion(
-                    AssetsMapEditor.getInstance().getManager().get("mapEditor/interface/mobsWindow/mobsBrushSpiderDown.png", Texture.class)
-            ));
-            imageButtonStyleMob02Brush.imageUp = new TextureRegionDrawable(new TextureRegion(
-                    AssetsMapEditor.getInstance().getManager().get("mapEditor/interface/mobsWindow/mobsBrushZombieUp.png", Texture.class)
-            ));
-            imageButtonStyleMob02Brush.imageDown = new TextureRegionDrawable(new TextureRegion(
-                    AssetsMapEditor.getInstance().getManager().get("mapEditor/interface/mobsWindow/mobsBrushZombieDown.png", Texture.class)
-            ));
-            imageButtonStyleMobRandomBrush.imageUp = new TextureRegionDrawable(new TextureRegion(
-                    AssetsMapEditor.getInstance().getManager().get("mapEditor/interface/mobsWindow/mobsBrushRandomUp.png", Texture.class)
-            ));
-            imageButtonStyleMobRandomBrush.imageDown = new TextureRegionDrawable(new TextureRegion(
-                    AssetsMapEditor.getInstance().getManager().get("mapEditor/interface/mobsWindow/mobsBrushRandomDown.png", Texture.class)
+                    AssetsMapEditor.getInstance().getManager().get("mapEditor/interface/mobsWindow/mobsBrushBarbarianDown.png", Texture.class)
             ));
 
+//            imageButtonStyleMob01Brush.imageUp = new TextureRegionDrawable(new TextureRegion(
+//                    AssetsMapEditor.getInstance().getManager().get("mapEditor/interface/mobsWindow/mobsBrushSpiderUp.png", Texture.class)
+//            ));
+//            imageButtonStyleMob01Brush.imageDown = new TextureRegionDrawable(new TextureRegion(
+//                    AssetsMapEditor.getInstance().getManager().get("mapEditor/interface/mobsWindow/mobsBrushSpiderDown.png", Texture.class)
+//            ));
+//            imageButtonStyleMob02Brush.imageUp = new TextureRegionDrawable(new TextureRegion(
+//                    AssetsMapEditor.getInstance().getManager().get("mapEditor/interface/mobsWindow/mobsBrushZombieUp.png", Texture.class)
+//            ));
+//            imageButtonStyleMob02Brush.imageDown = new TextureRegionDrawable(new TextureRegion(
+//                    AssetsMapEditor.getInstance().getManager().get("mapEditor/interface/mobsWindow/mobsBrushZombieDown.png", Texture.class)
+//            ));
+//            imageButtonStyleMobRandomBrush.imageUp = new TextureRegionDrawable(new TextureRegion(
+//                    AssetsMapEditor.getInstance().getManager().get("mapEditor/interface/mobsWindow/mobsBrushRandomUp.png", Texture.class)
+//            ));
+//            imageButtonStyleMobRandomBrush.imageDown = new TextureRegionDrawable(new TextureRegion(
+//                    AssetsMapEditor.getInstance().getManager().get("mapEditor/interface/mobsWindow/mobsBrushRandomDown.png", Texture.class)
+//            ));
+
             ImageButton imageButtonMob01 = new ImageButton(imageButtonStyleMob01Brush);
-            ImageButton imageButtonMob02 = new ImageButton(imageButtonStyleMob02Brush);
-            ImageButton imageButtonMobRandom = new ImageButton(imageButtonStyleMobRandomBrush);
+//            ImageButton imageButtonMob02 = new ImageButton(imageButtonStyleMob02Brush);
+//            ImageButton imageButtonMobRandom = new ImageButton(imageButtonStyleMobRandomBrush);
 
             imageButtonMob01.addListener(new ClickListener() {
                 @Override
                 public void clicked(InputEvent event, float x, float y) {
-                    mapEditor.drawingType = MapEditor.DrawingType.mobSpiederDraw;
+                    mapEditor.drawingType = MapEditor.DrawingType.mobBarbarianDraw;
                     imageButtonBrush.setStyle(imageButtonStyleMob01Brush);
                     window.remove();
                 }
             });
 
-            imageButtonMob02.addListener(new ClickListener() {
-                @Override
-                public void clicked(InputEvent event, float x, float y) {
-                    mapEditor.drawingType = MapEditor.DrawingType.mobZombieDraw;
-                    imageButtonBrush.setStyle(imageButtonStyleMob02Brush);
-                    window.remove();
-                }
-            });
-
-            imageButtonMobRandom.addListener(new ClickListener() {
-                @Override
-                public void clicked(InputEvent event, float x, float y) {
-                    mapEditor.drawingType = MapEditor.DrawingType.mobRandomLvl2Draw;
-                    imageButtonBrush.setStyle(imageButtonStyleMobRandomBrush);
-                    window.remove();
-                }
-            });
+//            imageButtonMob02.addListener(new ClickListener() {
+//                @Override
+//                public void clicked(InputEvent event, float x, float y) {
+//                    mapEditor.drawingType = MapEditor.DrawingType.mobZombieDraw;
+//                    imageButtonBrush.setStyle(imageButtonStyleMob02Brush);
+//                    window.remove();
+//                }
+//            });
+//
+//            imageButtonMobRandom.addListener(new ClickListener() {
+//                @Override
+//                public void clicked(InputEvent event, float x, float y) {
+//                    mapEditor.drawingType = MapEditor.DrawingType.mobRandomLvl2Draw;
+//                    imageButtonBrush.setStyle(imageButtonStyleMobRandomBrush);
+//                    window.remove();
+//                }
+//            });
 
             window.add(imageButtonMob01);
-            window.add(imageButtonMob02);
-            window.add(imageButtonMobRandom);
+//            window.add(imageButtonMob02);
+//            window.add(imageButtonMobRandom);
             window.add(getCancelImageButton(window));
 
             return window;

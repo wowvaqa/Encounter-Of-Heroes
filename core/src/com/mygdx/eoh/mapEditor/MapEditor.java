@@ -47,6 +47,129 @@ public class MapEditor {
     public MapEditor() {
     }
 
+    static public MapEditor convertMapFileToMapEditor(MapEditor mapEditor, MapFile mapFile) {
+
+        mapEditor.nameOfMap = mapFile.nameOfMap;
+        mapEditor.mapColumns = mapFile.mapColumns;
+        mapEditor.mapRows = mapFile.mapRows;
+
+        for (int i = 0; i < mapFile.mapColumns; i++) {
+            for (int j = 0; j < mapFile.mapRows; j++) {
+                mapEditor.fields[i][j].coordinateXonMap = mapFile.fields[i][j].coordinateXonMap;
+                mapEditor.fields[i][j].coordinateYonMap = mapFile.fields[i][j].coordinateYonMap;
+                mapEditor.fields[i][j].player1StartLocation = mapFile.fields[i][j].player1StartLocation;
+                mapEditor.fields[i][j].player2StartLocation = mapFile.fields[i][j].player2StartLocation;
+                mapEditor.fields[i][j].player3StartLocation = mapFile.fields[i][j].player3StartLocation;
+                mapEditor.fields[i][j].player4StartLocation = mapFile.fields[i][j].player4StartLocation;
+                mapEditor.fields[i][j].terrainGrass = mapFile.fields[i][j].terrainGrass;
+                mapEditor.fields[i][j].terrainForest = mapFile.fields[i][j].terrainForest;
+                mapEditor.fields[i][j].terrainMountain = mapFile.fields[i][j].terrainMountain;
+                mapEditor.fields[i][j].terrainRiver = mapFile.fields[i][j].terrainRiver;
+
+                mapEditor.fields[i][j].mobRandomLevel1 = mapFile.fields[i][j].mobRandomLevel1;
+                mapEditor.fields[i][j].mobSkeletonLocation = mapFile.fields[i][j].mobSkeletonLocation;
+                mapEditor.fields[i][j].mobWolfLocation = mapFile.fields[i][j].mobWolfLocation;
+                mapEditor.fields[i][j].mobSpiderLocation = mapFile.fields[i][j].mobSpiderLocation;
+                mapEditor.fields[i][j].mobBarbarianLocation = mapFile.fields[i][j].mobBarbarianLocation;
+                mapEditor.fields[i][j].mobZombieLocation = mapFile.fields[i][j].mobZombieLocation;
+                mapEditor.fields[i][j].mobRandomLevel2 = mapFile.fields[i][j].mobRandomLevel2;
+                mapEditor.fields[i][j].tresureBoxLvl1 = mapFile.fields[i][j].tresureBoxLvl1;
+                mapEditor.fields[i][j].tresureBoxLvl2 = mapFile.fields[i][j].tresureBoxLvl2;
+                mapEditor.fields[i][j].towerMagic = mapFile.fields[i][j].towerMagic;
+                mapEditor.fields[i][j].towerWisdom = mapFile.fields[i][j].towerWisdom;
+                mapEditor.fields[i][j].towerSpeed = mapFile.fields[i][j].towerSpeed;
+                mapEditor.fields[i][j].towerDefence = mapFile.fields[i][j].towerDefence;
+                mapEditor.fields[i][j].towerAttack = mapFile.fields[i][j].towerAttack;
+                mapEditor.fields[i][j].towerHp = mapFile.fields[i][j].towerHp;
+                mapEditor.fields[i][j].towerWell = mapFile.fields[i][j].towerWell;
+                mapEditor.fields[i][j].towerHospital = mapFile.fields[i][j].towerHospital;
+                mapEditor.fields[i][j].itemGold = mapFile.fields[i][j].itemGold;
+                mapEditor.fields[i][j].manaPotion = mapFile.fields[i][j].manaPotion;
+                mapEditor.fields[i][j].healthPotion = mapFile.fields[i][j].healthPotion;
+
+                switch (mapFile.fields[i][j].terrains) {
+                    case Grass:
+                        mapEditor.fields[i][j].terrains = Terrains.Grass;
+                        break;
+                    case Forest:
+                        mapEditor.fields[i][j].terrains = Terrains.Forest;
+                        break;
+                    case Mountain:
+                        mapEditor.fields[i][j].terrains = Terrains.Mountain;
+                        break;
+                    case River:
+                        mapEditor.fields[i][j].terrains = Terrains.River;
+                        break;
+                    default:
+                        mapEditor.fields[i][j].terrains = Terrains.Grass;
+                }
+            }
+        }
+        return mapEditor;
+    }
+
+    static public MapFile convertMapEditorToMapFile(MapEditor mapEditor, MapFile mapFile) {
+
+        mapFile.nameOfMap = mapEditor.nameOfMap;
+        mapFile.mapColumns = mapEditor.mapColumns;
+        mapFile.mapRows = mapEditor.mapRows;
+
+        for (int i = 0; i < mapEditor.mapColumns; i++) {
+            for (int j = 0; j < mapEditor.mapRows; j++) {
+                mapFile.fields[i][j].coordinateXonMap = mapEditor.fields[i][j].coordinateXonMap;
+                mapFile.fields[i][j].coordinateYonMap = mapEditor.fields[i][j].coordinateYonMap;
+                mapFile.fields[i][j].player1StartLocation = mapEditor.fields[i][j].player1StartLocation;
+                mapFile.fields[i][j].player2StartLocation = mapEditor.fields[i][j].player2StartLocation;
+                mapFile.fields[i][j].player3StartLocation = mapEditor.fields[i][j].player3StartLocation;
+                mapFile.fields[i][j].player4StartLocation = mapEditor.fields[i][j].player4StartLocation;
+                mapFile.fields[i][j].terrainGrass = mapEditor.fields[i][j].terrainGrass;
+                mapFile.fields[i][j].terrainForest = mapEditor.fields[i][j].terrainForest;
+                mapFile.fields[i][j].terrainMountain = mapEditor.fields[i][j].terrainMountain;
+                mapFile.fields[i][j].terrainRiver = mapEditor.fields[i][j].terrainRiver;
+
+                mapFile.fields[i][j].mobRandomLevel1 = mapEditor.fields[i][j].mobRandomLevel1;
+                mapFile.fields[i][j].mobSkeletonLocation = mapEditor.fields[i][j].mobSkeletonLocation;
+                mapFile.fields[i][j].mobWolfLocation = mapEditor.fields[i][j].mobWolfLocation;
+                mapFile.fields[i][j].mobSpiderLocation = mapEditor.fields[i][j].mobSpiderLocation;
+                mapFile.fields[i][j].mobBarbarianLocation = mapEditor.fields[i][j].mobBarbarianLocation;
+                mapFile.fields[i][j].mobZombieLocation = mapEditor.fields[i][j].mobZombieLocation;
+                mapFile.fields[i][j].mobRandomLevel2 = mapEditor.fields[i][j].mobRandomLevel2;
+                mapFile.fields[i][j].tresureBoxLvl1 = mapEditor.fields[i][j].tresureBoxLvl1;
+                mapFile.fields[i][j].tresureBoxLvl2 = mapEditor.fields[i][j].tresureBoxLvl2;
+                mapFile.fields[i][j].towerMagic = mapEditor.fields[i][j].towerMagic;
+                mapFile.fields[i][j].towerWisdom = mapEditor.fields[i][j].towerWisdom;
+                mapFile.fields[i][j].towerSpeed = mapEditor.fields[i][j].towerSpeed;
+                mapFile.fields[i][j].towerDefence = mapEditor.fields[i][j].towerDefence;
+                mapFile.fields[i][j].towerAttack = mapEditor.fields[i][j].towerAttack;
+                mapFile.fields[i][j].towerHp = mapEditor.fields[i][j].towerHp;
+                mapFile.fields[i][j].towerWell = mapEditor.fields[i][j].towerWell;
+                mapFile.fields[i][j].towerHospital = mapEditor.fields[i][j].towerHospital;
+                mapFile.fields[i][j].itemGold = mapEditor.fields[i][j].itemGold;
+                mapFile.fields[i][j].manaPotion = mapEditor.fields[i][j].manaPotion;
+                mapFile.fields[i][j].healthPotion = mapEditor.fields[i][j].healthPotion;
+
+
+                switch (mapEditor.fields[i][j].terrains) {
+                    case Grass:
+                        mapFile.fields[i][j].terrains = MapFile.Terrains.Grass;
+                        break;
+                    case Forest:
+                        mapFile.fields[i][j].terrains = MapFile.Terrains.Forest;
+                        break;
+                    case Mountain:
+                        mapFile.fields[i][j].terrains = MapFile.Terrains.Mountain;
+                        break;
+                    case River:
+                        mapFile.fields[i][j].terrains = MapFile.Terrains.River;
+                        break;
+                    default:
+                        mapFile.fields[i][j].terrains = MapFile.Terrains.Grass;
+                }
+            }
+        }
+        return mapFile;
+    }
+
     public void redrawMap() {
         for (int i = 0; i < this.mapColumns; i++) {
             for (int j = 0; j < this.mapRows; j++) {
@@ -225,6 +348,13 @@ public class MapEditor {
                     field
             );
             setupFieldOfEditorImage(mapStage, fieldOfEditorImage, field);
+        } else if (field.mobBarbarianLocation) {
+            fieldOfEditorImage = new FieldOfEditorImage(
+                    new TextureRegion(AssetsMapEditor.getInstance().getManager().get(
+                            "mapEditor/mobs/mobBarbarian.png", Texture.class)),
+                    field
+            );
+            setupFieldOfEditorImage(mapStage, fieldOfEditorImage, field);
         } else if (field.mobRandomLevel1) {
             fieldOfEditorImage = new FieldOfEditorImage(
                     new TextureRegion(AssetsMapEditor.getInstance().getManager().get(
@@ -367,6 +497,7 @@ public class MapEditor {
         mobWolfDraw,
         mobRandomLvl1Draw,
         mobSpiederDraw,
+        mobBarbarianDraw,
         mobZombieDraw,
         mobRandomLvl2Draw,
         tresureBox1Draw,
@@ -411,6 +542,7 @@ public class MapEditor {
         public boolean mobWolfLocation = false;
         public boolean mobZombieLocation = false;
         public boolean mobSpiderLocation = false;
+        public boolean mobBarbarianLocation = false;
         public boolean mobRandomLevel1 = false;
         public boolean mobRandomLevel2 = false;
         public boolean terrainForest = false;
@@ -517,6 +649,9 @@ public class MapEditor {
                         } else if (drawingType.equals(DrawingType.mobSkeletonDraw)) {
                             field.mobSkeletonLocation = true;
                             fillField(field);
+                        } else if (drawingType.equals(DrawingType.mobBarbarianDraw)) {
+                            field.mobBarbarianLocation = true;
+                            fillField(field);
                         } else if (drawingType.equals(DrawingType.mobWolfDraw)) {
                             field.mobWolfLocation = true;
                             fillField(field);
@@ -598,6 +733,7 @@ public class MapEditor {
             field.mobSkeletonLocation = false;
             field.mobWolfLocation = false;
             field.mobSpiderLocation = false;
+            field.mobBarbarianLocation = false;
             field.mobZombieLocation = false;
             field.mobRandomLevel2 = false;
             field.tresureBoxLvl1 = false;
@@ -614,127 +750,6 @@ public class MapEditor {
             field.manaPotion = false;
             field.healthPotion = false;
         }
-    }
-
-    static public MapEditor convertMapFileToMapEditor(MapEditor mapEditor, MapFile mapFile) {
-
-        mapEditor.nameOfMap = mapFile.nameOfMap;
-        mapEditor.mapColumns = mapFile.mapColumns;
-        mapEditor.mapRows = mapFile.mapRows;
-
-        for (int i = 0; i < mapFile.mapColumns; i++) {
-            for (int j = 0; j < mapFile.mapRows; j++) {
-                mapEditor.fields[i][j].coordinateXonMap = mapFile.fields[i][j].coordinateXonMap;
-                mapEditor.fields[i][j].coordinateYonMap = mapFile.fields[i][j].coordinateYonMap;
-                mapEditor.fields[i][j].player1StartLocation = mapFile.fields[i][j].player1StartLocation;
-                mapEditor.fields[i][j].player2StartLocation = mapFile.fields[i][j].player2StartLocation;
-                mapEditor.fields[i][j].player3StartLocation = mapFile.fields[i][j].player3StartLocation;
-                mapEditor.fields[i][j].player4StartLocation = mapFile.fields[i][j].player4StartLocation;
-                mapEditor.fields[i][j].terrainGrass = mapFile.fields[i][j].terrainGrass;
-                mapEditor.fields[i][j].terrainForest = mapFile.fields[i][j].terrainForest;
-                mapEditor.fields[i][j].terrainMountain = mapFile.fields[i][j].terrainMountain;
-                mapEditor.fields[i][j].terrainRiver = mapFile.fields[i][j].terrainRiver;
-
-                mapEditor.fields[i][j].mobRandomLevel1 = mapFile.fields[i][j].mobRandomLevel1;
-                mapEditor.fields[i][j].mobSkeletonLocation = mapFile.fields[i][j].mobSkeletonLocation;
-                mapEditor.fields[i][j].mobWolfLocation = mapFile.fields[i][j].mobWolfLocation;
-                mapEditor.fields[i][j].mobSpiderLocation = mapFile.fields[i][j].mobSpiderLocation;
-                mapEditor.fields[i][j].mobZombieLocation = mapFile.fields[i][j].mobZombieLocation;
-                mapEditor.fields[i][j].mobRandomLevel2 = mapFile.fields[i][j].mobRandomLevel2;
-                mapEditor.fields[i][j].tresureBoxLvl1 = mapFile.fields[i][j].tresureBoxLvl1;
-                mapEditor.fields[i][j].tresureBoxLvl2 = mapFile.fields[i][j].tresureBoxLvl2;
-                mapEditor.fields[i][j].towerMagic = mapFile.fields[i][j].towerMagic;
-                mapEditor.fields[i][j].towerWisdom = mapFile.fields[i][j].towerWisdom;
-                mapEditor.fields[i][j].towerSpeed = mapFile.fields[i][j].towerSpeed;
-                mapEditor.fields[i][j].towerDefence = mapFile.fields[i][j].towerDefence;
-                mapEditor.fields[i][j].towerAttack = mapFile.fields[i][j].towerAttack;
-                mapEditor.fields[i][j].towerHp = mapFile.fields[i][j].towerHp;
-                mapEditor.fields[i][j].towerWell = mapFile.fields[i][j].towerWell;
-                mapEditor.fields[i][j].towerHospital = mapFile.fields[i][j].towerHospital;
-                mapEditor.fields[i][j].itemGold = mapFile.fields[i][j].itemGold;
-                mapEditor.fields[i][j].manaPotion = mapFile.fields[i][j].manaPotion;
-                mapEditor.fields[i][j].healthPotion = mapFile.fields[i][j].healthPotion;
-
-                switch (mapFile.fields[i][j].terrains) {
-                    case Grass:
-                        mapEditor.fields[i][j].terrains = Terrains.Grass;
-                        break;
-                    case Forest:
-                        mapEditor.fields[i][j].terrains = Terrains.Forest;
-                        break;
-                    case Mountain:
-                        mapEditor.fields[i][j].terrains = Terrains.Mountain;
-                        break;
-                    case River:
-                        mapEditor.fields[i][j].terrains = Terrains.River;
-                        break;
-                    default:
-                        mapEditor.fields[i][j].terrains = Terrains.Grass;
-                }
-            }
-        }
-        return mapEditor;
-    }
-
-    static public MapFile convertMapEditorToMapFile(MapEditor mapEditor, MapFile mapFile) {
-
-        mapFile.nameOfMap = mapEditor.nameOfMap;
-        mapFile.mapColumns = mapEditor.mapColumns;
-        mapFile.mapRows = mapEditor.mapRows;
-
-        for (int i = 0; i < mapEditor.mapColumns; i++) {
-            for (int j = 0; j < mapEditor.mapRows; j++) {
-                mapFile.fields[i][j].coordinateXonMap = mapEditor.fields[i][j].coordinateXonMap;
-                mapFile.fields[i][j].coordinateYonMap = mapEditor.fields[i][j].coordinateYonMap;
-                mapFile.fields[i][j].player1StartLocation = mapEditor.fields[i][j].player1StartLocation;
-                mapFile.fields[i][j].player2StartLocation = mapEditor.fields[i][j].player2StartLocation;
-                mapFile.fields[i][j].player3StartLocation = mapEditor.fields[i][j].player3StartLocation;
-                mapFile.fields[i][j].player4StartLocation = mapEditor.fields[i][j].player4StartLocation;
-                mapFile.fields[i][j].terrainGrass = mapEditor.fields[i][j].terrainGrass;
-                mapFile.fields[i][j].terrainForest = mapEditor.fields[i][j].terrainForest;
-                mapFile.fields[i][j].terrainMountain = mapEditor.fields[i][j].terrainMountain;
-                mapFile.fields[i][j].terrainRiver = mapEditor.fields[i][j].terrainRiver;
-
-                mapFile.fields[i][j].mobRandomLevel1 = mapEditor.fields[i][j].mobRandomLevel1;
-                mapFile.fields[i][j].mobSkeletonLocation = mapEditor.fields[i][j].mobSkeletonLocation;
-                mapFile.fields[i][j].mobWolfLocation = mapEditor.fields[i][j].mobWolfLocation;
-                mapFile.fields[i][j].mobSpiderLocation = mapEditor.fields[i][j].mobSpiderLocation;
-                mapFile.fields[i][j].mobZombieLocation = mapEditor.fields[i][j].mobZombieLocation;
-                mapFile.fields[i][j].mobRandomLevel2 = mapEditor.fields[i][j].mobRandomLevel2;
-                mapFile.fields[i][j].tresureBoxLvl1 = mapEditor.fields[i][j].tresureBoxLvl1;
-                mapFile.fields[i][j].tresureBoxLvl2 = mapEditor.fields[i][j].tresureBoxLvl2;
-                mapFile.fields[i][j].towerMagic = mapEditor.fields[i][j].towerMagic;
-                mapFile.fields[i][j].towerWisdom = mapEditor.fields[i][j].towerWisdom;
-                mapFile.fields[i][j].towerSpeed = mapEditor.fields[i][j].towerSpeed;
-                mapFile.fields[i][j].towerDefence = mapEditor.fields[i][j].towerDefence;
-                mapFile.fields[i][j].towerAttack = mapEditor.fields[i][j].towerAttack;
-                mapFile.fields[i][j].towerHp = mapEditor.fields[i][j].towerHp;
-                mapFile.fields[i][j].towerWell = mapEditor.fields[i][j].towerWell;
-                mapFile.fields[i][j].towerHospital = mapEditor.fields[i][j].towerHospital;
-                mapFile.fields[i][j].itemGold = mapEditor.fields[i][j].itemGold;
-                mapFile.fields[i][j].manaPotion = mapEditor.fields[i][j].manaPotion;
-                mapFile.fields[i][j].healthPotion = mapEditor.fields[i][j].healthPotion;
-
-
-                switch (mapEditor.fields[i][j].terrains) {
-                    case Grass:
-                        mapFile.fields[i][j].terrains = MapFile.Terrains.Grass;
-                        break;
-                    case Forest:
-                        mapFile.fields[i][j].terrains = MapFile.Terrains.Forest;
-                        break;
-                    case Mountain:
-                        mapFile.fields[i][j].terrains = MapFile.Terrains.Mountain;
-                        break;
-                    case River:
-                        mapFile.fields[i][j].terrains = MapFile.Terrains.River;
-                        break;
-                    default:
-                        mapFile.fields[i][j].terrains = MapFile.Terrains.Grass;
-                }
-            }
-        }
-        return mapFile;
     }
 
 }
