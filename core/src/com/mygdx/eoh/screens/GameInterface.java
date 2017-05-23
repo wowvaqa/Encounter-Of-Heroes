@@ -233,6 +233,7 @@ public class GameInterface {
             @Override
             public void clicked(InputEvent event, float x, float y) {
                 super.clicked(event, x, y);
+                ItemsWindow.itemWindowActive = true;
                 GameStatus.getInstance().getMainStage().addActor(
                         ItemsWindow.getInstance().getItemsWindow(GameStatus.getInstance().getSelectedPlayerMob())
                 );

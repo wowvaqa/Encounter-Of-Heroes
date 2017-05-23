@@ -1,9 +1,9 @@
 package com.mygdx.eoh.defaultClasses;
 
-import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.input.GestureDetector;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.mygdx.eoh.items.ItemsWindow;
 import com.mygdx.eoh.mapEditor.MapEditor;
 import com.mygdx.eoh.mapEditor.MapFile;
 
@@ -88,7 +88,9 @@ public class DefaultGestureListener implements GestureDetector.GestureListener {
 //        }
 //
         ((DefaultCamera) stage.getCamera()).setWorld(mapRows, mapColumns);
-        ((DefaultCamera) stage.getCamera()).translateSafe(-deltaX * ((DefaultCamera) stage.getCamera()).zoom, deltaY * ((DefaultCamera) stage.getCamera()).zoom);
+        if (!ItemsWindow.itemWindowActive) {
+            ((DefaultCamera) stage.getCamera()).translateSafe(-deltaX * ((DefaultCamera) stage.getCamera()).zoom, deltaY * ((DefaultCamera) stage.getCamera()).zoom);
+        }
 
         //stage.getCamera().update();
 //

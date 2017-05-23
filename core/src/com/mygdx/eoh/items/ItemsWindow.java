@@ -27,6 +27,7 @@ import com.mygdx.eoh.net.Network;
 
 public class ItemsWindow {
     private static final ItemsWindow instance = new ItemsWindow();
+    public static boolean itemWindowActive = false;
 
     private ItemsWindow() {
     }
@@ -84,6 +85,7 @@ public class ItemsWindow {
             @Override
             public void clicked(InputEvent event, float x, float y) {
                 super.clicked(event, x, y);
+                ItemsWindow.itemWindowActive = false;
                 window.remove();
             }
         });
