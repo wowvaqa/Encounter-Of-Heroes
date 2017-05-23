@@ -151,6 +151,10 @@ public class ScreenNetGame extends DefaultGameScreen {
                     fields[i][j].setFreeMob(FreeMobCreator.getInstance().createFreeMob(FreeMobsKinds.Skeleton, i, j));
                 }
 
+                if (mapfile.fields[i][j].mobBarbarianLocation) {
+                    fields[i][j].setFreeMob(FreeMobCreator.getInstance().createFreeMob(FreeMobsKinds.Barbarian, i, j));
+                }
+
                 /***********************************************************************************
                  * PLAYER MOB CLASSES
                  **********************************************************************************/
