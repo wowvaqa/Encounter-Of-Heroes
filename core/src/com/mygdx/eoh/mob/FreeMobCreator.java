@@ -30,10 +30,24 @@ public class FreeMobCreator {
      */
     public FreeMob createFreeMob(FreeMobsKinds freeMobsKind, int locX, int locY) {
 
-        FreeMob freeMob = new FreeMob(
-                AnimationFreeMobCreator.getInstance().makeAnimation(
-                        FreeMobAnimationTypes.SkeletonStanding),
-                true);
+        FreeMob freeMob;
+
+        switch (freeMobsKind) {
+            case Skeleton:
+                freeMob = createSkeleton();
+                break;
+            case Barbarian:
+                freeMob = createBarbarian();
+                break;
+            default:
+                freeMob = createSkeleton();
+                break;
+        }
+
+//        FreeMob freeMob = new FreeMob(
+//                AnimationFreeMobCreator.getInstance().makeAnimation(
+//                        FreeMobAnimationTypes.SkeletonStanding),
+//                true);
 
         freeMob.setFreeMobsKind(freeMobsKind);
         freeMob.setCoordinateXonMap(locX);
@@ -46,6 +60,20 @@ public class FreeMobCreator {
         return freeMob;
     }
 
+    private FreeMob createSkeleton() {
+        FreeMob freeMob = new FreeMob(AnimationFreeMobCreator.getInstance().makeAnimation(
+                FreeMobAnimationTypes.SkeletonStanding),
+                true);
+        return freeMob;
+    }
+
+    private FreeMob createBarbarian() {
+        FreeMob freeMob = new FreeMob(AnimationFreeMobCreator.getInstance().makeAnimation(
+                FreeMobAnimationTypes.BarbarianStanding),
+                true);
+        return freeMob;
+    }
+
     /**
      * Creates statistic for mob.
      *
@@ -54,6 +82,28 @@ public class FreeMobCreator {
     private void createStatistic(FreeMob freeMob) {
         switch (freeMob.getFreeMobsKind()) {
             case Skeleton:
+                freeMob.setAttack(4);
+                freeMob.setActualAttack(4);
+                freeMob.setDefence(4);
+                freeMob.setActualDefence(4);
+                freeMob.setSpeed(3);
+                freeMob.setActualSpeed(3);
+                freeMob.setActualhp(8);
+                freeMob.setMaxHp(8);
+                freeMob.setActionPoints(3);
+                break;
+            case Barbarian:
+                freeMob.setAttack(8);
+                freeMob.setActualAttack(8);
+                freeMob.setDefence(4);
+                freeMob.setActualDefence(4);
+                freeMob.setSpeed(4);
+                freeMob.setActualSpeed(4);
+                freeMob.setActualhp(14);
+                freeMob.setMaxHp(14);
+                freeMob.setActionPoints(4);
+                break;
+            default:
                 freeMob.setAttack(4);
                 freeMob.setActualAttack(4);
                 freeMob.setDefence(4);

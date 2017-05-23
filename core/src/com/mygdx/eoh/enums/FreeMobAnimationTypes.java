@@ -11,5 +11,11 @@ public enum FreeMobAnimationTypes {
     SkeletonAttackN,
     SkeletonAttackS,
     SkeletonAttackW,
-    SkeletonAttackE
+    SkeletonAttackE,
+    BarbarianStanding,
+    BarbarianStandingSelected,
+    BarbarianAttackN,
+    BarbarianAttackS,
+    BarbarianAttackW,
+    BarbarianAttackE
 }

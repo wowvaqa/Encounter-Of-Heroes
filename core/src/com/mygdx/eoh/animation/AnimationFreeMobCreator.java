@@ -97,6 +97,72 @@ public class AnimationFreeMobCreator {
                 }
                 break;
 
+            case BarbarianStanding:
+                animationSpeed = (2.0f - (5) * 0.05f) / 24;
+                textureAtlas = AssetsGameScreen.getInstance().getManager().get("game/mobsAnimations/barbarianAnimation/barbarianStanding.atlas", TextureAtlas.class);
+
+                walkFrames = new TextureRegion[textureAtlas.getRegions().size];
+
+                for (int i = 0; i < textureAtlas.getRegions().size; i++) {
+                    walkFrames[i] = textureAtlas.getRegions().get(i);
+                }
+                break;
+
+            case BarbarianStandingSelected:
+                animationSpeed = (2.0f - (5) * 0.05f) / 24;
+                textureAtlas = AssetsGameScreen.getInstance().getManager().get("game/mobsAnimations/barbarianAnimation/barbarianStandingSelected.atlas", TextureAtlas.class);
+
+                walkFrames = new TextureRegion[textureAtlas.getRegions().size];
+
+                for (int i = 0; i < textureAtlas.getRegions().size; i++) {
+                    walkFrames[i] = textureAtlas.getRegions().get(i);
+                }
+                break;
+
+            case BarbarianAttackN:
+                animationSpeed = (2.0f - (5) * 0.05f) / 24;
+                textureAtlas = AssetsGameScreen.getInstance().getManager().get("game/mobsAnimations/barbarianAnimation/barbarianAttackN.atlas", TextureAtlas.class);
+
+                walkFrames = new TextureRegion[textureAtlas.getRegions().size];
+
+                for (int i = 0; i < textureAtlas.getRegions().size; i++) {
+                    walkFrames[i] = textureAtlas.getRegions().get(i);
+                }
+                break;
+
+            case BarbarianAttackS:
+                animationSpeed = (2.0f - (5) * 0.05f) / 24;
+                textureAtlas = AssetsGameScreen.getInstance().getManager().get("game/mobsAnimations/barbarianAnimation/barbarianAttackS.atlas", TextureAtlas.class);
+
+                walkFrames = new TextureRegion[textureAtlas.getRegions().size];
+
+                for (int i = 0; i < textureAtlas.getRegions().size; i++) {
+                    walkFrames[i] = textureAtlas.getRegions().get(i);
+                }
+                break;
+
+            case BarbarianAttackE:
+                animationSpeed = (2.0f - (5) * 0.05f) / 24;
+                textureAtlas = AssetsGameScreen.getInstance().getManager().get("game/mobsAnimations/barbarianAnimation/barbarianAttackE.atlas", TextureAtlas.class);
+
+                walkFrames = new TextureRegion[textureAtlas.getRegions().size];
+
+                for (int i = 0; i < textureAtlas.getRegions().size; i++) {
+                    walkFrames[i] = textureAtlas.getRegions().get(i);
+                }
+                break;
+
+            case BarbarianAttackW:
+                animationSpeed = (2.0f - (5) * 0.05f) / 24;
+                textureAtlas = AssetsGameScreen.getInstance().getManager().get("game/mobsAnimations/barbarianAnimation/barbarianAttackW.atlas", TextureAtlas.class);
+
+                walkFrames = new TextureRegion[textureAtlas.getRegions().size];
+
+                for (int i = 0; i < textureAtlas.getRegions().size; i++) {
+                    walkFrames[i] = textureAtlas.getRegions().get(i);
+                }
+                break;
+
         }
 
         if (walkFrames == null) throw new AssertionError();

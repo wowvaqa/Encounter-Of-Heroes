@@ -102,7 +102,10 @@ public class FreeMob extends DefaultMob {
                     MoveManager.turnOffSelectedPlayersMobs();
                     FreeMob.unselectFreeMobs();
 
-                    setAnimation(AnimationFreeMobCreator.getInstance().makeAnimation(FreeMobAnimationTypes.SkeletonStandingSelected));
+                    if (getFreeMobsKind().equals(FreeMobsKinds.Barbarian))
+                        setAnimation(AnimationFreeMobCreator.getInstance().makeAnimation(FreeMobAnimationTypes.BarbarianStandingSelected));
+                    else
+                        setAnimation(AnimationFreeMobCreator.getInstance().makeAnimation(FreeMobAnimationTypes.SkeletonStandingSelected));
 
                     GameStatus.getInstance().getSpellEffectsTable().add(getLongEffectsTable());
                     GameStatus.getInstance().getUpperBarRightTable().add(getInfoPlayerMobTable());
@@ -123,12 +126,18 @@ public class FreeMob extends DefaultMob {
         }
 
         if (!isSelected() && !isAttacked() && getActions().size == 0) {
-            setAnimation(AnimationFreeMobCreator.getInstance().makeAnimation(FreeMobAnimationTypes.SkeletonStanding));
+            if (getFreeMobsKind().equals(FreeMobsKinds.Barbarian))
+                setAnimation(AnimationFreeMobCreator.getInstance().makeAnimation(FreeMobAnimationTypes.BarbarianStanding));
+            else
+                setAnimation(AnimationFreeMobCreator.getInstance().makeAnimation(FreeMobAnimationTypes.SkeletonStanding));
             setLooped(true);
         }
 
         if (isAttacked() && getActionPoints() < 1 && getActions().size == 0) {
-            setAnimation(AnimationFreeMobCreator.getInstance().makeAnimation(FreeMobAnimationTypes.SkeletonStanding));
+            if (getFreeMobsKind().equals(FreeMobsKinds.Barbarian))
+                setAnimation(AnimationFreeMobCreator.getInstance().makeAnimation(FreeMobAnimationTypes.BarbarianStanding));
+            else
+                setAnimation(AnimationFreeMobCreator.getInstance().makeAnimation(FreeMobAnimationTypes.SkeletonStanding));
             setLooped(true);
         }
 
@@ -242,6 +251,43 @@ public class FreeMob extends DefaultMob {
 
     private Animation getAnimationForAttack(
             FreeMob freeMob, int mapXcoordinateOfEnemy, int mapYcoordinageOfEnemy) {
+
+        if (this.getFreeMobsKind().equals(FreeMobsKinds.Barbarian)) {
+            //  SOUTH
+            if (freeMob.getCoordinateXonMap() == mapXcoordinateOfEnemy &&
+                    freeMob.getCoordinateYonMap() > mapYcoordinageOfEnemy) {
+                return AnimationFreeMobCreator.getInstance().makeAnimation(FreeMobAnimationTypes.BarbarianAttackS);
+                //  NORTH
+            } else if (freeMob.getCoordinateXonMap() == mapXcoordinateOfEnemy &&
+                    freeMob.getCoordinateYonMap() < mapYcoordinageOfEnemy) {
+                return AnimationFreeMobCreator.getInstance().makeAnimation(FreeMobAnimationTypes.BarbarianAttackN);
+                // WEST
+            } else if (freeMob.getCoordinateXonMap() > mapXcoordinateOfEnemy &&
+                    freeMob.getCoordinateYonMap() == mapYcoordinageOfEnemy) {
+                return AnimationFreeMobCreator.getInstance().makeAnimation(FreeMobAnimationTypes.BarbarianAttackW);
+                // EAST
+            } else if (freeMob.getCoordinateXonMap() < mapXcoordinateOfEnemy &&
+                    freeMob.getCoordinateYonMap() == mapYcoordinageOfEnemy) {
+                return AnimationFreeMobCreator.getInstance().makeAnimation(FreeMobAnimationTypes.BarbarianAttackE);
+                // NORTH - EAST
+            } else if (freeMob.getCoordinateXonMap() > mapXcoordinateOfEnemy &&
+                    freeMob.getCoordinateYonMap() > mapYcoordinageOfEnemy) {
+                return AnimationFreeMobCreator.getInstance().makeAnimation(FreeMobAnimationTypes.BarbarianAttackW);
+                // NORTH - WEST
+            } else if (freeMob.getCoordinateXonMap() < mapXcoordinateOfEnemy &&
+                    freeMob.getCoordinateYonMap() > mapYcoordinageOfEnemy) {
+                return AnimationFreeMobCreator.getInstance().makeAnimation(FreeMobAnimationTypes.BarbarianAttackE);
+                // SOUTH - EAST
+            } else if (freeMob.getCoordinateXonMap() > mapXcoordinateOfEnemy &&
+                    freeMob.getCoordinateYonMap() < mapYcoordinageOfEnemy) {
+                return AnimationFreeMobCreator.getInstance().makeAnimation(FreeMobAnimationTypes.BarbarianAttackW);
+                // SOUTH - WEST
+            } else if (freeMob.getCoordinateXonMap() < mapXcoordinateOfEnemy &&
+                    freeMob.getCoordinateYonMap() < mapYcoordinageOfEnemy) {
+                return AnimationFreeMobCreator.getInstance().makeAnimation(FreeMobAnimationTypes.BarbarianAttackE);
+            }
+            return AnimationFreeMobCreator.getInstance().makeAnimation(FreeMobAnimationTypes.BarbarianAttackS);
+        }
 
         //  SOUTH
         if (freeMob.getCoordinateXonMap() == mapXcoordinateOfEnemy &&
