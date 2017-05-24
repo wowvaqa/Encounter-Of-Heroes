@@ -69,8 +69,11 @@ public class CastButton extends AnimatedImage {
                     instantEffect.setStateTime(0);
                     instantEffect.setLooped(false);
                     GameStatus.getInstance().getMapStage().addActor(instantEffect);
+
                     if (instantEffect.getInstantEffects().equals(InstantEffects.Cure)) {
-                        showGoodEffectLabel(instantEffect.getDamage(), locationXonMap, locationYonMap);
+                        showGoodEffectLabel("" + instantEffect.getDamage(), locationXonMap, locationYonMap);
+                    } else if (instantEffect.getInstantEffects().equals(InstantEffects.AttackUpgrade)) {
+                        showGoodEffectLabel("ATTACK UPGRADE ", locationXonMap, locationYonMap);
                     } else {
                         showDamageLabel(instantEffect.getDamage(), locationXonMap, locationYonMap);
                     }
@@ -98,9 +101,9 @@ public class CastButton extends AnimatedImage {
      * @param locationXonMap
      * @param locationYonMap
      */
-    private void showGoodEffectLabel(int damage, int locationXonMap, int locationYonMap) {
+    private void showGoodEffectLabel(String damage, int locationXonMap, int locationYonMap) {
         DefaultDamageLabel defaultDamageLabel = new DefaultDamageLabel(
-                Integer.toString(damage), (Skin) AssetsGameScreen.getInstance().getManager().get("styles/skin.json"), "good64",
+                damage, (Skin) AssetsGameScreen.getInstance().getManager().get("styles/skin.json"), "good64",
                 locationXonMap * Options.tileSize + Options.tileSize / 2,
                 locationYonMap * Options.tileSize + Options.tileSize / 2);
         GameStatus.getInstance().getMapStage().addActor(defaultDamageLabel);

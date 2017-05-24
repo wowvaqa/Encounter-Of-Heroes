@@ -5,15 +5,19 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
+import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.badlogic.gdx.utils.SnapshotArray;
 import com.mygdx.eoh.animation.AnimationCreator;
 import com.mygdx.eoh.assets.AssetsGameInterface;
+import com.mygdx.eoh.assets.AssetsGameScreen;
+import com.mygdx.eoh.defaultClasses.DefaultDamageLabel;
 import com.mygdx.eoh.effects.InstantEffect;
 import com.mygdx.eoh.enums.AnimationTypes;
 import com.mygdx.eoh.enums.InstantEffects;
 import com.mygdx.eoh.gameClasses.GameStatus;
+import com.mygdx.eoh.gameClasses.Options;
 import com.mygdx.eoh.gameClasses.PlayerMob;
 
 /**
@@ -53,6 +57,8 @@ public class Item extends Image {
             playerMob.getFieldOfPlayerMob().setItem(null);
             playerMob.getPlayerOwner().riseGold(50);
 
+            showGoodEffectLabel("GOLD +50", this.getX(), this.getY());
+
             if (GameStatus.getInstance().getCurrentPlayerTurn().equals(playerMob.getPlayerOwner())) {
                 playerMob.getPlayerOwner().changeGoldLabel(playerMob.getPlayerOwner());
             }
@@ -63,6 +69,7 @@ public class Item extends Image {
             this.playerOwner = playerMob;
             playerMob.getFieldOfPlayerMob().getItem().remove();
             playerMob.getFieldOfPlayerMob().setItem(null);
+            showGoodEffectLabel("HEALTH POTION", this.getX(), this.getY());
 
         }
 
@@ -71,6 +78,7 @@ public class Item extends Image {
             this.playerOwner = playerMob;
             playerMob.getFieldOfPlayerMob().getItem().remove();
             playerMob.getFieldOfPlayerMob().setItem(null);
+            showGoodEffectLabel("MANA POTION", this.getX(), this.getY());
 
         }
 
@@ -169,6 +177,14 @@ public class Item extends Image {
                 break;
 
         }
+    }
+
+    private void showGoodEffectLabel(String damage, float locationXonMap, float locationYonMap) {
+        DefaultDamageLabel defaultDamageLabel = new DefaultDamageLabel(
+                damage, (Skin) AssetsGameScreen.getInstance().getManager().get("styles/skin.json"), "good64",
+                locationXonMap + Options.tileSize / 2,
+                locationYonMap + Options.tileSize / 2);
+        GameStatus.getInstance().getMapStage().addActor(defaultDamageLabel);
     }
 
     /***********************************************************************************************

@@ -436,6 +436,7 @@ public class PlayerMob extends DefaultMob {
                 //this.setLooped(true);
                 this.setAnimation(AnimationCreator.getInstance().makeAnimation(standing));
                 this.setLooped(true);
+
             } else {
                 if (!this.moveManager.isMoveButtonsCreated()) {
                     moveManager.showMoveInterface(GameStatus.getInstance().getMapStage(), this);
