@@ -17,5 +17,11 @@ public enum FreeMobAnimationTypes {
     BarbarianAttackN,
     BarbarianAttackS,
     BarbarianAttackW,
-    BarbarianAttackE
+    BarbarianAttackE,
+    LavaGolemStanding,
+    LavaGolemStandingSelected,
+    LavaGolemAttackN,
+    LavaGolemAttackS,
+    LavaGolemAttackW,
+    LavaGolemAttackE
 }

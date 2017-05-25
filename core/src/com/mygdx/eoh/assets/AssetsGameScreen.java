@@ -104,6 +104,13 @@ public class AssetsGameScreen extends DefaultAssets {
         getManager().load("game/mobsAnimations/barbarianAnimation/barbarianAttackS.atlas", TextureAtlas.class);
         getManager().load("game/mobsAnimations/barbarianAnimation/barbarianAttackE.atlas", TextureAtlas.class);
         getManager().load("game/mobsAnimations/barbarianAnimation/barbarianAttackW.atlas", TextureAtlas.class);
+        // LAVA GOLEM
+        getManager().load("game/mobsAnimations/lavaGolemAnimation/lavaGolemStanding.atlas", TextureAtlas.class);
+        getManager().load("game/mobsAnimations/lavaGolemAnimation/lavaGolemStandingSelected.atlas", TextureAtlas.class);
+        getManager().load("game/mobsAnimations/lavaGolemAnimation/lavaGolemAttackN.atlas", TextureAtlas.class);
+        getManager().load("game/mobsAnimations/lavaGolemAnimation/lavaGolemAttackS.atlas", TextureAtlas.class);
+        getManager().load("game/mobsAnimations/lavaGolemAnimation/lavaGolemAttackE.atlas", TextureAtlas.class);
+        getManager().load("game/mobsAnimations/lavaGolemAnimation/lavaGolemAttackW.atlas", TextureAtlas.class);
         /*******************************************************************************************
          * Castle animation.
          ******************************************************************************************/

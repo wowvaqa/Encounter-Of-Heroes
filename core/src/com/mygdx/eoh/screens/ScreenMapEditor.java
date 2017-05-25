@@ -1493,14 +1493,23 @@ public class ScreenMapEditor extends DefaultScreen {
             );
 
             final ImageButton.ImageButtonStyle imageButtonStyleMob01Brush = new ImageButton.ImageButtonStyle();
+            final ImageButton.ImageButtonStyle imageButtonStyleMob02Brush = new ImageButton.ImageButtonStyle();
             //final ImageButton.ImageButtonStyle imageButtonStyleMob02Brush = new ImageButton.ImageButtonStyle();
             //final ImageButton.ImageButtonStyle imageButtonStyleMobRandomBrush = new ImageButton.ImageButtonStyle();
 
+            // BARBARIAN
             imageButtonStyleMob01Brush.imageUp = new TextureRegionDrawable(new TextureRegion(
                     AssetsMapEditor.getInstance().getManager().get("mapEditor/interface/mobsWindow/mobsBrushBarbarianUp.png", Texture.class)
             ));
             imageButtonStyleMob01Brush.imageDown = new TextureRegionDrawable(new TextureRegion(
                     AssetsMapEditor.getInstance().getManager().get("mapEditor/interface/mobsWindow/mobsBrushBarbarianDown.png", Texture.class)
+            ));
+            // GOLEM
+            imageButtonStyleMob02Brush.imageUp = new TextureRegionDrawable(new TextureRegion(
+                    AssetsMapEditor.getInstance().getManager().get("mapEditor/interface/mobsWindow/mobsBrushLavaGolemUp.png", Texture.class)
+            ));
+            imageButtonStyleMob02Brush.imageDown = new TextureRegionDrawable(new TextureRegion(
+                    AssetsMapEditor.getInstance().getManager().get("mapEditor/interface/mobsWindow/mobsBrushLavaGolemDown.png", Texture.class)
             ));
 
 //            imageButtonStyleMob01Brush.imageUp = new TextureRegionDrawable(new TextureRegion(
@@ -1523,6 +1532,7 @@ public class ScreenMapEditor extends DefaultScreen {
 //            ));
 
             ImageButton imageButtonMob01 = new ImageButton(imageButtonStyleMob01Brush);
+            ImageButton imageButtonMob02 = new ImageButton(imageButtonStyleMob02Brush);
 //            ImageButton imageButtonMob02 = new ImageButton(imageButtonStyleMob02Brush);
 //            ImageButton imageButtonMobRandom = new ImageButton(imageButtonStyleMobRandomBrush);
 
@@ -1531,6 +1541,15 @@ public class ScreenMapEditor extends DefaultScreen {
                 public void clicked(InputEvent event, float x, float y) {
                     mapEditor.drawingType = MapEditor.DrawingType.mobBarbarianDraw;
                     imageButtonBrush.setStyle(imageButtonStyleMob01Brush);
+                    window.remove();
+                }
+            });
+
+            imageButtonMob02.addListener(new ClickListener() {
+                @Override
+                public void clicked(InputEvent event, float x, float y) {
+                    mapEditor.drawingType = MapEditor.DrawingType.mobLavaGolemDraw;
+                    imageButtonBrush.setStyle(imageButtonStyleMob02Brush);
                     window.remove();
                 }
             });
@@ -1554,6 +1573,7 @@ public class ScreenMapEditor extends DefaultScreen {
 //            });
 
             window.add(imageButtonMob01);
+            window.add(imageButtonMob02);
 //            window.add(imageButtonMob02);
 //            window.add(imageButtonMobRandom);
             window.add(getCancelImageButton(window));

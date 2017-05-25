@@ -163,6 +163,72 @@ public class AnimationFreeMobCreator {
                 }
                 break;
 
+            case LavaGolemStanding:
+                animationSpeed = (2.0f - (5) * 0.05f) / 24;
+                textureAtlas = AssetsGameScreen.getInstance().getManager().get("game/mobsAnimations/lavaGolemAnimation/lavaGolemStanding.atlas", TextureAtlas.class);
+
+                walkFrames = new TextureRegion[textureAtlas.getRegions().size];
+
+                for (int i = 0; i < textureAtlas.getRegions().size; i++) {
+                    walkFrames[i] = textureAtlas.getRegions().get(i);
+                }
+                break;
+
+            case LavaGolemStandingSelected:
+                animationSpeed = (2.0f - (5) * 0.05f) / 24;
+                textureAtlas = AssetsGameScreen.getInstance().getManager().get("game/mobsAnimations/lavaGolemAnimation/lavaGolemStandingSelected.atlas", TextureAtlas.class);
+
+                walkFrames = new TextureRegion[textureAtlas.getRegions().size];
+
+                for (int i = 0; i < textureAtlas.getRegions().size; i++) {
+                    walkFrames[i] = textureAtlas.getRegions().get(i);
+                }
+                break;
+
+            case LavaGolemAttackN:
+                animationSpeed = (2.0f - (5) * 0.05f) / 24;
+                textureAtlas = AssetsGameScreen.getInstance().getManager().get("game/mobsAnimations/lavaGolemAnimation/lavaGolemAttackN.atlas", TextureAtlas.class);
+
+                walkFrames = new TextureRegion[textureAtlas.getRegions().size];
+
+                for (int i = 0; i < textureAtlas.getRegions().size; i++) {
+                    walkFrames[i] = textureAtlas.getRegions().get(i);
+                }
+                break;
+
+            case LavaGolemAttackS:
+                animationSpeed = (2.0f - (5) * 0.05f) / 24;
+                textureAtlas = AssetsGameScreen.getInstance().getManager().get("game/mobsAnimations/lavaGolemAnimation/lavaGolemAttackS.atlas", TextureAtlas.class);
+
+                walkFrames = new TextureRegion[textureAtlas.getRegions().size];
+
+                for (int i = 0; i < textureAtlas.getRegions().size; i++) {
+                    walkFrames[i] = textureAtlas.getRegions().get(i);
+                }
+                break;
+
+            case LavaGolemAttackE:
+                animationSpeed = (2.0f - (5) * 0.05f) / 24;
+                textureAtlas = AssetsGameScreen.getInstance().getManager().get("game/mobsAnimations/lavaGolemAnimation/lavaGolemAttackE.atlas", TextureAtlas.class);
+
+                walkFrames = new TextureRegion[textureAtlas.getRegions().size];
+
+                for (int i = 0; i < textureAtlas.getRegions().size; i++) {
+                    walkFrames[i] = textureAtlas.getRegions().get(i);
+                }
+                break;
+
+            case LavaGolemAttackW:
+                animationSpeed = (2.0f - (5) * 0.05f) / 24;
+                textureAtlas = AssetsGameScreen.getInstance().getManager().get("game/mobsAnimations/lavaGolemAnimation/lavaGolemAttackW.atlas", TextureAtlas.class);
+
+                walkFrames = new TextureRegion[textureAtlas.getRegions().size];
+
+                for (int i = 0; i < textureAtlas.getRegions().size; i++) {
+                    walkFrames[i] = textureAtlas.getRegions().get(i);
+                }
+                break;
+
         }
 
         if (walkFrames == null) throw new AssertionError();

@@ -137,6 +137,10 @@ class ScreenSingleGame extends DefaultGameScreen {
                     fields[i][j].setFreeMob(FreeMobCreator.getInstance().createFreeMob(FreeMobsKinds.Barbarian, i, j));
                 }
 
+                if (mapfile.fields[i][j].mobLavaGolemLocation) {
+                    fields[i][j].setFreeMob(FreeMobCreator.getInstance().createFreeMob(FreeMobsKinds.LavaGolem, i, j));
+                }
+
                 if (mapfile.fields[i][j].player1StartLocation) {
                     fields[i][j].setPlayerMob(
                             PlayerMobCreator.getInstance().createPlayerMob(

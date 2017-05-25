@@ -7,5 +7,6 @@ package com.mygdx.eoh.enums;
 
 public enum FreeMobsKinds {
     Skeleton,
-    Barbarian
+    Barbarian,
+    LavaGolem
 }

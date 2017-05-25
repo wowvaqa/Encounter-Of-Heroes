@@ -71,6 +71,7 @@ public class MapEditor {
                 mapEditor.fields[i][j].mobWolfLocation = mapFile.fields[i][j].mobWolfLocation;
                 mapEditor.fields[i][j].mobSpiderLocation = mapFile.fields[i][j].mobSpiderLocation;
                 mapEditor.fields[i][j].mobBarbarianLocation = mapFile.fields[i][j].mobBarbarianLocation;
+                mapEditor.fields[i][j].mobLavaGolemLocation = mapFile.fields[i][j].mobLavaGolemLocation;
                 mapEditor.fields[i][j].mobZombieLocation = mapFile.fields[i][j].mobZombieLocation;
                 mapEditor.fields[i][j].mobRandomLevel2 = mapFile.fields[i][j].mobRandomLevel2;
                 mapEditor.fields[i][j].tresureBoxLvl1 = mapFile.fields[i][j].tresureBoxLvl1;
@@ -132,6 +133,7 @@ public class MapEditor {
                 mapFile.fields[i][j].mobWolfLocation = mapEditor.fields[i][j].mobWolfLocation;
                 mapFile.fields[i][j].mobSpiderLocation = mapEditor.fields[i][j].mobSpiderLocation;
                 mapFile.fields[i][j].mobBarbarianLocation = mapEditor.fields[i][j].mobBarbarianLocation;
+                mapFile.fields[i][j].mobLavaGolemLocation = mapEditor.fields[i][j].mobLavaGolemLocation;
                 mapFile.fields[i][j].mobZombieLocation = mapEditor.fields[i][j].mobZombieLocation;
                 mapFile.fields[i][j].mobRandomLevel2 = mapEditor.fields[i][j].mobRandomLevel2;
                 mapFile.fields[i][j].tresureBoxLvl1 = mapEditor.fields[i][j].tresureBoxLvl1;
@@ -355,6 +357,13 @@ public class MapEditor {
                     field
             );
             setupFieldOfEditorImage(mapStage, fieldOfEditorImage, field);
+        } else if (field.mobLavaGolemLocation) {
+            fieldOfEditorImage = new FieldOfEditorImage(
+                    new TextureRegion(AssetsMapEditor.getInstance().getManager().get(
+                            "mapEditor/mobs/mobLavaGolem.png", Texture.class)),
+                    field
+            );
+            setupFieldOfEditorImage(mapStage, fieldOfEditorImage, field);
         } else if (field.mobRandomLevel1) {
             fieldOfEditorImage = new FieldOfEditorImage(
                     new TextureRegion(AssetsMapEditor.getInstance().getManager().get(
@@ -498,6 +507,7 @@ public class MapEditor {
         mobRandomLvl1Draw,
         mobSpiederDraw,
         mobBarbarianDraw,
+        mobLavaGolemDraw,
         mobZombieDraw,
         mobRandomLvl2Draw,
         tresureBox1Draw,
@@ -543,6 +553,7 @@ public class MapEditor {
         public boolean mobZombieLocation = false;
         public boolean mobSpiderLocation = false;
         public boolean mobBarbarianLocation = false;
+        public boolean mobLavaGolemLocation = false;
         public boolean mobRandomLevel1 = false;
         public boolean mobRandomLevel2 = false;
         public boolean terrainForest = false;
@@ -652,6 +663,9 @@ public class MapEditor {
                         } else if (drawingType.equals(DrawingType.mobBarbarianDraw)) {
                             field.mobBarbarianLocation = true;
                             fillField(field);
+                        } else if (drawingType.equals(DrawingType.mobLavaGolemDraw)) {
+                            field.mobLavaGolemLocation = true;
+                            fillField(field);
                         } else if (drawingType.equals(DrawingType.mobWolfDraw)) {
                             field.mobWolfLocation = true;
                             fillField(field);
@@ -734,6 +748,7 @@ public class MapEditor {
             field.mobWolfLocation = false;
             field.mobSpiderLocation = false;
             field.mobBarbarianLocation = false;
+            field.mobLavaGolemLocation = false;
             field.mobZombieLocation = false;
             field.mobRandomLevel2 = false;
             field.tresureBoxLvl1 = false;

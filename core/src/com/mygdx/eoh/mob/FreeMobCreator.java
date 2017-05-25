@@ -39,6 +39,9 @@ public class FreeMobCreator {
             case Barbarian:
                 freeMob = createBarbarian();
                 break;
+            case LavaGolem:
+                freeMob = createLavaGolem();
+                break;
             default:
                 freeMob = createSkeleton();
                 break;
@@ -74,6 +77,13 @@ public class FreeMobCreator {
         return freeMob;
     }
 
+    private FreeMob createLavaGolem() {
+        FreeMob freeMob = new FreeMob(AnimationFreeMobCreator.getInstance().makeAnimation(
+                FreeMobAnimationTypes.LavaGolemStanding),
+                true);
+        return freeMob;
+    }
+
     /**
      * Creates statistic for mob.
      *
@@ -102,6 +112,17 @@ public class FreeMobCreator {
                 freeMob.setActualhp(14);
                 freeMob.setMaxHp(14);
                 freeMob.setActionPoints(4);
+                break;
+            case LavaGolem:
+                freeMob.setAttack(6);
+                freeMob.setActualAttack(6);
+                freeMob.setDefence(8);
+                freeMob.setActualDefence(8);
+                freeMob.setSpeed(3);
+                freeMob.setActualSpeed(3);
+                freeMob.setActualhp(35);
+                freeMob.setMaxHp(35);
+                freeMob.setActionPoints(3);
                 break;
             default:
                 freeMob.setAttack(4);
