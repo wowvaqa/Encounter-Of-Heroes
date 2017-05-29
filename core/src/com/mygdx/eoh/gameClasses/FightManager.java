@@ -67,8 +67,27 @@ public class FightManager {
         damage = getFactorOfAttack(attackingMob) - getFactorOfDefence(defendingMob);
         if (damage < 0) damage = 0;
         else setActualHPofMob(defendingMob, damage);
+
+        chceckExpReward(attackingMob, defendingMob);
+
         System.out.println("Damage: " + damage);
         return damage;
+    }
+
+    public static void chceckExpReward(Object attackingMob, Object defendingMob){
+        if (attackingMob.getClass().equals(PlayerMob.class) && defendingMob.getClass().equals(FreeMob.class)){
+            if (((FreeMob)defendingMob).getActualhp() < 1) {
+                int expReward = ((FreeMob) defendingMob).getRewardExp();
+                ((PlayerMob) attackingMob).showGoodEffectLabel("+ " + expReward + " EXP", ((PlayerMob) attackingMob).getX(), ((PlayerMob) attackingMob).getY());
+                ((PlayerMob) attackingMob).setActualExp(((PlayerMob) attackingMob).getActualExp() + expReward);
+            }
+        } else if (attackingMob.getClass().equals(PlayerMob.class) && defendingMob.getClass().equals(PlayerMob.class)){
+            if (((PlayerMob)defendingMob).getActualhp() < 1) {
+                int expReward = ((PlayerMob) defendingMob).getRewardExp();
+                ((PlayerMob) attackingMob).showGoodEffectLabel("+ " + expReward + " EXP", ((PlayerMob) attackingMob).getX(), ((PlayerMob) attackingMob).getY());
+                ((PlayerMob) attackingMob).setActualExp(((PlayerMob) attackingMob).getActualExp() + expReward);
+            }
+        }
     }
 
     /**

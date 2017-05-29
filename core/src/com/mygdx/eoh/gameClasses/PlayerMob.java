@@ -20,6 +20,7 @@ import com.mygdx.eoh.Options.OptionsInGame;
 import com.mygdx.eoh.animation.AnimationCreator;
 import com.mygdx.eoh.assets.AssetsGameScreen;
 import com.mygdx.eoh.creators.SpellCreator;
+import com.mygdx.eoh.defaultClasses.DefaultDamageLabel;
 import com.mygdx.eoh.defaultClasses.DefaultMob;
 import com.mygdx.eoh.defaultClasses.DefaultPlayerColorIcon;
 import com.mygdx.eoh.effects.LongEffect;
@@ -458,6 +459,20 @@ public class PlayerMob extends DefaultMob {
         } else if (this.getActions().size > 0) {
             this.setTouchable(Touchable.disabled);
         }
+    }
+
+    /**
+     * Shows green label for positive effects.
+     * @param damage
+     * @param locationXonMap
+     * @param locationYonMap
+     */
+    public void showGoodEffectLabel(String damage, float locationXonMap, float locationYonMap) {
+        DefaultDamageLabel defaultDamageLabel = new DefaultDamageLabel(
+                damage, (Skin) AssetsGameScreen.getInstance().getManager().get("styles/skin.json"), "good64",
+                locationXonMap + Options.tileSize / 2,
+                locationYonMap + Options.tileSize / 2);
+        GameStatus.getInstance().getMapStage().addActor(defaultDamageLabel);
     }
 
     /**

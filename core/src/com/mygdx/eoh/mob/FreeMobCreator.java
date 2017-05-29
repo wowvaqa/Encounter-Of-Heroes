@@ -101,6 +101,7 @@ public class FreeMobCreator {
                 freeMob.setActualhp(8);
                 freeMob.setMaxHp(8);
                 freeMob.setActionPoints(3);
+                freeMob.setRewardExp(100);
                 break;
             case Barbarian:
                 freeMob.setAttack(8);
@@ -112,6 +113,7 @@ public class FreeMobCreator {
                 freeMob.setActualhp(14);
                 freeMob.setMaxHp(14);
                 freeMob.setActionPoints(4);
+                freeMob.setRewardExp(200);
                 break;
             case LavaGolem:
                 freeMob.setAttack(6);
@@ -123,6 +125,7 @@ public class FreeMobCreator {
                 freeMob.setActualhp(35);
                 freeMob.setMaxHp(35);
                 freeMob.setActionPoints(3);
+                freeMob.setRewardExp(400);
                 break;
             default:
                 freeMob.setAttack(4);
@@ -134,6 +137,7 @@ public class FreeMobCreator {
                 freeMob.setActualhp(8);
                 freeMob.setMaxHp(8);
                 freeMob.setActionPoints(3);
+                freeMob.setRewardExp(100);
                 break;
         }
     }
