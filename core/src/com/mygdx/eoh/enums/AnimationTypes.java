@@ -7,6 +7,7 @@ package com.mygdx.eoh.enums;
 public enum AnimationTypes {
     ApBarAnimation,
     ManaBarAnimation,
+    HpBarAnimation,
     CastleAnimation,
     CastleSelectedAnimation,
     HospitalAnimation,

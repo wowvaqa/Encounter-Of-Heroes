@@ -153,10 +153,11 @@ public class AssetsGameScreen extends DefaultAssets {
          ******************************************************************************************/
         getManager().load("game/map/hexGrid.png", Texture.class, getParameter());
         /*******************************************************************************************
-         * AP & MANA bar animation
+         * AP & MANA & HP bar animation
          ******************************************************************************************/
         getManager().load("game/mobsAnimations/apBarAnimation/apBarAnimation.atlas", TextureAtlas.class);
         getManager().load("game/mobsAnimations/manaBarAnimation/mpBarAnimation.atlas", TextureAtlas.class);
+        getManager().load("game/mobsAnimations/apBarAnimation/hpBarAnimation.atlas", TextureAtlas.class);
         /*******************************************************************************************
          * Items
          ******************************************************************************************/

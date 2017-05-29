@@ -15,6 +15,7 @@ public class EquipModifier {
     private int speedModifier;
     private int powerModifier;
     private int wisdomModifier;
+    private int hpModifier;
 
     /**
      * Creates equipment modificator.
@@ -136,6 +137,22 @@ public class EquipModifier {
             wisdomMod = +equipModifier.getWisdomModifier();
         }
         return wisdomMod;
+    }
+
+    /**
+     * Return sum of all HP modifiers of equipment.
+     *
+     * @param equip Equipment for sum
+     * @return Sum of all HP modifiers
+     */
+    public static int getHpModifiers(Equip equip) {
+        int hpMod = 0;
+        if (equip == null)
+            return 0;
+        for (EquipModifier equipModifier : equip.getEquipModifiers()) {
+            hpMod = +equipModifier.getWisdomModifier();
+        }
+        return hpMod;
     }
 
     private int getAttackModifier() {

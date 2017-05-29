@@ -24,6 +24,7 @@ import com.mygdx.eoh.enums.FreeMobsKinds;
 import com.mygdx.eoh.gameClasses.APBar;
 import com.mygdx.eoh.gameClasses.FightManager;
 import com.mygdx.eoh.gameClasses.GameStatus;
+import com.mygdx.eoh.gameClasses.HpBar;
 import com.mygdx.eoh.gameClasses.ModifierGetter;
 import com.mygdx.eoh.gameClasses.MoveManager;
 import com.mygdx.eoh.gameClasses.Options;
@@ -55,19 +56,20 @@ public class FreeMob extends DefaultMob {
     private SnapshotArray<LongEffect> longEffects;
 
     private APBar apBar;
+    private HpBar hpBar;
 
     public FreeMob(Animation animation, boolean isLooped) {
         super(animation, isLooped);
 
         longEffects = new SnapshotArray<LongEffect>();
 
-        apBar = new APBar(AnimationCreator.getInstance().makeAnimation(AnimationTypes.ApBarAnimation), false, this);
-
         addListener();
 
         createInfoTable();
         createLongEffectsTable();
 
+        apBar = new APBar(AnimationCreator.getInstance().makeAnimation(AnimationTypes.ApBarAnimation), false, this);
+        hpBar = new HpBar(AnimationCreator.getInstance().makeAnimation(AnimationTypes.HpBarAnimation), false, this);
     }
 
     /**
@@ -125,6 +127,11 @@ public class FreeMob extends DefaultMob {
         if (this.getActionPoints() < this.getActualSpeed() + ModifierGetter.getSpeedModifier(this) && !this.getApBar().isApBarAdd()) {
             this.getStage().addActor(this.getApBar());
             this.getApBar().setApBarAdd(true);
+        }
+
+        if (this.getActualhp()< this.getMaxHp() + ModifierGetter.getHpModifier(this) && !this.getHpBar().isHpBarAdd()) {
+            this.getStage().addActor(this.getHpBar());
+            this.getHpBar().setHpBarAdd(true);
         }
 
         if (!isSelected() && !isAttacked() && getActions().size == 0) {
@@ -456,6 +463,14 @@ public class FreeMob extends DefaultMob {
 
     public APBar getApBar() {
         return apBar;
+    }
+
+    public HpBar getHpBar() {
+        return hpBar;
+    }
+
+    public void setHpBar(HpBar hpBar) {
+        this.hpBar = hpBar;
     }
 
     public void setApBar(APBar apBar) {

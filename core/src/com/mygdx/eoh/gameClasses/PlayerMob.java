@@ -45,6 +45,7 @@ public class PlayerMob extends DefaultMob {
     private DefaultPlayerColorIcon playerColorImage;
     private APBar apBar;
     private ManaBar manaBar;
+    private HpBar hpBar;
 
     private Table infoPlayerMobTable;
     private Table longEffectsTable;
@@ -92,6 +93,7 @@ public class PlayerMob extends DefaultMob {
         stepManager = new StepManager(this);
         apBar = new APBar(AnimationCreator.getInstance().makeAnimation(AnimationTypes.ApBarAnimation, this), false, this);
         manaBar = new ManaBar(AnimationCreator.getInstance().makeAnimation(AnimationTypes.ManaBarAnimation, this), false, this);
+        hpBar = new HpBar(AnimationCreator.getInstance().makeAnimation(AnimationTypes.HpBarAnimation, this), false, this);
         createPlayerMobColorImage();
         createInfoTable();
         createLongEffectsTable();
@@ -405,6 +407,7 @@ public class PlayerMob extends DefaultMob {
 
         ManaBar.recalculateManaBarFrameDuration(this);
         APBar.recalculateApBarFrameDuration(this);
+        HpBar.recalculateApBarFrameDuration(this);
 
         if (this.getActionPoints() < this.getActualSpeed() + ModifierGetter.getSpeedModifier(this) && !this.getApBar().isApBarAdd()) {
             this.getStage().addActor(this.getApBar());
@@ -414,6 +417,11 @@ public class PlayerMob extends DefaultMob {
         if (this.getActualMana() < this.getMaxMana() + ModifierGetter.getWisdomModifier(this) && !this.getManaBar().isManaBarAdd()) {
             this.getStage().addActor(this.getManaBar());
             this.getManaBar().setManaBarAdd(true);
+        }
+
+        if (this.getActualhp()< this.getMaxHp() + ModifierGetter.getHpModifier(this) && !this.getHpBar().isHpBarAdd()) {
+            this.getStage().addActor(this.getHpBar());
+            this.getHpBar().setHpBarAdd(true);
         }
 
         if (this.getActions().size > 0) {
@@ -658,6 +666,14 @@ public class PlayerMob extends DefaultMob {
 
     public Equip getArmor() {
         return armor;
+    }
+
+    public HpBar getHpBar() {
+        return hpBar;
+    }
+
+    public void setHpBar(HpBar hpBar) {
+        this.hpBar = hpBar;
     }
 
     public void setArmor(Equip armor) {

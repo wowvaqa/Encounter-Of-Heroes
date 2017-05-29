@@ -54,6 +54,17 @@ public class AnimationCreator {
                 }
                 break;
 
+            case HpBarAnimation:
+                animationSpeed = (15.0f - (playerMob.getActualhp() + ModifierGetter.getHpModifier(playerMob)) * 0.05f) / 24;
+                textureAtlas = AssetsGameScreen.getInstance().getManager().get("game/mobsAnimations/apBarAnimation/hpBarAnimation.atlas", TextureAtlas.class);
+
+                walkFrames = new TextureRegion[textureAtlas.getRegions().size];
+
+                for (int i = 0; i < textureAtlas.getRegions().size; i++) {
+                    walkFrames[i] = textureAtlas.getRegions().get(i);
+                }
+                break;
+
             case KnightWalkN:
                 textureAtlas = AssetsGameScreen.getInstance().getManager().get("game/mobsAnimations/knightAnimations/knightWalkN.atlas", TextureAtlas.class);
 
@@ -260,6 +271,17 @@ public class AnimationCreator {
             case ApBarAnimation:
                 animationSpeed = 0.27f;
                 textureAtlas = AssetsGameScreen.getInstance().getManager().get("game/mobsAnimations/apBarAnimation/apBarAnimation.atlas", TextureAtlas.class);
+                walkFrames = new TextureRegion[textureAtlas.getRegions().size];
+
+                for (int i = 0; i < textureAtlas.getRegions().size; i++) {
+                    walkFrames[i] = textureAtlas.getRegions().get(i);
+                }
+                break;
+
+            case HpBarAnimation:
+                animationSpeed = 0.27f;
+                textureAtlas = AssetsGameScreen.getInstance().getManager().get("game/mobsAnimations/apBarAnimation/hpBarAnimation.atlas", TextureAtlas.class);
+
                 walkFrames = new TextureRegion[textureAtlas.getRegions().size];
 
                 for (int i = 0; i < textureAtlas.getRegions().size; i++) {

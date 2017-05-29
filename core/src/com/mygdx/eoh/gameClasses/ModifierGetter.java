@@ -131,4 +131,29 @@ public class ModifierGetter {
         return wisdomModifier;
     }
 
+    /**
+     * Returns the sum of all HP modificators from long effects and equipment
+     * @param object Player Mob, Free mob
+     * @return Sum of all modifiers from long effects and equipment.
+     */
+    public static int getHpModifier(Object object) {
+        int hpModifier = 0;
+
+        if (object.getClass().equals(PlayerMob.class)) {
+            for (LongEffect longEffect : ((PlayerMob) object).getLongEffects()) {
+                hpModifier += longEffect.getHpModifier();
+            }
+
+            hpModifier += EquipModifier.getHpModifiers(((PlayerMob) object).getWeapon());
+            hpModifier += EquipModifier.getHpModifiers(((PlayerMob) object).getArmor());
+            hpModifier += EquipModifier.getHpModifiers(((PlayerMob) object).getArtifact());
+        }
+
+        if (object.getClass().equals(FreeMob.class)) {
+
+        }
+
+        return hpModifier;
+    }
+
 }

@@ -24,6 +24,7 @@ public class LongEffect extends AnimatedImage {
     private int speedModifier;
     private int wisdomModifier;
     private int powerModifier;
+    private int hpModifier;
 
     LongEffect(Animation animation, boolean isLooped, LongEffects longEffects, PlayerMob playerOwner) {
         super(animation, isLooped);
@@ -95,5 +96,13 @@ public class LongEffect extends AnimatedImage {
 
     public void setPowerModifier(int powerModifier) {
         this.powerModifier = powerModifier;
+    }
+
+    public int getHpModifier() {
+        return hpModifier;
+    }
+
+    public void setHpModifier(int hpModifier) {
+        this.hpModifier = hpModifier;
     }
 }
