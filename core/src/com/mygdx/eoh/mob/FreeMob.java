@@ -68,8 +68,8 @@ public class FreeMob extends DefaultMob {
         createInfoTable();
         createLongEffectsTable();
 
-        apBar = new APBar(AnimationCreator.getInstance().makeAnimation(AnimationTypes.ApBarAnimation), false, this);
-        hpBar = new HpBar(AnimationCreator.getInstance().makeAnimation(AnimationTypes.HpBarAnimation), false, this);
+        apBar = new APBar(AnimationCreator.getInstance().makeAnimation(AnimationTypes.ApBarAnimation, this), false, this);
+        hpBar = new HpBar(AnimationCreator.getInstance().makeAnimation(AnimationTypes.HpBarAnimation, this), false, this);
     }
 
     /**
@@ -124,6 +124,9 @@ public class FreeMob extends DefaultMob {
     public void act(float delta) {
         super.act(delta);
 
+        HpBar.recalculateHpBarFrameDuration(this);
+        APBar.recalculateApBarFrameDuration(this);
+
         if (this.getActionPoints() < this.getActualSpeed() + ModifierGetter.getSpeedModifier(this) && !this.getApBar().isApBarAdd()) {
             this.getStage().addActor(this.getApBar());
             this.getApBar().setApBarAdd(true);
@@ -158,7 +161,7 @@ public class FreeMob extends DefaultMob {
             DefaultMob.removeDeadMobs();
         }
 
-        if (isAttacked()) {
+        if (isAttacked() && this.getActualhp() > 0) {
             if (locationXofAttackingPlayerMOb == attackingPlayerMob.getCoordinateXonMap() &&
                     locationYofAttackingPlayerMOb == attackingPlayerMob.getCoordinateYonMap()) {
 
@@ -465,16 +468,16 @@ public class FreeMob extends DefaultMob {
         return apBar;
     }
 
+    public void setApBar(APBar apBar) {
+        this.apBar = apBar;
+    }
+
     public HpBar getHpBar() {
         return hpBar;
     }
 
     public void setHpBar(HpBar hpBar) {
         this.hpBar = hpBar;
-    }
-
-    public void setApBar(APBar apBar) {
-        this.apBar = apBar;
     }
 
     public SnapshotArray<LongEffect> getLongEffects() {

@@ -407,7 +407,7 @@ public class PlayerMob extends DefaultMob {
 
         ManaBar.recalculateManaBarFrameDuration(this);
         APBar.recalculateApBarFrameDuration(this);
-        HpBar.recalculateApBarFrameDuration(this);
+        HpBar.recalculateHpBarFrameDuration(this);
 
         if (this.getActionPoints() < this.getActualSpeed() + ModifierGetter.getSpeedModifier(this) && !this.getApBar().isApBarAdd()) {
             this.getStage().addActor(this.getApBar());
@@ -668,18 +668,18 @@ public class PlayerMob extends DefaultMob {
         return armor;
     }
 
+    public void setArmor(Equip armor) {
+        this.armor = armor;
+        APBar.recalculateApBarFrameDuration(this);
+        ManaBar.recalculateManaBarFrameDuration(this);
+    }
+
     public HpBar getHpBar() {
         return hpBar;
     }
 
     public void setHpBar(HpBar hpBar) {
         this.hpBar = hpBar;
-    }
-
-    public void setArmor(Equip armor) {
-        this.armor = armor;
-        APBar.recalculateApBarFrameDuration(this);
-        ManaBar.recalculateManaBarFrameDuration(this);
     }
 
     public Equip getWeapon() {

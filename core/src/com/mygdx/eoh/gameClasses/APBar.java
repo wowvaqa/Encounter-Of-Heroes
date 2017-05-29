@@ -32,22 +32,56 @@ public class APBar extends AnimatedImage {
     }
 
     /**
-     * Change length of animation frame
-     *
-     * @param playerMob Player mob to recalculate apBar frame duration.
+     * Recalculate freame duration of HpBar
+     * @param o Object of Freemob.CLASS or PlayerMob.CLASS
      */
-    static public void recalculateApBarFrameDuration(PlayerMob playerMob) {
-
-        float animationSpeed = (17.0f - (playerMob.getActualSpeed() + ModifierGetter.getSpeedModifier(playerMob)) * 0.5f) / 24;
-        //System.out.println("Frame duration of APBAR: " + animationSpeed);
+    static public void recalculateApBarFrameDuration(Object o) {
+        float animationSpeed = getApBarFrameDuration(o);
 
         if (animationSpeed <= 0)
             animationSpeed = 0.001f;
 
-        playerMob.getApBar().getAnimation().setFrameDuration(
-                animationSpeed
-        );
+        if (o.getClass().equals(PlayerMob.class)) {
+            ((PlayerMob) o).getApBar().getAnimation().setFrameDuration(animationSpeed);
+        } else if (o.getClass().equals(FreeMob.class))
+            ((FreeMob) o).getApBar().getAnimation().setFrameDuration(animationSpeed);
     }
+
+    /**
+     * Count new frame duration
+     *
+     * @param o Object of PlayerMob or FreeMobc CLASS
+     * @return new frame duration
+     */
+    static public float getApBarFrameDuration(Object o) {
+        float frameDuration = 1.0f;
+
+        if (o.getClass().equals(PlayerMob.class)) {
+            frameDuration = (17.0f - (((PlayerMob) o).getActualSpeed() + ModifierGetter.getSpeedModifier(o)) * 0.5f) / 24;
+        } else if (o.getClass().equals(FreeMob.class)) {
+            frameDuration = (17.0f - (((FreeMob) o).getActualSpeed() + ModifierGetter.getSpeedModifier(o)) * 0.5f) / 24;
+        }
+
+        return frameDuration;
+    }
+
+//    /**
+//     * Change length of animation frame
+//     *
+//     * @param playerMob Player mob to recalculate apBar frame duration.
+//     */
+//    static public void recalculateApBarFrameDuration(PlayerMob playerMob) {
+//
+//        float animationSpeed = (17.0f - (playerMob.getActualSpeed() + ModifierGetter.getSpeedModifier(playerMob)) * 0.5f) / 24;
+//        //System.out.println("Frame duration of APBAR: " + animationSpeed);
+//
+//        if (animationSpeed <= 0)
+//            animationSpeed = 0.001f;
+//
+//        playerMob.getApBar().getAnimation().setFrameDuration(
+//                animationSpeed
+//        );
+//    }
 
     private void changePosition() {
         if (playerMobParent != null)

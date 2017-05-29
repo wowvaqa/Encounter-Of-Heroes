@@ -5,8 +5,12 @@ import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.mygdx.eoh.assets.AssetsGameScreen;
+import com.mygdx.eoh.enums.AnimationTypes;
+import com.mygdx.eoh.gameClasses.APBar;
+import com.mygdx.eoh.gameClasses.HpBar;
 import com.mygdx.eoh.gameClasses.ModifierGetter;
 import com.mygdx.eoh.gameClasses.PlayerMob;
+import com.mygdx.eoh.mob.FreeMob;
 
 /**
  * Creates animations.
@@ -33,7 +37,8 @@ public class AnimationCreator {
         switch (animationType) {
 
             case ApBarAnimation:
-                animationSpeed = (15.0f - (playerMob.getActualSpeed() + ModifierGetter.getSpeedModifier(playerMob)) * 0.05f) / 24;
+//                animationSpeed = (15.0f - (playerMob.getActualSpeed() + ModifierGetter.getSpeedModifier(playerMob)) * 0.05f) / 24;
+                animationSpeed = APBar.getApBarFrameDuration(playerMob);
                 textureAtlas = AssetsGameScreen.getInstance().getManager().get("game/mobsAnimations/apBarAnimation/apBarAnimation.atlas", TextureAtlas.class);
 
                 walkFrames = new TextureRegion[textureAtlas.getRegions().size];
@@ -55,7 +60,8 @@ public class AnimationCreator {
                 break;
 
             case HpBarAnimation:
-                animationSpeed = (15.0f - (playerMob.getActualhp() + ModifierGetter.getHpModifier(playerMob)) * 0.05f) / 24;
+                animationSpeed = HpBar.getHpBarFrameDuration(playerMob);
+//                animationSpeed = (500000.0f - (playerMob.getMaxHp() + ModifierGetter.getHpModifier(playerMob)) * 0.05f) / 6;
                 textureAtlas = AssetsGameScreen.getInstance().getManager().get("game/mobsAnimations/apBarAnimation/hpBarAnimation.atlas", TextureAtlas.class);
 
                 walkFrames = new TextureRegion[textureAtlas.getRegions().size];
@@ -258,7 +264,7 @@ public class AnimationCreator {
         return new Animation(animationSpeed, walkFrames);
     }
 
-    public Animation makeAnimation(com.mygdx.eoh.enums.AnimationTypes animationType) {
+    public Animation makeAnimation(AnimationTypes animationType, FreeMob freeMob) {
         float animationSpeed = 0.05f;
 
         Texture texture;
@@ -269,8 +275,10 @@ public class AnimationCreator {
 
         switch (animationType) {
             case ApBarAnimation:
-                animationSpeed = 0.27f;
+                animationSpeed = APBar.getApBarFrameDuration(freeMob);
+//                animationSpeed = (15.0f - (freeMob.getActualSpeed() + ModifierGetter.getSpeedModifier(freeMob)) * 0.05f) / 24;
                 textureAtlas = AssetsGameScreen.getInstance().getManager().get("game/mobsAnimations/apBarAnimation/apBarAnimation.atlas", TextureAtlas.class);
+
                 walkFrames = new TextureRegion[textureAtlas.getRegions().size];
 
                 for (int i = 0; i < textureAtlas.getRegions().size; i++) {
@@ -278,8 +286,10 @@ public class AnimationCreator {
                 }
                 break;
 
+
             case HpBarAnimation:
-                animationSpeed = 0.27f;
+                animationSpeed = HpBar.getHpBarFrameDuration(freeMob);
+//                animationSpeed = (15.0f - (freeMob.getMaxHp() + ModifierGetter.getHpModifier(freeMob)) * 0.05f) / 6;
                 textureAtlas = AssetsGameScreen.getInstance().getManager().get("game/mobsAnimations/apBarAnimation/hpBarAnimation.atlas", TextureAtlas.class);
 
                 walkFrames = new TextureRegion[textureAtlas.getRegions().size];
@@ -288,6 +298,41 @@ public class AnimationCreator {
                     walkFrames[i] = textureAtlas.getRegions().get(i);
                 }
                 break;
+        }
+
+        return new Animation(animationSpeed, walkFrames);
+    }
+
+    public Animation makeAnimation(com.mygdx.eoh.enums.AnimationTypes animationType) {
+        float animationSpeed = 0.05f;
+
+        Texture texture;
+        TextureRegion[][] tmp;
+        TextureRegion[] walkFrames = null;
+        TextureAtlas textureAtlas;
+        int index = 0;
+
+        switch (animationType) {
+//            case ApBarAnimation:
+//                animationSpeed = 0.27f;
+//                textureAtlas = AssetsGameScreen.getInstance().getManager().get("game/mobsAnimations/apBarAnimation/apBarAnimation.atlas", TextureAtlas.class);
+//                walkFrames = new TextureRegion[textureAtlas.getRegions().size];
+//
+//                for (int i = 0; i < textureAtlas.getRegions().size; i++) {
+//                    walkFrames[i] = textureAtlas.getRegions().get(i);
+//                }
+//                break;
+//
+//            case HpBarAnimation:
+//                animationSpeed = 0.27f;
+//                textureAtlas = AssetsGameScreen.getInstance().getManager().get("game/mobsAnimations/apBarAnimation/hpBarAnimation.atlas", TextureAtlas.class);
+//
+//                walkFrames = new TextureRegion[textureAtlas.getRegions().size];
+//
+//                for (int i = 0; i < textureAtlas.getRegions().size; i++) {
+//                    walkFrames[i] = textureAtlas.getRegions().get(i);
+//                }
+//                break;
 
             case ArrowMoveN:
                 animationSpeed = 0.07f;

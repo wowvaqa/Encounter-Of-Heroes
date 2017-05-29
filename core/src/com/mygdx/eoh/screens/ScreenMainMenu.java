@@ -39,7 +39,7 @@ public class ScreenMainMenu extends DefaultScreen {
         //super.getMainTable().row();
         super.getMainTable().add(interfaceManager.imageButtonExit).size(150, 57).pad(2);
         super.getMainTable().row();
-        super.getMainTable().add(new Label("version 0.0004 ALPHA", AssetsMainMenu.getInstance().getManager().get("styles/skin.json", Skin.class), "black16"));
+        super.getMainTable().add(new Label("version 0.0005 ALPHA", AssetsMainMenu.getInstance().getManager().get("styles/skin.json", Skin.class), "black16"));
     }
 
     @Override

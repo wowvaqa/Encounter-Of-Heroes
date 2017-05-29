@@ -32,29 +32,49 @@ public class HpBar extends AnimatedImage {
         this.setTouchable(Touchable.disabled);
     }
 
-    /**
-     * Change length of animation frame
-     *
-     * @param playerMob Player mob to recalculate apBar frame duration.
-     */
-    static public void recalculateApBarFrameDuration(PlayerMob playerMob) {
 
-        float animationSpeed = (17.0f - (playerMob.getMaxHp() + ModifierGetter.getHpModifier(playerMob)) * 0.5f) / 24;
-        //System.out.println("Frame duration of APBAR: " + animationSpeed);
+    /**
+     * Recalculate freame duration of HpBar
+     * @param o Object of Freemob.CLASS or PlayerMob.CLASS
+     */
+    static public void recalculateHpBarFrameDuration(Object o) {
+        float animationSpeed = getHpBarFrameDuration(o);
 
         if (animationSpeed <= 0)
             animationSpeed = 0.001f;
 
-        playerMob.getHpBar().getAnimation().setFrameDuration(
-                animationSpeed
-        );
+        if (o.getClass().equals(PlayerMob.class)) {
+            ((PlayerMob) o).getHpBar().getAnimation().setFrameDuration(animationSpeed);
+        } else if (o.getClass().equals(FreeMob.class))
+            ((FreeMob) o).getHpBar().getAnimation().setFrameDuration(animationSpeed);
     }
 
+    /**
+     * Count new frame duration
+     *
+     * @param o Object of PlayerMob or FreeMobc CLASS
+     * @return new frame duration
+     */
+    static public float getHpBarFrameDuration(Object o) {
+        float frameDuration = 1.0f;
+
+        if (o.getClass().equals(PlayerMob.class)) {
+            frameDuration = (30.0f - (((PlayerMob) o).getMaxHp() + ModifierGetter.getHpModifier(o)) * 0.5f) / 6;
+        } else if (o.getClass().equals(FreeMob.class)) {
+            frameDuration = (30.0f - (((FreeMob) o).getMaxHp() + ModifierGetter.getHpModifier(o)) * 0.5f) / 6;
+        }
+
+        return frameDuration;
+    }
+
+    /**
+     * Change position of HpBar
+     */
     private void changePosition() {
         if (playerMobParent != null)
-            this.setPosition(playerMobParent.getX() + 5, playerMobParent.getY() + 110);
-//        if (freeMobParent != null)
-//            this.setPosition(freeMobParent.getX() + 5, freeMobParent.getY() + 5);
+            this.setPosition(playerMobParent.getX() + 5, playerMobParent.getY() + 115);
+        if (freeMobParent != null)
+            this.setPosition(freeMobParent.getX() + 5, freeMobParent.getY() + 60);
     }
 
     /***********************************************************************************************
