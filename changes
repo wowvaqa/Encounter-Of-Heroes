@@ -1,0 +1,17 @@
+0.0005 (ALPHA)
+FEATURE: Add HPBar for players mob and free mobs.
+FIX: Dead mobs can't attack.
+FIX: Frame duration of HpBar.
+FIX: Frame duration of ApBar
+
+0.0004 (ALPHA)
+FEATURE: Add new mob class: Lava Golem
+FEATURE: Add description for Health & Mana Potion, Attack Upgrade Spell, take a Gold from game stage.
+FIX: Map scrolling no longer inactive after use of any potion.
+
+0.0003 (ALPHA)
+FEATURE: Add new mob class: Barbarian
+
+0.0002 (ALPHA)
+FEATURE: Add new item: Sword.
+FEATURE: Add new spell: Cure
