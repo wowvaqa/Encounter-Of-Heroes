@@ -55,7 +55,7 @@ public class BuyPlayerMob {
 
                 if (castleMob.getPlayerOwner().getGold() > 99) {
 
-                    PlayerMob playerMob = PlayerMobCreator.getInstance().createPlayerMob(GameStatus.getInstance().getNewPlayerMobClass() ,GameStatus.getInstance().getMap(),
+                    PlayerMob playerMob = PlayerMobCreator.getInstance().createPlayerMob(GameStatus.getInstance().getNewPlayerMobClass(),
                             castleMob.getPlayerOwner().getInedxOfPlayerInArrayOfPlayer(),
                             castleMob.getCoordinateXonMap(),
                             castleMob.getCoordinateYonMap(),
@@ -131,7 +131,8 @@ public class BuyPlayerMob {
 
     public void buyNewPlayerMob(PlayerMobClasses playerMobClasses, int locationXofCastle, int locationYofCastle){
         CastleMob castleMob = GameStatus.getInstance().getMap().getFields()[locationXofCastle][locationYofCastle].getCastleMob();
-        PlayerMob playerMob = PlayerMobCreator.getInstance().createPlayerMob(playerMobClasses, GameStatus.getInstance().getMap(),
+        PlayerMob playerMob = PlayerMobCreator.getInstance().createPlayerMob(
+                playerMobClasses,
                 castleMob.getPlayerOwner().getInedxOfPlayerInArrayOfPlayer(),
                 castleMob.getCoordinateXonMap(),
                 castleMob.getCoordinateYonMap(),

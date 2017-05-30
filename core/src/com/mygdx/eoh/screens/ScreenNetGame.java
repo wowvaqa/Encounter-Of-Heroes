@@ -179,7 +179,7 @@ public class ScreenNetGame extends DefaultGameScreen {
                 if (mapfile.fields[i][j].player1StartLocation) {
                     fields[i][j].setPlayerMob(
                             PlayerMobCreator.getInstance().createPlayerMob(
-                                    player1mobClass, map, 0, i, j, fields[i][j]
+                                    player1mobClass, 0, i, j, fields[i][j]
                             )
                     );
                     fields[i][j].setCastleMob(
@@ -192,7 +192,7 @@ public class ScreenNetGame extends DefaultGameScreen {
                 if (mapfile.fields[i][j].player2StartLocation) {
                     fields[i][j].setPlayerMob(
                             PlayerMobCreator.getInstance().createPlayerMob(
-                                    player2mobClass, map, 1, i, j, fields[i][j]
+                                    player2mobClass, 1, i, j, fields[i][j]
                             )
                     );
                     fields[i][j].setCastleMob(

@@ -144,7 +144,7 @@ class ScreenSingleGame extends DefaultGameScreen {
                 if (mapfile.fields[i][j].player1StartLocation) {
                     fields[i][j].setPlayerMob(
                             PlayerMobCreator.getInstance().createPlayerMob(
-                                    PlayerMobClasses.Knight, map, 0, i, j, fields[i][j]
+                                    PlayerMobClasses.Knight, 0, i, j, fields[i][j]
                             )
                     );
                     fields[i][j].setCastleMob(
@@ -157,7 +157,7 @@ class ScreenSingleGame extends DefaultGameScreen {
                 if (mapfile.fields[i][j].player2StartLocation) {
                     fields[i][j].setPlayerMob(
                             PlayerMobCreator.getInstance().createPlayerMob(
-                                    PlayerMobClasses.Wizard, map, 1, i, j, fields[i][j]
+                                    PlayerMobClasses.Wizard, 1, i, j, fields[i][j]
                             )
                     );
                     fields[i][j].setCastleMob(
@@ -170,7 +170,7 @@ class ScreenSingleGame extends DefaultGameScreen {
                 if (mapfile.fields[i][j].player3StartLocation) {
                     fields[i][j].setPlayerMob(
                             PlayerMobCreator.getInstance().createPlayerMob(
-                                    PlayerMobClasses.Knight, map, 2, i, j, fields[i][j]
+                                    PlayerMobClasses.Knight, 2, i, j, fields[i][j]
                             )
                     );
                     fields[i][j].setCastleMob(
@@ -183,7 +183,7 @@ class ScreenSingleGame extends DefaultGameScreen {
                 if (mapfile.fields[i][j].player4StartLocation) {
                     fields[i][j].setPlayerMob(
                             PlayerMobCreator.getInstance().createPlayerMob(
-                                    PlayerMobClasses.Knight, map, 3, i, j, fields[i][j]
+                                    PlayerMobClasses.Knight, 3, i, j, fields[i][j]
                             )
                     );
                     fields[i][j].setCastleMob(

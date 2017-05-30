@@ -38,7 +38,6 @@ import java.util.ArrayList;
  * Created by v on 2016-10-25.
  */
 public class PlayerMob extends DefaultMob {
-    private Map map;
     private PlayerMobClasses playerMobClass;
     private MoveManager moveManager;
     private StepManager stepManager;
@@ -78,7 +77,7 @@ public class PlayerMob extends DefaultMob {
     private Equip artifact;
 
 
-    public PlayerMob(Animation animation, boolean isLooped, Map map, Player playerOwner, PlayerMobClasses playerMobClass) {
+    public PlayerMob(Animation animation, boolean isLooped, Player playerOwner, PlayerMobClasses playerMobClass) {
         super(animation, isLooped);
 
         this.spells = new ArrayList<Spell>();
@@ -87,7 +86,6 @@ public class PlayerMob extends DefaultMob {
         this.equip = new SnapshotArray<Equip>();
         this.playerMobClass = playerMobClass;
         setAnimationTypes();
-        this.map = map;
         this.playerOwner = playerOwner;
         addListener(this);
         moveManager = new MoveManager(GameStatus.getInstance());
@@ -225,7 +223,7 @@ public class PlayerMob extends DefaultMob {
 
                 if (!playerMob.isSelected) {
 
-                    MoveManager.unselectCastles(map);
+                    MoveManager.unselectCastles(GameStatus.getInstance().getMap());
                     unselectSelectedPlayerMobs();
                     FreeMob.unselectFreeMobs();
 
@@ -481,7 +479,7 @@ public class PlayerMob extends DefaultMob {
      * @return Field object
      */
     public Field getFieldOfPlayerMob() {
-        return map.getFields()[this.getCoordinateXonMap()][this.getCoordinateYonMap()];
+        return GameStatus.getInstance().getMap().getFields()[this.getCoordinateXonMap()][this.getCoordinateYonMap()];
     }
 
     /**

@@ -26,10 +26,10 @@ public class PlayerMobCreator {
         return instance;
     }
 
-    public PlayerMob createPlayerMob(PlayerMobClasses playerMobClass, Map map, int numberOfPlayerOwner, int locX, int locY, Field field){
+    public PlayerMob createPlayerMob(PlayerMobClasses playerMobClass, int numberOfPlayerOwner, int locX, int locY, Field field) {
 
         PlayerMob playerMob = new PlayerMob(AnimationCreator.getInstance().makeAnimation(
-                AnimationTypes.KnightStanding), true, map, GameStatus.getInstance().getPlayers().get(numberOfPlayerOwner), playerMobClass);
+                AnimationTypes.KnightStanding), true, GameStatus.getInstance().getPlayers().get(numberOfPlayerOwner), playerMobClass);
                 //AnimationTypes.WizardStanding), true, map, GameStatus.getInstance().getPlayers().get(numberOfPlayerOwner));
 
         playerMob.setCoordinateXonMap(locX);
