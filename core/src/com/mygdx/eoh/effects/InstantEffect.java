@@ -70,6 +70,7 @@ public class InstantEffect extends AnimatedImage {
                         damage = 0;
                     this.damage = damage;
                     FightManager.setActualHPofMob(defendingMob, damage);
+                    FightManager.chceckExpReward(castingPlayer, defendingMob);
 
                     if (NetStatus.getInstance().getClient() != null) {
                         Network.InstantEffectNet instantEffectNet = new Network.InstantEffectNet();
@@ -95,6 +96,7 @@ public class InstantEffect extends AnimatedImage {
                         damage = 0;
                     this.damage = damage;
                     FightManager.setActualHPofMob(defendingMob, damage);
+                    FightManager.chceckExpReward(castingPlayer, defendingMob);
 
                     if (NetStatus.getInstance().getClient() != null) {
                         Network.InstantEffectNet instantEffectNet = new Network.InstantEffectNet();

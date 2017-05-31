@@ -50,6 +50,7 @@ public abstract class DefaultGameScreen extends DefaultScreen {
         this.mapStageViewport = new FitViewport(ScreenManager.WIDTH, ScreenManager.HEIGHT, mapStageCamera);
 
         interfaceManager = new GameInterface((DefaultCamera) getMapStageCamera());
+        GameStatus.getInstance().setGameInterface(interfaceManager);
 
         createBackgroundStage();
     }
@@ -68,6 +69,7 @@ public abstract class DefaultGameScreen extends DefaultScreen {
         this.mapStageViewport = new FitViewport(ScreenManager.WIDTH, ScreenManager.HEIGHT, mapStageCamera);
 
         interfaceManager = new GameInterface((DefaultCamera) getMapStageCamera());
+        GameStatus.getInstance().setGameInterface(interfaceManager);
 
         createBackgroundStage();
     }

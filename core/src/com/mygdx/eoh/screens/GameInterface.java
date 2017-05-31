@@ -140,6 +140,8 @@ public class GameInterface {
         imageButtonZoomOut = new ImageButton(imageButtonStyleZoomOut);
         imageButtonNewPlayerMob = new ImageButton(imageButtonStyleNewPlayerMob);
 
+        imageButtonPromotion.setVisible(false);
+
         addListeners(camera);
     }
 
@@ -150,6 +152,14 @@ public class GameInterface {
             public void clicked(InputEvent event, float x, float y) {
                 super.clicked(event, x, y);
                 GameStatus.getInstance().getMainStage().addActor(GameStatus.getInstance().getSelectedPlayerMob().getPlayerMobWindow());
+            }
+        });
+
+        imageButtonPromotion.addListener(new ClickListener() {
+            @Override
+            public void clicked(InputEvent event, float x, float y) {
+                super.clicked(event, x, y);
+                GameStatus.getInstance().getMainStage().addActor(GameStatus.getInstance().getSelectedPlayerMob().getExpManager().getNextLevelWindow());
             }
         });
 

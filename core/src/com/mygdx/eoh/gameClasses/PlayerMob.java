@@ -76,6 +76,8 @@ public class PlayerMob extends DefaultMob {
     private Equip weapon;
     private Equip artifact;
 
+    private ExpManager expManager;
+
 
     public PlayerMob(Animation animation, boolean isLooped, Player playerOwner, PlayerMobClasses playerMobClass) {
         super(animation, isLooped);
@@ -97,6 +99,7 @@ public class PlayerMob extends DefaultMob {
         createInfoTable();
         createLongEffectsTable();
         createSpells();
+        this.expManager = new ExpManager(this);
     }
 
     /**
@@ -457,6 +460,8 @@ public class PlayerMob extends DefaultMob {
         } else if (this.getActions().size > 0) {
             this.setTouchable(Touchable.disabled);
         }
+
+        expManager.checkNextLevel();
     }
 
     /**
@@ -675,6 +680,10 @@ public class PlayerMob extends DefaultMob {
 
     public SnapshotArray<Equip> getEquip() {
         return equip;
+    }
+
+    public ExpManager getExpManager() {
+        return expManager;
     }
 
     public Equip getArmor() {

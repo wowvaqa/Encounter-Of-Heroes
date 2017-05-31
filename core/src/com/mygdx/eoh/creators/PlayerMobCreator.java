@@ -6,6 +6,7 @@ import com.mygdx.eoh.animation.AnimationCreator;
 import com.mygdx.eoh.enums.AnimationTypes;
 import com.mygdx.eoh.enums.PlayerMobClasses;
 import com.mygdx.eoh.gameClasses.CastleMob;
+import com.mygdx.eoh.gameClasses.ExpManager;
 import com.mygdx.eoh.gameClasses.Field;
 import com.mygdx.eoh.gameClasses.GameStatus;
 import com.mygdx.eoh.gameClasses.Map;
@@ -39,9 +40,11 @@ public class PlayerMobCreator {
         playerMob.setRewardExp(100);
         playerMob.setLevelingArray(new int[100]);
 
-        for (int i = 1; i < 99; i++){
-            playerMob.getLevelingArray()[i] = playerMob.getLevelingArray()[i - 1] + 50;
-        }
+        ExpManager.fillLevelingArray(playerMob.getLevelingArray());
+
+//        for (int i = 1; i < 99; i++){
+//            playerMob.getLevelingArray()[i] = playerMob.getLevelingArray()[i - 1] + 50;
+//        }
 
         if (playerMobClass.equals(PlayerMobClasses.Knight))
             createStatisticForKnight(playerMob);
@@ -79,6 +82,7 @@ public class PlayerMobCreator {
      * @param playerMob
      */
     private void createStatisticForKnight(PlayerMob playerMob) {
+        playerMob.setLevel(1);
         playerMob.setSpeed(5);
         playerMob.setActualSpeed(5);
         playerMob.setAttack(5);

@@ -94,6 +94,10 @@ public class HpBar extends AnimatedImage {
             this.remove();
         }
 
+        if (playerMobParent != null && playerMobParent.getActualhp() >= playerMobParent.getMaxHp()) {
+            this.remove();
+        }
+
         if (playerMobParent != null && playerMobParent.getActualhp() < 1) {
             this.remove();
         }
