@@ -27,19 +27,28 @@ public class ScreenMainMenu extends DefaultScreen {
 
         Interface interfaceManager = new Interface();
 
-        super.getMainTable().add(new Image(AssetsMainMenu.getInstance().getManager().get("mainMenu/interface/titleLogo.png", Texture.class))).size(350, 168).padBottom(25);
+        super.getMainTable().add(new Image(AssetsMainMenu.getInstance().getManager().get("mainMenu/interface/titleLogo.png", Texture.class))).size(350, 168);
+        super.getMainTable().row();
+        super.getMainTable().add(new Label("version 0.0006", AssetsMainMenu.getInstance().getManager().get("styles/skin.json", Skin.class), "black16")).padBottom(25);
         super.getMainTable().row();
         super.getMainTable().add(interfaceManager.imageButtonSinglePlayer).size(150, 57).pad(2);
         super.getMainTable().row();
+        super.getMainTable().add(new Label("Single Player Testing Mode", AssetsMainMenu.getInstance().getManager().get("styles/skin.json", Skin.class), "black16"));
+        super.getMainTable().row();
         super.getMainTable().add(interfaceManager.imageButtonHotSeat).size(150, 57).pad(2);
         super.getMainTable().row();
+        super.getMainTable().add(new Label("Multiplayer Testing Mode", AssetsMainMenu.getInstance().getManager().get("styles/skin.json", Skin.class), "black16"));
+        super.getMainTable().row();
         super.getMainTable().add(interfaceManager.imageButtonMapEditor).size(150, 57).pad(2);
+        super.getMainTable().row();
+        super.getMainTable().add(new Label("Map Editor", AssetsMainMenu.getInstance().getManager().get("styles/skin.json", Skin.class), "black16"));
         super.getMainTable().row();
         //super.getMainTable().add(interfaceManager.imageButtonOptions).size(150, 57).pad(2);
         //super.getMainTable().row();
         super.getMainTable().add(interfaceManager.imageButtonExit).size(150, 57).pad(2);
         super.getMainTable().row();
-        super.getMainTable().add(new Label("version 0.0006 ALPHA", AssetsMainMenu.getInstance().getManager().get("styles/skin.json", Skin.class), "black16"));
+        super.getMainTable().add(new Label("Exit", AssetsMainMenu.getInstance().getManager().get("styles/skin.json", Skin.class), "black16"));
+        super.getMainTable().row();
     }
 
     @Override

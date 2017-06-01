@@ -437,6 +437,77 @@ public class DefaultClient extends Client {
                     NetStatus.getInstance().setEquipCreate(true);
                     return;
                 }
+
+                /***********************************************************************************
+                 * CHANGE ATTRIBUTES
+                 * *********************************************************************************/
+                if (object instanceof Network.ChangeAtributes) {
+                    System.out.println("Otrzymano Change Attributes");
+
+                    System.out.println("Otrzymano Change Atributes");
+                    System.out.println("Enemy ID: " + ((Network.ChangeAtributes) object).enemyId);
+                    System.out.println("Player Index: " + ((Network.ChangeAtributes) object).playerIndex);
+                    System.out.println("Player Mob Index: " + ((Network.ChangeAtributes) object).playerMobIndex);
+
+                    System.out.println("Attack: " + ((Network.ChangeAtributes) object).attack);
+                    System.out.println("Actual Attack: " + ((Network.ChangeAtributes) object).actualAttack);
+                    System.out.println("Defence: " + ((Network.ChangeAtributes) object).defence);
+                    System.out.println("Actual Defence: " + ((Network.ChangeAtributes) object).actualDefence);
+                    System.out.println("Speed: " + ((Network.ChangeAtributes) object).speed);
+                    System.out.println("Actual Speed: " + ((Network.ChangeAtributes) object).actualSpeed);
+                    System.out.println("Power: " + ((Network.ChangeAtributes) object).power);
+                    System.out.println("Actual Power: " + ((Network.ChangeAtributes) object).actualPower);
+                    System.out.println("Wisdom: " + ((Network.ChangeAtributes) object).wisdom);
+                    System.out.println("Actual Wisdom: " + ((Network.ChangeAtributes) object).actualWisdom);
+                    System.out.println("HP: " + ((Network.ChangeAtributes) object).maxHp);
+                    System.out.println("Actual HP: " + ((Network.ChangeAtributes) object).actualHp);
+
+                    System.out.println("Level: " + ((Network.ChangeAtributes) object).level);
+                    System.out.println("Exp: " + ((Network.ChangeAtributes) object).exp);
+                    System.out.println("Exp to next Level: " + ((Network.ChangeAtributes) object).expToNextLevel);
+
+                    GameStatus.getInstance().getPlayers().get(((Network.ChangeAtributes) object).playerIndex).getPlayerMobs().get(
+                            ((Network.ChangeAtributes) object).playerMobIndex).setAttack(((Network.ChangeAtributes) object).attack);
+                    GameStatus.getInstance().getPlayers().get(((Network.ChangeAtributes) object).playerIndex).getPlayerMobs().get(
+                            ((Network.ChangeAtributes) object).playerMobIndex).setActualAttack(((Network.ChangeAtributes) object).actualAttack);
+                    GameStatus.getInstance().getPlayers().get(((Network.ChangeAtributes) object).playerIndex).getPlayerMobs().get(
+                            ((Network.ChangeAtributes) object).playerMobIndex).setDefence(((Network.ChangeAtributes) object).defence);
+                    GameStatus.getInstance().getPlayers().get(((Network.ChangeAtributes) object).playerIndex).getPlayerMobs().get(
+                            ((Network.ChangeAtributes) object).playerMobIndex).setActualDefence(((Network.ChangeAtributes) object).actualDefence);
+                    GameStatus.getInstance().getPlayers().get(((Network.ChangeAtributes) object).playerIndex).getPlayerMobs().get(
+                            ((Network.ChangeAtributes) object).playerMobIndex).setSpeed(((Network.ChangeAtributes) object).speed);
+                    GameStatus.getInstance().getPlayers().get(((Network.ChangeAtributes) object).playerIndex).getPlayerMobs().get(
+                            ((Network.ChangeAtributes) object).playerMobIndex).setActualSpeed(((Network.ChangeAtributes) object).actualSpeed);
+                    GameStatus.getInstance().getPlayers().get(((Network.ChangeAtributes) object).playerIndex).getPlayerMobs().get(
+                            ((Network.ChangeAtributes) object).playerMobIndex).setPower(((Network.ChangeAtributes) object).power);
+                    GameStatus.getInstance().getPlayers().get(((Network.ChangeAtributes) object).playerIndex).getPlayerMobs().get(
+                            ((Network.ChangeAtributes) object).playerMobIndex).setActualPower(((Network.ChangeAtributes) object).actualPower);
+                    GameStatus.getInstance().getPlayers().get(((Network.ChangeAtributes) object).playerIndex).getPlayerMobs().get(
+                            ((Network.ChangeAtributes) object).playerMobIndex).setWisdom(((Network.ChangeAtributes) object).wisdom);
+                    GameStatus.getInstance().getPlayers().get(((Network.ChangeAtributes) object).playerIndex).getPlayerMobs().get(
+                            ((Network.ChangeAtributes) object).playerMobIndex).setActualWisdom(((Network.ChangeAtributes) object).actualWisdom);
+                    GameStatus.getInstance().getPlayers().get(((Network.ChangeAtributes) object).playerIndex).getPlayerMobs().get(
+                            ((Network.ChangeAtributes) object).playerMobIndex).setMaxHp(((Network.ChangeAtributes) object).maxHp);
+                    GameStatus.getInstance().getPlayers().get(((Network.ChangeAtributes) object).playerIndex).getPlayerMobs().get(
+                            ((Network.ChangeAtributes) object).playerMobIndex).setActualhp(((Network.ChangeAtributes) object).actualHp);
+
+                    GameStatus.getInstance().getPlayers().get(((Network.ChangeAtributes) object).playerIndex).getPlayerMobs().get(
+                            ((Network.ChangeAtributes) object).playerMobIndex).setLevel(((Network.ChangeAtributes) object).level);
+                    GameStatus.getInstance().getPlayers().get(((Network.ChangeAtributes) object).playerIndex).getPlayerMobs().get(
+                            ((Network.ChangeAtributes) object).playerMobIndex).setActualExp(((Network.ChangeAtributes) object).exp);
+
+
+//                    System.out.println("Enemy ID: " + ((Network.CreateEquip) object).enemyId);
+//                    System.out.println("Loc X of plyerMob: " + ((Network.CreateEquip) object).locXofPlayerMob);
+//                    System.out.println("Loc Y of plyerMob: " + ((Network.CreateEquip) object).locYofPlayerMob);
+//                    System.out.println("Equip Kind: " + ((Network.CreateEquip) object).equipKind);
+//
+//                    NetStatus.getInstance().setEquipCreateLocX(((Network.CreateEquip) object).locXofPlayerMob);
+//                    NetStatus.getInstance().setEquipCreateLocY(((Network.CreateEquip) object).locYofPlayerMob);
+//                    NetStatus.getInstance().setEquipCreateEquipKind(((Network.CreateEquip) object).equipKind);
+//                    NetStatus.getInstance().setEquipCreate(true);
+                    return;
+                }
             }
         });
     }

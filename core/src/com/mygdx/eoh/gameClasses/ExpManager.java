@@ -11,6 +11,8 @@ import com.badlogic.gdx.scenes.scene2d.ui.Window;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.utils.Align;
 import com.mygdx.eoh.assets.AssetsGameScreen;
+import com.mygdx.eoh.net.NetStatus;
+import com.mygdx.eoh.net.Network;
 
 /**
  * Class to control exp gain and leveling.
@@ -241,6 +243,9 @@ public class ExpManager {
                 GameStatus.getInstance().getGameInterface().imageButtonPromotion.setVisible(false);
                 applyTmpAttributes();
 
+                if (NetStatus.getInstance().getClient() != null) {
+                    sendLevelUpInNetwork();
+                }
 
                 window.remove();
             }
@@ -255,6 +260,35 @@ public class ExpManager {
         window.add(tbCancel).pad(5).size(175, 50);
 
         return window;
+    }
+
+    /**
+     * Sends information about the promotion through the network.
+     */
+    private void sendLevelUpInNetwork() {
+        Network.ChangeAtributes ca = new Network.ChangeAtributes();
+
+        ca.enemyId = NetStatus.getInstance().getEnemyId();
+        ca.playerIndex = playerMob.getPlayerOwner().getInedxOfPlayerInArrayOfPlayer();
+        ca.playerMobIndex = playerMob.getPlayerMobIndex();
+
+        ca.attack = playerMob.getAttack();
+        ca.actualAttack = playerMob.getActualAttack();
+        ca.defence = playerMob.getDefence();
+        ca.actualDefence = playerMob.getActualDefence();
+        ca.speed = playerMob.getSpeed();
+        ca.actualSpeed = playerMob.getActualSpeed();
+        ca.power = playerMob.getPower();
+        ca.actualPower = playerMob.getActualPower();
+        ca.wisdom = playerMob.getWisdom();
+        ca.actualWisdom = playerMob.getActualWisdom();
+        ca.actualHp = playerMob.getActualhp();
+        ca.maxHp = playerMob.getMaxHp();
+        ca.exp = playerMob.getActualExp();
+        ca.expToNextLevel = playerMob.getLevelingArray()[playerMob.getLevel() + 1];
+        ca.level = playerMob.getLevel();
+
+        NetStatus.getInstance().getClient().sendTCP(ca);
     }
 
     /**
