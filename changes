@@ -1,5 +1,8 @@
 0.0006 (ALPHA)
 FEATURE: Adding a label informing about the experience gained.
+FEATURE: Add a promotion window of mob.
+FEATURE: Add button descriptions in the main menu.
+FIX: If player mob hp is full then HPBar remove.
 
 0.0005 (ALPHA)
 FEATURE: Add HPBar for players mob and free mobs.
