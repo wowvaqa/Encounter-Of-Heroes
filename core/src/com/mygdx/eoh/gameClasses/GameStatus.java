@@ -41,6 +41,9 @@ public class GameStatus {
     private ArrayList<Player> players;
     //Varible used when new player mob will be created.
     private PlayerMobClasses newPlayerMobClass = PlayerMobClasses.Knight;
+    // Needed to create new single game.
+    private PlayerMobClasses singleGamePlayerOneMobClass = PlayerMobClasses.Knight;
+    private PlayerMobClasses singleGamePlayerTwoMobClass = PlayerMobClasses.Knight;
 
 
     // MainStage
@@ -240,5 +243,21 @@ public class GameStatus {
 
     public void setNewPlayerMobClass(PlayerMobClasses newPlayerMobClass) {
         this.newPlayerMobClass = newPlayerMobClass;
+    }
+
+    public PlayerMobClasses getSingleGamePlayerOneMobClass() {
+        return singleGamePlayerOneMobClass;
+    }
+
+    public void setSingleGamePlayerOneMobClass(PlayerMobClasses singleGamePlayerOneMobClass) {
+        this.singleGamePlayerOneMobClass = singleGamePlayerOneMobClass;
+    }
+
+    public PlayerMobClasses getSingleGamePlayerTwoMobClass() {
+        return singleGamePlayerTwoMobClass;
+    }
+
+    public void setSingleGamePlayerTwoMobClass(PlayerMobClasses singleGamePlayerTwoMobClass) {
+        this.singleGamePlayerTwoMobClass = singleGamePlayerTwoMobClass;
     }
 }

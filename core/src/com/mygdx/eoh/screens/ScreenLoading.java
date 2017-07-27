@@ -49,7 +49,8 @@ public class ScreenLoading implements Screen {
             }
         }
 
-        if (ScreenLoading.destinationScreen == Screens.ScreenNewNetGame || ScreenLoading.destinationScreen == Screens.ScreenMainMenu) {
+        if (ScreenLoading.destinationScreen == Screens.ScreenNewNetGame || ScreenLoading.destinationScreen == Screens.ScreenMainMenu ||
+                ScreenLoading.destinationScreen == Screens.ScreenNewSingleGame) {
             if (AssetsMainMenu.getInstance().getManager().update()) {
                 ScreenManager.getInstance().setScreen(ScreenLoading.destinationScreen);
             }

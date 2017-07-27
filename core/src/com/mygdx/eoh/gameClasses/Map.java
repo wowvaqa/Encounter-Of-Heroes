@@ -1,5 +1,8 @@
 package com.mygdx.eoh.gameClasses;
 
+import com.badlogic.gdx.ai.pfa.Connection;
+import com.badlogic.gdx.ai.pfa.Graph;
+import com.badlogic.gdx.utils.Array;
 import com.mygdx.eoh.enums.Terrains;
 import com.mygdx.eoh.mapEditor.MapEditor;
 import com.mygdx.eoh.mapEditor.MapFile;
@@ -10,7 +13,7 @@ import static com.mygdx.eoh.mapEditor.MapEditor.*;
  * Representation of map.
  * Created by v on 2016-10-12.
  */
-public class Map {
+public class Map implements Graph {
     private Field[][] fields;
     private int fieldsColumns;
     private int fieldsRows;
@@ -128,5 +131,10 @@ public class Map {
 
     public void setFields(Field[][] fields) {
         this.fields = fields;
+    }
+
+    @Override
+    public Array<Connection> getConnections(Object fromNode) {
+        return null;
     }
 }

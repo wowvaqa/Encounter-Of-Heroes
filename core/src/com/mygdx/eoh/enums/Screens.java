@@ -6,6 +6,7 @@ package com.mygdx.eoh.enums;
 public enum Screens {
     ScreenMainMenu,
     ScreenSingleGame,
+    ScreenNewSingleGame,
     ScreenNewNetGame,
     ScreenMapEditor,
     ScreenNetGame,

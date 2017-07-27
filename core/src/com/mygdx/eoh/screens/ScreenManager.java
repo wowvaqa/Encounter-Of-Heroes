@@ -41,6 +41,11 @@ public final class ScreenManager {
                 currentScreen = new ScreenSingleGame();
                 game.setScreen((ScreenSingleGame) currentScreen);
                 break;
+            case ScreenNewSingleGame:
+                disposeCurrentScreen(currentScreen);
+                currentScreen = new ScreenNewSingleGame();
+                game.setScreen((ScreenNewSingleGame) currentScreen);
+                break;
             case ScreenMapEditor:
                 disposeCurrentScreen(currentScreen);
                 currentScreen = new ScreenMapEditor();

@@ -144,7 +144,7 @@ class ScreenSingleGame extends DefaultGameScreen {
                 if (mapfile.fields[i][j].player1StartLocation) {
                     fields[i][j].setPlayerMob(
                             PlayerMobCreator.getInstance().createPlayerMob(
-                                    PlayerMobClasses.Knight, 0, i, j, fields[i][j]
+                                    GameStatus.getInstance().getSingleGamePlayerOneMobClass(), 0, i, j, fields[i][j]
                             )
                     );
                     fields[i][j].setCastleMob(
@@ -157,7 +157,7 @@ class ScreenSingleGame extends DefaultGameScreen {
                 if (mapfile.fields[i][j].player2StartLocation) {
                     fields[i][j].setPlayerMob(
                             PlayerMobCreator.getInstance().createPlayerMob(
-                                    PlayerMobClasses.Wizard, 1, i, j, fields[i][j]
+                                    GameStatus.getInstance().getSingleGamePlayerTwoMobClass(), 1, i, j, fields[i][j]
                             )
                     );
                     fields[i][j].setCastleMob(
