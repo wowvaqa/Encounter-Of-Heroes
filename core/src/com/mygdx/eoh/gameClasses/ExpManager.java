@@ -134,6 +134,7 @@ public class ExpManager {
                 attributeUpTable.add(new Label("Wisdom + 1", AssetsGameScreen.getInstance().getManager().get("styles/skin.json", Skin.class), "black32")).pad(5);
                 playerMob.setActualWisdom(playerMob.getActualWisdom() + 1);
                 playerMob.setWisdom(playerMob.getWisdom() + 1);
+                playerMob.setMaxMana(playerMob.getMaxMana() + 1);
                 break;
             case 5:
                 attributeUpTable.add(new Image(
@@ -321,6 +322,7 @@ public class ExpManager {
 
         playerMob.setWisdom(playerMob.getWisdom() + tmpWis);
         playerMob.setActualWisdom(playerMob.getActualWisdom() + tmpWis);
+        playerMob.setMaxMana(playerMob.getMaxMana() + tmpWis);
 
         playerMob.setMaxHp(playerMob.getMaxHp() + tmpHp);
         playerMob.setActualhp(playerMob.getActualhp() + tmpHp);

@@ -751,6 +751,6 @@ public class PlayerMob extends DefaultMob {
     @Override
     public void setMaxMana(int maxMana) {
         super.setMaxMana(maxMana);
-        getManaLabel().setText("" + getActualMana() + "/" + maxMana);
+        getManaLabel().setText("" + getActualMana() + "/" + (getMaxMana() + ModifierGetter.getWisdomModifier(this)));
     }
 }
