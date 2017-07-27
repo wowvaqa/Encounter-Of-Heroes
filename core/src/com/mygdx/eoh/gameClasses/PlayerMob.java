@@ -567,6 +567,17 @@ public class PlayerMob extends DefaultMob {
     }
 
     /**
+     * Referesh informaion about mana, hp, ap
+     */
+    private void refreshHeroInformation(){
+        APBar.recalculateApBarFrameDuration(this);
+        ManaBar.recalculateManaBarFrameDuration(this);
+        getManaLabel().setText("" + this.getActualMana() + "/" + (getMaxMana() + ModifierGetter.getWisdomModifier(this)));
+        getHpLabel().setText("" + getActualhp() + "/" + getMaxHp());
+        getApLabel().setText("" + getActionPoints());
+    }
+
+    /**
      * Decresing actual mana.
      *
      * @param mana How many point
@@ -692,8 +703,9 @@ public class PlayerMob extends DefaultMob {
 
     public void setArmor(Equip armor) {
         this.armor = armor;
-        APBar.recalculateApBarFrameDuration(this);
-        ManaBar.recalculateManaBarFrameDuration(this);
+        //APBar.recalculateApBarFrameDuration(this);
+        //ManaBar.recalculateManaBarFrameDuration(this);
+        refreshHeroInformation();
     }
 
     public HpBar getHpBar() {
@@ -710,8 +722,9 @@ public class PlayerMob extends DefaultMob {
 
     public void setWeapon(Equip weapon) {
         this.weapon = weapon;
-        APBar.recalculateApBarFrameDuration(this);
-        ManaBar.recalculateManaBarFrameDuration(this);
+        //APBar.recalculateApBarFrameDuration(this);
+        //ManaBar.recalculateManaBarFrameDuration(this);
+        refreshHeroInformation();
     }
 
     public Equip getArtifact() {
@@ -720,37 +733,43 @@ public class PlayerMob extends DefaultMob {
 
     public void setArtifact(Equip artifact) {
         this.artifact = artifact;
-        APBar.recalculateApBarFrameDuration(this);
-        ManaBar.recalculateManaBarFrameDuration(this);
+        //APBar.recalculateApBarFrameDuration(this);
+        //ManaBar.recalculateManaBarFrameDuration(this);
+        refreshHeroInformation();
     }
 
     @Override
     public void setActualhp(int actualhp) {
         super.setActualhp(actualhp);
-        getHpLabel().setText("" + actualhp + "/" + getMaxHp());
+        //getHpLabel().setText("" + actualhp + "/" + getMaxHp());
+        refreshHeroInformation();
     }
 
     @Override
     public void setActionPoints(int actionPoints) {
         super.setActionPoints(actionPoints);
-        getApLabel().setText("" + actionPoints);
+        //getApLabel().setText("" + actionPoints);
+        refreshHeroInformation();
     }
 
     @Override
     public void setActualMana(int actualMana) {
         super.setActualMana(actualMana);
-        getManaLabel().setText("" + actualMana + "/" + (getMaxMana() + ModifierGetter.getWisdomModifier(this)));
+        refreshHeroInformation();
+        //getManaLabel().setText("" + actualMana + "/" + (getMaxMana() + ModifierGetter.getWisdomModifier(this)));
     }
 
     @Override
     public void setMaxHp(int maxHp) {
         super.setMaxHp(maxHp);
-        getHpLabel().setText("" + getActualhp() + "/" + maxHp);
+        //getHpLabel().setText("" + getActualhp() + "/" + maxHp);
+        refreshHeroInformation();
     }
 
     @Override
     public void setMaxMana(int maxMana) {
         super.setMaxMana(maxMana);
-        getManaLabel().setText("" + getActualMana() + "/" + (getMaxMana() + ModifierGetter.getWisdomModifier(this)));
+        refreshHeroInformation();
+        //getManaLabel().setText("" + getActualMana() + "/" + (getMaxMana() + ModifierGetter.getWisdomModifier(this)));
     }
 }

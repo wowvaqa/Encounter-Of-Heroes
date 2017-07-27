@@ -45,14 +45,22 @@ public class ExpManager {
         levelingArray[0] = 0;
         levelingArray[1] = 0;
         levelingArray[2] = 100;
-        levelingArray[3] = 200;
+        levelingArray[3] = 300;
+        levelingArray[4] = 600;
+        levelingArray[5] = 1000;
+        levelingArray[5] = 1500;
+        levelingArray[6] = 2100;
+        levelingArray[7] = 2800;
+        levelingArray[8] = 3600;
+        levelingArray[9] = 4500;
+        levelingArray[10] = 5500;
 
-        int counter = 100;
-
-        for (int i = 4; i < 99; i++) {
-            levelingArray[i] = levelingArray[i - 1] + counter;
-            counter += 100;
-        }
+//        int counter = 100;
+//
+//        for (int i = 4; i < 99; i++) {
+//            levelingArray[i] = levelingArray[i - 1] + counter;
+//            counter += 100;
+//        }
 
 //        for (int i = 1; i < 99; i++) {
 //            System.out.println("Poziom " + i + " : " + levelingArray[i]);
