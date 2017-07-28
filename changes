@@ -1,10 +1,12 @@
 0.0007 (ALPHA)
 FEATURE: Add screen for start single player game.
+FIX: Display of mana points after promotion.
+FIX: Display of mana points after setting up the inventory.
 
 0.0006 (ALPHA)
 FEATURE: Adding a label informing about the experience gained.
 FEATURE: Add a promotion window of mob.
-FEATURE: Add button descriptions in the main menu.
+FEATURE: Add button descriptions in the main menu.d
 FIX: If player mob hp is full then HPBar remove.
 
 0.0005 (ALPHA)
