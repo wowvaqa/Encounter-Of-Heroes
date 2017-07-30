@@ -27,6 +27,11 @@ public class AssetsSounds extends DefaultAssets {
         super.createAssets();
 
         getManager().load("sounds/walk.wav", Sound.class);
+        getManager().load("sounds/boxOpen.wav", Sound.class);
+        getManager().load("sounds/levelUp.mp3", Sound.class);
+        getManager().load("sounds/spellGood.wav", Sound.class);
+        getManager().load("sounds/fireball.wav", Sound.class);
+        getManager().load("sounds/swordSound.wav", Sound.class);
 
         getManager().finishLoading();
     }

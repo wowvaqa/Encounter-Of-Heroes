@@ -522,6 +522,17 @@ public class MoveManager {
     }
 
     /**
+     * Plays walk sound
+     * @param playerMob
+     */
+    private void playeWalkSound(PlayerMob playerMob){
+        if (playerMob.getPlayerOwner().equals(GameStatus.getInstance().getCurrentPlayerTurn())) {
+            AssetsSounds.getInstance().getManager().get("sounds/walk.wav", Sound.class).play(
+                    2.0f - playerMob.getActualSpeed() * 0.05f);
+        }
+    }
+
+    /**
      * Moves player mob to north.
      *
      * @param playerMob PlayerMob who may be moved.
@@ -551,8 +562,7 @@ public class MoveManager {
         gs.getMap().getFields()[playerMob.getCoordinateXonMap()][playerMob.getCoordinateYonMap()].setPlayerMob(playerMob);
         playerMob.getStepManager().setCheckStepping(true);
 
-        AssetsSounds.getInstance().getManager().get("sounds/walk.wav", Sound.class).play(
-                2.0f - playerMob.getActualSpeed() * 0.05f);
+        playeWalkSound(playerMob);
     }
 
     private void movePlayerMobSouth(PlayerMob playerMob) {
@@ -579,8 +589,7 @@ public class MoveManager {
         gs.getMap().getFields()[playerMob.getCoordinateXonMap()][playerMob.getCoordinateYonMap()].setPlayerMob(playerMob);
         playerMob.getStepManager().setCheckStepping(true);
 
-        AssetsSounds.getInstance().getManager().get("sounds/walk.wav", Sound.class).play(
-                2.0f - playerMob.getActualSpeed() * 0.05f);
+        playeWalkSound(playerMob);
     }
 
     /**
@@ -612,8 +621,7 @@ public class MoveManager {
         gs.getMap().getFields()[playerMob.getCoordinateXonMap()][playerMob.getCoordinateYonMap()].setPlayerMob(playerMob);
         playerMob.getStepManager().setCheckStepping(true);
 
-        AssetsSounds.getInstance().getManager().get("sounds/walk.wav", Sound.class).play(
-                2.0f - playerMob.getActualSpeed() * 0.05f);
+        playeWalkSound(playerMob);
     }
 
     /**
@@ -649,8 +657,7 @@ public class MoveManager {
         gs.getMap().getFields()[playerMob.getCoordinateXonMap()][playerMob.getCoordinateYonMap()].setPlayerMob(playerMob);
         playerMob.getStepManager().setCheckStepping(true);
 
-        AssetsSounds.getInstance().getManager().get("sounds/walk.wav", Sound.class).play(
-                2.0f - playerMob.getActualSpeed() * 0.05f);
+        playeWalkSound(playerMob);
     }
 
     /**
@@ -682,8 +689,7 @@ public class MoveManager {
         gs.getMap().getFields()[playerMob.getCoordinateXonMap()][playerMob.getCoordinateYonMap()].setPlayerMob(playerMob);
         playerMob.getStepManager().setCheckStepping(true);
 
-        AssetsSounds.getInstance().getManager().get("sounds/walk.wav", Sound.class).play(
-                2.0f - playerMob.getActualSpeed() * 0.05f);
+        playeWalkSound(playerMob);
     }
 
     /**
@@ -716,8 +722,7 @@ public class MoveManager {
         gs.getMap().getFields()[playerMob.getCoordinateXonMap()][playerMob.getCoordinateYonMap()].setPlayerMob(playerMob);
         playerMob.getStepManager().setCheckStepping(true);
 
-        AssetsSounds.getInstance().getManager().get("sounds/walk.wav", Sound.class).play(
-                2.0f - playerMob.getActualSpeed() * 0.05f);
+        playeWalkSound(playerMob);
     }
 
     /**
@@ -750,8 +755,7 @@ public class MoveManager {
         gs.getMap().getFields()[playerMob.getCoordinateXonMap()][playerMob.getCoordinateYonMap()].setPlayerMob(playerMob);
         playerMob.getStepManager().setCheckStepping(true);
 
-        AssetsSounds.getInstance().getManager().get("sounds/walk.wav", Sound.class).play(
-                2.0f - playerMob.getActualSpeed() * 0.05f);
+        playeWalkSound(playerMob);
     }
 
     /**
@@ -784,8 +788,7 @@ public class MoveManager {
         gs.getMap().getFields()[playerMob.getCoordinateXonMap()][playerMob.getCoordinateYonMap()].setPlayerMob(playerMob);
         playerMob.getStepManager().setCheckStepping(true);
 
-        AssetsSounds.getInstance().getManager().get("sounds/walk.wav", Sound.class).play(
-                2.0f - playerMob.getActualSpeed() * 0.05f);
+        playeWalkSound(playerMob);
     }
 
     public boolean isMoveButtonsCreated() {

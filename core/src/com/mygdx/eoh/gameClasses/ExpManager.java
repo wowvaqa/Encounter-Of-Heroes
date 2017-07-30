@@ -1,5 +1,6 @@
 package com.mygdx.eoh.gameClasses;
 
+import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
@@ -11,6 +12,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.Window;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.utils.Align;
 import com.mygdx.eoh.assets.AssetsGameScreen;
+import com.mygdx.eoh.assets.AssetsSounds;
 import com.mygdx.eoh.net.NetStatus;
 import com.mygdx.eoh.net.Network;
 
@@ -71,7 +73,18 @@ public class ExpManager {
         if (playerMob.getActualExp() >= playerMob.getLevelingArray()[playerMob.getLevel() + 1] && !nextLevel) {
             System.out.println("NOWY POZIOM!!!");
             nextLevel();
+
+            if (playerMob.getPlayerOwner().equals(GameStatus.getInstance().getCurrentPlayerTurn())){
+                playPromotionSound();
+            }
         }
+    }
+
+    /**
+     * Play sound after next level.
+     */
+    private void playPromotionSound(){
+        AssetsSounds.getInstance().getManager().get("sounds/levelUp.mp3", Sound.class).play();
     }
 
     private void nextLevel() {

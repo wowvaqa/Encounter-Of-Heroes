@@ -1,5 +1,7 @@
 package com.mygdx.eoh.gameClasses;
 
+import com.badlogic.gdx.audio.Sound;
+import com.mygdx.eoh.assets.AssetsSounds;
 import com.mygdx.eoh.net.NetStatus;
 
 /**
@@ -28,11 +30,14 @@ class StepManager {
         if (playerMob.getFieldOfPlayerMob().getItem() != null) {
             System.out.println("Nadepnięto na item :)");
             playerMob.getFieldOfPlayerMob().getItem().itemAction(playerMob);
-
         }
 
         if (playerMob.getFieldOfPlayerMob().getTreasure() != null &&
                 !playerMob.getFieldOfPlayerMob().getTreasure().isStepIn()) {
+
+            if (playerMob.getPlayerOwner().equals(GameStatus.getInstance().getCurrentPlayerTurn())) {
+                AssetsSounds.getInstance().getManager().get("sounds/boxOpen.wav", Sound.class).play();
+            }
 
             if (NetStatus.getInstance().getClient() == null) {
                 System.out.println("Nadepnieto na skrzynie ze skarbem :)");

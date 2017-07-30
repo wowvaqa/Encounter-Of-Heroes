@@ -1,5 +1,6 @@
 package com.mygdx.eoh.mob;
 
+import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
@@ -15,6 +16,7 @@ import com.badlogic.gdx.utils.SnapshotArray;
 import com.mygdx.eoh.animation.AnimationCreator;
 import com.mygdx.eoh.animation.AnimationFreeMobCreator;
 import com.mygdx.eoh.assets.AssetsGameScreen;
+import com.mygdx.eoh.assets.AssetsSounds;
 import com.mygdx.eoh.defaultClasses.DefaultDamageLabel;
 import com.mygdx.eoh.defaultClasses.DefaultMob;
 import com.mygdx.eoh.effects.LongEffect;
@@ -260,9 +262,19 @@ public class FreeMob extends DefaultMob {
         freeMob.setAnimation(freeMob.getAnimationForAttack(
                 freeMob, locationXofAttackedMob, locationYofAttackedMob));
         freeMob.getAnimation().getKeyFrameIndex(0);
-        freeMob.getAnimation().setFrameDuration((2.0f - (getActualSpeed() + ModifierGetter.getSpeedModifier(freeMob)) * 0.05f) / 24);
+        freeMob.getAnimation().setFrameDuration((2.0f - (getActualSpeed() +
+                ModifierGetter.getSpeedModifier(freeMob)) * 0.05f) / 24);
         freeMob.addAction(freeMob.getSequenceForAttack(
                 freeMob, locationXofAttackedMob, locationYofAttackedMob));
+
+        if (GameStatus.getInstance().getMap().getFields()[locationXofAttackedMob][locationYofAttackedMob].getPlayerMob() != null){
+            if (GameStatus.getInstance().getMap().getFields()[locationXofAttackedMob][locationYofAttackedMob].getPlayerMob().getPlayerOwner().equals(
+                    GameStatus.getInstance().getCurrentPlayerTurn()
+            )){
+                AssetsSounds.getInstance().getManager().get("sounds/swordSound.wav", Sound.class).play();
+            }
+        }
+
     }
 
     private Animation getAnimationForAttack(

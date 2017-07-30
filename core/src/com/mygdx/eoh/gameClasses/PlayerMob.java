@@ -1,5 +1,6 @@
 package com.mygdx.eoh.gameClasses;
 
+import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
@@ -19,6 +20,7 @@ import com.mygdx.eoh.Equipment.Equip;
 import com.mygdx.eoh.Options.OptionsInGame;
 import com.mygdx.eoh.animation.AnimationCreator;
 import com.mygdx.eoh.assets.AssetsGameScreen;
+import com.mygdx.eoh.assets.AssetsSounds;
 import com.mygdx.eoh.creators.SpellCreator;
 import com.mygdx.eoh.defaultClasses.DefaultDamageLabel;
 import com.mygdx.eoh.defaultClasses.DefaultMob;
@@ -276,6 +278,11 @@ public class PlayerMob extends DefaultMob {
      * @param locationYofAttackedMob Location Y on stage where animation will be located
      */
     public void changeToAttackAnimation(PlayerMob playerMob, int locationXofAttackedMob, int locationYofAttackedMob) {
+
+        if (playerMob.getPlayerOwner().equals(GameStatus.getInstance().getCurrentPlayerTurn())) {
+            AssetsSounds.getInstance().getManager().get("sounds/swordSound.wav", Sound.class).play();
+        }
+
         playerMob.setLooped(false);
         playerMob.setStateTime(0);
         playerMob.setAnimation(playerMob.getAnimationForAttack(
@@ -425,8 +432,8 @@ public class PlayerMob extends DefaultMob {
 
         if (this.getActualhp() < this.getMaxHp() + ModifierGetter.getHpModifier(this) &&
                 !this.getHpBar().isHpBarAdd()) {
-            this.getHpBar().setHpBarAdd(true);
             this.getStage().addActor(this.getHpBar());
+            this.getHpBar().setHpBarAdd(true);
         }
 
         if (this.getActions().size > 0) {

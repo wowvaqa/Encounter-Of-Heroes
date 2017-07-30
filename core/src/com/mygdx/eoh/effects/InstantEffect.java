@@ -1,9 +1,11 @@
 package com.mygdx.eoh.effects;
 
+import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.scenes.scene2d.Touchable;
 import com.mygdx.eoh.animation.AnimatedImage;
 import com.mygdx.eoh.animation.AnimationSpellCreator;
+import com.mygdx.eoh.assets.AssetsSounds;
 import com.mygdx.eoh.enums.InstantEffects;
 import com.mygdx.eoh.enums.LongEffects;
 import com.mygdx.eoh.gameClasses.FightManager;
@@ -61,13 +63,18 @@ public class InstantEffect extends AnimatedImage {
         switch (instantEffects) {
             case FiraballDamage:
 
+                if (castingPlayer.getPlayerOwner().equals(GameStatus.getInstance().getCurrentPlayerTurn())) {
+                    AssetsSounds.getInstance().getManager().get("sounds/fireball.wav", Sound.class).play();
+                }
+
                 int damage = 0;
                 if (defendingMob.getClass().equals(PlayerMob.class)) {
                     damage = ((rnd.nextInt((castingPlayer.getActualPower()) + ModifierGetter.getPowerModifier(castingPlayer)) + 1) + 3) -
                             ((rnd.nextInt(((PlayerMob) defendingMob).getActualDefence()) + ModifierGetter.getDefenceModifier(defendingMob)) + 1);
 
-                    if (damage < 0)
+                    if (damage < 0) {
                         damage = 0;
+                    }
                     this.damage = damage;
                     FightManager.setActualHPofMob(defendingMob, damage);
                     FightManager.chceckExpReward(castingPlayer, defendingMob);
@@ -115,6 +122,8 @@ public class InstantEffect extends AnimatedImage {
             case AttackUpgrade:
 
                 castingPlayer.changeToCastAnimation(castingPlayer);
+
+                AssetsSounds.getInstance().getManager().get("sounds/spellGood.wav", Sound.class).play();
 
                 LongEffect longEffect = new LongEffect(
                         AnimationSpellCreator.getInstance().makeLongEffectAnimation(LongEffects.AttackUpgrade, ((PlayerMob) defendingMob)),
