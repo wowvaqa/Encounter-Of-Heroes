@@ -12,6 +12,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.mygdx.eoh.assets.AssetsGameInterface;
 import com.mygdx.eoh.assets.AssetsGameScreen;
 import com.mygdx.eoh.assets.AssetsMainMenu;
+import com.mygdx.eoh.assets.AssetsSounds;
 import com.mygdx.eoh.enums.Screens;
 
 /**
@@ -43,13 +44,17 @@ public class ScreenLoading implements Screen {
     }
 
     private void update(float delta){
-        if (ScreenLoading.destinationScreen == Screens.ScreenSingleGame || ScreenLoading.destinationScreen == Screens.ScreenNetGame) {
-            if (AssetsGameScreen.getInstance().getManager().update() && AssetsGameInterface.getInstance().getManager().update()) {
+        if (ScreenLoading.destinationScreen == Screens.ScreenSingleGame ||
+                ScreenLoading.destinationScreen == Screens.ScreenNetGame) {
+            if (AssetsGameScreen.getInstance().getManager().update() &&
+                    AssetsGameInterface.getInstance().getManager().update() &&
+                    AssetsSounds.getInstance().getManager().update()) {
                 ScreenManager.getInstance().setScreen(ScreenLoading.destinationScreen);
             }
         }
 
-        if (ScreenLoading.destinationScreen == Screens.ScreenNewNetGame || ScreenLoading.destinationScreen == Screens.ScreenMainMenu ||
+        if (ScreenLoading.destinationScreen == Screens.ScreenNewNetGame ||
+                ScreenLoading.destinationScreen == Screens.ScreenMainMenu ||
                 ScreenLoading.destinationScreen == Screens.ScreenNewSingleGame) {
             if (AssetsMainMenu.getInstance().getManager().update()) {
                 ScreenManager.getInstance().setScreen(ScreenLoading.destinationScreen);

@@ -411,19 +411,22 @@ public class PlayerMob extends DefaultMob {
         APBar.recalculateApBarFrameDuration(this);
         HpBar.recalculateHpBarFrameDuration(this);
 
-        if (this.getActionPoints() < this.getActualSpeed() + ModifierGetter.getSpeedModifier(this) && !this.getApBar().isApBarAdd()) {
+        if (this.getActionPoints() < this.getActualSpeed() + ModifierGetter.getSpeedModifier(this)
+                && !this.getApBar().isApBarAdd()) {
             this.getStage().addActor(this.getApBar());
             this.getApBar().setApBarAdd(true);
         }
 
-        if (this.getActualMana() < this.getMaxMana() + ModifierGetter.getWisdomModifier(this) && !this.getManaBar().isManaBarAdd()) {
+        if (this.getActualMana() < this.getMaxMana() + ModifierGetter.getWisdomModifier(this) &&
+                !this.getManaBar().isManaBarAdd()) {
             this.getStage().addActor(this.getManaBar());
             this.getManaBar().setManaBarAdd(true);
         }
 
-        if (this.getActualhp()< this.getMaxHp() + ModifierGetter.getHpModifier(this) && !this.getHpBar().isHpBarAdd()) {
-            this.getStage().addActor(this.getHpBar());
+        if (this.getActualhp() < this.getMaxHp() + ModifierGetter.getHpModifier(this) &&
+                !this.getHpBar().isHpBarAdd()) {
             this.getHpBar().setHpBarAdd(true);
+            this.getStage().addActor(this.getHpBar());
         }
 
         if (this.getActions().size > 0) {

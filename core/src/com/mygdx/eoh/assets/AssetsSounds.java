@@ -26,6 +26,14 @@ public class AssetsSounds extends DefaultAssets {
     public void createAssets() {
         super.createAssets();
 
-        getManager().load("sounds/skin.json", Sound.class);
+        getManager().load("sounds/walk.wav", Sound.class);
+
+        getManager().finishLoading();
+    }
+
+    @Override
+    public void dispose() {
+        super.dispose();
+        instance = null;
     }
 }

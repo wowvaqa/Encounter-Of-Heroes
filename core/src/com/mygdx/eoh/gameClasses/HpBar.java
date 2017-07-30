@@ -90,7 +90,7 @@ public class HpBar extends AnimatedImage {
             if (freeMobParent != null)
                 freeMobParent.setActualhp(freeMobParent.getActualhp() + 1);
             this.setStateTime(0);
-            this.hpBarAdd = false;
+            //this.hpBarAdd = false;
             this.remove();
         }
 
@@ -121,6 +121,12 @@ public class HpBar extends AnimatedImage {
         if (freeMobParent != null && this.getY() != freeMobParent.getY()) {
             changePosition();
         }
+    }
+
+    @Override
+    public boolean remove() {
+        this.hpBarAdd = false;
+        return super.remove();
     }
 
     /***********************************************************************************************

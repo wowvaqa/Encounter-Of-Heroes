@@ -86,6 +86,7 @@ public class ExpManager {
         window.setModal(true);
         Positioning.setWindowToCenter(window);
 
+
         playerMob.setLevel(playerMob.getLevel() + 1);
 
         final Table choiceTable = new Table();
