@@ -1,6 +1,10 @@
 0.0007 (ALPHA)
 FEATURE: Add screen for start single player game.
 FEATURE: Add mob move sound.
+FEATURE: Add open treasure box sound.
+FEATURE: Add good spell cast sound.
+FEATURE: Add fireball spell cast sound.
+FEATURE: Add sword attack sound.
 FIX: Display of mana points after promotion.
 FIX: Display of mana points after setting up the inventory.
 FIX: Display of HpBar.
