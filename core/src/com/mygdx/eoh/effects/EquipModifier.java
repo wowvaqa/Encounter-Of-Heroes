@@ -150,7 +150,7 @@ public class EquipModifier {
         if (equip == null)
             return 0;
         for (EquipModifier equipModifier : equip.getEquipModifiers()) {
-            hpMod = +equipModifier.getWisdomModifier();
+            hpMod = + equipModifier.getHpModifier();
         }
         return hpMod;
     }
@@ -193,5 +193,13 @@ public class EquipModifier {
 
     private void setWisdomModifier(int wisdomModifier) {
         this.wisdomModifier = wisdomModifier;
+    }
+
+    public int getHpModifier() {
+        return hpModifier;
+    }
+
+    public void setHpModifier(int hpModifier) {
+        this.hpModifier = hpModifier;
     }
 }

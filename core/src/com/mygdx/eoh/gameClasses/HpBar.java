@@ -89,7 +89,7 @@ public class HpBar extends AnimatedImage {
                 playerMobParent.setActualhp(playerMobParent.getActualhp() + 1);
             if (freeMobParent != null)
                 freeMobParent.setActualhp(freeMobParent.getActualhp() + 1);
-            this.setStateTime(0);
+//            this.setStateTime(0);
             //this.hpBarAdd = false;
             this.remove();
         }
@@ -126,6 +126,7 @@ public class HpBar extends AnimatedImage {
     @Override
     public boolean remove() {
         this.hpBarAdd = false;
+        this.setStateTime(0);
         return super.remove();
     }
 
