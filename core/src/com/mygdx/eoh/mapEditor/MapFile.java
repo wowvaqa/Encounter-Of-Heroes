@@ -61,6 +61,7 @@ public class MapFile implements Serializable {
         public boolean terrainGrass = false;
         public boolean tresureBoxLvl1 = false;
         public boolean tresureBoxLvl2 = false;
+        public boolean tresureBoxLvl3 = false;
         public boolean towerMagic = false;
         public boolean towerWisdom = false;
         public boolean towerDefence = false;

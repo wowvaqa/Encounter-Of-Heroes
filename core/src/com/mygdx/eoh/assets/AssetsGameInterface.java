@@ -91,6 +91,8 @@ public class AssetsGameInterface extends DefaultAssets {
         getManager().load("game/interface/equipmentIcons/leatherArmorIcon.png", Texture.class, getParameter());
         getManager().load("game/interface/equipmentIcons/sphereOfSpeedIcon.png", Texture.class, getParameter());
         getManager().load("game/interface/equipmentIcons/swordIcon.png", Texture.class, getParameter());
+        getManager().load("game/interface/equipmentIcons/greenStoneStaff.png", Texture.class, getParameter());
+        getManager().load("game/interface/equipmentIcons/steelArmor.png", Texture.class, getParameter());
 
 
         getManager().finishLoading();

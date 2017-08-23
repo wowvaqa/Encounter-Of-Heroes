@@ -1092,6 +1092,7 @@ public class ScreenMapEditor extends DefaultScreen {
 
             final ImageButton.ImageButtonStyle imageButtonStyleTresureBoxLvl01Brush = new ImageButton.ImageButtonStyle();
             final ImageButton.ImageButtonStyle imageButtonStyleTresureBoxLvl02Brush = new ImageButton.ImageButtonStyle();
+            final ImageButton.ImageButtonStyle imageButtonStyleTresureBoxLvl03Brush = new ImageButton.ImageButtonStyle();
             final ImageButton.ImageButtonStyle imageButtonStyleGoldBrush = new ImageButton.ImageButtonStyle();
 
             imageButtonStyleTresureBoxLvl01Brush.imageUp = new TextureRegionDrawable(new TextureRegion(
@@ -1106,6 +1107,12 @@ public class ScreenMapEditor extends DefaultScreen {
             imageButtonStyleTresureBoxLvl02Brush.imageDown = new TextureRegionDrawable(new TextureRegion(
                     AssetsMapEditor.getInstance().getManager().get("mapEditor/interface/tresureBoxWindow/tresureBoxLvl2BrushDown.png", Texture.class)
             ));
+            imageButtonStyleTresureBoxLvl03Brush.imageUp = new TextureRegionDrawable(new TextureRegion(
+                    AssetsMapEditor.getInstance().getManager().get("mapEditor/interface/tresureBoxWindow/tresureBoxLvl3BrushUp.png", Texture.class)
+            ));
+            imageButtonStyleTresureBoxLvl03Brush.imageDown = new TextureRegionDrawable(new TextureRegion(
+                    AssetsMapEditor.getInstance().getManager().get("mapEditor/interface/tresureBoxWindow/tresureBoxLvl3BrushDown.png", Texture.class)
+            ));
             imageButtonStyleGoldBrush.imageUp = new TextureRegionDrawable(new TextureRegion(
                     AssetsMapEditor.getInstance().getManager().get("mapEditor/interface/tresureBoxWindow/goldBrushUp.png", Texture.class)
             ));
@@ -1115,6 +1122,7 @@ public class ScreenMapEditor extends DefaultScreen {
 
             ImageButton imageButtonTresureBox01 = new ImageButton(imageButtonStyleTresureBoxLvl01Brush);
             ImageButton imageButtonTresureBox02 = new ImageButton(imageButtonStyleTresureBoxLvl02Brush);
+            ImageButton imageButtonTresureBox03 = new ImageButton(imageButtonStyleTresureBoxLvl03Brush);
             final ImageButton imageButtonGold = new ImageButton(imageButtonStyleGoldBrush);
 
             imageButtonTresureBox01.addListener(new ClickListener() {
@@ -1135,6 +1143,15 @@ public class ScreenMapEditor extends DefaultScreen {
                 }
             });
 
+            imageButtonTresureBox03.addListener(new ClickListener() {
+                @Override
+                public void clicked(InputEvent event, float x, float y) {
+                    mapEditor.drawingType = MapEditor.DrawingType.tresureBox3Draw;
+                    imageButtonBrush.setStyle(imageButtonStyleTresureBoxLvl03Brush);
+                    window.remove();
+                }
+            });
+
             imageButtonGold.addListener(new ClickListener() {
                 @Override
                 public void clicked(InputEvent event, float x, float y) {
@@ -1144,10 +1161,28 @@ public class ScreenMapEditor extends DefaultScreen {
                 }
             });
 
-            window.add(imageButtonTresureBox01);
-            window.add(imageButtonTresureBox02);
-            window.add(imageButtonGold);
-            window.add(getCancelImageButton(window));
+            // Setting up size of buttons
+            int buttonWidth = 200;
+            int buttonHeight = 200;
+            if (Gdx.graphics.getWidth() < window.getWidth() ||
+                    Gdx.graphics.getHeight() < window.getHeight()) {
+                buttonWidth /= 2;
+                buttonHeight /= 2;
+                window.setSize(Gdx.graphics.getWidth() - 100, Gdx.graphics.getHeight() - 100);
+
+                window.setPosition(
+                        Gdx.graphics.getWidth() - Gdx.graphics.getWidth() / 2 - window.getWidth() / 2,
+                        Gdx.graphics.getHeight() - Gdx.graphics.getHeight() / 2 - window.getHeight() / 2
+                );
+            }
+
+            window.add(imageButtonTresureBox01).size(buttonWidth, buttonHeight);
+            window.add(imageButtonTresureBox02).size(buttonWidth, buttonHeight);
+            window.row();
+            window.add(imageButtonTresureBox03).size(buttonWidth, buttonHeight);
+            window.add(imageButtonGold).size(buttonWidth, buttonHeight);
+            window.row();
+            window.add(getCancelImageButton(window)).size(buttonWidth, buttonHeight).colspan(2);
 
             return window;
         }

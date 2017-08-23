@@ -76,6 +76,7 @@ public class MapEditor {
                 mapEditor.fields[i][j].mobRandomLevel2 = mapFile.fields[i][j].mobRandomLevel2;
                 mapEditor.fields[i][j].tresureBoxLvl1 = mapFile.fields[i][j].tresureBoxLvl1;
                 mapEditor.fields[i][j].tresureBoxLvl2 = mapFile.fields[i][j].tresureBoxLvl2;
+                mapEditor.fields[i][j].tresureBoxLvl3 = mapFile.fields[i][j].tresureBoxLvl3;
                 mapEditor.fields[i][j].towerMagic = mapFile.fields[i][j].towerMagic;
                 mapEditor.fields[i][j].towerWisdom = mapFile.fields[i][j].towerWisdom;
                 mapEditor.fields[i][j].towerSpeed = mapFile.fields[i][j].towerSpeed;
@@ -138,6 +139,7 @@ public class MapEditor {
                 mapFile.fields[i][j].mobRandomLevel2 = mapEditor.fields[i][j].mobRandomLevel2;
                 mapFile.fields[i][j].tresureBoxLvl1 = mapEditor.fields[i][j].tresureBoxLvl1;
                 mapFile.fields[i][j].tresureBoxLvl2 = mapEditor.fields[i][j].tresureBoxLvl2;
+                mapFile.fields[i][j].tresureBoxLvl3 = mapEditor.fields[i][j].tresureBoxLvl3;
                 mapFile.fields[i][j].towerMagic = mapEditor.fields[i][j].towerMagic;
                 mapFile.fields[i][j].towerWisdom = mapEditor.fields[i][j].towerWisdom;
                 mapFile.fields[i][j].towerSpeed = mapEditor.fields[i][j].towerSpeed;
@@ -246,6 +248,13 @@ public class MapEditor {
             fieldOfEditorImage = new FieldOfEditorImage(
                     new TextureRegion(AssetsMapEditor.getInstance().getManager().get(
                             "mapEditor/boxes/texTresureBoxLvl2.png", Texture.class)),
+                    field
+            );
+            setupFieldOfEditorImage(mapStage, fieldOfEditorImage, field);
+        } else if (field.tresureBoxLvl3) {
+            fieldOfEditorImage = new FieldOfEditorImage(
+                    new TextureRegion(AssetsMapEditor.getInstance().getManager().get(
+                            "mapEditor/boxes/texTresureBoxLvl3.png", Texture.class)),
                     field
             );
             setupFieldOfEditorImage(mapStage, fieldOfEditorImage, field);
@@ -512,6 +521,7 @@ public class MapEditor {
         mobRandomLvl2Draw,
         tresureBox1Draw,
         tresureBox2Draw,
+        tresureBox3Draw,
         towerMagicDraw,
         towerWisdomDraw,
         towerDefenceDraw,
@@ -562,6 +572,7 @@ public class MapEditor {
         public boolean terrainGrass = false;
         public boolean tresureBoxLvl1 = false;
         public boolean tresureBoxLvl2 = false;
+        public boolean tresureBoxLvl3 = false;
         public boolean towerMagic = false;
         public boolean towerWisdom = false;
         public boolean towerDefence = false;
@@ -687,6 +698,9 @@ public class MapEditor {
                         } else if (drawingType.equals(DrawingType.tresureBox2Draw)) {
                             field.tresureBoxLvl2 = true;
                             fillField(field);
+                        } else if (drawingType.equals(DrawingType.tresureBox3Draw)) {
+                            field.tresureBoxLvl3 = true;
+                            fillField(field);
                         } else if (drawingType.equals(DrawingType.itemGold)) {
                             field.itemGold = true;
                             fillField(field);
@@ -753,6 +767,7 @@ public class MapEditor {
             field.mobRandomLevel2 = false;
             field.tresureBoxLvl1 = false;
             field.tresureBoxLvl2 = false;
+            field.tresureBoxLvl3 = false;
             field.towerMagic = false;
             field.towerWisdom = false;
             field.towerSpeed = false;

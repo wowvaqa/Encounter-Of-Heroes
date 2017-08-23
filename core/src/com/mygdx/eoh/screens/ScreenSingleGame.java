@@ -125,6 +125,10 @@ class ScreenSingleGame extends DefaultGameScreen {
                     fields[i][j].setTreasure(Treasure.createTreasure(2, i, j));
                 }
 
+                if (mapfile.fields[i][j].tresureBoxLvl3) {
+                    fields[i][j].setTreasure(Treasure.createTreasure(3, i, j));
+                }
+
                 if (mapfile.fields[i][j].mobRandomLevel1) {
                     fields[i][j].setFreeMob(FreeMobCreator.getInstance().createFreeMob(FreeMobsKinds.Skeleton, i, j));
                 }

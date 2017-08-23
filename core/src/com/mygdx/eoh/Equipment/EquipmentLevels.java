@@ -16,10 +16,12 @@ class EquipmentLevels {
     //All level 1 equipment
     private SnapshotArray<EquipKinds> equipLevel1;
     private SnapshotArray<EquipKinds> equipLevel2;
+    private SnapshotArray<EquipKinds> equipLevel3;
 
     private EquipmentLevels() {
         equipLevel1 = new SnapshotArray<EquipKinds>();
         equipLevel2 = new SnapshotArray<EquipKinds>();
+        equipLevel3 = new SnapshotArray<EquipKinds>();
 
         fillEquipment();
     }
@@ -39,6 +41,10 @@ class EquipmentLevels {
         equipLevel2.add(EquipKinds.MagicStaff);
         equipLevel2.add(EquipKinds.LeatherArmor);
         equipLevel2.add(EquipKinds.SphereOfSpeed);
+
+        // Level 2 equip
+        equipLevel3.add(EquipKinds.GreenStoneStaff);
+        equipLevel3.add(EquipKinds.SteelArmor);
     }
 
     EquipKinds drawLevel1Equip() {
@@ -49,6 +55,11 @@ class EquipmentLevels {
     EquipKinds drawLevel2Equip() {
         Random rnd = new Random();
         return equipLevel2.get(rnd.nextInt(equipLevel2.size));
+    }
+
+    EquipKinds drawLevel3Equip() {
+        Random rnd = new Random();
+        return equipLevel3.get(rnd.nextInt(equipLevel3.size));
     }
 
 }

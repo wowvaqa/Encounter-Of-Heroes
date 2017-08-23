@@ -145,6 +145,34 @@ public class Equip extends Image {
                 equip.dragImage.setSize(50, 50);
                 break;
 
+            case GreenStoneStaff:
+                equip = new Equip(
+                        AssetsGameInterface.getInstance().getManager().get("game/interface/equipmentIcons/greenStoneStaff.png", Texture.class)
+                );
+                equip.equipKind = EquipKinds.GreenStoneStaff;
+                equip.equipType = EquipTypes.Weapon;
+                equip.equipModifiers.add(EquipModifier.createEquipModifier(equipKind));
+                equip.description = "GREEN STONE STAFF";
+                equip.dragImage = new Image(
+                        AssetsGameInterface.getInstance().getManager().get("game/interface/equipmentIcons/greenStoneStaff.png", Texture.class)
+                );
+                equip.dragImage.setSize(50, 50);
+                break;
+
+            case SteelArmor:
+                equip = new Equip(
+                        AssetsGameInterface.getInstance().getManager().get("game/interface/equipmentIcons/steelArmor.png", Texture.class)
+                );
+                equip.equipKind = EquipKinds.SteelArmor;
+                equip.equipType = EquipTypes.Armor;
+                equip.equipModifiers.add(EquipModifier.createEquipModifier(equipKind));
+                equip.description = "STEEL ARMOR";
+                equip.dragImage = new Image(
+                        AssetsGameInterface.getInstance().getManager().get("game/interface/equipmentIcons/steelArmor.png", Texture.class)
+                );
+                equip.dragImage.setSize(50, 50);
+                break;
+
             default:
                 equip = new Equip(
 
@@ -251,6 +279,10 @@ public class Equip extends Image {
                 return 5;
             case Sword:;
                 return 6;
+            case GreenStoneStaff:
+                return 7;
+            case SteelArmor:
+                return 8;
         }
         return 0;
     }
@@ -277,6 +309,10 @@ public class Equip extends Image {
                 return EquipKinds.SphereOfSpeed;
             case 6:
                 return EquipKinds.Sword;
+            case 7:
+                return EquipKinds.GreenStoneStaff;
+            case 8:
+                return EquipKinds.SteelArmor;
         }
         return EquipKinds.WoodenStick;
     }

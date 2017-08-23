@@ -53,6 +53,12 @@ public class EquipModifier {
             case Sword:
                 equipModifier.setAttackModifier(2);
                 return equipModifier;
+            case GreenStoneStaff:
+                equipModifier.setPowerModifier(4);
+                return equipModifier;
+            case SteelArmor:
+                equipModifier.setDefenceModifier(4);
+                return equipModifier;
             case None:
                 return equipModifier;
         }

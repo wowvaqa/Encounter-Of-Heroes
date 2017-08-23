@@ -66,6 +66,10 @@ public class Treasure extends AnimatedImage {
                 treasure.getEquips().add(Equip.createEquip(EquipmentLevels.getInstance().drawLevel2Equip()));
                 //treasure.getEquips().add(Equip.createEquip(EquipmentLevels.getInstance().drawLevel2Equip()));
                 break;
+            case 3:
+                treasure.getEquips().add(Equip.createEquip(EquipmentLevels.getInstance().drawLevel3Equip()));
+                //treasure.getEquips().add(Equip.createEquip(EquipmentLevels.getInstance().drawLevel2Equip()));
+                break;
         }
 
         return treasure;

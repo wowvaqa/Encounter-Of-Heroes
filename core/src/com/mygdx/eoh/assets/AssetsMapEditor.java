@@ -109,6 +109,8 @@ public class AssetsMapEditor extends DefaultAssets {
         getManager().load("mapEditor/interface/tresureBoxWindow/tresureBoxLvl1BrushDown.png", Texture.class, getParameter());
         getManager().load("mapEditor/interface/tresureBoxWindow/tresureBoxLvl2BrushUp.png", Texture.class, getParameter());
         getManager().load("mapEditor/interface/tresureBoxWindow/tresureBoxLvl2BrushDown.png", Texture.class, getParameter());
+        getManager().load("mapEditor/interface/tresureBoxWindow/tresureBoxLvl3BrushUp.png", Texture.class, getParameter());
+        getManager().load("mapEditor/interface/tresureBoxWindow/tresureBoxLvl3BrushDown.png", Texture.class, getParameter());
         getManager().load("mapEditor/interface/tresureBoxWindow/goldBrushUp.png", Texture.class, getParameter());
         getManager().load("mapEditor/interface/tresureBoxWindow/goldBrushDown.png", Texture.class, getParameter());
         getManager().load("mapEditor/items/goldCoins.png", Texture.class, getParameter());
@@ -164,6 +166,7 @@ public class AssetsMapEditor extends DefaultAssets {
 
         getManager().load("mapEditor/boxes/texTresureBoxLvl1.png", Texture.class, getParameter());
         getManager().load("mapEditor/boxes/texTresureBoxLvl2.png", Texture.class, getParameter());
+        getManager().load("mapEditor/boxes/texTresureBoxLvl3.png", Texture.class, getParameter());
 
         getManager().load("mapEditor/buldings/towerOfMagic.png", Texture.class, getParameter());
         getManager().load("mapEditor/buldings/towerOfWisdom.png", Texture.class, getParameter());
