@@ -101,7 +101,7 @@ public class ScreenNewNetGame extends DefaultScreen {
             client.start();
             try {
                 client.connect(10000, "85.255.9.69", 54555, 54777);
-                //client.connect(10000, "192.168.1.6", 54555, 54777);
+                //client.connect(10000, "192.168.1.4", 54555, 54777);
                 interfaceManager.lblServerStatus.setText("Server: CONNECTED");
                 //Gdx.app.log("Client", "Connected");
                 NetStatus.getInstance().playerStatusRequest();

@@ -12,6 +12,7 @@ import com.mygdx.eoh.animation.AnimatedImage;
 import com.mygdx.eoh.animation.AnimationCreator;
 import com.mygdx.eoh.assets.AssetsGameScreen;
 import com.mygdx.eoh.enums.AnimationTypes;
+import com.mygdx.eoh.gameClasses.Field;
 import com.mygdx.eoh.gameClasses.GameStatus;
 import com.mygdx.eoh.gameClasses.Options;
 import com.mygdx.eoh.gameClasses.PlayerMob;
@@ -144,6 +145,15 @@ public class Treasure extends AnimatedImage {
         return window;
     }
 
+    /**
+     * Zwraca pole na którym stoi skarb.
+     *
+     * @return Pole
+     */
+    public Field getFieldOfTreasure() {
+        return GameStatus.getInstance().getMap().getFields()[locXonMap][locYonMap];
+    }
+
     @Override
     public void act(float delta) {
         super.act(delta);
@@ -157,7 +167,7 @@ public class Treasure extends AnimatedImage {
      * GETTERS AND SETTERS
      **********************************************************************************************/
 
-    private SnapshotArray<Equip> getEquips() {
+    public SnapshotArray<Equip> getEquips() {
         return equips;
     }
 

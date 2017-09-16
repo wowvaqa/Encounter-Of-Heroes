@@ -24,6 +24,7 @@ import com.mygdx.eoh.enums.AnimationTypes;
 import com.mygdx.eoh.enums.FreeMobAnimationTypes;
 import com.mygdx.eoh.enums.FreeMobsKinds;
 import com.mygdx.eoh.gameClasses.APBar;
+import com.mygdx.eoh.gameClasses.Field;
 import com.mygdx.eoh.gameClasses.FightManager;
 import com.mygdx.eoh.gameClasses.GameStatus;
 import com.mygdx.eoh.gameClasses.HpBar;
@@ -437,6 +438,10 @@ public class FreeMob extends DefaultMob {
                 locationXonMap * Options.tileSize + Options.tileSize / 2,
                 locationYonMap * Options.tileSize + Options.tileSize / 2);
         GameStatus.getInstance().getMapStage().addActor(defaultDamageLabel);
+    }
+
+    public Field getFieldOfFreeMob() {
+        return GameStatus.getInstance().getMap().getFields()[this.getCoordinateXonMap()][this.getCoordinateYonMap()];
     }
 
     /***********************************************************************************************

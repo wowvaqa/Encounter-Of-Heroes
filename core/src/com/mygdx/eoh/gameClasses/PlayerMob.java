@@ -80,7 +80,6 @@ public class PlayerMob extends DefaultMob {
 
     private ExpManager expManager;
 
-
     public PlayerMob(Animation animation, boolean isLooped, Player playerOwner, PlayerMobClasses playerMobClass) {
         super(animation, isLooped);
 

@@ -144,6 +144,10 @@ public class ScreenNetGame extends DefaultGameScreen {
                     fields[i][j].setTreasure(Treasure.createTreasure(2, i, j));
                 }
 
+                if (mapfile.fields[i][j].tresureBoxLvl3) {
+                    fields[i][j].setTreasure(Treasure.createTreasure(3, i, j));
+                }
+
                 /***********************************************************************************
                  * FREE MOB CLASSES
                  **********************************************************************************/

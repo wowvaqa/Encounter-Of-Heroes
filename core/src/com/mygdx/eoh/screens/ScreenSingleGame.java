@@ -39,6 +39,7 @@ import java.util.ArrayList;
 class ScreenSingleGame extends DefaultGameScreen {
 
     private boolean cameraStartPosition = false;
+    //private AI ai;
 
     ScreenSingleGame() {
         super();
@@ -48,6 +49,9 @@ class ScreenSingleGame extends DefaultGameScreen {
         super.createMapStage();
         GameStatus.getInstance().setMap(createMap(loadMap(getMainStage())));
         super.fillStage(GameStatus.getInstance().getMap());
+
+        //ai = new AI(GameStatus.getInstance().getPlayers().get(0));
+
     }
 
     private Map createMap(MapFile mapfile) {
@@ -59,7 +63,6 @@ class ScreenSingleGame extends DefaultGameScreen {
         map.setFieldsRows(mapfile.mapRows);
 
         Field[][] fields = new Field[mapfile.mapColumns][mapfile.mapRows];
-
 
         map.setFields(fields);
 
@@ -82,6 +85,7 @@ class ScreenSingleGame extends DefaultGameScreen {
         for (int i = 0; i < mapfile.mapColumns; i++) {
             for (int j = 0; j < mapfile.mapRows; j++) {
 
+
                 if (mapfile.fields[i][j].terrains.equals(MapFile.Terrains.River)) {
                     fields[i][j] = new Field(AssetsGameScreen.getInstance().getManager().get(
                             "game/terrains/terrain.atlas", TextureAtlas.class).findRegion(
@@ -101,6 +105,7 @@ class ScreenSingleGame extends DefaultGameScreen {
                     fields[i][j] = new Field(AssetsGameScreen.getInstance().getManager().get(
                             "game/terrains/terrain.atlas", TextureAtlas.class).findRegion("grass"), Terrains.Grass);
                 }
+
 
                 if (mapfile.fields[i][j].itemGold) {
                     fields[i][j].setItem(ItemCreator.getInstance().createItem(AvailableItems.Gold, i, j));
@@ -199,65 +204,12 @@ class ScreenSingleGame extends DefaultGameScreen {
 
                 fields[i][j].setSize(Options.tileSize, Options.tileSize);
                 fields[i][j].setPosition(i * Options.tileSize, j * Options.tileSize);
+
+                // Okrśla koordynaty pola na mapie.
+                fields[i][j].locXonMap = i;
+                fields[i][j].locYonMap = j;
             }
         }
-
-//        PlayerMob playerMob = new PlayerMob(AnimationCreator.getInstance().makeAnimation(
-//                AnimationTypes.KnightStanding), true, super.getMapStage(), map, GameStatus.getInstance().getPlayers().get(0));
-//        playerMob.setCoordinateXonMap(1);
-//        playerMob.setCoordinateYonMap(1);
-//        playerMob.setSpeed(1);
-//        playerMob.setAttack(5);
-//        playerMob.setDefence(5);
-//        playerMob.setActualhp(5);
-//        playerMob.setActualSpeed(1);
-//        playerMob.setSize(Options.tileSize, Options.tileSize);
-//        playerMob.setPosition(
-//                playerMob.getCoordinateXonMap() * Options.tileSize,
-//                playerMob.getCoordinateYonMap() * Options.tileSize);
-//        playerMob.getPlayerColorImage().setPosition(
-//                playerMob.getCoordinateXonMap() * Options.tileSize,
-//                playerMob.getCoordinateYonMap() * Options.tileSize);
-//        fields[1][1].setPlayerMob(playerMob);
-//        GameStatus.getInstance().getPlayers().get(0).getPlayerMobs().add(playerMob);
-//
-//        PlayerMob playerMob2 = new PlayerMob(AnimationCreator.getInstance().makeAnimation(
-//                AnimationTypes.KnightStanding), true, super.getMapStage(), map, GameStatus.getInstance().getPlayers().get(1));
-//        playerMob2.setCoordinateXonMap(7);
-//        playerMob2.setCoordinateYonMap(7);
-//        playerMob2.setSpeed(30);
-//        playerMob2.setAttack(5);
-//        playerMob2.setDefence(5);
-//        playerMob2.setActualhp(5);
-//        playerMob2.setActualSpeed(30);
-//        playerMob2.setSize(Options.tileSize, Options.tileSize);
-//        playerMob2.setPosition(
-//                playerMob2.getCoordinateXonMap() * Options.tileSize,
-//                playerMob2.getCoordinateYonMap() * Options.tileSize);
-//        playerMob2.getPlayerColorImage().setPosition(
-//                playerMob2.getCoordinateXonMap() * Options.tileSize,
-//                playerMob2.getCoordinateYonMap() * Options.tileSize);
-//        fields[7][7].setPlayerMob(playerMob2);
-//        GameStatus.getInstance().getPlayers().get(1).getPlayerMobs().add(playerMob2);
-//
-//        PlayerMob playerMob3 = new PlayerMob(AnimationCreator.getInstance().makeAnimation(
-//                AnimationTypes.KnightStanding), true, super.getMapStage(), map, GameStatus.getInstance().getPlayers().get(1));
-//        playerMob3.setCoordinateXonMap(5);
-//        playerMob3.setCoordinateYonMap(5);
-//        playerMob3.setSpeed(15);
-//        playerMob3.setAttack(5);
-//        playerMob3.setDefence(5);
-//        playerMob3.setActualhp(5);
-//        playerMob3.setActualSpeed(15);
-//        playerMob3.setSize(Options.tileSize, Options.tileSize);
-//        playerMob3.setPosition(
-//                playerMob3.getCoordinateXonMap() * Options.tileSize,
-//                playerMob3.getCoordinateYonMap() * Options.tileSize);
-//        playerMob3.getPlayerColorImage().setPosition(
-//                playerMob3.getCoordinateXonMap() * Options.tileSize,
-//                playerMob3.getCoordinateYonMap() * Options.tileSize);
-//        fields[5][5].setPlayerMob(playerMob3);
-//        GameStatus.getInstance().getPlayers().get(1).getPlayerMobs().add(playerMob3);
 
         GameStatus.getInstance().setMap(map);
 
@@ -303,20 +255,22 @@ class ScreenSingleGame extends DefaultGameScreen {
 
         if (!cameraStartPosition) {
 
-            System.out.println("Cam posi X: " + getMapStageCamera().position.x);
-            System.out.println("Cam posi Y: " + getMapStageCamera().position.y);
+            //System.out.println("Cam posi X: " + getMapStageCamera().position.x);
+            //System.out.println("Cam posi Y: " + getMapStageCamera().position.y);
 
             float positionX = GameStatus.getInstance().getCurrentPlayerTurn().getPlayerMobs().get(0).getX();
             float positiony = GameStatus.getInstance().getCurrentPlayerTurn().getPlayerMobs().get(0).getY();
 
-            System.out.println("Pl MOb posi X: " + positionX);
-            System.out.println("Pl MOb posi Y: " + positiony);
+            //System.out.println("Pl MOb posi X: " + positionX);
+            //System.out.println("Pl MOb posi Y: " + positiony);
 
             ((DefaultCamera) getMapStageCamera()).position.x = positionX + Options.tileSize / 2;
             ((DefaultCamera) getMapStageCamera()).position.y = positiony + Options.tileSize / 2;
             cameraStartPosition = true;
 
         }
+
+        //ai.makeAIMove();
 
 
     }

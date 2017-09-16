@@ -7,7 +7,7 @@ import com.mygdx.eoh.enums.Terrains;
 import com.mygdx.eoh.mapEditor.MapEditor;
 import com.mygdx.eoh.mapEditor.MapFile;
 
-import static com.mygdx.eoh.mapEditor.MapEditor.*;
+import static com.mygdx.eoh.mapEditor.MapEditor.convertMapFileToMapEditor;
 
 /**
  * Representation of map.
@@ -68,19 +68,19 @@ public class Map implements Graph {
         return terrainName;
     }
 
-    private static boolean isNorthAvailable(int y, int mapRows) {
+    public static boolean isNorthAvailable(int y, int mapRows) {
         return y != mapRows - 1;
     }
 
-    private static boolean isSouthAvailable(int y) {
+    public static boolean isSouthAvailable(int y) {
         return y != 0;
     }
 
-    private static boolean isEastAvailable(int x, int mapColumns) {
+    public static boolean isEastAvailable(int x, int mapColumns) {
         return x != mapColumns - 1;
     }
 
-    private static boolean isWestAvailable(int x) {
+    public static boolean isWestAvailable(int x) {
         return x != 0;
     }
 
@@ -91,6 +91,10 @@ public class Map implements Graph {
      */
     public Field[][] getFields() {
         return fields;
+    }
+
+    public void setFields(Field[][] fields) {
+        this.fields = fields;
     }
 
     /**
@@ -127,10 +131,6 @@ public class Map implements Graph {
      */
     public void setFieldsRows(int fieldsRows) {
         this.fieldsRows = fieldsRows;
-    }
-
-    public void setFields(Field[][] fields) {
-        this.fields = fields;
     }
 
     @Override

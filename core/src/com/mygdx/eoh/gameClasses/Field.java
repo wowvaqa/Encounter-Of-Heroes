@@ -1,6 +1,6 @@
 package com.mygdx.eoh.gameClasses;
 
-import com.badlogic.gdx.ai.pfa.Connection;
+import com.badlogic.gdx.ai.pfa.DefaultConnection;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
@@ -9,11 +9,37 @@ import com.mygdx.eoh.enums.Terrains;
 import com.mygdx.eoh.items.Item;
 import com.mygdx.eoh.mob.FreeMob;
 
+import java.util.ArrayList;
+import java.util.Comparator;
+
 /**
  * Representation of field
  * Created by v on 2016-10-12.
  */
 public class Field extends Image {
+
+    // Długość (koszt) ścieżki prowadzącej z punktu startu do aktualnej, rozpatrywanej pozycji w
+    // przestrzeni (jest to rzeczywista długość ścieżki, którą już wygenerowaliśmy)
+    public double pathG;
+    //szacunkowa długość ścieżki prowadząca z aktualnej pozycji do punktu docelowego; wartość H
+    // jest najczęściej wyznaczana metodami heurystycznymi, gdyż z oczywistego względu nie znamy tej
+    // długości (gdyby tak było, użycie takiego algorytmu byłoby niepotrzebne)
+    public double pathH;
+    // F = G+H – wartość równa sumie długości dwóch powyższych ścieżek.
+    public double pathF;
+
+    // Pole rodzica do znajdywania ścieżki.
+    public Field parentField;
+
+    // Określa czy pole jest początkiem ścieżki.
+    public boolean startField = false;
+    // Określa czy pole jest końcem ścieżki.
+    public boolean endField = false;
+
+    // położenie pola na mapie
+    public int locXonMap;
+    public int locYonMap;
+
 
     private int coordinateXonStage;
     private int coordinateYonStage;
@@ -32,6 +58,11 @@ public class Field extends Image {
     private Treasure treasure;
     private FreeMob freeMob;
 
+    /***********************************************************************************************
+     * PATHFINDING
+     **********************************************************************************************/
+    private ArrayList<DefaultConnection> connections;
+
     public Field() {
         super();
     }
@@ -39,13 +70,36 @@ public class Field extends Image {
     public Field(Texture texture, Terrains terrain) {
         super(texture);
         this.terrain = terrain;
+
+        if (terrain.equals(Terrains.Mountain))
+            setMovable(false);
+
+        connections = new ArrayList<DefaultConnection>();
     }
 
     public Field(TextureRegion region, Terrains terrain) {
         super(region);
         this.terrain = terrain;
+
+        if (terrain.equals(Terrains.Mountain))
+            setMovable(false);
+
+        connections = new ArrayList<DefaultConnection>();
     }
 
+    /**
+     * Czyści rodziców każdego z pól na mapie.
+     */
+    public static void clearParentsOfFields() {
+
+        for (int i = 0; i < GameStatus.getInstance().getMap().getFieldsColumns(); i++) {
+            for (int j = 0; j < GameStatus.getInstance().getMap().getFieldsRows(); j++) {
+                if (GameStatus.getInstance().getMap().getFields()[i][j].parentField != null) {
+                    GameStatus.getInstance().getMap().getFields()[i][j].parentField = null;
+                }
+            }
+        }
+    }
 
     public Terrains getTerrain() {
         return terrain;
@@ -155,6 +209,14 @@ public class Field extends Image {
 
     public void setFreeMob(FreeMob freeMob) {
         this.freeMob = freeMob;
+    }
+
+    public static class SortByPathF implements Comparator<Field> {
+
+        @Override
+        public int compare(Field o1, Field o2) {
+            return (int) (o1.pathF - o2.pathF);
+        }
     }
 }
 
