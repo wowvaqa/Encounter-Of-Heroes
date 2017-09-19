@@ -1,5 +1,7 @@
 package com.mygdx.eoh.gameClasses;
 
+import com.badlogic.gdx.ai.fsm.DefaultStateMachine;
+import com.badlogic.gdx.ai.fsm.StateMachine;
 import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Animation;
@@ -18,6 +20,8 @@ import com.badlogic.gdx.utils.Align;
 import com.badlogic.gdx.utils.SnapshotArray;
 import com.mygdx.eoh.Equipment.Equip;
 import com.mygdx.eoh.Options.OptionsInGame;
+import com.mygdx.eoh.ai.Ai;
+import com.mygdx.eoh.ai.PlayerMobState;
 import com.mygdx.eoh.animation.AnimationCreator;
 import com.mygdx.eoh.assets.AssetsGameScreen;
 import com.mygdx.eoh.assets.AssetsSounds;
@@ -80,6 +84,10 @@ public class PlayerMob extends DefaultMob {
 
     private ExpManager expManager;
 
+    private Ai ai;
+    private DefaultStateMachine<PlayerMob, PlayerMobState> stateMachine;
+    private boolean busy = false;
+
     public PlayerMob(Animation animation, boolean isLooped, Player playerOwner, PlayerMobClasses playerMobClass) {
         super(animation, isLooped);
 
@@ -101,6 +109,20 @@ public class PlayerMob extends DefaultMob {
         createLongEffectsTable();
         createSpells();
         this.expManager = new ExpManager(this);
+
+        // Sprawdzenie czy dla graczy jest aktywna sztuczna inteligencja, ustawienie poziomu opóźnienia w
+        // wykonywaniu czynności wg poziomu trudności. Dla durgiego gracza dodanie dodatkowego opóźnienia
+        // w celu wyeliminowania możliwości jednoczesnego wchodzenia na to samo pole przez różnych bohaterów.
+        if (playerOwner.getInedxOfPlayerInArrayOfPlayer() == 0 && GameStatus.getInstance().isPlayerOneAI() == true) {
+            ai = new Ai();
+            ai.setDifficultyTime(GameStatus.getInstance().getPlayerOneDifficultyTime());
+        } else if (playerOwner.getInedxOfPlayerInArrayOfPlayer() == 1 && GameStatus.getInstance().isPlayerTwoAI() == true) {
+            ai = new Ai();
+            ai.setDifficultyTime(GameStatus.getInstance().getPlayerTwoDifficultyTime() + 0.01f);
+        }
+
+
+        stateMachine = new DefaultStateMachine<PlayerMob, PlayerMobState>(this, PlayerMobState.WAIT);
     }
 
     /**
@@ -413,6 +435,9 @@ public class PlayerMob extends DefaultMob {
     public void act(float delta) {
         super.act(delta);
 
+        if (getAi() != null)
+            stateMachine.update();
+
         ManaBar.recalculateManaBarFrameDuration(this);
         APBar.recalculateApBarFrameDuration(this);
         HpBar.recalculateHpBarFrameDuration(this);
@@ -447,6 +472,7 @@ public class PlayerMob extends DefaultMob {
             this.moveManager.setAttackButtonsCreated(false);
             DefaultMob.removeDeadMobs();
         } else if (this.getActions().size == 0) {
+            this.setBusy(false);
             this.setTouchable(Touchable.enabled);
             if (this.stepManager.isCheckStepping()) {
                 this.stepManager.checkStep();
@@ -747,6 +773,22 @@ public class PlayerMob extends DefaultMob {
         refreshHeroInformation();
     }
 
+    public Ai getAi() {
+        return ai;
+    }
+
+    public StateMachine<PlayerMob, PlayerMobState> getStateMachine() {
+        return stateMachine;
+    }
+
+    public boolean isBusy() {
+        return busy;
+    }
+
+    public void setBusy(boolean busy) {
+        this.busy = busy;
+    }
+
     @Override
     public void setActualhp(int actualhp) {
         super.setActualhp(actualhp);
@@ -781,4 +823,6 @@ public class PlayerMob extends DefaultMob {
         refreshHeroInformation();
         //getManaLabel().setText("" + getActualMana() + "/" + (getMaxMana() + ModifierGetter.getWisdomModifier(this)));
     }
+
+
 }

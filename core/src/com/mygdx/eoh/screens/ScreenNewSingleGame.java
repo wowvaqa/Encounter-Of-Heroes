@@ -25,6 +25,9 @@ public class ScreenNewSingleGame extends DefaultScreen {
     ScreenNewSingleGame(){
         interfaceManager = new Interface();
         createTables();
+
+        GameStatus.getInstance().setPlayerOneAI(true);
+        GameStatus.getInstance().setPlayerTwoAI(true);
     }
 
     private void createTables(){
@@ -34,21 +37,33 @@ public class ScreenNewSingleGame extends DefaultScreen {
         Table playerOneTable = new Table();
         Table playerTwoTable = new Table();
 
-        playerOneTable.add(interfaceManager.lblPlayerOneHero).pad(5);
+        playerOneTable.add(interfaceManager.lblPlayerOneHero).pad(3);
         playerOneTable.row();
-        playerOneTable.add(interfaceManager.lblPlayerOneMobClass).pad(5);
+        playerOneTable.add(interfaceManager.lblPlayerOneMobClass).pad(3);
         playerOneTable.row();
-        playerOneTable.add(interfaceManager.tbPlayerOneNextClass).pad(5);
+        playerOneTable.add(interfaceManager.tbPlayerOneNextClass).pad(3);
+        playerOneTable.row();
+        playerOneTable.add(interfaceManager.lblPlayerOneDificulty).pad(3);
+        playerOneTable.row();
+        playerOneTable.add(interfaceManager.tbPlayerOneDificulty).pad(3).size(210, 65);
+        playerOneTable.row();
+        playerOneTable.add(interfaceManager.tbPlayerOneCPU).pad(3).size(210, 65);
 
-        playerTwoTable.add(interfaceManager.lblPlyaerTwoHero).pad(5);
+        playerTwoTable.add(interfaceManager.lblPlyaerTwoHero).pad(3);
         playerTwoTable.row();
-        playerTwoTable.add(interfaceManager.lblPlayerTwoMobClass).pad(5);
+        playerTwoTable.add(interfaceManager.lblPlayerTwoMobClass).pad(3);
         playerTwoTable.row();
-        playerTwoTable.add(interfaceManager.tbPlayerTwoNextClass).pad(5);
+        playerTwoTable.add(interfaceManager.tbPlayerTwoNextClass).pad(3);
+        playerTwoTable.row();
+        playerTwoTable.add(interfaceManager.lblPlayerTwoDificulty).pad(3);
+        playerTwoTable.row();
+        playerTwoTable.add(interfaceManager.tbPlayerTwoDificulty).pad(3).size(210, 65);
+        playerTwoTable.row();
+        playerTwoTable.add(interfaceManager.tbPlayerTwoCPU).pad(3).size(210, 65);
 
-        bottomTable.add(interfaceManager.tbPlay).pad(5).size(300, 100);
+        bottomTable.add(interfaceManager.tbPlay).pad(3).size(300, 100);
         bottomTable.row();
-        bottomTable.add(interfaceManager.tbExit).pad(5).size(175, 50).align(Align.bottom);
+        bottomTable.add(interfaceManager.tbExit).pad(3).size(175, 50).align(Align.bottom);
 
         middleTable.add(playerOneTable).pad(10);
         middleTable.add(playerTwoTable).pad(10);
@@ -72,10 +87,16 @@ public class ScreenNewSingleGame extends DefaultScreen {
         TextButton tbPlay;
         TextButton tbPlayerOneNextClass;
         TextButton tbPlayerTwoNextClass;
+        TextButton tbPlayerOneCPU;
+        TextButton tbPlayerTwoCPU;
+        TextButton tbPlayerOneDificulty;
+        TextButton tbPlayerTwoDificulty;
         TextButton tbExit;
 
         Label lblPlayerOneHero;
         Label lblPlyaerTwoHero;
+        Label lblPlayerOneDificulty;
+        Label lblPlayerTwoDificulty;
 
         Label lblPlayerOneMobClass;
         Label lblPlayerTwoMobClass;
@@ -91,11 +112,20 @@ public class ScreenNewSingleGame extends DefaultScreen {
             tbPlayerOneNextClass = new TextButton("NEXT", AssetsMainMenu.getInstance().getManager().get("styles/skin.json", Skin.class));
             tbPlayerTwoNextClass = new TextButton("NEXT", AssetsMainMenu.getInstance().getManager().get("styles/skin.json", Skin.class));
 
+            tbPlayerOneCPU = new TextButton("Player One AI ON", AssetsMainMenu.getInstance().getManager().get("styles/skin.json", Skin.class));
+            tbPlayerTwoCPU = new TextButton("Player Two AI ON", AssetsMainMenu.getInstance().getManager().get("styles/skin.json", Skin.class));
+
+            tbPlayerOneDificulty = new TextButton("Hard", AssetsMainMenu.getInstance().getManager().get("styles/skin.json", Skin.class));
+            tbPlayerTwoDificulty = new TextButton("Hard", AssetsMainMenu.getInstance().getManager().get("styles/skin.json", Skin.class));
+
             lblPlayerOneMobClass = new Label("Class: Knight", AssetsMainMenu.getInstance().getManager().get("styles/skin.json", Skin.class), "black32");
             lblPlayerTwoMobClass = new Label("Class: Knight", AssetsMainMenu.getInstance().getManager().get("styles/skin.json", Skin.class), "black32");
 
             lblPlayerOneHero = new Label("Player One Hero", AssetsMainMenu.getInstance().getManager().get("styles/skin.json", Skin.class), "black32");
             lblPlyaerTwoHero = new Label("Player Two Hero", AssetsMainMenu.getInstance().getManager().get("styles/skin.json", Skin.class), "black32");
+
+            lblPlayerOneDificulty = new Label("Difficulty:", AssetsMainMenu.getInstance().getManager().get("styles/skin.json", Skin.class), "black32");
+            lblPlayerTwoDificulty = new Label("Difficulty:", AssetsMainMenu.getInstance().getManager().get("styles/skin.json", Skin.class), "black32");
 
             tbExit = new TextButton("EXIT", AssetsMainMenu.getInstance().getManager().get("styles/skin.json", Skin.class));
         }
@@ -138,6 +168,66 @@ public class ScreenNewSingleGame extends DefaultScreen {
                     } else if (GameStatus.getInstance().getSingleGamePlayerTwoMobClass().equals(PlayerMobClasses.Wizard)) {
                         GameStatus.getInstance().setSingleGamePlayerTwoMobClass(PlayerMobClasses.Knight);
                         lblPlayerTwoMobClass.setText("Class: Knight");
+                    }
+                }
+            });
+
+            tbPlayerOneCPU.addListener(new ClickListener() {
+                @Override
+                public void clicked(InputEvent event, float x, float y) {
+                    super.clicked(event, x, y);
+
+                    if (GameStatus.getInstance().isPlayerOneAI()) {
+                        tbPlayerOneCPU.setText("Player One AI OFF");
+                        GameStatus.getInstance().setPlayerOneAI(false);
+                    } else {
+                        tbPlayerOneCPU.setText("Player One AI ON");
+                        GameStatus.getInstance().setPlayerOneAI(true);
+                    }
+                }
+            });
+
+            tbPlayerTwoCPU.addListener(new ClickListener() {
+                @Override
+                public void clicked(InputEvent event, float x, float y) {
+                    super.clicked(event, x, y);
+
+                    if (GameStatus.getInstance().isPlayerTwoAI()) {
+                        tbPlayerTwoCPU.setText("Player Two AI OFF");
+                        GameStatus.getInstance().setPlayerTwoAI(false);
+                    } else {
+                        tbPlayerTwoCPU.setText("Player Two AI ON");
+                        GameStatus.getInstance().setPlayerTwoAI(true);
+                    }
+                }
+            });
+
+            tbPlayerOneDificulty.addListener(new ClickListener() {
+                @Override
+                public void clicked(InputEvent event, float x, float y) {
+                    super.clicked(event, x, y);
+
+                    if (GameStatus.getInstance().getPlayerOneDifficultyTime() == 0.5f) {
+                        tbPlayerOneDificulty.setText("Easy");
+                        GameStatus.getInstance().setPlayerOneDifficultyTime(1.0f);
+                    } else if (GameStatus.getInstance().getPlayerOneDifficultyTime() == 1.0f) {
+                        tbPlayerOneDificulty.setText("Hard");
+                        GameStatus.getInstance().setPlayerOneDifficultyTime(0.5f);
+                    }
+                }
+            });
+
+            tbPlayerTwoDificulty.addListener(new ClickListener() {
+                @Override
+                public void clicked(InputEvent event, float x, float y) {
+                    super.clicked(event, x, y);
+
+                    if (GameStatus.getInstance().getPlayerTwoDifficultyTime() == 0.5f) {
+                        tbPlayerTwoDificulty.setText("Easy");
+                        GameStatus.getInstance().setPlayerTwoDifficultyTime(1.0f);
+                    } else if (GameStatus.getInstance().getPlayerTwoDifficultyTime() == 1.0f) {
+                        tbPlayerTwoDificulty.setText("Hard");
+                        GameStatus.getInstance().setPlayerTwoDifficultyTime(0.5f);
                     }
                 }
             });

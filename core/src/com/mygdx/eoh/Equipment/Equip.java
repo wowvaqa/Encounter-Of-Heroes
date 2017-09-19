@@ -14,6 +14,7 @@ import com.badlogic.gdx.utils.SnapshotArray;
 import com.mygdx.eoh.assets.AssetsGameInterface;
 import com.mygdx.eoh.assets.AssetsGameScreen;
 import com.mygdx.eoh.effects.EquipModifier;
+import com.mygdx.eoh.enums.PlayerMobClasses;
 import com.mygdx.eoh.gameClasses.GameStatus;
 import com.mygdx.eoh.gameClasses.Positioning;
 
@@ -36,6 +37,10 @@ public class Equip extends Image {
     private String description;
     // Equipment modifiers of player mob statistics
     private SnapshotArray<EquipModifier> equipModifiers;
+    // Equip Level (AI)
+    private int equipLevel;
+    // Preferred class for equipment (AI)
+    private PlayerMobClasses preferredPlayerMobClass;
 
     private Equip(Texture texture) {
         super(texture);
@@ -56,6 +61,11 @@ public class Equip extends Image {
                 equip = new Equip(
                         AssetsGameInterface.getInstance().getManager().get("game/interface/equipmentIcons/woodStickIcon.png", Texture.class)
                 );
+
+                // AI
+                equip.equipLevel = 0;
+                equip.preferredPlayerMobClass = PlayerMobClasses.Knight;
+
                 equip.equipKind = EquipKinds.WoodenStick;
                 equip.equipType = EquipTypes.Weapon;
                 equip.equipModifiers.add(EquipModifier.createEquipModifier(equipKind));
@@ -69,6 +79,11 @@ public class Equip extends Image {
                 equip = new Equip(
                         AssetsGameInterface.getInstance().getManager().get("game/interface/equipmentIcons/leatherPantsIcon.png", Texture.class)
                 );
+
+                // AI
+                equip.equipLevel = 0;
+                equip.preferredPlayerMobClass = PlayerMobClasses.Any;
+
                 equip.equipKind = EquipKinds.LeatherPants;
                 equip.equipType = EquipTypes.Armor;
                 equip.equipModifiers.add(EquipModifier.createEquipModifier(equipKind));
@@ -82,6 +97,11 @@ public class Equip extends Image {
                 equip = new Equip(
                         AssetsGameInterface.getInstance().getManager().get("game/interface/equipmentIcons/goldRingIcon.png", Texture.class)
                 );
+
+                // AI
+                equip.equipLevel = 0;
+                equip.preferredPlayerMobClass = PlayerMobClasses.Wizard;
+
                 equip.equipKind = EquipKinds.GoldRing;
                 equip.equipType = EquipTypes.Artifact;
                 equip.equipModifiers.add(EquipModifier.createEquipModifier(equipKind));
@@ -95,6 +115,11 @@ public class Equip extends Image {
                 equip = new Equip(
                         AssetsGameInterface.getInstance().getManager().get("game/interface/equipmentIcons/magicStaffIcon.png", Texture.class)
                 );
+
+                // AI
+                equip.equipLevel = 1;
+                equip.preferredPlayerMobClass = PlayerMobClasses.Wizard;
+
                 equip.equipKind = EquipKinds.MagicStaff;
                 equip.equipType = EquipTypes.Weapon;
                 equip.equipModifiers.add(EquipModifier.createEquipModifier(equipKind));
@@ -108,6 +133,11 @@ public class Equip extends Image {
                 equip = new Equip(
                         AssetsGameInterface.getInstance().getManager().get("game/interface/equipmentIcons/leatherArmorIcon.png", Texture.class)
                 );
+
+                // AI
+                equip.equipLevel = 1;
+                equip.preferredPlayerMobClass = PlayerMobClasses.Knight;
+
                 equip.equipKind = EquipKinds.LeatherArmor;
                 equip.equipType = EquipTypes.Armor;
                 equip.equipModifiers.add(EquipModifier.createEquipModifier(equipKind));
@@ -121,6 +151,11 @@ public class Equip extends Image {
                 equip = new Equip(
                         AssetsGameInterface.getInstance().getManager().get("game/interface/equipmentIcons/sphereOfSpeedIcon.png", Texture.class)
                 );
+
+                // AI
+                equip.equipLevel = 1;
+                equip.preferredPlayerMobClass = PlayerMobClasses.Any;
+
                 equip.equipKind = EquipKinds.SphereOfSpeed;
                 equip.equipType = EquipTypes.Artifact;
                 equip.equipModifiers.add(EquipModifier.createEquipModifier(equipKind));
@@ -135,6 +170,11 @@ public class Equip extends Image {
                 equip = new Equip(
                         AssetsGameInterface.getInstance().getManager().get("game/interface/equipmentIcons/swordIcon.png", Texture.class)
                 );
+
+                // AI
+                equip.equipLevel = 1;
+                equip.preferredPlayerMobClass = PlayerMobClasses.Knight;
+
                 equip.equipKind = EquipKinds.Sword;
                 equip.equipType = EquipTypes.Weapon;
                 equip.equipModifiers.add(EquipModifier.createEquipModifier(equipKind));
@@ -149,6 +189,11 @@ public class Equip extends Image {
                 equip = new Equip(
                         AssetsGameInterface.getInstance().getManager().get("game/interface/equipmentIcons/greenStoneStaff.png", Texture.class)
                 );
+
+                // AI
+                equip.equipLevel = 2;
+                equip.preferredPlayerMobClass = PlayerMobClasses.Wizard;
+
                 equip.equipKind = EquipKinds.GreenStoneStaff;
                 equip.equipType = EquipTypes.Weapon;
                 equip.equipModifiers.add(EquipModifier.createEquipModifier(equipKind));
@@ -163,6 +208,11 @@ public class Equip extends Image {
                 equip = new Equip(
                         AssetsGameInterface.getInstance().getManager().get("game/interface/equipmentIcons/steelArmor.png", Texture.class)
                 );
+
+                // AI
+                equip.equipLevel = 2;
+                equip.preferredPlayerMobClass = PlayerMobClasses.Knight;
+
                 equip.equipKind = EquipKinds.SteelArmor;
                 equip.equipType = EquipTypes.Armor;
                 equip.equipModifiers.add(EquipModifier.createEquipModifier(equipKind));
@@ -175,7 +225,6 @@ public class Equip extends Image {
 
             default:
                 equip = new Equip(
-
                         AssetsGameInterface.getInstance().getManager().get("game/interface/equipmentIcons/noneIcon.png", Texture.class)
                 );
                 equip.equipKind = EquipKinds.None;
@@ -277,7 +326,7 @@ public class Equip extends Image {
                 return 4;
             case SphereOfSpeed:
                 return 5;
-            case Sword:;
+            case Sword:
                 return 6;
             case GreenStoneStaff:
                 return 7;
@@ -338,5 +387,13 @@ public class Equip extends Image {
 
     public SnapshotArray<EquipModifier> getEquipModifiers() {
         return equipModifiers;
+    }
+
+    public int getEquipLevel() {
+        return equipLevel;
+    }
+
+    public PlayerMobClasses getPreferredPlayerMobClass() {
+        return preferredPlayerMobClass;
     }
 }

@@ -6,5 +6,6 @@ package com.mygdx.eoh.enums;
 
 public enum PlayerMobClasses {
     Knight,
-    Wizard;
+    Wizard,
+    Any
 }

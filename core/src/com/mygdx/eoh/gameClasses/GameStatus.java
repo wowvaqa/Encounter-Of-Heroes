@@ -17,16 +17,15 @@ import java.util.ArrayList;
  * Created by v on 2016-10-17.
  */
 public class GameStatus {
+    private static GameStatus instance = new GameStatus();
     private SnapshotArray<MoveButton> moveButtons;
     private SnapshotArray<AttackButton> attackButtons;
     private SnapshotArray<CastButton> castButtons;
-
     private Player currentPlayerTurn;
     private Image currentPlayerIcon;
     private PlayerMob selectedPlayerMob;
     private CastleMob selectedCastleMob;
     private GameInterface gameInterface;
-
     private Map map;
     // Map from file or network
     private MapFile mapFile;
@@ -44,25 +43,26 @@ public class GameStatus {
     // Needed to create new single game.
     private PlayerMobClasses singleGamePlayerOneMobClass = PlayerMobClasses.Knight;
     private PlayerMobClasses singleGamePlayerTwoMobClass = PlayerMobClasses.Knight;
-
-
+    // Określa czy dany gracz jest sterowany przez AI
+    private boolean playerOneAI = true;
+    private boolean playerTwoAI = true;
+    // Określa opóźnienie w wykonaniu czynności przez AI
+    private float playerOneDifficultyTime = 0.5f;
+    private float playerTwoDifficultyTime = 0.5f;
     // MainStage
     private Stage mainStage;
     // MapStage
     private Stage mapStage;
-
     private DefaultCamera camera;
-
-    private static GameStatus instance = new GameStatus();
-
-    public static GameStatus getInstance() {
-        return instance;
-    }
 
     private GameStatus() {
         moveButtons = new SnapshotArray<MoveButton>();
         attackButtons = new SnapshotArray<AttackButton>();
         castButtons = new SnapshotArray<CastButton>();
+    }
+
+    public static GameStatus getInstance() {
+        return instance;
     }
 
     /**
@@ -125,16 +125,16 @@ public class GameStatus {
         return upperBarTable;
     }
 
+    public void setUpperBarTable(Table upperBarTable) {
+        this.upperBarTable = upperBarTable;
+    }
+
     public Table getUpperBarRightTable() {
         return upperBarRightTable;
     }
 
     public void setUpperBarRightTable(Table upperBarRightTable) {
         this.upperBarRightTable = upperBarRightTable;
-    }
-
-    public void setUpperBarTable(Table upperBarTable) {
-        this.upperBarTable = upperBarTable;
     }
 
     public ArrayList<Player> getPlayers() {
@@ -153,12 +153,12 @@ public class GameStatus {
         this.mapFile = mapFile;
     }
 
-    public void setCurrentPlayerTurn(Player currentPlayerTurn) {
-        this.currentPlayerTurn = currentPlayerTurn;
-    }
-
     public Player getCurrentPlayerTurn() {
         return currentPlayerTurn;
+    }
+
+    public void setCurrentPlayerTurn(Player currentPlayerTurn) {
+        this.currentPlayerTurn = currentPlayerTurn;
     }
 
     public GameInterface getGameInterface() {
@@ -259,5 +259,37 @@ public class GameStatus {
 
     public void setSingleGamePlayerTwoMobClass(PlayerMobClasses singleGamePlayerTwoMobClass) {
         this.singleGamePlayerTwoMobClass = singleGamePlayerTwoMobClass;
+    }
+
+    public boolean isPlayerOneAI() {
+        return playerOneAI;
+    }
+
+    public void setPlayerOneAI(boolean playerOneAI) {
+        this.playerOneAI = playerOneAI;
+    }
+
+    public boolean isPlayerTwoAI() {
+        return playerTwoAI;
+    }
+
+    public void setPlayerTwoAI(boolean playerTwoAI) {
+        this.playerTwoAI = playerTwoAI;
+    }
+
+    public float getPlayerOneDifficultyTime() {
+        return playerOneDifficultyTime;
+    }
+
+    public void setPlayerOneDifficultyTime(float playerOneDifficultyTime) {
+        this.playerOneDifficultyTime = playerOneDifficultyTime;
+    }
+
+    public float getPlayerTwoDifficultyTime() {
+        return playerTwoDifficultyTime;
+    }
+
+    public void setPlayerTwoDifficultyTime(float playerTwoDifficultyTime) {
+        this.playerTwoDifficultyTime = playerTwoDifficultyTime;
     }
 }

@@ -32,6 +32,10 @@ class StepManager {
             playerMob.getFieldOfPlayerMob().getItem().itemAction(playerMob);
         }
 
+        // Uruchomienie zbierania skrzyni przez AI
+        if (playerMob.getAi() != null)
+            playerMob.getAi().takeTreasure(playerMob);
+
         if (playerMob.getFieldOfPlayerMob().getTreasure() != null &&
                 !playerMob.getFieldOfPlayerMob().getTreasure().isStepIn()) {
 
