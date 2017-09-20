@@ -1,7 +1,10 @@
 package com.mygdx.eoh.ai;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.ai.fsm.State;
 import com.badlogic.gdx.ai.msg.Telegram;
+import com.mygdx.eoh.gameClasses.FightManager;
+import com.mygdx.eoh.gameClasses.GameStatus;
 import com.mygdx.eoh.gameClasses.PlayerMob;
 
 /**
@@ -11,6 +14,50 @@ import com.mygdx.eoh.gameClasses.PlayerMob;
 
 public enum PlayerMobState implements State<PlayerMob> {
 
+    ATTACK_ENEMY() {
+        @Override
+        public void update(PlayerMob playerMob) {
+            Gdx.app.log("Przechodzę w tryb ataku na przeciwnika", "");
+
+            playerMob.setBusy(true);
+
+            playerMob.changeToAttackAnimation(playerMob,
+                    playerMob.getAi().getPlayerMobCells().get(0).getPlayerMob().getCoordinateXonMap(),
+                    playerMob.getAi().getPlayerMobCells().get(0).getPlayerMob().getCoordinateYonMap());
+
+            int damage = FightManager.getDamage(playerMob, playerMob.getAi().getPlayerMobCells().get(0).getPlayerMob());
+            playerMob.getAi().showDamageLabel(damage, playerMob.getAi().getPlayerMobCells().get(0).getPlayerMob().getCoordinateXonMap(),
+                    playerMob.getAi().getPlayerMobCells().get(0).getPlayerMob().getCoordinateYonMap(),
+                    GameStatus.getInstance().getMapStage());
+
+            if (playerMob.getAi().getPlayerMobCells().get(0).getPlayerMob().getActualhp() < 1) {
+                playerMob.getAi().getPlayerMobCells().remove(0);
+            }
+
+            playerMob.getStateMachine().changeState(WAIT);
+        }
+    },
+
+    MOVE_TO_ENEMY() {
+        @Override
+        public void update(PlayerMob playerMob) {
+
+            playerMob.setBusy(true);
+
+            if (playerMob.getAi().getPlayerMobCells().size() > 0) {
+                int moveX, moveY;
+                moveX = playerMob.getAi().getPlayerMobCells().get(0).getMoveList().get(0).getMoveX();
+                moveY = playerMob.getAi().getPlayerMobCells().get(0).getMoveList().get(0).getMoveY();
+
+
+                playerMob.getAi().movePlayerMob(playerMob, moveX, moveY);
+                playerMob.getAi().getPlayerMobCells().remove(0);
+
+                playerMob.getStateMachine().changeState(WAIT);
+            }
+        }
+    },
+
     MOVE_TO_TREASURE() {
         @Override
         public void update(PlayerMob playerMob) {
@@ -19,30 +66,12 @@ public enum PlayerMobState implements State<PlayerMob> {
             if (playerMob.getAi().getTreasureCells().size() > 0) {
 
                 int moveX, moveY;
-
                 moveX = playerMob.getAi().getTreasureCells().get(0).getMoveList().get(0).getMoveX();
                 moveY = playerMob.getAi().getTreasureCells().get(0).getMoveList().get(0).getMoveY();
 
-                if (moveX == 0 && moveY == 1) {
-                    playerMob.getMoveManager().movePlayerMobNorthRecivedFromNET(playerMob);
-                } else if (moveX == 0 && moveY == -1) {
-                    playerMob.getMoveManager().movePlayerMobSouthRecivedFromNET(playerMob);
-                } else if (moveX == -1 && moveY == -1) {
-                    playerMob.getMoveManager().movePlayerMobSouthWestRecivedFromNET(playerMob);
-                } else if (moveX == 1 && moveY == -1) {
-                    playerMob.getMoveManager().movePlayerMobSouthEastRecivedFromNET(playerMob);
-                } else if (moveX == -1 && moveY == 0) {
-                    playerMob.getMoveManager().movePlayerMobWestRecivedFromNET(playerMob);
-                } else if (moveX == 1 && moveY == 0) {
-                    playerMob.getMoveManager().movePlayerMobEastRecivedFromNET(playerMob);
-                } else if (moveX == 1 && moveY == 1) {
-                    playerMob.getMoveManager().movePlayerMobNorthEastRecivedFromNET(playerMob);
-                } else if (moveX == -1 && moveY == 1) {
-                    playerMob.getMoveManager().movePlayerMobNorthWestRecivedFromNET(playerMob);
-                }
+                playerMob.getAi().movePlayerMob(playerMob, moveX, moveY);
                 playerMob.getAi().getTreasureCells().remove(0);
             }
-
             playerMob.getStateMachine().changeState(WAIT);
         }
     },
@@ -58,6 +87,14 @@ public enum PlayerMobState implements State<PlayerMob> {
                 // Sprawdzenie czy są dostępne skrzynie ze skarbami.
                 if (playerMob.getAi().findAvailableTreasureBoxes(playerMob.getFieldOfPlayerMob()).size() > 0) {
                     playerMob.getStateMachine().changeState(MOVE_TO_TREASURE);
+                    //
+                } else if (playerMob.getAi().findAvailablePlayerMobs(playerMob.getFieldOfPlayerMob(), PlayerMobTypes.ENEMY).size() > 0 &&
+                        playerMob.getAi().findAvailablePlayerMobs(playerMob.getFieldOfPlayerMob(), PlayerMobTypes.ENEMY).get(0).getDistance() < 2) {
+                    //if( playerMob.getAi().findAvailablePlayerMobs(playerMob.getFieldOfPlayerMob(), PlayerMobTypes.ENEMY).get(0).getDistance() < 2 )
+                    playerMob.getStateMachine().changeState(ATTACK_ENEMY);
+                    // Sprawdzenie dostępności wrogów.
+                } else if (playerMob.getAi().findAvailablePlayerMobs(playerMob.getFieldOfPlayerMob(), PlayerMobTypes.ENEMY).size() > 0) {
+                    playerMob.getStateMachine().changeState(MOVE_TO_ENEMY);
                 } else {
                     playerMob.getStateMachine().changeState(WAIT);
                 }

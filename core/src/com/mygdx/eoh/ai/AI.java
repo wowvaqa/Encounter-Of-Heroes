@@ -1,11 +1,16 @@
 package com.mygdx.eoh.ai;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.mygdx.eoh.Equipment.Equip;
 import com.mygdx.eoh.Equipment.EquipKinds;
+import com.mygdx.eoh.assets.AssetsGameScreen;
+import com.mygdx.eoh.defaultClasses.DefaultDamageLabel;
 import com.mygdx.eoh.gameClasses.Field;
 import com.mygdx.eoh.gameClasses.GameStatus;
 import com.mygdx.eoh.gameClasses.Map;
+import com.mygdx.eoh.gameClasses.Options;
 import com.mygdx.eoh.gameClasses.PlayerMob;
 
 import java.util.ArrayList;
@@ -21,6 +26,7 @@ public class Ai {
     private FindPath pathFinder;
 
     private ArrayList<TreasureCell> treasureCells;
+    private ArrayList<PlayerMobCell> playerMobCells;
 
     private float difficultyTimeCounter = 0;
     private float difficultyTime = 0;
@@ -44,9 +50,35 @@ public class Ai {
     }
 
     /**
+     * Uruchamia ruch zadanego bohatera wg zadanych współżędnych.
+     * @param playerMob Bohater który ma być poruszony
+     * @param moveX Ilość ruchów w osi X
+     * @param moveY Ilość ruchów w osi Y
+     */
+    public void movePlayerMob(PlayerMob playerMob, int moveX, int moveY) {
+
+        if (moveX == 0 && moveY == 1) {
+            playerMob.getMoveManager().movePlayerMobNorthRecivedFromNET(playerMob);
+        } else if (moveX == 0 && moveY == -1) {
+            playerMob.getMoveManager().movePlayerMobSouthRecivedFromNET(playerMob);
+        } else if (moveX == -1 && moveY == -1) {
+            playerMob.getMoveManager().movePlayerMobSouthWestRecivedFromNET(playerMob);
+        } else if (moveX == 1 && moveY == -1) {
+            playerMob.getMoveManager().movePlayerMobSouthEastRecivedFromNET(playerMob);
+        } else if (moveX == -1 && moveY == 0) {
+            playerMob.getMoveManager().movePlayerMobWestRecivedFromNET(playerMob);
+        } else if (moveX == 1 && moveY == 0) {
+            playerMob.getMoveManager().movePlayerMobEastRecivedFromNET(playerMob);
+        } else if (moveX == 1 && moveY == 1) {
+            playerMob.getMoveManager().movePlayerMobNorthEastRecivedFromNET(playerMob);
+        } else if (moveX == -1 && moveY == 1) {
+            playerMob.getMoveManager().movePlayerMobNorthWestRecivedFromNET(playerMob);
+        }
+    }
+
+    /**
      * Zwraca posortowaną tablicę zawierającą dostępne skrzynie, do których bohater gracza może
      * się udać.
-     *
      * @param startField Pole na którym stoi bohater gracza.
      * @return Lista z posortowanymi skrzyniami.
      */
@@ -67,13 +99,54 @@ public class Ai {
                         treasureCell.setDistance(treasureCell.getMoveList().size());
                         treasureCells.add(treasureCell);
                     }
-
                 }
             }
         }
 
         Collections.sort(treasureCells, new TreasureCell.SortByDistance());
         return treasureCells;
+    }
+
+    /**
+     * Zwraca posortowaną tablicę zawierającą dostępnych bohaterów, do których bohater gracza może
+     * się udać.
+     *
+     * @param startField Pole na którym stoi bohater gracza.
+     * @return Lista z posortowanymi bohaterami.
+     */
+    public ArrayList<PlayerMobCell> findAvailablePlayerMobs(Field startField, PlayerMobTypes playerMobTypes) {
+
+        playerMobCells = new ArrayList<PlayerMobCell>();
+
+        Map map = GameStatus.getInstance().getMap();
+
+        for (int i = 0; i < map.getFieldsColumns(); i++) {
+            for (int j = 0; j < map.getFieldsRows(); j++) {
+                if (map.getFields()[i][j].getPlayerMob() != null) {
+
+                    if (playerMobTypes.equals(PlayerMobTypes.ENEMY) && map.getFields()[i][j].getPlayerMob().getPlayerOwner() != startField.getPlayerMob().getPlayerOwner()) {
+
+                        PlayerMobCell playerMobCell = new PlayerMobCell(map.getFields()[i][j].getPlayerMob(), 0);
+
+                        if (pathFinder.findPath(startField, map.getFields()[i][j].getPlayerMob().getFieldOfPlayerMob(), playerMobCell.getMoveList())) {
+                            playerMobCell.setDistance(playerMobCell.getMoveList().size());
+                            playerMobCells.add(playerMobCell);
+                        }
+                    }
+                }
+            }
+        }
+
+        Collections.sort(playerMobCells, new PlayerMobCell.SortByDistance());
+        return playerMobCells;
+    }
+
+    public void showDamageLabel(int damage, int locationXonMap, int locationYonMap, Stage stage) {
+        DefaultDamageLabel defaultDamageLabel = new DefaultDamageLabel(
+                Integer.toString(damage), (Skin) AssetsGameScreen.getInstance().getManager().get("styles/skin.json"), "fight",
+                locationXonMap * Options.tileSize + Options.tileSize / 2,
+                locationYonMap * Options.tileSize + Options.tileSize / 2);
+        stage.addActor(defaultDamageLabel);
     }
 
     /**
@@ -194,6 +267,10 @@ public class Ai {
 
     public ArrayList<TreasureCell> getTreasureCells() {
         return treasureCells;
+    }
+
+    public ArrayList<PlayerMobCell> getPlayerMobCells() {
+        return playerMobCells;
     }
 
     public float getDifficultyTime() {

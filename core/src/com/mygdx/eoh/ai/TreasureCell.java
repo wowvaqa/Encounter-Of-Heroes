@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.Comparator;
 
 /**
+ *
  * Created by v on 2017-08-27.
  */
 
@@ -19,14 +20,6 @@ public class TreasureCell {
         this.distance = distance;
         this.treasure = treasure;
         moveList = new ArrayList<Move>();
-    }
-
-    public Treasure getTreasure() {
-        return treasure;
-    }
-
-    public int getDistance() {
-        return distance;
     }
 
     public void setDistance(int distance) {

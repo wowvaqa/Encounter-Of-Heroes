@@ -1,6 +1,5 @@
 package com.mygdx.eoh.ai;
 
-import com.badlogic.gdx.Gdx;
 import com.mygdx.eoh.gameClasses.Field;
 import com.mygdx.eoh.gameClasses.GameStatus;
 
@@ -33,8 +32,8 @@ public class FindPath {
 
         finalField = endField;
 
-        Gdx.app.log("****** Pole początkowe", " X: " + startField.locXonMap + ", Y: " + startField.locYonMap);
-        Gdx.app.log("****** Pole końcowe   ", " X: " + endField.locXonMap + ", Y: " + endField.locYonMap);
+        //Gdx.app.log("****** Pole początkowe", " X: " + startField.locXonMap + ", Y: " + startField.locYonMap);
+        //Gdx.app.log("****** Pole końcowe   ", " X: " + endField.locXonMap + ", Y: " + endField.locYonMap);
 
         // Czyszczenie listy pól otwartych i zamkniętych.
         openFieldsList.clear();
@@ -49,16 +48,16 @@ public class FindPath {
         // Uruchomienie pętli działającej do momentu kiedy lista pól otwartych będzie zawierała pola do sprawdzenia.
         while (openFieldsList.size() > 0) {
 
-            Gdx.app.log("Pola przed sortowaniem:", "");
-            for (int i = 0; i < openFieldsList.size(); i++) {
-                Gdx.app.log("Pole " + openFieldsList.get(i).locXonMap + ", " + openFieldsList.get(i).locYonMap, "PathF: " + openFieldsList.get(i).pathF);
-            }
+            //Gdx.app.log("Pola przed sortowaniem:", "");
+            //for (int i = 0; i < openFieldsList.size(); i++) {
+            //    Gdx.app.log("Pole " + openFieldsList.get(i).locXonMap + ", " + openFieldsList.get(i).locYonMap, "PathF: " + openFieldsList.get(i).pathF);
+            //}
             Collections.sort(openFieldsList, new Field.SortByPathF());
 
-            Gdx.app.log("Pola po sortowaniu:", "");
-            for (int i = 0; i < openFieldsList.size(); i++) {
-                Gdx.app.log("Pole " + openFieldsList.get(i).locXonMap + ", " + openFieldsList.get(i).locYonMap, "PathF: " + openFieldsList.get(i).pathF);
-            }
+            //Gdx.app.log("Pola po sortowaniu:", "");
+            //for (int i = 0; i < openFieldsList.size(); i++) {
+            //    Gdx.app.log("Pole " + openFieldsList.get(i).locXonMap + ", " + openFieldsList.get(i).locYonMap, "PathF: " + openFieldsList.get(i).pathF);
+            //}
 
             if (openFieldsList.size() > 0)
                 fieldQ = openFieldsList.get(0);
@@ -73,7 +72,7 @@ public class FindPath {
             closedFieldsList.add(fieldQ);
             openFieldsList.remove(fieldQ);
 
-            findNeighbors(fieldQ);
+            findNeighbors(fieldQ, endField);
         }
         return false;
     }
@@ -84,15 +83,15 @@ public class FindPath {
      * @param moveList Miejce gdzie ruchy mają być zapisane.
      */
     private void setMoveList(ArrayList<Move> moveList) {
-        Gdx.app.log("****** Kształt ścieżki", "");
+        //Gdx.app.log("****** Kształt ścieżki", "");
         Field tmpField = finalField;
-        Gdx.app.log("* Krok", "" + tmpField.locXonMap + ", " + tmpField.locYonMap);
+        //Gdx.app.log("* Krok", "" + tmpField.locXonMap + ", " + tmpField.locYonMap);
 
         moveList.add(new Move(tmpField.locXonMap - tmpField.parentField.locXonMap, tmpField.locYonMap - tmpField.parentField.locYonMap));
 
         while (tmpField.parentField != null) {
             tmpField = tmpField.parentField;
-            Gdx.app.log("* Krok", "" + tmpField.locXonMap + ", " + tmpField.locYonMap);
+            //Gdx.app.log("* Krok", "" + tmpField.locXonMap + ", " + tmpField.locYonMap);
 
             if (tmpField.parentField != null)
                 moveList.add(new Move(tmpField.locXonMap - tmpField.parentField.locXonMap, tmpField.locYonMap - tmpField.parentField.locYonMap));
@@ -105,10 +104,9 @@ public class FindPath {
      *
      * @param field Pole dla którego mają znostać znalezione pola przyległe.
      */
-    private void findNeighbors(Field field) {
+    private void findNeighbors(Field field, Field endField) {
 
-        Gdx.app.log("**** START wyszukiwania pól sąsiadujących", "");
-
+        //Gdx.app.log("**** START wyszukiwania pól sąsiadujących", "");
 
         for (int i = field.locXonMap - 1; i < field.locXonMap + 2; i++) {
             for (int j = field.locYonMap - 1; j < field.locYonMap + 2; j++) {
@@ -116,9 +114,9 @@ public class FindPath {
                 if (i >= 0 && j >= 0 && i < GameStatus.getInstance().getMap().getFieldsRows() && j < GameStatus.getInstance().getMap().getFieldsColumns()) {
                     Field fiedToAdd = GameStatus.getInstance().getMap().getFields()[i][j];
 
-                    if (checkMobility(fiedToAdd) && !closedFieldsList.contains(fiedToAdd) && fiedToAdd != field) {
+                    if (checkMobility(fiedToAdd, endField) && !closedFieldsList.contains(fiedToAdd) && fiedToAdd != field) {
 
-                        Gdx.app.log("** Dodaje pole", " X: " + fiedToAdd.locXonMap + ", Y: " + fiedToAdd.locYonMap + " do listy pól sąsiadujących.");
+                        //Gdx.app.log("** Dodaje pole", " X: " + fiedToAdd.locXonMap + ", Y: " + fiedToAdd.locYonMap + " do listy pól sąsiadujących.");
 
                         if (!openFieldsList.contains(fiedToAdd)) {
                             // Dodanie pola sąsiadującego do listy pól otwartych
@@ -140,8 +138,7 @@ public class FindPath {
                 }
             }
         }
-
-        Gdx.app.log("**** KONIEC wyszukiwania pól sąsiadujących", "");
+        //Gdx.app.log("**** KONIEC wyszukiwania pól sąsiadujących", "");
     }
 
     /**
@@ -151,13 +148,13 @@ public class FindPath {
      */
     private void countFGH(Field field) {
         field.pathG = countG(field.parentField, field);
-        Gdx.app.log("Pole " + field.locXonMap + "," + field.locYonMap, "PathG: " + field.pathG);
+        //Gdx.app.log("Pole " + field.locXonMap + "," + field.locYonMap, "PathG: " + field.pathG);
 
         field.pathH = countH(field);
-        Gdx.app.log("Pole " + field.locXonMap + "," + field.locYonMap, "PathH: " + field.pathH);
+        //Gdx.app.log("Pole " + field.locXonMap + "," + field.locYonMap, "PathH: " + field.pathH);
 
         field.pathF = field.pathG + field.pathH;
-        Gdx.app.log("Pole " + field.locXonMap + "," + field.locYonMap, "PathF: " + field.pathF);
+        //Gdx.app.log("Pole " + field.locXonMap + "," + field.locYonMap, "PathF: " + field.pathF);
     }
 
     /**
@@ -209,9 +206,11 @@ public class FindPath {
      * @param field Pole do sprawdzenia.
      * @return True jeżeli można się po nim poruszać, Fale jeżeli nie można.
      */
-    private boolean checkMobility(Field field) {
+    private boolean checkMobility(Field field, Field endField) {
         if (field.getFreeMob() != null)
             return false;
+        if (field.getPlayerMob() != null && endField == field)
+            return true;
         if (field.getPlayerMob() != null)
             return false;
         if (!field.isMovable())
