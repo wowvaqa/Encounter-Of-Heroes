@@ -1,10 +1,10 @@
 package com.mygdx.eoh.ai;
 
-import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.ai.fsm.State;
 import com.badlogic.gdx.ai.msg.Telegram;
 import com.mygdx.eoh.gameClasses.FightManager;
 import com.mygdx.eoh.gameClasses.GameStatus;
+import com.mygdx.eoh.gameClasses.Player;
 import com.mygdx.eoh.gameClasses.PlayerMob;
 
 /**
@@ -14,10 +14,10 @@ import com.mygdx.eoh.gameClasses.PlayerMob;
 
 public enum PlayerMobState implements State<PlayerMob> {
 
-    ATTACK_ENEMY() {
+    ATTACK_PLAYER_MOB() {
         @Override
         public void update(PlayerMob playerMob) {
-            Gdx.app.log("Przechodzę w tryb ataku na przeciwnika", "");
+            //Gdx.app.log("Przechodzę w tryb ataku na przeciwnika", "");
 
             playerMob.setBusy(true);
 
@@ -38,17 +38,77 @@ public enum PlayerMobState implements State<PlayerMob> {
         }
     },
 
-    MOVE_TO_ENEMY() {
+    MOVE_TO_FREE_MOB() {
+        @Override
+        public void update(PlayerMob playerMob) {
+            playerMob.setBusy(true);
+
+            if (playerMob.getAi().getFreeMobCells().size() > 0) {
+                // Odczytanie współżędnych dla ruchu.
+                int moveX, moveY;
+                moveX = playerMob.getAi().getFreeMobCells().get(0).getMoveList().get(0).getMoveX();
+                moveY = playerMob.getAi().getFreeMobCells().get(0).getMoveList().get(0).getMoveY();
+
+                // Przerysowanie interfejsu ruchu i ataku.
+                for (Player player : GameStatus.getInstance().getPlayers()) {
+                    for (PlayerMob playerMob1 : player.getPlayerMobs()) {
+                        playerMob.getMoveManager().redrawButtons(playerMob1.getStage(), playerMob1);
+                    }
+                }
+
+                playerMob.getAi().movePlayerMob(playerMob, moveX, moveY);
+                playerMob.getAi().getFreeMobCells().remove(0);
+
+                playerMob.getStateMachine().changeState(WAIT);
+            }
+        }
+    },
+
+    ATTACK_FREE_MOB() {
+        @Override
+        public void update(PlayerMob playerMob) {
+            //Gdx.app.log("Przechodzę w tryb ataku na free moba", "");
+
+            playerMob.setBusy(true);
+
+            playerMob.changeToAttackAnimation(playerMob,
+                    playerMob.getAi().getFreeMobCells().get(0).getFreeMob().getCoordinateXonMap(),
+                    playerMob.getAi().getFreeMobCells().get(0).getFreeMob().getCoordinateYonMap());
+
+            int damage = FightManager.getDamage(playerMob, playerMob.getAi().getFreeMobCells().get(0).getFreeMob());
+            playerMob.getAi().showDamageLabel(damage, playerMob.getAi().getFreeMobCells().get(0).getFreeMob().getCoordinateXonMap(),
+                    playerMob.getAi().getFreeMobCells().get(0).getFreeMob().getCoordinateYonMap(),
+                    GameStatus.getInstance().getMapStage());
+
+            playerMob.getAi().getFreeMobCells().get(0).getFreeMob().setAttacked(true);
+            playerMob.getAi().getFreeMobCells().get(0).getFreeMob().setAttackingPlayerMob(playerMob);
+
+            if (playerMob.getAi().getFreeMobCells().get(0).getFreeMob().getActualhp() < 1) {
+                playerMob.getAi().getFreeMobCells().remove(0);
+            }
+
+            playerMob.getStateMachine().changeState(WAIT);
+        }
+    },
+
+    MOVE_TO_PLAYER_MOB() {
         @Override
         public void update(PlayerMob playerMob) {
 
             playerMob.setBusy(true);
 
             if (playerMob.getAi().getPlayerMobCells().size() > 0) {
+                // Odczytanie współżędnych dla ruchu.
                 int moveX, moveY;
                 moveX = playerMob.getAi().getPlayerMobCells().get(0).getMoveList().get(0).getMoveX();
                 moveY = playerMob.getAi().getPlayerMobCells().get(0).getMoveList().get(0).getMoveY();
 
+                // Przerysowanie interfejsu ruchu i ataku.
+                for (Player player : GameStatus.getInstance().getPlayers()) {
+                    for (PlayerMob playerMob1 : player.getPlayerMobs()) {
+                        playerMob.getMoveManager().redrawButtons(playerMob1.getStage(), playerMob1);
+                    }
+                }
 
                 playerMob.getAi().movePlayerMob(playerMob, moveX, moveY);
                 playerMob.getAi().getPlayerMobCells().remove(0);
@@ -64,10 +124,17 @@ public enum PlayerMobState implements State<PlayerMob> {
             playerMob.setBusy(true);
 
             if (playerMob.getAi().getTreasureCells().size() > 0) {
-
+                // Odczytanie współżędnych dla ruchu.
                 int moveX, moveY;
                 moveX = playerMob.getAi().getTreasureCells().get(0).getMoveList().get(0).getMoveX();
                 moveY = playerMob.getAi().getTreasureCells().get(0).getMoveList().get(0).getMoveY();
+
+                // Przerysowanie interfejsu ruchu i ataku.
+                for (Player player : GameStatus.getInstance().getPlayers()) {
+                    for (PlayerMob playerMob1 : player.getPlayerMobs()) {
+                        playerMob.getMoveManager().redrawButtons(playerMob1.getStage(), playerMob1);
+                    }
+                }
 
                 playerMob.getAi().movePlayerMob(playerMob, moveX, moveY);
                 playerMob.getAi().getTreasureCells().remove(0);
@@ -87,14 +154,19 @@ public enum PlayerMobState implements State<PlayerMob> {
                 // Sprawdzenie czy są dostępne skrzynie ze skarbami.
                 if (playerMob.getAi().findAvailableTreasureBoxes(playerMob.getFieldOfPlayerMob()).size() > 0) {
                     playerMob.getStateMachine().changeState(MOVE_TO_TREASURE);
-                    //
+                } else if (playerMob.getAi().findAvailableFreeMobs(playerMob.getFieldOfPlayerMob()).size() > 0 &&
+                        playerMob.getAi().findAvailableFreeMobs(playerMob.getFieldOfPlayerMob()).get(0).getDistance() < 2) {
+                    playerMob.getStateMachine().changeState(ATTACK_FREE_MOB);
+                    // Sprawdzenie czy są dostępne wolne moby do zaatakowania.
+                } else if (playerMob.getAi().findAvailableFreeMobs(playerMob.getFieldOfPlayerMob()).size() > 0) {
+                    playerMob.getStateMachine().changeState(MOVE_TO_FREE_MOB);
+                    // Sprawdzenie czy lista wrogich bohaterów nie jest pusta oraz sprawdzenie czy pole bohatera sąsiaduje z polem wrogiego bohatera
                 } else if (playerMob.getAi().findAvailablePlayerMobs(playerMob.getFieldOfPlayerMob(), PlayerMobTypes.ENEMY).size() > 0 &&
                         playerMob.getAi().findAvailablePlayerMobs(playerMob.getFieldOfPlayerMob(), PlayerMobTypes.ENEMY).get(0).getDistance() < 2) {
-                    //if( playerMob.getAi().findAvailablePlayerMobs(playerMob.getFieldOfPlayerMob(), PlayerMobTypes.ENEMY).get(0).getDistance() < 2 )
-                    playerMob.getStateMachine().changeState(ATTACK_ENEMY);
-                    // Sprawdzenie dostępności wrogów.
+                    playerMob.getStateMachine().changeState(ATTACK_PLAYER_MOB);
+                    // Sprawdzenie dostępności wrogich bohaterów.
                 } else if (playerMob.getAi().findAvailablePlayerMobs(playerMob.getFieldOfPlayerMob(), PlayerMobTypes.ENEMY).size() > 0) {
-                    playerMob.getStateMachine().changeState(MOVE_TO_ENEMY);
+                    playerMob.getStateMachine().changeState(MOVE_TO_PLAYER_MOB);
                 } else {
                     playerMob.getStateMachine().changeState(WAIT);
                 }

@@ -27,6 +27,7 @@ public class Ai {
 
     private ArrayList<TreasureCell> treasureCells;
     private ArrayList<PlayerMobCell> playerMobCells;
+    private ArrayList<FreeMobCell> freeMobCells;
 
     private float difficultyTimeCounter = 0;
     private float difficultyTime = 0;
@@ -51,9 +52,10 @@ public class Ai {
 
     /**
      * Uruchamia ruch zadanego bohatera wg zadanych współżędnych.
+     *
      * @param playerMob Bohater który ma być poruszony
-     * @param moveX Ilość ruchów w osi X
-     * @param moveY Ilość ruchów w osi Y
+     * @param moveX     Ilość ruchów w osi X
+     * @param moveY     Ilość ruchów w osi Y
      */
     public void movePlayerMob(PlayerMob playerMob, int moveX, int moveY) {
 
@@ -79,6 +81,7 @@ public class Ai {
     /**
      * Zwraca posortowaną tablicę zawierającą dostępne skrzynie, do których bohater gracza może
      * się udać.
+     *
      * @param startField Pole na którym stoi bohater gracza.
      * @return Lista z posortowanymi skrzyniami.
      */
@@ -95,7 +98,7 @@ public class Ai {
 
                     TreasureCell treasureCell = new TreasureCell(map.getFields()[i][j].getTreasure(), 0);
 
-                    if (pathFinder.findPath(startField, map.getFields()[i][j].getTreasure().getFieldOfTreasure(), treasureCell.getMoveList())) {
+                    if (pathFinder.findPath(startField, map.getFields()[i][j].getTreasure().getFieldOfTreasure(), treasureCell.getMoveList(), FindPath.SearchDestination.TREASURE)) {
                         treasureCell.setDistance(treasureCell.getMoveList().size());
                         treasureCells.add(treasureCell);
                     }
@@ -124,11 +127,15 @@ public class Ai {
             for (int j = 0; j < map.getFieldsRows(); j++) {
                 if (map.getFields()[i][j].getPlayerMob() != null) {
 
-                    if (playerMobTypes.equals(PlayerMobTypes.ENEMY) && map.getFields()[i][j].getPlayerMob().getPlayerOwner() != startField.getPlayerMob().getPlayerOwner()) {
+                    if (playerMobTypes.equals(PlayerMobTypes.ENEMY) &&
+                            map.getFields()[i][j].getPlayerMob().getPlayerOwner() != startField.getPlayerMob().getPlayerOwner()) {
 
                         PlayerMobCell playerMobCell = new PlayerMobCell(map.getFields()[i][j].getPlayerMob(), 0);
 
-                        if (pathFinder.findPath(startField, map.getFields()[i][j].getPlayerMob().getFieldOfPlayerMob(), playerMobCell.getMoveList())) {
+                        if (pathFinder.findPath(
+                                startField, map.getFields()[i][j].getPlayerMob().getFieldOfPlayerMob(),
+                                playerMobCell.getMoveList(),
+                                FindPath.SearchDestination.PLAYER_MOB)) {
                             playerMobCell.setDistance(playerMobCell.getMoveList().size());
                             playerMobCells.add(playerMobCell);
                         }
@@ -139,6 +146,40 @@ public class Ai {
 
         Collections.sort(playerMobCells, new PlayerMobCell.SortByDistance());
         return playerMobCells;
+    }
+
+    /**
+     * Zwraca posortowaną tablicę zawierającą dostępnych bohaterów, do których bohater gracza może
+     * się udać.
+     *
+     * @param startField Pole na którym stoi bohater gracza.
+     * @return Lista z posortowanymi bohaterami.
+     */
+    public ArrayList<FreeMobCell> findAvailableFreeMobs(Field startField) {
+
+        freeMobCells = new ArrayList<FreeMobCell>();
+
+        Map map = GameStatus.getInstance().getMap();
+
+        for (int i = 0; i < map.getFieldsColumns(); i++) {
+            for (int j = 0; j < map.getFieldsRows(); j++) {
+                if (map.getFields()[i][j].getFreeMob() != null) {
+
+                    FreeMobCell freeMobCell = new FreeMobCell(map.getFields()[i][j].getFreeMob(), 0);
+
+                    if (pathFinder.findPath(
+                            startField, map.getFields()[i][j].getFreeMob().getFieldOfFreeMob(),
+                            freeMobCell.getMoveList(),
+                            FindPath.SearchDestination.FREE_MOB)) {
+                        freeMobCell.setDistance(freeMobCell.getMoveList().size());
+                        freeMobCells.add(freeMobCell);
+                    }
+                }
+            }
+        }
+
+        Collections.sort(freeMobCells, new FreeMobCell.SortByDistance());
+        return freeMobCells;
     }
 
     public void showDamageLabel(int damage, int locationXonMap, int locationYonMap, Stage stage) {
@@ -271,6 +312,10 @@ public class Ai {
 
     public ArrayList<PlayerMobCell> getPlayerMobCells() {
         return playerMobCells;
+    }
+
+    public ArrayList<FreeMobCell> getFreeMobCells() {
+        return freeMobCells;
     }
 
     public float getDifficultyTime() {

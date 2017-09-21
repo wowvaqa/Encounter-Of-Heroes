@@ -1,5 +1,6 @@
 package com.mygdx.eoh.ai;
 
+import com.badlogic.gdx.Gdx;
 import com.mygdx.eoh.gameClasses.Field;
 import com.mygdx.eoh.gameClasses.GameStatus;
 
@@ -28,7 +29,7 @@ public class FindPath {
      * @param startField Pole od którego ma rozpocząć się poszukiwanie ścieżki.
      * @param endField   Pole na którym poszukiwanie ścieżki ma się zakończyć.
      */
-    public boolean findPath(Field startField, Field endField, ArrayList<Move> moveList) {
+    public boolean findPath(Field startField, Field endField, ArrayList<Move> moveList, SearchDestination searchDestination) {
 
         finalField = endField;
 
@@ -72,7 +73,7 @@ public class FindPath {
             closedFieldsList.add(fieldQ);
             openFieldsList.remove(fieldQ);
 
-            findNeighbors(fieldQ, endField);
+            findNeighbors(fieldQ, endField, searchDestination);
         }
         return false;
     }
@@ -104,17 +105,20 @@ public class FindPath {
      *
      * @param field Pole dla którego mają znostać znalezione pola przyległe.
      */
-    private void findNeighbors(Field field, Field endField) {
+    private void findNeighbors(Field field, Field endField, SearchDestination searchDestination) {
 
         //Gdx.app.log("**** START wyszukiwania pól sąsiadujących", "");
 
         for (int i = field.locXonMap - 1; i < field.locXonMap + 2; i++) {
             for (int j = field.locYonMap - 1; j < field.locYonMap + 2; j++) {
 
-                if (i >= 0 && j >= 0 && i < GameStatus.getInstance().getMap().getFieldsRows() && j < GameStatus.getInstance().getMap().getFieldsColumns()) {
+                Gdx.app.log("Szerokość: ", "" + GameStatus.getInstance().getMap().getFieldsColumns());
+                Gdx.app.log("Wysokość:  ", "" + GameStatus.getInstance().getMap().getFieldsRows());
+
+                if (i >= 0 && j >= 0 && i < GameStatus.getInstance().getMap().getFieldsColumns() && j < GameStatus.getInstance().getMap().getFieldsRows()) {
                     Field fiedToAdd = GameStatus.getInstance().getMap().getFields()[i][j];
 
-                    if (checkMobility(fiedToAdd, endField) && !closedFieldsList.contains(fiedToAdd) && fiedToAdd != field) {
+                    if (checkMobility(fiedToAdd, endField, searchDestination) && !closedFieldsList.contains(fiedToAdd) && fiedToAdd != field) {
 
                         //Gdx.app.log("** Dodaje pole", " X: " + fiedToAdd.locXonMap + ", Y: " + fiedToAdd.locYonMap + " do listy pól sąsiadujących.");
 
@@ -206,8 +210,12 @@ public class FindPath {
      * @param field Pole do sprawdzenia.
      * @return True jeżeli można się po nim poruszać, Fale jeżeli nie można.
      */
-    private boolean checkMobility(Field field, Field endField) {
+    private boolean checkMobility(Field field, Field endField, SearchDestination searchDestination) {
+        if (field.getFreeMob() != null && endField == field && searchDestination.equals(SearchDestination.FREE_MOB))
+            return true;
         if (field.getFreeMob() != null)
+            return false;
+        if (searchDestination.equals(SearchDestination.TREASURE) && endField.getPlayerMob() != null && endField.getTreasure() != null)
             return false;
         if (field.getPlayerMob() != null && endField == field)
             return true;
@@ -218,4 +226,10 @@ public class FindPath {
         return true;
     }
 
+    public enum SearchDestination {
+        TREASURE,
+        PLAYER_MOB,
+        FREE_MOB;
+    }
 }
+

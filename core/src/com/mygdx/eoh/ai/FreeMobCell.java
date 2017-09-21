@@ -1,26 +1,30 @@
 package com.mygdx.eoh.ai;
 
-import com.mygdx.eoh.gameClasses.PlayerMob;
+import com.mygdx.eoh.mob.FreeMob;
 
 import java.util.ArrayList;
 import java.util.Comparator;
 
 /**
- * Klasa przechowuje informacje o bohaterze i dystansie do niego. Wykorzystywane przez algorytm
+ * Klasa przechowuje informacje o mobie i dystansie do niego. Wykorzystywane przez algorytm
  * wyszukiwania ścieżek.
- * Created by v on 2017-09-20.
+ * Created by v on 2017-09-21.
  */
+public class FreeMobCell {
 
-public class PlayerMobCell {
-
-    private PlayerMob playerMob;
+    private FreeMob freeMob;
     private int distance;
     private ArrayList<Move> moveList;
 
-    public PlayerMobCell(PlayerMob playerMob, int distance) {
+    public FreeMobCell(FreeMob freeMob, int distance) {
         this.distance = distance;
-        this.playerMob = playerMob;
+        this.freeMob = freeMob;
         moveList = new ArrayList<Move>();
+    }
+
+
+    public FreeMob getFreeMob() {
+        return freeMob;
     }
 
     public int getDistance() {
@@ -35,16 +39,12 @@ public class PlayerMobCell {
         return moveList;
     }
 
-    public PlayerMob getPlayerMob() {
-        return playerMob;
-    }
-
     /**
      * Sortowanie wg dystansu.
      */
-    public static class SortByDistance implements Comparator<PlayerMobCell> {
+    public static class SortByDistance implements Comparator<FreeMobCell> {
         @Override
-        public int compare(PlayerMobCell o1, PlayerMobCell o2) {
+        public int compare(FreeMobCell o1, FreeMobCell o2) {
             return (o1.distance - o2.distance);
         }
     }
