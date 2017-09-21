@@ -98,7 +98,8 @@ public class Ai {
 
                     TreasureCell treasureCell = new TreasureCell(map.getFields()[i][j].getTreasure(), 0);
 
-                    if (pathFinder.findPath(startField, map.getFields()[i][j].getTreasure().getFieldOfTreasure(), treasureCell.getMoveList(), FindPath.SearchDestination.TREASURE)) {
+                    if (pathFinder.findPath(startField, map.getFields()[i][j].getTreasure().getFieldOfTreasure(),
+                            treasureCell.getMoveList(), FindPath.SearchDestination.TREASURE)) {
                         treasureCell.setDistance(treasureCell.getMoveList().size());
                         treasureCells.add(treasureCell);
                     }

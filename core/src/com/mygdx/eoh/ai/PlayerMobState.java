@@ -52,7 +52,7 @@ public enum PlayerMobState implements State<PlayerMob> {
                 // Przerysowanie interfejsu ruchu i ataku.
                 for (Player player : GameStatus.getInstance().getPlayers()) {
                     for (PlayerMob playerMob1 : player.getPlayerMobs()) {
-                        playerMob.getMoveManager().redrawButtons(playerMob1.getStage(), playerMob1);
+                        playerMob1.getMoveManager().redrawButtons(playerMob1.getStage(), playerMob1);
                     }
                 }
 
