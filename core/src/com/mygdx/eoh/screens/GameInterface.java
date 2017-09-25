@@ -166,65 +166,6 @@ public class GameInterface {
             @Override
             public void clicked(InputEvent event, float x, float y) {
                 super.clicked(event, x, y);
-//                if (NetStatus.getInstance().getClient() == null) {
-//                    TurnManager.getInstance().nextSingleTurn();
-//                }
-
-//                Ai ai = new Ai();
-//
-//                Field startField = GameStatus.getInstance().getPlayers().get(0).getPlayerMobs().get(0).getFieldOfPlayerMob();
-//
-//                ArrayList<TreasureCell> treasureCells = ai.findAvailableTreasureBoxes(startField);
-//
-//                Gdx.app.log("Ilość dostępnych skrzyń:", "" + treasureCells.size());
-//
-//                for (int i = 0; i < treasureCells.size(); i++) {
-//                    Gdx.app.log("Skrzynia " + treasureCells.get(i).getTreasure().getFieldOfTreasure().locXonMap + ","
-//                                    + treasureCells.get(i).getTreasure().getFieldOfTreasure().locYonMap,
-//                            " Distance: " + treasureCells.get(i).getDistance()
-//                    );
-//                }
-//
-////                Field endField = ai.findTreasures().get(0).getTreasure().getFieldOfTreasure();
-////
-////                ai.findPath(startField, endField);
-//
-//
-//                if (treasureCells.size() > 0) {
-//
-//                    PlayerMob playerMobToMove = GameStatus.getInstance().getPlayers().get(0).getPlayerMobs().get(0);
-//
-//                    int moveX, moveY;
-//
-//                    moveX = treasureCells.get(0).getMoveList().get(0).getMoveX();
-//                    moveY = treasureCells.get(0).getMoveList().get(0).getMoveY();
-//
-//                    if (moveX == 0 && moveY == 1) {
-//                        playerMobToMove.getMoveManager().movePlayerMobNorthRecivedFromNET(playerMobToMove);
-//                        treasureCells.remove(0);
-//                    } else if (moveX == 0 && moveY == -1) {
-//                        playerMobToMove.getMoveManager().movePlayerMobSouthRecivedFromNET(playerMobToMove);
-//                        treasureCells.remove(0);
-//                    } else if (moveX == -1 && moveY == -1) {
-//                        playerMobToMove.getMoveManager().movePlayerMobSouthWestRecivedFromNET(playerMobToMove);
-//                        treasureCells.remove(0);
-//                    } else if (moveX == 1 && moveY == -1) {
-//                        playerMobToMove.getMoveManager().movePlayerMobSouthEastRecivedFromNET(playerMobToMove);
-//                        treasureCells.remove(0);
-//                    } else if (moveX == -1 && moveY == 0) {
-//                        playerMobToMove.getMoveManager().movePlayerMobWestRecivedFromNET(playerMobToMove);
-//                        treasureCells.remove(0);
-//                    } else if (moveX == 1 && moveY == 0) {
-//                        playerMobToMove.getMoveManager().movePlayerMobEastRecivedFromNET(playerMobToMove);
-//                        treasureCells.remove(0);
-//                    } else if (moveX == 1 && moveY == 1) {
-//                        playerMobToMove.getMoveManager().movePlayerMobNorthEastRecivedFromNET(playerMobToMove);
-//                        treasureCells.remove(0);
-//                    } else if (moveX == -1 && moveY == 1) {
-//                        playerMobToMove.getMoveManager().movePlayerMobNorthWestRecivedFromNET(playerMobToMove);
-//                        treasureCells.remove(0);
-//                    }
-//                }
             }
         });
 

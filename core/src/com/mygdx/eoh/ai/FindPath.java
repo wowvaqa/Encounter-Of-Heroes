@@ -25,9 +25,11 @@ public class FindPath {
 
     /**
      * Find path between start field and end field. Return true if path will be found.
-     *
      * @param startField Pole od którego ma rozpocząć się poszukiwanie ścieżki.
-     * @param endField   Pole na którym poszukiwanie ścieżki ma się zakończyć.
+     * @param endField Pole na którym poszukiwanie ścieżki ma się zakończyć.
+     * @param moveList Lista z ruchami z pola początkowego do końcowego
+     * @param searchDestination Cel poszukiwań: FreeMob, CastleMob, PlayerMob.
+     * @return TRUE jeżeli droga zostanie odnaleziona, FALSE jeżeli nie.
      */
     public boolean findPath(Field startField, Field endField, ArrayList<Move> moveList, SearchDestination searchDestination) {
 
@@ -229,6 +231,7 @@ public class FindPath {
     public enum SearchDestination {
         TREASURE,
         PLAYER_MOB,
+        CASTLE,
         FREE_MOB;
     }
 }

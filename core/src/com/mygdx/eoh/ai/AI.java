@@ -28,6 +28,7 @@ public class Ai {
     private ArrayList<TreasureCell> treasureCells;
     private ArrayList<PlayerMobCell> playerMobCells;
     private ArrayList<FreeMobCell> freeMobCells;
+    private ArrayList<CastleMobCell> castleMobCells;
 
     private float difficultyTimeCounter = 0;
     private float difficultyTime = 0;
@@ -147,6 +148,44 @@ public class Ai {
 
         Collections.sort(playerMobCells, new PlayerMobCell.SortByDistance());
         return playerMobCells;
+    }
+
+    /**
+     * Zwraca posortowaną tablicę zawierającą dostępnych bohaterów, do których bohater gracza może
+     * się udać.
+     *
+     * @param startField Pole na którym stoi bohater gracza.
+     * @return Lista z posortowanymi bohaterami.
+     */
+    public ArrayList<CastleMobCell> findAvailableCastleMobs(Field startField, PlayerMobTypes castleMobTypes) {
+
+        castleMobCells = new ArrayList<CastleMobCell>();
+
+        Map map = GameStatus.getInstance().getMap();
+
+        for (int i = 0; i < map.getFieldsColumns(); i++) {
+            for (int j = 0; j < map.getFieldsRows(); j++) {
+                if (map.getFields()[i][j].getCastleMob() != null) {
+
+                    if (castleMobTypes.equals(PlayerMobTypes.FRIEND) &&
+                            map.getFields()[i][j].getCastleMob().getPlayerOwner() == startField.getPlayerMob().getPlayerOwner()) {
+
+                        CastleMobCell castleMobCell = new CastleMobCell(map.getFields()[i][j].getCastleMob(), 0);
+
+                        if (pathFinder.findPath(
+                                startField, map.getFields()[i][j].getCastleMob().getFieldOfCastleMob(),
+                                castleMobCell.getMoveList(),
+                                FindPath.SearchDestination.CASTLE)) {
+                            castleMobCell.setDistance(castleMobCell.getMoveList().size());
+                            castleMobCells.add(castleMobCell);
+                        }
+                    }
+                }
+            }
+        }
+
+        Collections.sort(castleMobCells, new CastleMobCell.SortByDistance());
+        return castleMobCells;
     }
 
     /**
@@ -317,6 +356,10 @@ public class Ai {
 
     public ArrayList<FreeMobCell> getFreeMobCells() {
         return freeMobCells;
+    }
+
+    public ArrayList<CastleMobCell> getCastleMobCells() {
+        return castleMobCells;
     }
 
     public float getDifficultyTime() {

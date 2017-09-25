@@ -143,6 +143,31 @@ public enum PlayerMobState implements State<PlayerMob> {
         }
     },
 
+    MOVE_TO_CASTLE() {
+        @Override
+        public void update(PlayerMob playerMob) {
+            playerMob.setBusy(true);
+
+            if (playerMob.getAi().getCastleMobCells().size() > 0) {
+                // Odczytanie współżędnych dla ruchu.
+                int moveX, moveY;
+                moveX = playerMob.getAi().getCastleMobCells().get(0).getMoveList().get(0).getMoveX();
+                moveY = playerMob.getAi().getCastleMobCells().get(0).getMoveList().get(0).getMoveY();
+
+                // Przerysowanie interfejsu ruchu i ataku.
+                for (Player player : GameStatus.getInstance().getPlayers()) {
+                    for (PlayerMob playerMob1 : player.getPlayerMobs()) {
+                        playerMob.getMoveManager().redrawButtons(playerMob1.getStage(), playerMob1);
+                    }
+                }
+
+                playerMob.getAi().movePlayerMob(playerMob, moveX, moveY);
+                playerMob.getAi().getCastleMobCells().remove(0);
+            }
+            playerMob.getStateMachine().changeState(WAIT);
+        }
+    },
+
     WAIT() {
         @Override
         public void update(PlayerMob playerMob) {
@@ -154,6 +179,16 @@ public enum PlayerMobState implements State<PlayerMob> {
                 // Sprawdzenie czy są dostępne skrzynie ze skarbami.
                 if (playerMob.getAi().findAvailableTreasureBoxes(playerMob.getFieldOfPlayerMob()).size() > 0) {
                     playerMob.getStateMachine().changeState(MOVE_TO_TREASURE);
+                    // Sprawdzenie czy zdrowie gracza spadło poniżaj połowy maksymalnego zdrowia oraz czy lista zamków nie jest pusta.
+                } else if (playerMob.getActualhp() < playerMob.getMaxHp() / 2 &&
+                        playerMob.getFieldOfPlayerMob().getCastleMob() == null &&
+                        playerMob.getAi().findAvailableCastleMobs(
+                                playerMob.getFieldOfPlayerMob(), PlayerMobTypes.FRIEND).size() > 0) {
+                    playerMob.getStateMachine().changeState(MOVE_TO_CASTLE);
+                    // Sprawdzenie czy poziomu zdrowia oraz czy bohater znajduje się na polu z zamkeim.
+                } else if (playerMob.getActualhp() < playerMob.getMaxHp() / 2 &&
+                        playerMob.getFieldOfPlayerMob().getCastleMob() != null) {
+                    playerMob.getStateMachine().changeState(WAIT);
                 } else if (playerMob.getAi().findAvailableFreeMobs(playerMob.getFieldOfPlayerMob()).size() > 0 &&
                         playerMob.getAi().findAvailableFreeMobs(playerMob.getFieldOfPlayerMob()).get(0).getDistance() < 2) {
                     playerMob.getStateMachine().changeState(ATTACK_FREE_MOB);

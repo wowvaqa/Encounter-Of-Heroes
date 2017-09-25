@@ -72,6 +72,15 @@ public class CastleMob extends DefaultMob {
     }
 
     /**
+     * Zwraca pole na którym stoi zamek.
+     *
+     * @return Pole z zamkiem.
+     */
+    public Field getFieldOfCastleMob() {
+        return GameStatus.getInstance().getMap().getFields()[this.getCoordinateXonMap()][this.getCoordinateYonMap()];
+    }
+
+    /**
      * Changing owner of castle.
      * @param player Player who takes castle.
      */

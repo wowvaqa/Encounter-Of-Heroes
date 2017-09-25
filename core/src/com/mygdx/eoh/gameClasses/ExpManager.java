@@ -71,7 +71,7 @@ public class ExpManager {
 
     public void checkNextLevel() {
         if (playerMob.getActualExp() >= playerMob.getLevelingArray()[playerMob.getLevel() + 1] && !nextLevel) {
-            System.out.println("NOWY POZIOM!!!");
+            //System.out.println("NOWY POZIOM!!!");
             nextLevel();
 
             if (playerMob.getPlayerOwner().equals(GameStatus.getInstance().getCurrentPlayerTurn())){
