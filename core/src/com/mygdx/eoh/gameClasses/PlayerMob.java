@@ -20,7 +20,7 @@ import com.badlogic.gdx.utils.Align;
 import com.badlogic.gdx.utils.SnapshotArray;
 import com.mygdx.eoh.Equipment.Equip;
 import com.mygdx.eoh.Options.OptionsInGame;
-import com.mygdx.eoh.ai.Ai;
+import com.mygdx.eoh.ai.AI;
 import com.mygdx.eoh.ai.PlayerMobState;
 import com.mygdx.eoh.animation.AnimationCreator;
 import com.mygdx.eoh.assets.AssetsGameScreen;
@@ -84,7 +84,7 @@ public class PlayerMob extends DefaultMob {
 
     private ExpManager expManager;
 
-    private Ai ai;
+    private AI ai;
     private DefaultStateMachine<PlayerMob, PlayerMobState> stateMachine;
     private boolean busy = false;
 
@@ -119,10 +119,10 @@ public class PlayerMob extends DefaultMob {
         // wykonywaniu czynności wg poziomu trudności. Dla durgiego gracza dodanie dodatkowego opóźnienia
         // w celu wyeliminowania możliwości jednoczesnego wchodzenia na to samo pole przez różnych bohaterów.
         if (playerOwner.getInedxOfPlayerInArrayOfPlayer() == 0 && GameStatus.getInstance().isPlayerOneAI() == true) {
-            ai = new Ai();
+            ai = new AI();
             ai.setDifficultyTime(GameStatus.getInstance().getPlayerOneDifficultyTime());
         } else if (playerOwner.getInedxOfPlayerInArrayOfPlayer() == 1 && GameStatus.getInstance().isPlayerTwoAI() == true) {
-            ai = new Ai();
+            ai = new AI();
             ai.setDifficultyTime(GameStatus.getInstance().getPlayerTwoDifficultyTime() + 0.01f);
         }
 
@@ -778,7 +778,7 @@ public class PlayerMob extends DefaultMob {
         refreshHeroInformation();
     }
 
-    public Ai getAi() {
+    public AI getAi() {
         return ai;
     }
 

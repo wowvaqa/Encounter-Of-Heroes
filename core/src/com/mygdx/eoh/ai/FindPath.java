@@ -41,7 +41,7 @@ public class FindPath {
         // Czyszczenie listy pól otwartych i zamkniętych.
         openFieldsList.clear();
         closedFieldsList.clear();
-        Ai.clearFieldsVaribles();
+        AI.clearFieldsVaribles();
 
         // Dodanie pola startowego do listy pól otwartych.
         openFieldsList.add(startField);
@@ -114,8 +114,8 @@ public class FindPath {
         for (int i = field.locXonMap - 1; i < field.locXonMap + 2; i++) {
             for (int j = field.locYonMap - 1; j < field.locYonMap + 2; j++) {
 
-                Gdx.app.log("Szerokość: ", "" + GameStatus.getInstance().getMap().getFieldsColumns());
-                Gdx.app.log("Wysokość:  ", "" + GameStatus.getInstance().getMap().getFieldsRows());
+                //Gdx.app.log("Szerokość: ", "" + GameStatus.getInstance().getMap().getFieldsColumns());
+                //Gdx.app.log("Wysokość:  ", "" + GameStatus.getInstance().getMap().getFieldsRows());
 
                 if (i >= 0 && j >= 0 && i < GameStatus.getInstance().getMap().getFieldsColumns() && j < GameStatus.getInstance().getMap().getFieldsRows()) {
                     Field fiedToAdd = GameStatus.getInstance().getMap().getFields()[i][j];

@@ -15,13 +15,14 @@ import com.mygdx.eoh.gameClasses.PlayerMob;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Comparator;
 
 /**
  * Control AI
  * Created by v on 2017-08-27.
  */
 
-public class Ai {
+public class AI {
 
     private FindPath pathFinder;
 
@@ -33,7 +34,7 @@ public class Ai {
     private float difficultyTimeCounter = 0;
     private float difficultyTime = 0;
 
-    public Ai() {
+    public AI() {
         pathFinder = new FindPath();
     }
 
@@ -218,7 +219,9 @@ public class Ai {
             }
         }
 
+        Collections.sort(freeMobCells, new FreeMobCell.SortByLevel());
         Collections.sort(freeMobCells, new FreeMobCell.SortByDistance());
+
         return freeMobCells;
     }
 

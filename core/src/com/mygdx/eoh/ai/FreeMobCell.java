@@ -48,4 +48,14 @@ public class FreeMobCell {
             return (o1.distance - o2.distance);
         }
     }
+
+    /**
+     * Sortowanie wg poziomu freemoba.
+     */
+    public static class SortByLevel implements Comparator<FreeMobCell> {
+        @Override
+        public int compare(FreeMobCell freeMobCell, FreeMobCell t1) {
+            return (freeMobCell.getFreeMob().getLevel() - t1.getFreeMob().getLevel());
+        }
+    }
 }

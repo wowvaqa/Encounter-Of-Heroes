@@ -1,11 +1,13 @@
 package com.mygdx.eoh.ai;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.ai.fsm.State;
 import com.badlogic.gdx.ai.msg.Telegram;
 import com.mygdx.eoh.gameClasses.FightManager;
 import com.mygdx.eoh.gameClasses.GameStatus;
 import com.mygdx.eoh.gameClasses.Player;
 import com.mygdx.eoh.gameClasses.PlayerMob;
+import com.mygdx.eoh.mob.FreeMob;
 
 import java.util.ArrayList;
 
@@ -253,6 +255,7 @@ public enum PlayerMobState implements State<PlayerMob> {
                     // Sprawdzenie czy są dostępne wolne moby do zaatakowania.
                 } else if (playerMob.getAi().findAvailableFreeMobs(playerMob.getFieldOfPlayerMob()).size() > 0 &&
                         playerMob.getAi().getFreeMobCells().get(0).getFreeMob().getLevel() <= playerMob.getLevel()) {
+                    Gdx.app.log("Rozmiar tablicy mobow: ", "" + playerMob.getAi().findAvailableFreeMobs(playerMob.getFieldOfPlayerMob()).size());
                     playerMob.getStateMachine().changeState(MOVE_TO_FREE_MOB);
 
                     // Sprawdzenie czy lista wrogich bohaterów nie jest pusta oraz sprawdzenie czy pole bohatera sąsiaduje z polem wrogiego bohatera
