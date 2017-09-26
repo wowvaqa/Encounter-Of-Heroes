@@ -88,6 +88,11 @@ public class PlayerMob extends DefaultMob {
     private DefaultStateMachine<PlayerMob, PlayerMobState> stateMachine;
     private boolean busy = false;
 
+    // Broniący się bohater jeżeli bohater jest agresorem.
+    private PlayerMob defendig;
+    // Atakujący bohater jeżeli bohater broni się.
+    private PlayerMob agressor;
+
     public PlayerMob(Animation animation, boolean isLooped, Player playerOwner, PlayerMobClasses playerMobClass) {
         super(animation, isLooped);
 
@@ -787,6 +792,22 @@ public class PlayerMob extends DefaultMob {
 
     public void setBusy(boolean busy) {
         this.busy = busy;
+    }
+
+    public PlayerMob getDefendig() {
+        return defendig;
+    }
+
+    public void setDefendig(PlayerMob defendig) {
+        this.defendig = defendig;
+    }
+
+    public PlayerMob getAgressor() {
+        return agressor;
+    }
+
+    public void setAgressor(PlayerMob agressor) {
+        this.agressor = agressor;
     }
 
     @Override

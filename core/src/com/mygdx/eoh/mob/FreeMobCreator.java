@@ -92,6 +92,7 @@ public class FreeMobCreator {
     private void createStatistic(FreeMob freeMob) {
         switch (freeMob.getFreeMobsKind()) {
             case Skeleton:
+                freeMob.setLevel(1);
                 freeMob.setAttack(4);
                 freeMob.setActualAttack(4);
                 freeMob.setDefence(4);
@@ -104,6 +105,7 @@ public class FreeMobCreator {
                 freeMob.setRewardExp(100);
                 break;
             case Barbarian:
+                freeMob.setLevel(2);
                 freeMob.setAttack(8);
                 freeMob.setActualAttack(8);
                 freeMob.setDefence(4);
@@ -116,6 +118,7 @@ public class FreeMobCreator {
                 freeMob.setRewardExp(200);
                 break;
             case LavaGolem:
+                freeMob.setLevel(3);
                 freeMob.setAttack(6);
                 freeMob.setActualAttack(6);
                 freeMob.setDefence(8);
@@ -128,6 +131,7 @@ public class FreeMobCreator {
                 freeMob.setRewardExp(400);
                 break;
             default:
+                freeMob.setLevel(1);
                 freeMob.setAttack(4);
                 freeMob.setActualAttack(4);
                 freeMob.setDefence(4);

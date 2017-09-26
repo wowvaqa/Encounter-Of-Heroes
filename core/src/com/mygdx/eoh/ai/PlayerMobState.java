@@ -7,36 +7,14 @@ import com.mygdx.eoh.gameClasses.GameStatus;
 import com.mygdx.eoh.gameClasses.Player;
 import com.mygdx.eoh.gameClasses.PlayerMob;
 
+import java.util.ArrayList;
+
 /**
  * States of playerMob
  * Created by v on 2017-09-17.
  */
 
 public enum PlayerMobState implements State<PlayerMob> {
-
-    ATTACK_PLAYER_MOB() {
-        @Override
-        public void update(PlayerMob playerMob) {
-            //Gdx.app.log("Przechodzę w tryb ataku na przeciwnika", "");
-
-            playerMob.setBusy(true);
-
-            playerMob.changeToAttackAnimation(playerMob,
-                    playerMob.getAi().getPlayerMobCells().get(0).getPlayerMob().getCoordinateXonMap(),
-                    playerMob.getAi().getPlayerMobCells().get(0).getPlayerMob().getCoordinateYonMap());
-
-            int damage = FightManager.getDamage(playerMob, playerMob.getAi().getPlayerMobCells().get(0).getPlayerMob());
-            playerMob.getAi().showDamageLabel(damage, playerMob.getAi().getPlayerMobCells().get(0).getPlayerMob().getCoordinateXonMap(),
-                    playerMob.getAi().getPlayerMobCells().get(0).getPlayerMob().getCoordinateYonMap(),
-                    GameStatus.getInstance().getMapStage());
-
-            if (playerMob.getAi().getPlayerMobCells().get(0).getPlayerMob().getActualhp() < 1) {
-                playerMob.getAi().getPlayerMobCells().remove(0);
-            }
-
-            playerMob.getStateMachine().changeState(WAIT);
-        }
-    },
 
     MOVE_TO_FREE_MOB() {
         @Override
@@ -118,9 +96,39 @@ public enum PlayerMobState implements State<PlayerMob> {
         }
     },
 
+    ATTACK_PLAYER_MOB() {
+        @Override
+        public void update(PlayerMob playerMob) {
+            //Gdx.app.log("Przechodzę w tryb ataku na przeciwnika", "");
+
+            playerMob.setBusy(true);
+
+            playerMob.changeToAttackAnimation(playerMob,
+                    playerMob.getAi().getPlayerMobCells().get(0).getPlayerMob().getCoordinateXonMap(),
+                    playerMob.getAi().getPlayerMobCells().get(0).getPlayerMob().getCoordinateYonMap());
+
+            // Dla bohatera broniącego - ustawienie bohatera atakującego
+            playerMob.getAi().getPlayerMobCells().get(0).getPlayerMob().setAgressor(playerMob);
+            // Dla bohatera atakującego ustawienie bohatera, który broni się przed atakiem.
+            playerMob.setDefendig(playerMob.getAi().getPlayerMobCells().get(0).getPlayerMob());
+
+            int damage = FightManager.getDamage(playerMob, playerMob.getAi().getPlayerMobCells().get(0).getPlayerMob());
+            playerMob.getAi().showDamageLabel(damage, playerMob.getAi().getPlayerMobCells().get(0).getPlayerMob().getCoordinateXonMap(),
+                    playerMob.getAi().getPlayerMobCells().get(0).getPlayerMob().getCoordinateYonMap(),
+                    GameStatus.getInstance().getMapStage());
+
+            if (playerMob.getAi().getPlayerMobCells().get(0).getPlayerMob().getActualhp() < 1) {
+                playerMob.getAi().getPlayerMobCells().remove(0);
+            }
+
+            playerMob.getStateMachine().changeState(WAIT);
+        }
+    },
+
     MOVE_TO_TREASURE() {
         @Override
         public void update(PlayerMob playerMob) {
+
             playerMob.setBusy(true);
 
             if (playerMob.getAi().getTreasureCells().size() > 0) {
@@ -146,6 +154,7 @@ public enum PlayerMobState implements State<PlayerMob> {
     MOVE_TO_CASTLE() {
         @Override
         public void update(PlayerMob playerMob) {
+
             playerMob.setBusy(true);
 
             if (playerMob.getAi().getCastleMobCells().size() > 0) {
@@ -168,6 +177,45 @@ public enum PlayerMobState implements State<PlayerMob> {
         }
     },
 
+    DEFEND_YOURSELF() {
+        @Override
+        public void update(PlayerMob playerMob) {
+            playerMob.setBusy(true);
+
+            ArrayList<Move> moves = new ArrayList<Move>();
+
+            if (playerMob.getAi().getPathFinder().findPath(playerMob.getFieldOfPlayerMob(),
+                    playerMob.getAgressor().getFieldOfPlayerMob(),
+                    moves, FindPath.SearchDestination.PLAYER_MOB)) {
+                if (moves.size() < 2) {
+
+                    playerMob.changeToAttackAnimation(playerMob,
+                            playerMob.getAgressor().getCoordinateXonMap(),
+                            playerMob.getAgressor().getCoordinateYonMap()
+                    );
+
+                    int damage = FightManager.getDamage(playerMob, playerMob.getAgressor());
+
+                    playerMob.getAi().showDamageLabel(
+                            damage, playerMob.getAgressor().getCoordinateXonMap(),
+                            playerMob.getAgressor().getCoordinateYonMap(),
+                            GameStatus.getInstance().getMapStage()
+                    );
+
+                    if (playerMob.getAgressor().getActualhp() < 1) {
+                        playerMob.getAgressor().setDefendig(null);
+                        playerMob.setAgressor(null);
+                    }
+
+                } else {
+                    playerMob.getAgressor().setDefendig(null);
+                    playerMob.setAgressor(null);
+                }
+            }
+            playerMob.getStateMachine().changeState(WAIT);
+        }
+    },
+
     WAIT() {
         @Override
         public void update(PlayerMob playerMob) {
@@ -176,29 +224,42 @@ public enum PlayerMobState implements State<PlayerMob> {
             // zadany w pozimie trudności gry.
             if (!playerMob.isBusy() && playerMob.getAi().checkDificultyTimeCounter(playerMob)) {
 
-                // Sprawdzenie czy są dostępne skrzynie ze skarbami.
-                if (playerMob.getAi().findAvailableTreasureBoxes(playerMob.getFieldOfPlayerMob()).size() > 0) {
+                if (playerMob.getAgressor() != null) {
+                    playerMob.getStateMachine().changeState(DEFEND_YOURSELF);
+
+                    // Sprawdzenie czy są dostępne skrzynie ze skarbami.
+                } else if (playerMob.getAi().findAvailableTreasureBoxes(playerMob.getFieldOfPlayerMob()).size() > 0) {
                     playerMob.getStateMachine().changeState(MOVE_TO_TREASURE);
+
                     // Sprawdzenie czy zdrowie gracza spadło poniżaj połowy maksymalnego zdrowia oraz czy lista zamków nie jest pusta.
                 } else if (playerMob.getActualhp() < playerMob.getMaxHp() / 2 &&
                         playerMob.getFieldOfPlayerMob().getCastleMob() == null &&
                         playerMob.getAi().findAvailableCastleMobs(
                                 playerMob.getFieldOfPlayerMob(), PlayerMobTypes.FRIEND).size() > 0) {
                     playerMob.getStateMachine().changeState(MOVE_TO_CASTLE);
+
                     // Sprawdzenie czy poziomu zdrowia oraz czy bohater znajduje się na polu z zamkeim.
                 } else if (playerMob.getActualhp() < playerMob.getMaxHp() / 2 &&
                         playerMob.getFieldOfPlayerMob().getCastleMob() != null) {
                     playerMob.getStateMachine().changeState(WAIT);
+
+                    // Sprawdza czy moba można zaatakować.
                 } else if (playerMob.getAi().findAvailableFreeMobs(playerMob.getFieldOfPlayerMob()).size() > 0 &&
-                        playerMob.getAi().findAvailableFreeMobs(playerMob.getFieldOfPlayerMob()).get(0).getDistance() < 2) {
+                        playerMob.getAi().findAvailableFreeMobs(playerMob.getFieldOfPlayerMob()).get(0).getDistance() < 2 &&
+                        playerMob.getAi().getFreeMobCells().get(0).getFreeMob().getLevel() <= playerMob.getLevel()
+                        ) {
                     playerMob.getStateMachine().changeState(ATTACK_FREE_MOB);
+
                     // Sprawdzenie czy są dostępne wolne moby do zaatakowania.
-                } else if (playerMob.getAi().findAvailableFreeMobs(playerMob.getFieldOfPlayerMob()).size() > 0) {
+                } else if (playerMob.getAi().findAvailableFreeMobs(playerMob.getFieldOfPlayerMob()).size() > 0 &&
+                        playerMob.getAi().getFreeMobCells().get(0).getFreeMob().getLevel() <= playerMob.getLevel()) {
                     playerMob.getStateMachine().changeState(MOVE_TO_FREE_MOB);
+
                     // Sprawdzenie czy lista wrogich bohaterów nie jest pusta oraz sprawdzenie czy pole bohatera sąsiaduje z polem wrogiego bohatera
                 } else if (playerMob.getAi().findAvailablePlayerMobs(playerMob.getFieldOfPlayerMob(), PlayerMobTypes.ENEMY).size() > 0 &&
                         playerMob.getAi().findAvailablePlayerMobs(playerMob.getFieldOfPlayerMob(), PlayerMobTypes.ENEMY).get(0).getDistance() < 2) {
                     playerMob.getStateMachine().changeState(ATTACK_PLAYER_MOB);
+
                     // Sprawdzenie dostępności wrogich bohaterów.
                 } else if (playerMob.getAi().findAvailablePlayerMobs(playerMob.getFieldOfPlayerMob(), PlayerMobTypes.ENEMY).size() > 0) {
                     playerMob.getStateMachine().changeState(MOVE_TO_PLAYER_MOB);

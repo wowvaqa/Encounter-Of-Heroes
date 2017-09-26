@@ -37,6 +37,8 @@ public class DefaultMob extends AnimatedImage {
     private int actualSpeed;
     private int actionPoints;
 
+    private boolean expGiven;
+
     public DefaultMob(Animation animation, boolean isLooped) {
         super(animation, isLooped);
     }
@@ -268,5 +270,13 @@ public class DefaultMob extends AnimatedImage {
 
     public void setRewardExp(int rewardExp) {
         this.rewardExp = rewardExp;
+    }
+
+    public boolean isExpGiven() {
+        return expGiven;
+    }
+
+    public void setExpGiven(boolean expGiven) {
+        this.expGiven = expGiven;
     }
 }

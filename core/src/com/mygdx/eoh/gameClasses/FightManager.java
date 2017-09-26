@@ -76,13 +76,15 @@ public class FightManager {
 
     public static void chceckExpReward(Object attackingMob, Object defendingMob){
         if (attackingMob.getClass().equals(PlayerMob.class) && defendingMob.getClass().equals(FreeMob.class)){
-            if (((FreeMob)defendingMob).getActualhp() < 1) {
+            if (((FreeMob) defendingMob).getActualhp() < 1 && !((FreeMob) defendingMob).isExpGiven()) {
+                ((FreeMob) defendingMob).setExpGiven(true);
                 int expReward = ((FreeMob) defendingMob).getRewardExp();
                 ((PlayerMob) attackingMob).showGoodEffectLabel("+ " + expReward + " EXP", ((PlayerMob) attackingMob).getX(), ((PlayerMob) attackingMob).getY());
                 ((PlayerMob) attackingMob).setActualExp(((PlayerMob) attackingMob).getActualExp() + expReward);
             }
         } else if (attackingMob.getClass().equals(PlayerMob.class) && defendingMob.getClass().equals(PlayerMob.class)){
-            if (((PlayerMob)defendingMob).getActualhp() < 1) {
+            if (((PlayerMob) defendingMob).getActualhp() < 1 && !((PlayerMob) defendingMob).isExpGiven()) {
+                ((PlayerMob) defendingMob).setExpGiven(true);
                 int expReward = ((PlayerMob) defendingMob).getRewardExp();
                 ((PlayerMob) attackingMob).showGoodEffectLabel("+ " + expReward + " EXP", ((PlayerMob) attackingMob).getX(), ((PlayerMob) attackingMob).getY());
                 ((PlayerMob) attackingMob).setActualExp(((PlayerMob) attackingMob).getActualExp() + expReward);

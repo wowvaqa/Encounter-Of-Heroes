@@ -362,6 +362,10 @@ public class Ai {
         return castleMobCells;
     }
 
+    public FindPath getPathFinder() {
+        return pathFinder;
+    }
+
     public float getDifficultyTime() {
         return difficultyTime;
     }
