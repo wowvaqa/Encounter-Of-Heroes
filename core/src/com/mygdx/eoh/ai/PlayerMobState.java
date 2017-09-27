@@ -7,7 +7,6 @@ import com.mygdx.eoh.gameClasses.FightManager;
 import com.mygdx.eoh.gameClasses.GameStatus;
 import com.mygdx.eoh.gameClasses.Player;
 import com.mygdx.eoh.gameClasses.PlayerMob;
-import com.mygdx.eoh.mob.FreeMob;
 
 import java.util.ArrayList;
 
@@ -227,10 +226,12 @@ public enum PlayerMobState implements State<PlayerMob> {
             if (!playerMob.isBusy() && playerMob.getAi().checkDificultyTimeCounter(playerMob)) {
 
                 if (playerMob.getAgressor() != null) {
+                    Gdx.app.log("AI Status", "1. DEFEND YOURSELF");
                     playerMob.getStateMachine().changeState(DEFEND_YOURSELF);
 
                     // Sprawdzenie czy są dostępne skrzynie ze skarbami.
                 } else if (playerMob.getAi().findAvailableTreasureBoxes(playerMob.getFieldOfPlayerMob()).size() > 0) {
+                    Gdx.app.log("AI Status", "2. MOVE TO TREASURE");
                     playerMob.getStateMachine().changeState(MOVE_TO_TREASURE);
 
                     // Sprawdzenie czy zdrowie gracza spadło poniżaj połowy maksymalnego zdrowia oraz czy lista zamków nie jest pusta.
@@ -238,35 +239,41 @@ public enum PlayerMobState implements State<PlayerMob> {
                         playerMob.getFieldOfPlayerMob().getCastleMob() == null &&
                         playerMob.getAi().findAvailableCastleMobs(
                                 playerMob.getFieldOfPlayerMob(), PlayerMobTypes.FRIEND).size() > 0) {
+                    Gdx.app.log("AI Status", "3. MOVE TO CASTLE");
                     playerMob.getStateMachine().changeState(MOVE_TO_CASTLE);
 
                     // Sprawdzenie czy poziomu zdrowia oraz czy bohater znajduje się na polu z zamkeim.
                 } else if (playerMob.getActualhp() < playerMob.getMaxHp() / 2 &&
                         playerMob.getFieldOfPlayerMob().getCastleMob() != null) {
+                    Gdx.app.log("AI Status", "4. WAIT WHEN HP ");
                     playerMob.getStateMachine().changeState(WAIT);
 
                     // Sprawdza czy moba można zaatakować.
                 } else if (playerMob.getAi().findAvailableFreeMobs(playerMob.getFieldOfPlayerMob()).size() > 0 &&
-                        playerMob.getAi().findAvailableFreeMobs(playerMob.getFieldOfPlayerMob()).get(0).getDistance() < 2 &&
-                        playerMob.getAi().getFreeMobCells().get(0).getFreeMob().getLevel() <= playerMob.getLevel()
+                        playerMob.getAi().findAvailableFreeMobs(playerMob.getFieldOfPlayerMob()).get(0).getDistance() < 2 /*&&
+                        playerMob.getAi().getFreeMobCells().get(0).getFreeMob().getLevel() <= playerMob.getLevel()*/
                         ) {
+                    Gdx.app.log("AI Status", "5. ATTACK FREE MOB");
                     playerMob.getStateMachine().changeState(ATTACK_FREE_MOB);
 
                     // Sprawdzenie czy są dostępne wolne moby do zaatakowania.
-                } else if (playerMob.getAi().findAvailableFreeMobs(playerMob.getFieldOfPlayerMob()).size() > 0 &&
-                        playerMob.getAi().getFreeMobCells().get(0).getFreeMob().getLevel() <= playerMob.getLevel()) {
-                    Gdx.app.log("Rozmiar tablicy mobow: ", "" + playerMob.getAi().findAvailableFreeMobs(playerMob.getFieldOfPlayerMob()).size());
+                } else if (playerMob.getAi().findAvailableFreeMobs(playerMob.getFieldOfPlayerMob()).size() > 0 /*&&
+                        playerMob.getAi().getFreeMobCells().get(0).getFreeMob().getLevel() <= playerMob.getLevel()*/) {
+                    Gdx.app.log("AI Status", "6. MOVE TO FREE MOB");
                     playerMob.getStateMachine().changeState(MOVE_TO_FREE_MOB);
 
                     // Sprawdzenie czy lista wrogich bohaterów nie jest pusta oraz sprawdzenie czy pole bohatera sąsiaduje z polem wrogiego bohatera
                 } else if (playerMob.getAi().findAvailablePlayerMobs(playerMob.getFieldOfPlayerMob(), PlayerMobTypes.ENEMY).size() > 0 &&
                         playerMob.getAi().findAvailablePlayerMobs(playerMob.getFieldOfPlayerMob(), PlayerMobTypes.ENEMY).get(0).getDistance() < 2) {
+                    Gdx.app.log("AI Status", "7. ATTACK PLAYER MOB");
                     playerMob.getStateMachine().changeState(ATTACK_PLAYER_MOB);
 
                     // Sprawdzenie dostępności wrogich bohaterów.
                 } else if (playerMob.getAi().findAvailablePlayerMobs(playerMob.getFieldOfPlayerMob(), PlayerMobTypes.ENEMY).size() > 0) {
+                    Gdx.app.log("AI Status", "8. MOVE TO PLAYER MOB");
                     playerMob.getStateMachine().changeState(MOVE_TO_PLAYER_MOB);
                 } else {
+                    Gdx.app.log("AI Status", "9. WAIT - FINAL");
                     playerMob.getStateMachine().changeState(WAIT);
                 }
             }

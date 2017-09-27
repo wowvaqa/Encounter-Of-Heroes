@@ -28,7 +28,7 @@ public class FightManager {
         if (object.getClass().equals(FreeMob.class)) {
             attack = rnd.nextInt(((FreeMob) object).getActualAttack() + ModifierGetter.getAttackModifier(((FreeMob) object)) + 1);
         }
-        System.out.println("Attack Factor: " + attack);
+        //System.out.println("Attack Factor: " + attack);
         return attack;
     }
 
@@ -50,7 +50,7 @@ public class FightManager {
             defence = rnd.nextInt(((FreeMob) object).getActualDefence() + ModifierGetter.getDefenceModifier(object) + 1);
         }
 
-        System.out.println("Defence Factor: " + defence);
+        //System.out.println("Defence Factor: " + defence);
         return defence;
     }
 
@@ -70,7 +70,7 @@ public class FightManager {
 
         chceckExpReward(attackingMob, defendingMob);
 
-        System.out.println("Damage: " + damage);
+        //System.out.println("Damage: " + damage);
         return damage;
     }
 
@@ -106,7 +106,7 @@ public class FightManager {
             if (((PlayerMob) object).getActualhp() < 1) {
                 ((PlayerMob) object).addFadeOutActionWhenPlayerMobIsDead((PlayerMob) object);
             }
-            System.out.println("Actual HP of mob: " + ((PlayerMob) object).getActualhp());
+            //System.out.println("Actual HP of mob: " + ((PlayerMob) object).getActualhp());
         } else if (object.getClass().equals(FreeMob.class)) {
             ((FreeMob) object).setActualhp(
                     ((FreeMob) object).getActualhp() - damage
@@ -114,7 +114,7 @@ public class FightManager {
             if (((FreeMob) object).getActualhp() < 1) {
                 ((FreeMob) object).addFadeOutActionWhenPlayerMobIsDead((FreeMob) object);
             }
-            System.out.println("Actual HP of mob: " + ((FreeMob) object).getActualhp());
+            //System.out.println("Actual HP of mob: " + ((FreeMob) object).getActualhp());
         }
     }
 

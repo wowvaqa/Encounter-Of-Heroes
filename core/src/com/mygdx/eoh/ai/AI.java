@@ -15,7 +15,6 @@ import com.mygdx.eoh.gameClasses.PlayerMob;
 
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.Comparator;
 
 /**
  * Control AI
@@ -219,8 +218,8 @@ public class AI {
             }
         }
 
-        Collections.sort(freeMobCells, new FreeMobCell.SortByLevel());
         Collections.sort(freeMobCells, new FreeMobCell.SortByDistance());
+        Collections.sort(freeMobCells, new FreeMobCell.SortByLevel());
 
         return freeMobCells;
     }
