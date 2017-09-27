@@ -77,8 +77,8 @@ class ScreenSingleGame extends DefaultGameScreen {
 
         GameStatus.getInstance().getPlayers().add(new Player(1));
         GameStatus.getInstance().getPlayers().add(new Player(2));
-        GameStatus.getInstance().getPlayers().add(new Player(3));
-        GameStatus.getInstance().getPlayers().add(new Player(4));
+        //GameStatus.getInstance().getPlayers().add(new Player(3));
+        //GameStatus.getInstance().getPlayers().add(new Player(4));
 
         GameStatus.getInstance().setCurrentPlayerTurn(GameStatus.getInstance().getPlayers().get(0));
 
@@ -105,7 +105,6 @@ class ScreenSingleGame extends DefaultGameScreen {
                     fields[i][j] = new Field(AssetsGameScreen.getInstance().getManager().get(
                             "game/terrains/terrain.atlas", TextureAtlas.class).findRegion("grass"), Terrains.Grass);
                 }
-
 
                 if (mapfile.fields[i][j].itemGold) {
                     fields[i][j].setItem(ItemCreator.getInstance().createItem(AvailableItems.Gold, i, j));
@@ -204,6 +203,9 @@ class ScreenSingleGame extends DefaultGameScreen {
 
                 fields[i][j].setSize(Options.tileSize, Options.tileSize);
                 fields[i][j].setPosition(i * Options.tileSize, j * Options.tileSize);
+
+                fields[i][j].setCoordinateXonStage(i * Options.tileSize);
+                fields[i][j].setCoordinateYonStage(j * Options.tileSize);
 
                 // Okrśla koordynaty pola na mapie.
                 fields[i][j].locXonMap = i;

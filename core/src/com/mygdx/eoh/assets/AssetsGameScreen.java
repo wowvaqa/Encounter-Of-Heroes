@@ -149,9 +149,10 @@ public class AssetsGameScreen extends DefaultAssets {
         getManager().load("game/spellsAnimations/attackUpgradeAnimation.atlas", TextureAtlas.class);
 
         /*******************************************************************************************
-         * Hex grid graphics
+         * Hex grid graphics && Fog of war
          ******************************************************************************************/
         getManager().load("game/map/hexGrid.png", Texture.class, getParameter());
+        getManager().load("game/map/fog.png", Texture.class, getParameter());
         /*******************************************************************************************
          * AP & MANA & HP bar animation
          ******************************************************************************************/

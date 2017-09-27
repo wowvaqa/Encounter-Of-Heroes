@@ -1,15 +1,14 @@
 package com.mygdx.eoh.gameClasses;
 
-import com.badlogic.gdx.ai.pfa.DefaultConnection;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.mygdx.eoh.Equipment.Treasure;
+import com.mygdx.eoh.assets.AssetsGameScreen;
 import com.mygdx.eoh.enums.Terrains;
 import com.mygdx.eoh.items.Item;
 import com.mygdx.eoh.mob.FreeMob;
 
-import java.util.ArrayList;
 import java.util.Comparator;
 
 /**
@@ -40,13 +39,14 @@ public class Field extends Image {
     public int locXonMap;
     public int locYonMap;
 
-
     private int coordinateXonStage;
     private int coordinateYonStage;
 
     private boolean isMovable = true;
 
     private Terrains terrain;
+
+    private Fog fog;
 
     /***********************************************************************************************
      * BULDING VARIBLES
@@ -57,11 +57,6 @@ public class Field extends Image {
     private CastleMob castleMob;
     private Treasure treasure;
     private FreeMob freeMob;
-
-    /***********************************************************************************************
-     * PATHFINDING
-     **********************************************************************************************/
-    private ArrayList<DefaultConnection> connections;
 
     public Field() {
         super();
@@ -74,7 +69,7 @@ public class Field extends Image {
         if (terrain.equals(Terrains.Mountain))
             setMovable(false);
 
-        connections = new ArrayList<DefaultConnection>();
+        this.fog = new Fog(AssetsGameScreen.getInstance().getManager().get("game/map/fog.png", Texture.class), this);
     }
 
     public Field(TextureRegion region, Terrains terrain) {
@@ -84,7 +79,7 @@ public class Field extends Image {
         if (terrain.equals(Terrains.Mountain))
             setMovable(false);
 
-        connections = new ArrayList<DefaultConnection>();
+        this.fog = new Fog(AssetsGameScreen.getInstance().getManager().get("game/map/fog.png", Texture.class), this);
     }
 
     /**
@@ -211,6 +206,10 @@ public class Field extends Image {
         this.freeMob = freeMob;
     }
 
+    public Fog getFog() {
+        return fog;
+    }
+
     public static class SortByPathF implements Comparator<Field> {
 
         @Override
@@ -218,6 +217,7 @@ public class Field extends Image {
             return (int) (o1.pathF - o2.pathF);
         }
     }
+
 }
 
 

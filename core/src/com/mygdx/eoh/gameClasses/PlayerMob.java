@@ -84,6 +84,9 @@ public class PlayerMob extends DefaultMob {
 
     private ExpManager expManager;
 
+    // Zasięg wzroku.
+    private int sightRange = 2;
+
     private AI ai;
     private DefaultStateMachine<PlayerMob, PlayerMobState> stateMachine;
     private boolean busy = false;
@@ -639,6 +642,14 @@ public class PlayerMob extends DefaultMob {
             index += 1;
         }
         return index;
+    }
+
+    public int getSightRange() {
+        return sightRange;
+    }
+
+    public void setSightRange(int sightRange) {
+        this.sightRange = sightRange;
     }
 
     public void setSelected(boolean selected) {
