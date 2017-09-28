@@ -85,7 +85,9 @@ public class PlayerMob extends DefaultMob {
     private ExpManager expManager;
 
     // Zasięg wzroku.
-    private int sightRange = 2;
+    private int sightRange = 1;
+    // Mgła która jest widzialna;
+    private ArrayList<Fog> visibleFog;
 
     private AI ai;
     private DefaultStateMachine<PlayerMob, PlayerMobState> stateMachine;
@@ -129,7 +131,7 @@ public class PlayerMob extends DefaultMob {
             ai.setDifficultyTime(GameStatus.getInstance().getPlayerTwoDifficultyTime() + 0.01f);
         }
 
-
+        visibleFog = new ArrayList<Fog>();
         stateMachine = new DefaultStateMachine<PlayerMob, PlayerMobState>(this, PlayerMobState.WAIT);
     }
 
@@ -443,6 +445,8 @@ public class PlayerMob extends DefaultMob {
     public void act(float delta) {
         super.act(delta);
 
+        showFields();
+
         if (getAi() != null)
             stateMachine.update();
 
@@ -505,6 +509,30 @@ public class PlayerMob extends DefaultMob {
         }
 
         expManager.checkNextLevel();
+    }
+
+    /**
+     * Pokazuje pola zakryt mgłą.
+     */
+    public void showFields() {
+        Field[][] fields = GameStatus.getInstance().getMap().getFields();
+
+        int xMin = this.getCoordinateXonMap() - this.sightRange;
+        int xMax = this.getCoordinateXonMap() + this.sightRange;
+        int yMin = this.getCoordinateYonMap() - this.sightRange;
+        int yMax = this.getCoordinateYonMap() + this.sightRange;
+
+        for (int i = xMin; i < xMax + 1; i++) {
+            for (int j = yMin; j < yMax + 1; j++) {
+
+                if (i >= 0 && j >= 0 &&
+                        i < GameStatus.getInstance().getMap().getFieldsColumns() &&
+                        j < GameStatus.getInstance().getMap().getFieldsRows()) {
+                    fields[i][j].getFog().setVisibility(true);
+                    visibleFog.add(fields[i][j].getFog());
+                }
+            }
+        }
     }
 
     /**

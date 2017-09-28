@@ -10,6 +10,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.ui.Window;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.mygdx.eoh.assets.AssetsGameScreen;
+import com.mygdx.eoh.gameClasses.Fog;
 import com.mygdx.eoh.gameClasses.GameStatus;
 import com.mygdx.eoh.gameClasses.Grid;
 import com.mygdx.eoh.gameClasses.Positioning;
@@ -27,6 +28,7 @@ public class OptionsInGame {
 
     private Window singleGameOptionsWindow;
     private boolean grid = true;
+    private boolean fog = true;
     private boolean showEquipInfo = false;
     private ArrayList<Grid> gridArrayList;
 
@@ -72,6 +74,29 @@ public class OptionsInGame {
             }
         });
 
+        Label labelFog = new Label("Fog: ", AssetsGameScreen.getInstance().getManager().get("styles/skin.json", Skin.class));
+        final Label labelFogInfo = new Label("ON", AssetsGameScreen.getInstance().getManager().get("styles/skin.json", Skin.class));
+
+        TextButton tbFogOn = new TextButton("On", AssetsGameScreen.getInstance().getManager().get("styles/skin.json", Skin.class));
+        tbFogOn.addListener(new ClickListener() {
+            @Override
+            public void clicked(InputEvent event, float x, float y) {
+                super.clicked(event, x, y);
+                labelFogInfo.setText("ON");
+                fog = true;
+            }
+        });
+
+        TextButton tbFogOff = new TextButton("Off", AssetsGameScreen.getInstance().getManager().get("styles/skin.json", Skin.class));
+        tbFogOff.addListener(new ClickListener() {
+            @Override
+            public void clicked(InputEvent event, float x, float y) {
+                super.clicked(event, x, y);
+                labelFogInfo.setText("OFF");
+                fog = false;
+            }
+        });
+
         TextButton showEquipInfoOn = new TextButton("On", AssetsGameScreen.getInstance().getManager().get("styles/skin.json", Skin.class));
         tbGridOn.addListener(new ClickListener() {
             @Override
@@ -105,6 +130,10 @@ public class OptionsInGame {
                     }
                     //DefaultGameScreen.sortZindex();
                 }
+
+                if (!fog) {
+                    Fog.turnOffFog();
+                }
                 singleGameOptionsWindow.remove();
             }
         });
@@ -122,6 +151,13 @@ public class OptionsInGame {
 //        singleGameOptionsWindow.add(showEquipInfo).pad(5);
 //        singleGameOptionsWindow.add(showEquipInfoOn).pad(5);
 //        singleGameOptionsWindow.add(showEquipInfoOff).pad(5);
+        singleGameOptionsWindow.row();
+
+        singleGameOptionsWindow.add(labelFog).pad(5);
+        singleGameOptionsWindow.add(labelFogInfo).pad(5).size(100, 50);
+        singleGameOptionsWindow.add(tbFogOn).pad(5);
+        singleGameOptionsWindow.add(tbFogOff).pad(5);
+
         singleGameOptionsWindow.row();
 
         singleGameOptionsWindow.add(tbOk).pad(5).size(175, 50).colspan(4);
@@ -172,5 +208,9 @@ public class OptionsInGame {
 
     public void setShowEquipInfo(boolean showEquipInfo) {
         this.showEquipInfo = showEquipInfo;
+    }
+
+    public boolean isFog() {
+        return fog;
     }
 }

@@ -12,6 +12,7 @@ import com.badlogic.gdx.utils.Align;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.mygdx.eoh.Options.OptionsInGame;
 import com.mygdx.eoh.assets.AssetsGameScreen;
+import com.mygdx.eoh.gameClasses.Fog;
 import com.mygdx.eoh.gameClasses.GameStatus;
 import com.mygdx.eoh.gameClasses.Grid;
 import com.mygdx.eoh.gameClasses.Map;
@@ -372,13 +373,11 @@ public abstract class DefaultGameScreen extends DefaultScreen {
             for (int i = 0; i < map.getFieldsColumns(); i++) {
                 for (int j = 0; j < map.getFieldsRows(); j++) {
                     if (map.getFields()[i][j].getFog() != null) {
-                        Gdx.app.log("Dodaje mgłę", "");
+                        //Gdx.app.log("Dodaje mgłę", "");
                         map.getFields()[i][j].getFog().setPosition(i * Options.tileSize, j * Options.tileSize);
                         mapStage.addActor(map.getFields()[i][j].getFog());
 
-                        if (map.getFields()[i][j].getFog().getFieldOwner().getFreeMob() != null) {
-                            map.getFields()[i][j].getFog().getFieldOwner().getFreeMob().setVisible(false);
-                        }
+                        Fog.turnOffVisibility(map.getFields()[i][j].getFog());
                     }
                 }
             }
@@ -388,6 +387,7 @@ public abstract class DefaultGameScreen extends DefaultScreen {
             //sortZindex();
         }
     }
+
 
     /**
      * Adding grid to map stage.

@@ -18,6 +18,8 @@ import java.util.ArrayList;
  */
 public class GameStatus {
     private static GameStatus instance = new GameStatus();
+    // All Fields
+    ArrayList<Field> fields;
     private SnapshotArray<MoveButton> moveButtons;
     private SnapshotArray<AttackButton> attackButtons;
     private SnapshotArray<CastButton> castButtons;
@@ -291,5 +293,13 @@ public class GameStatus {
 
     public void setPlayerTwoDifficultyTime(float playerTwoDifficultyTime) {
         this.playerTwoDifficultyTime = playerTwoDifficultyTime;
+    }
+
+    public ArrayList<Field> getFields() {
+        return fields;
+    }
+
+    public void setFields(ArrayList<Field> fields) {
+        this.fields = fields;
     }
 }

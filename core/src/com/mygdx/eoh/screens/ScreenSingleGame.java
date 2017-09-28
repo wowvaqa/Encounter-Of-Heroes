@@ -82,6 +82,8 @@ class ScreenSingleGame extends DefaultGameScreen {
 
         GameStatus.getInstance().setCurrentPlayerTurn(GameStatus.getInstance().getPlayers().get(0));
 
+        GameStatus.getInstance().setFields(new ArrayList<Field>());
+
         for (int i = 0; i < mapfile.mapColumns; i++) {
             for (int j = 0; j < mapfile.mapRows; j++) {
 
@@ -210,6 +212,8 @@ class ScreenSingleGame extends DefaultGameScreen {
                 // Okrśla koordynaty pola na mapie.
                 fields[i][j].locXonMap = i;
                 fields[i][j].locYonMap = j;
+
+                GameStatus.getInstance().getFields().add(fields[i][j]);
             }
         }
 
