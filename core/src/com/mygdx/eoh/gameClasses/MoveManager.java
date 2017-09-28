@@ -32,6 +32,7 @@ public class MoveManager {
 
     private boolean moveButtonsCreated = false;
     private boolean attackButtonsCreated = false;
+    private boolean castButtonCreated = false;
 
     public MoveManager(GameStatus gs) {
         this.gs = gs;
@@ -86,6 +87,7 @@ public class MoveManager {
     public static void removeCastButtons(PlayerMob playerMob) {
         for (CastButton castButton : GameStatus.getInstance().getCastButtons()) {
             if (castButton.getButtonOwner().equals(playerMob)) {
+                castButton.getButtonOwner().getMoveManager().setCastButtonCreated(false);
                 castButton.remove();
             }
         }
@@ -102,6 +104,7 @@ public class MoveManager {
 
     private static void removeAllCastButtons() {
         for (CastButton castButton : GameStatus.getInstance().getCastButtons()) {
+            castButton.getButtonOwner().getMoveManager().setCastButtonCreated(false);
             castButton.remove();
         }
     }
@@ -113,6 +116,30 @@ public class MoveManager {
 
         for (AttackButton attackButton : GameStatus.getInstance().getAttackButtons()) {
             attackButton.remove();
+        }
+    }
+
+    /**
+     * Przerysowuje intefesy ruchu i ataku bohaterów na mapie
+     *
+     * @param playerMob
+     */
+    public static void redrawButtonsWhenAImove(PlayerMob playerMob) {
+        for (Player player : GameStatus.getInstance().getPlayers()) {
+            for (PlayerMob playerMob1 : player.getPlayerMobs()) {
+                if (playerMob.getPlayerOwner() != playerMob1.getPlayerOwner()) {
+                    if (!playerMob1.getMoveManager().isCastButtonCreated()) {
+                        if (
+                                playerMob1.getCoordinateXonMap() >= playerMob.getCoordinateXonMap() - 2 &&
+                                        playerMob1.getCoordinateXonMap() <= playerMob.getCoordinateXonMap() + 2 &&
+                                        playerMob1.getCoordinateYonMap() >= playerMob.getCoordinateYonMap() - 2 &&
+                                        playerMob1.getCoordinateYonMap() <= playerMob.getCoordinateYonMap() + 2
+                                ) {
+                            playerMob1.getMoveManager().redrawButtons(playerMob1.getStage(), playerMob1);
+                        }
+                    }
+                }
+            }
         }
     }
 
@@ -282,12 +309,14 @@ public class MoveManager {
                         if (checkEnemy(i, j, gs.getMap(), spell.getPlayerOwner())) {
                             CastButton castButton = new CastButton(AnimationCreator.getInstance().makeAnimation(AnimationTypes.CastMove), true, i, j, spell);
                             GameStatus.getInstance().getCastButtons().add(castButton);
+                            this.castButtonCreated = true;
                             stage.addActor(castButton);
                         }
                     } else if (spell.getSpellKind().equals(SpellsKinds.OnlyFriends)) {
                         if (checkFriend(i, j, gs.getMap(), spell.getPlayerOwner())) {
                             CastButton castButton = new CastButton(AnimationCreator.getInstance().makeAnimation(AnimationTypes.CastMove), true, i, j, spell);
                             GameStatus.getInstance().getCastButtons().add(castButton);
+                            this.castButtonCreated = true;
                             stage.addActor(castButton);
                         }
                     }
@@ -789,6 +818,14 @@ public class MoveManager {
         playerMob.getStepManager().setCheckStepping(true);
 
         playeWalkSound(playerMob);
+    }
+
+    public boolean isCastButtonCreated() {
+        return castButtonCreated;
+    }
+
+    public void setCastButtonCreated(boolean castButtonCreated) {
+        this.castButtonCreated = castButtonCreated;
     }
 
     public boolean isMoveButtonsCreated() {

@@ -5,7 +5,7 @@ import com.badlogic.gdx.ai.fsm.State;
 import com.badlogic.gdx.ai.msg.Telegram;
 import com.mygdx.eoh.gameClasses.FightManager;
 import com.mygdx.eoh.gameClasses.GameStatus;
-import com.mygdx.eoh.gameClasses.Player;
+import com.mygdx.eoh.gameClasses.MoveManager;
 import com.mygdx.eoh.gameClasses.PlayerMob;
 
 import java.util.ArrayList;
@@ -28,15 +28,10 @@ public enum PlayerMobState implements State<PlayerMob> {
                 moveX = playerMob.getAi().getFreeMobCells().get(0).getMoveList().get(0).getMoveX();
                 moveY = playerMob.getAi().getFreeMobCells().get(0).getMoveList().get(0).getMoveY();
 
-                // Przerysowanie interfejsu ruchu i ataku.
-                for (Player player : GameStatus.getInstance().getPlayers()) {
-                    for (PlayerMob playerMob1 : player.getPlayerMobs()) {
-                        playerMob1.getMoveManager().redrawButtons(playerMob1.getStage(), playerMob1);
-                    }
-                }
-
                 playerMob.getAi().movePlayerMob(playerMob, moveX, moveY);
                 playerMob.getAi().getFreeMobCells().remove(0);
+
+                MoveManager.redrawButtonsWhenAImove(playerMob);
 
                 playerMob.getStateMachine().changeState(WAIT);
             }
@@ -82,15 +77,10 @@ public enum PlayerMobState implements State<PlayerMob> {
                 moveX = playerMob.getAi().getPlayerMobCells().get(0).getMoveList().get(0).getMoveX();
                 moveY = playerMob.getAi().getPlayerMobCells().get(0).getMoveList().get(0).getMoveY();
 
-                // Przerysowanie interfejsu ruchu i ataku.
-                for (Player player : GameStatus.getInstance().getPlayers()) {
-                    for (PlayerMob playerMob1 : player.getPlayerMobs()) {
-                        playerMob.getMoveManager().redrawButtons(playerMob1.getStage(), playerMob1);
-                    }
-                }
-
                 playerMob.getAi().movePlayerMob(playerMob, moveX, moveY);
                 playerMob.getAi().getPlayerMobCells().remove(0);
+
+                MoveManager.redrawButtonsWhenAImove(playerMob);
 
                 playerMob.getStateMachine().changeState(WAIT);
             }
@@ -138,15 +128,10 @@ public enum PlayerMobState implements State<PlayerMob> {
                 moveX = playerMob.getAi().getTreasureCells().get(0).getMoveList().get(0).getMoveX();
                 moveY = playerMob.getAi().getTreasureCells().get(0).getMoveList().get(0).getMoveY();
 
-                // Przerysowanie interfejsu ruchu i ataku.
-                for (Player player : GameStatus.getInstance().getPlayers()) {
-                    for (PlayerMob playerMob1 : player.getPlayerMobs()) {
-                        playerMob.getMoveManager().redrawButtons(playerMob1.getStage(), playerMob1);
-                    }
-                }
-
                 playerMob.getAi().movePlayerMob(playerMob, moveX, moveY);
                 playerMob.getAi().getTreasureCells().remove(0);
+
+                MoveManager.redrawButtonsWhenAImove(playerMob);
             }
             playerMob.getStateMachine().changeState(WAIT);
         }
@@ -163,15 +148,10 @@ public enum PlayerMobState implements State<PlayerMob> {
                 moveX = playerMob.getAi().getItemCells().get(0).getMoveList().get(0).getMoveX();
                 moveY = playerMob.getAi().getItemCells().get(0).getMoveList().get(0).getMoveY();
 
-                // Przerysowanie interfejsu ruchu i ataku.
-                for (Player player : GameStatus.getInstance().getPlayers()) {
-                    for (PlayerMob playerMob1 : player.getPlayerMobs()) {
-                        playerMob.getMoveManager().redrawButtons(playerMob1.getStage(), playerMob1);
-                    }
-                }
-
                 playerMob.getAi().movePlayerMob(playerMob, moveX, moveY);
                 playerMob.getAi().getItemCells().remove(0);
+
+                MoveManager.redrawButtonsWhenAImove(playerMob);
             }
             playerMob.getStateMachine().changeState(WAIT);
         }
@@ -189,15 +169,10 @@ public enum PlayerMobState implements State<PlayerMob> {
                 moveX = playerMob.getAi().getCastleMobCells().get(0).getMoveList().get(0).getMoveX();
                 moveY = playerMob.getAi().getCastleMobCells().get(0).getMoveList().get(0).getMoveY();
 
-                // Przerysowanie interfejsu ruchu i ataku.
-                for (Player player : GameStatus.getInstance().getPlayers()) {
-                    for (PlayerMob playerMob1 : player.getPlayerMobs()) {
-                        playerMob.getMoveManager().redrawButtons(playerMob1.getStage(), playerMob1);
-                    }
-                }
-
                 playerMob.getAi().movePlayerMob(playerMob, moveX, moveY);
                 playerMob.getAi().getCastleMobCells().remove(0);
+
+                MoveManager.redrawButtonsWhenAImove(playerMob);
             }
             playerMob.getStateMachine().changeState(WAIT);
         }

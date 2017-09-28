@@ -48,6 +48,7 @@ public class AttackButton extends AnimatedImage {
 
                 if (GameStatus.getInstance().getMap().getFields()[locationXonMap][locationYonMap].getPlayerMob() != null) {
                     damage = FightManager.getDamage(playerMob, GameStatus.getInstance().getMap().getFields()[locationXonMap][locationYonMap].getPlayerMob());
+                    GameStatus.getInstance().getMap().getFields()[locationXonMap][locationYonMap].getPlayerMob().setAgressor(playerMob);
                 }
 
                 if (GameStatus.getInstance().getMap().getFields()[locationXonMap][locationYonMap].getFreeMob() != null) {
