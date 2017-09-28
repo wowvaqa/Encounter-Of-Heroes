@@ -1,6 +1,5 @@
 package com.mygdx.eoh.ai;
 
-import com.badlogic.gdx.Gdx;
 import com.mygdx.eoh.gameClasses.Field;
 import com.mygdx.eoh.gameClasses.GameStatus;
 
@@ -217,7 +216,9 @@ public class FindPath {
             return true;
         if (field.getFreeMob() != null)
             return false;
-        if (searchDestination.equals(SearchDestination.TREASURE) && endField.getPlayerMob() != null && endField.getTreasure() != null)
+        if (searchDestination.equals(SearchDestination.TREASURE) &&
+                endField.getPlayerMob() != null &&
+                endField.getTreasure() != null)
             return false;
         if (field.getPlayerMob() != null && endField == field)
             return true;
@@ -232,7 +233,8 @@ public class FindPath {
         TREASURE,
         PLAYER_MOB,
         CASTLE,
-        FREE_MOB;
+        FREE_MOB,
+        ITEM;
     }
 }
 

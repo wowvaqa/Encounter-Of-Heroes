@@ -16,6 +16,7 @@ import com.mygdx.eoh.defaultClasses.DefaultDamageLabel;
 import com.mygdx.eoh.effects.InstantEffect;
 import com.mygdx.eoh.enums.AnimationTypes;
 import com.mygdx.eoh.enums.InstantEffects;
+import com.mygdx.eoh.gameClasses.Field;
 import com.mygdx.eoh.gameClasses.GameStatus;
 import com.mygdx.eoh.gameClasses.Options;
 import com.mygdx.eoh.gameClasses.PlayerMob;
@@ -33,6 +34,9 @@ public class Item extends Image {
     private String itemName;
     private String itemDescription;
     private SnapshotArray<InstantEffect> instantEffects;
+
+    private int coordinateXonMap;
+    private int coordinateYonMap;
 
     public Item(Texture texture, AvailableItems availableItems) {
         super(texture);
@@ -187,9 +191,32 @@ public class Item extends Image {
         GameStatus.getInstance().getMapStage().addActor(defaultDamageLabel);
     }
 
+    /**
+     * Zwraca pole na którym stoi item.
+     */
+    public Field getItemField() {
+        return GameStatus.getInstance().getMap().getFields()[coordinateXonMap][coordinateYonMap];
+    }
+
     /***********************************************************************************************
      * GETTERS & SETTERS
      **********************************************************************************************/
+
+    public int getCoordinateXonMap() {
+        return coordinateXonMap;
+    }
+
+    public void setCoordinateXonMap(int coordinateXonMap) {
+        this.coordinateXonMap = coordinateXonMap;
+    }
+
+    public int getCoordinateYonMap() {
+        return coordinateYonMap;
+    }
+
+    public void setCoordinateYonMap(int coordinateYonMap) {
+        this.coordinateYonMap = coordinateYonMap;
+    }
 
     public String getItemDescription() {
         return itemDescription;

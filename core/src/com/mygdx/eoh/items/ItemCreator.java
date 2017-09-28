@@ -31,27 +31,33 @@ public class ItemCreator {
         return null;
     }
 
-    private Item createGold(float locXonMap, float locYonMap) {
+    private Item createGold(int locXonMap, int locYonMap) {
         //Item item = new Item(AnimationTypes.ItemGold, AvailableItems.Gold);
         Item item = new Item(AssetsGameScreen.getInstance().getManager().get("game/items/gold/itemGold.png", Texture.class), AvailableItems.Gold);
         item.setPosition(locXonMap * Options.tileSize, locYonMap * Options.tileSize);
         item.setSize(Options.tileSize, Options.tileSize);
+        item.setCoordinateXonMap(locXonMap);
+        item.setCoordinateYonMap(locYonMap);
         return item;
     }
 
-    private Item createManaPotion(float locXonMap, float locYonMap) {
+    private Item createManaPotion(int locXonMap, int locYonMap) {
         //Item item = new Item(AnimationTypes.ManaPotionAnimation, AvailableItems.ManaPotion);
         Item item = new Item(AssetsGameScreen.getInstance().getManager().get("game/items/mixtures/manaPotion.png", Texture.class), AvailableItems.ManaPotion);
         item.setPosition(locXonMap * Options.tileSize, locYonMap * Options.tileSize);
         item.setSize(Options.tileSize, Options.tileSize);
+        item.setCoordinateXonMap(locXonMap);
+        item.setCoordinateYonMap(locYonMap);
         return item;
     }
 
-    private Item createHealthPotion(float locXonMap, float locYonMap) {
+    private Item createHealthPotion(int locXonMap, int locYonMap) {
         //Item item = new Item(AnimationTypes.HealthPotionAnimation, AvailableItems.HealthPotion);
         Item item = new Item(AssetsGameScreen.getInstance().getManager().get("game/items/mixtures/healthPotion.png", Texture.class), AvailableItems.HealthPotion);
         item.setPosition(locXonMap * Options.tileSize, locYonMap * Options.tileSize);
         item.setSize(Options.tileSize, Options.tileSize);
+        item.setCoordinateXonMap(locXonMap);
+        item.setCoordinateYonMap(locYonMap);
         return item;
     }
 

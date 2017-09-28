@@ -152,6 +152,31 @@ public enum PlayerMobState implements State<PlayerMob> {
         }
     },
 
+    MOVE_TO_ITEM() {
+        @Override
+        public void update(PlayerMob playerMob) {
+            playerMob.setBusy(true);
+
+            if (playerMob.getAi().getItemCells().size() > 0) {
+                // Odczytanie współżędnych dla ruchu.
+                int moveX, moveY;
+                moveX = playerMob.getAi().getItemCells().get(0).getMoveList().get(0).getMoveX();
+                moveY = playerMob.getAi().getItemCells().get(0).getMoveList().get(0).getMoveY();
+
+                // Przerysowanie interfejsu ruchu i ataku.
+                for (Player player : GameStatus.getInstance().getPlayers()) {
+                    for (PlayerMob playerMob1 : player.getPlayerMobs()) {
+                        playerMob.getMoveManager().redrawButtons(playerMob1.getStage(), playerMob1);
+                    }
+                }
+
+                playerMob.getAi().movePlayerMob(playerMob, moveX, moveY);
+                playerMob.getAi().getItemCells().remove(0);
+            }
+            playerMob.getStateMachine().changeState(WAIT);
+        }
+    },
+
     MOVE_TO_CASTLE() {
         @Override
         public void update(PlayerMob playerMob) {
@@ -228,6 +253,10 @@ public enum PlayerMobState implements State<PlayerMob> {
                 if (playerMob.getAgressor() != null) {
                     Gdx.app.log("AI Status", "1. DEFEND YOURSELF");
                     playerMob.getStateMachine().changeState(DEFEND_YOURSELF);
+
+                } else if (playerMob.getAi().findAvailableItems(playerMob.getFieldOfPlayerMob()).size() > 0) {
+                    Gdx.app.log("AI Status", " MOVE TO ITEM");
+                    playerMob.getStateMachine().changeState(MOVE_TO_ITEM);
 
                     // Sprawdzenie czy są dostępne skrzynie ze skarbami.
                 } else if (playerMob.getAi().findAvailableTreasureBoxes(playerMob.getFieldOfPlayerMob()).size() > 0) {

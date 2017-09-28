@@ -29,6 +29,7 @@ public class AI {
     private ArrayList<PlayerMobCell> playerMobCells;
     private ArrayList<FreeMobCell> freeMobCells;
     private ArrayList<CastleMobCell> castleMobCells;
+    private ArrayList<ItemCell> itemCells;
 
     private float difficultyTimeCounter = 0;
     private float difficultyTime = 0;
@@ -151,11 +152,11 @@ public class AI {
     }
 
     /**
-     * Zwraca posortowaną tablicę zawierającą dostępnych bohaterów, do których bohater gracza może
+     * Zwraca posortowaną tablicę zawierającą dostępnych zamki, do których bohater gracza może
      * się udać.
      *
      * @param startField Pole na którym stoi bohater gracza.
-     * @return Lista z posortowanymi bohaterami.
+     * @return Lista z posortowanymi zamkami.
      */
     public ArrayList<CastleMobCell> findAvailableCastleMobs(Field startField, PlayerMobTypes castleMobTypes) {
 
@@ -222,6 +223,40 @@ public class AI {
         Collections.sort(freeMobCells, new FreeMobCell.SortByLevel());
 
         return freeMobCells;
+    }
+
+    /**
+     * Zwraca posortowaną tablicę zawierającą dostępnych zamki, do których bohater gracza może
+     * się udać.
+     *
+     * @param startField Pole na którym stoi bohater gracza.
+     * @return Lista z posortowanymi zamkami.
+     */
+    public ArrayList<ItemCell> findAvailableItems(Field startField) {
+
+        itemCells = new ArrayList<ItemCell>();
+
+        Map map = GameStatus.getInstance().getMap();
+
+        for (int i = 0; i < map.getFieldsColumns(); i++) {
+            for (int j = 0; j < map.getFieldsRows(); j++) {
+                if (map.getFields()[i][j].getItem() != null) {
+
+                    ItemCell itemCell = new ItemCell(map.getFields()[i][j].getItem(), 0);
+
+                    if (pathFinder.findPath(
+                            startField, map.getFields()[i][j].getItem().getItemField(),
+                            itemCell.getMoveList(),
+                            FindPath.SearchDestination.ITEM)) {
+                        itemCell.setDistance(itemCell.getMoveList().size());
+                        itemCells.add(itemCell);
+                    }
+                }
+            }
+        }
+
+        Collections.sort(itemCells, new ItemCell.SortByDistance());
+        return itemCells;
     }
 
     public void showDamageLabel(int damage, int locationXonMap, int locationYonMap, Stage stage) {
@@ -362,6 +397,10 @@ public class AI {
 
     public ArrayList<CastleMobCell> getCastleMobCells() {
         return castleMobCells;
+    }
+
+    public ArrayList<ItemCell> getItemCells() {
+        return itemCells;
     }
 
     public FindPath getPathFinder() {
