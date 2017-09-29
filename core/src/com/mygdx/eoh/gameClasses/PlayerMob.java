@@ -445,7 +445,9 @@ public class PlayerMob extends DefaultMob {
     public void act(float delta) {
         super.act(delta);
 
-        showFields();
+        if (this.getAi() == null) {
+            showFields();
+        }
 
         if (getAi() != null)
             stateMachine.update();

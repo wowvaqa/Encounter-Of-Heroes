@@ -213,4 +213,8 @@ public class OptionsInGame {
     public boolean isFog() {
         return fog;
     }
+
+    public void setFog(boolean fog) {
+        this.fog = fog;
+    }
 }
