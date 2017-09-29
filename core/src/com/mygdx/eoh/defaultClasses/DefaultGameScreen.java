@@ -370,14 +370,16 @@ public abstract class DefaultGameScreen extends DefaultScreen {
                 }
             }
 
-            for (int i = 0; i < map.getFieldsColumns(); i++) {
-                for (int j = 0; j < map.getFieldsRows(); j++) {
-                    if (map.getFields()[i][j].getFog() != null) {
-                        //Gdx.app.log("Dodaje mgłę", "");
-                        map.getFields()[i][j].getFog().setPosition(i * Options.tileSize, j * Options.tileSize);
-                        mapStage.addActor(map.getFields()[i][j].getFog());
+            if (Options.fog) {
+                for (int i = 0; i < map.getFieldsColumns(); i++) {
+                    for (int j = 0; j < map.getFieldsRows(); j++) {
+                        if (map.getFields()[i][j].getFog() != null) {
+                            //Gdx.app.log("Dodaje mgłę", "");
+                            map.getFields()[i][j].getFog().setPosition(i * Options.tileSize, j * Options.tileSize);
+                            mapStage.addActor(map.getFields()[i][j].getFog());
 
-                        Fog.turnOffVisibility(map.getFields()[i][j].getFog());
+                            Fog.turnOffVisibility(map.getFields()[i][j].getFog());
+                        }
                     }
                 }
             }

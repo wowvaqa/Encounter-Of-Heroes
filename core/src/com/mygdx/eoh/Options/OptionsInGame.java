@@ -28,7 +28,7 @@ public class OptionsInGame {
 
     private Window singleGameOptionsWindow;
     private boolean grid = true;
-    private boolean fog = true;
+    private boolean fog = false;
     private boolean showEquipInfo = false;
     private ArrayList<Grid> gridArrayList;
 

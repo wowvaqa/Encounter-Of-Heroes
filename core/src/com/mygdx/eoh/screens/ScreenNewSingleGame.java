@@ -12,6 +12,7 @@ import com.mygdx.eoh.defaultClasses.DefaultScreen;
 import com.mygdx.eoh.enums.PlayerMobClasses;
 import com.mygdx.eoh.enums.Screens;
 import com.mygdx.eoh.gameClasses.GameStatus;
+import com.mygdx.eoh.gameClasses.Options;
 
 /**
  * Screen for single player game start.
@@ -61,6 +62,8 @@ public class ScreenNewSingleGame extends DefaultScreen {
         playerTwoTable.row();
         playerTwoTable.add(interfaceManager.tbPlayerTwoCPU).pad(3).size(210, 65);
 
+        bottomTable.add(interfaceManager.tbFog).pad(3);
+        bottomTable.row();
         bottomTable.add(interfaceManager.tbPlay).pad(3).size(300, 100);
         bottomTable.row();
         bottomTable.add(interfaceManager.tbExit).pad(3).size(175, 50).align(Align.bottom);
@@ -91,6 +94,7 @@ public class ScreenNewSingleGame extends DefaultScreen {
         TextButton tbPlayerTwoCPU;
         TextButton tbPlayerOneDificulty;
         TextButton tbPlayerTwoDificulty;
+        TextButton tbFog;
         TextButton tbExit;
 
         Label lblPlayerOneHero;
@@ -115,6 +119,8 @@ public class ScreenNewSingleGame extends DefaultScreen {
             tbPlayerOneCPU = new TextButton("Player One AI ON", AssetsMainMenu.getInstance().getManager().get("styles/skin.json", Skin.class));
             tbPlayerTwoCPU = new TextButton("Player Two AI ON", AssetsMainMenu.getInstance().getManager().get("styles/skin.json", Skin.class));
 
+            tbFog = new TextButton("Fog OFF", AssetsMainMenu.getInstance().getManager().get("styles/skin.json", Skin.class));
+
             tbPlayerOneDificulty = new TextButton("Hard", AssetsMainMenu.getInstance().getManager().get("styles/skin.json", Skin.class));
             tbPlayerTwoDificulty = new TextButton("Hard", AssetsMainMenu.getInstance().getManager().get("styles/skin.json", Skin.class));
 
@@ -131,6 +137,21 @@ public class ScreenNewSingleGame extends DefaultScreen {
         }
 
         private void addListeners(){
+
+            tbFog.addListener(new ClickListener() {
+                @Override
+                public void clicked(InputEvent event, float x, float y) {
+                    super.clicked(event, x, y);
+
+                    if (Options.fog) {
+                        Options.fog = false;
+                        tbFog.setText("Fog OFF");
+                    } else {
+                        Options.fog = true;
+                        tbFog.setText("Fog ON");
+                    }
+                }
+            });
 
             tbPlay.addListener(new ClickListener() {
                 @Override

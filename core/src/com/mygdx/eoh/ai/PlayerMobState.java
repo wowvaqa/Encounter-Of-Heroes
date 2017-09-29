@@ -229,12 +229,14 @@ public enum PlayerMobState implements State<PlayerMob> {
                     Gdx.app.log("AI Status", "1. DEFEND YOURSELF");
                     playerMob.getStateMachine().changeState(DEFEND_YOURSELF);
 
-                } else if (playerMob.getAi().findAvailableItems(playerMob.getFieldOfPlayerMob()).size() > 0) {
+                } else if (playerMob.getAi().findAvailableItems(playerMob.getFieldOfPlayerMob()).size() > 0 &&
+                        playerMob.getAi().getItemCells().get(0).getDistance() < 3) {
                     Gdx.app.log("AI Status", " MOVE TO ITEM");
                     playerMob.getStateMachine().changeState(MOVE_TO_ITEM);
 
                     // Sprawdzenie czy są dostępne skrzynie ze skarbami.
-                } else if (playerMob.getAi().findAvailableTreasureBoxes(playerMob.getFieldOfPlayerMob()).size() > 0) {
+                } else if (playerMob.getAi().findAvailableTreasureBoxes(playerMob.getFieldOfPlayerMob()).size() > 0 &&
+                        playerMob.getAi().getTreasureCells().get(0).getDistance() < 3) {
                     Gdx.app.log("AI Status", "2. MOVE TO TREASURE");
                     playerMob.getStateMachine().changeState(MOVE_TO_TREASURE);
 

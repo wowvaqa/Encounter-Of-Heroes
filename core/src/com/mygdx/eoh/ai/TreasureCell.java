@@ -22,12 +22,16 @@ public class TreasureCell {
         moveList = new ArrayList<Move>();
     }
 
-    public void setDistance(int distance) {
-        this.distance = distance;
-    }
-
     public ArrayList<Move> getMoveList() {
         return moveList;
+    }
+
+    public int getDistance() {
+        return distance;
+    }
+
+    public void setDistance(int distance) {
+        this.distance = distance;
     }
 
     /**
