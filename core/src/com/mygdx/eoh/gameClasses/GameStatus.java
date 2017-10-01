@@ -280,6 +280,7 @@ public class GameStatus {
     }
 
     public float getPlayerOneDifficultyTime() {
+        playerOneDifficultyTime += 0.01f;
         return playerOneDifficultyTime;
     }
 
@@ -288,6 +289,7 @@ public class GameStatus {
     }
 
     public float getPlayerTwoDifficultyTime() {
+        playerTwoDifficultyTime += 0.01f;
         return playerTwoDifficultyTime;
     }
 

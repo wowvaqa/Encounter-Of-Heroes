@@ -89,7 +89,8 @@ public class ExpManager {
 
     private void nextLevel() {
         nextLevel = true;
-        GameStatus.getInstance().getGameInterface().imageButtonPromotion.setVisible(true);
+        if (playerMob.getAi() == null)
+            GameStatus.getInstance().getGameInterface().imageButtonPromotion.setVisible(true);
         //playerMob.setLevel(playerMob.getLevel() + 1);
     }
 

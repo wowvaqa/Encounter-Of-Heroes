@@ -24,9 +24,10 @@ public class FindPath {
 
     /**
      * Find path between start field and end field. Return true if path will be found.
-     * @param startField Pole od którego ma rozpocząć się poszukiwanie ścieżki.
-     * @param endField Pole na którym poszukiwanie ścieżki ma się zakończyć.
-     * @param moveList Lista z ruchami z pola początkowego do końcowego
+     *
+     * @param startField        Pole od którego ma rozpocząć się poszukiwanie ścieżki.
+     * @param endField          Pole na którym poszukiwanie ścieżki ma się zakończyć.
+     * @param moveList          Lista z ruchami z pola początkowego do końcowego
      * @param searchDestination Cel poszukiwań: FreeMob, CastleMob, PlayerMob.
      * @return TRUE jeżeli droga zostanie odnaleziona, FALSE jeżeli nie.
      */
@@ -212,18 +213,28 @@ public class FindPath {
      * @return True jeżeli można się po nim poruszać, Fale jeżeli nie można.
      */
     private boolean checkMobility(Field field, Field endField, SearchDestination searchDestination) {
-        if (field.getFreeMob() != null && endField == field && searchDestination.equals(SearchDestination.FREE_MOB))
+
+        if (field.getPlayerMob() != null && endField == field && searchDestination.equals(SearchDestination.ATTACK_PLAYER_MOB)) {
             return true;
-        if (field.getFreeMob() != null)
+        }
+
+        if (field.getPlayerMob() != null) {
             return false;
+        }
+
+
+        if (field.getFreeMob() != null && endField == field && searchDestination.equals(SearchDestination.FREE_MOB)) {
+            return true;
+        }
+        if (field.getFreeMob() != null) {
+            return false;
+        }
         if (searchDestination.equals(SearchDestination.TREASURE) &&
                 endField.getPlayerMob() != null &&
-                endField.getTreasure() != null)
+                endField.getTreasure() != null) {
             return false;
-        if (field.getPlayerMob() != null && endField == field)
-            return true;
-        if (field.getPlayerMob() != null)
-            return false;
+        }
+
         if (!field.isMovable())
             return false;
         return true;
@@ -234,6 +245,7 @@ public class FindPath {
         PLAYER_MOB,
         CASTLE,
         FREE_MOB,
+        ATTACK_PLAYER_MOB,
         ITEM;
     }
 }

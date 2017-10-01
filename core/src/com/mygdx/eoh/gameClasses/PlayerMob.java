@@ -123,10 +123,10 @@ public class PlayerMob extends DefaultMob {
         // Sprawdzenie czy dla graczy jest aktywna sztuczna inteligencja, ustawienie poziomu opóźnienia w
         // wykonywaniu czynności wg poziomu trudności. Dla durgiego gracza dodanie dodatkowego opóźnienia
         // w celu wyeliminowania możliwości jednoczesnego wchodzenia na to samo pole przez różnych bohaterów.
-        if (playerOwner.getInedxOfPlayerInArrayOfPlayer() == 0 && GameStatus.getInstance().isPlayerOneAI() == true) {
+        if (playerOwner.getInedxOfPlayerInArrayOfPlayer() == 0 && GameStatus.getInstance().isPlayerOneAI()) {
             ai = new AI();
             ai.setDifficultyTime(GameStatus.getInstance().getPlayerOneDifficultyTime());
-        } else if (playerOwner.getInedxOfPlayerInArrayOfPlayer() == 1 && GameStatus.getInstance().isPlayerTwoAI() == true) {
+        } else if (playerOwner.getInedxOfPlayerInArrayOfPlayer() == 1 && GameStatus.getInstance().isPlayerTwoAI()) {
             ai = new AI();
             ai.setDifficultyTime(GameStatus.getInstance().getPlayerTwoDifficultyTime() + 0.01f);
         }
@@ -449,8 +449,9 @@ public class PlayerMob extends DefaultMob {
             showFields();
         }
 
-        if (getAi() != null)
+        if (getAi() != null) {
             stateMachine.update();
+        }
 
         ManaBar.recalculateManaBarFrameDuration(this);
         APBar.recalculateApBarFrameDuration(this);
@@ -821,6 +822,10 @@ public class PlayerMob extends DefaultMob {
 
     public AI getAi() {
         return ai;
+    }
+
+    public void setAi(AI ai) {
+        this.ai = ai;
     }
 
     public StateMachine<PlayerMob, PlayerMobState> getStateMachine() {

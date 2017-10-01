@@ -135,7 +135,7 @@ public class FreeMob extends DefaultMob {
             this.getApBar().setApBarAdd(true);
         }
 
-        if (this.getActualhp()< this.getMaxHp() + ModifierGetter.getHpModifier(this) && !this.getHpBar().isHpBarAdd()) {
+        if (this.getActualhp() < this.getMaxHp() + ModifierGetter.getHpModifier(this) && !this.getHpBar().isHpBarAdd() && this.getHpBar() != null) {
             this.getStage().addActor(this.getHpBar());
             this.getHpBar().setHpBarAdd(true);
         }

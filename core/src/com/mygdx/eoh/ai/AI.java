@@ -7,6 +7,9 @@ import com.mygdx.eoh.Equipment.Equip;
 import com.mygdx.eoh.Equipment.EquipKinds;
 import com.mygdx.eoh.assets.AssetsGameScreen;
 import com.mygdx.eoh.defaultClasses.DefaultDamageLabel;
+import com.mygdx.eoh.enums.PlayerMobClasses;
+import com.mygdx.eoh.gameClasses.BuyPlayerMob;
+import com.mygdx.eoh.gameClasses.CastleMob;
 import com.mygdx.eoh.gameClasses.Field;
 import com.mygdx.eoh.gameClasses.GameStatus;
 import com.mygdx.eoh.gameClasses.Map;
@@ -126,21 +129,23 @@ public class AI {
 
         Map map = GameStatus.getInstance().getMap();
 
-        for (int i = 0; i < map.getFieldsColumns(); i++) {
-            for (int j = 0; j < map.getFieldsRows(); j++) {
-                if (map.getFields()[i][j].getPlayerMob() != null) {
+        if (startField.getPlayerMob() != null) {
+            for (int i = 0; i < map.getFieldsColumns(); i++) {
+                for (int j = 0; j < map.getFieldsRows(); j++) {
+                    if (map.getFields()[i][j].getPlayerMob() != null) {
 
-                    if (playerMobTypes.equals(PlayerMobTypes.ENEMY) &&
-                            map.getFields()[i][j].getPlayerMob().getPlayerOwner() != startField.getPlayerMob().getPlayerOwner()) {
+                        if (playerMobTypes.equals(PlayerMobTypes.ENEMY) &&
+                                map.getFields()[i][j].getPlayerMob().getPlayerOwner() != startField.getPlayerMob().getPlayerOwner()) {
 
-                        PlayerMobCell playerMobCell = new PlayerMobCell(map.getFields()[i][j].getPlayerMob(), 0);
+                            PlayerMobCell playerMobCell = new PlayerMobCell(map.getFields()[i][j].getPlayerMob(), 0);
 
-                        if (pathFinder.findPath(
-                                startField, map.getFields()[i][j].getPlayerMob().getFieldOfPlayerMob(),
-                                playerMobCell.getMoveList(),
-                                FindPath.SearchDestination.PLAYER_MOB)) {
-                            playerMobCell.setDistance(playerMobCell.getMoveList().size());
-                            playerMobCells.add(playerMobCell);
+                            if (pathFinder.findPath(
+                                    startField, map.getFields()[i][j].getPlayerMob().getFieldOfPlayerMob(),
+                                    playerMobCell.getMoveList(),
+                                    FindPath.SearchDestination.ATTACK_PLAYER_MOB)) {
+                                playerMobCell.setDistance(playerMobCell.getMoveList().size());
+                                playerMobCells.add(playerMobCell);
+                            }
                         }
                     }
                 }
@@ -164,21 +169,23 @@ public class AI {
 
         Map map = GameStatus.getInstance().getMap();
 
-        for (int i = 0; i < map.getFieldsColumns(); i++) {
-            for (int j = 0; j < map.getFieldsRows(); j++) {
-                if (map.getFields()[i][j].getCastleMob() != null) {
+        if (startField.getPlayerMob() != null) {
+            for (int i = 0; i < map.getFieldsColumns(); i++) {
+                for (int j = 0; j < map.getFieldsRows(); j++) {
+                    if (map.getFields()[i][j].getCastleMob() != null) {
 
-                    if (castleMobTypes.equals(PlayerMobTypes.FRIEND) &&
-                            map.getFields()[i][j].getCastleMob().getPlayerOwner() == startField.getPlayerMob().getPlayerOwner()) {
+                        if (castleMobTypes.equals(PlayerMobTypes.FRIEND) &&
+                                map.getFields()[i][j].getCastleMob().getPlayerOwner() == startField.getPlayerMob().getPlayerOwner()) {
 
-                        CastleMobCell castleMobCell = new CastleMobCell(map.getFields()[i][j].getCastleMob(), 0);
+                            CastleMobCell castleMobCell = new CastleMobCell(map.getFields()[i][j].getCastleMob(), 0);
 
-                        if (pathFinder.findPath(
-                                startField, map.getFields()[i][j].getCastleMob().getFieldOfCastleMob(),
-                                castleMobCell.getMoveList(),
-                                FindPath.SearchDestination.CASTLE)) {
-                            castleMobCell.setDistance(castleMobCell.getMoveList().size());
-                            castleMobCells.add(castleMobCell);
+                            if (pathFinder.findPath(
+                                    startField, map.getFields()[i][j].getCastleMob().getFieldOfCastleMob(),
+                                    castleMobCell.getMoveList(),
+                                    FindPath.SearchDestination.CASTLE)) {
+                                castleMobCell.setDistance(castleMobCell.getMoveList().size());
+                                castleMobCells.add(castleMobCell);
+                            }
                         }
                     }
                 }
@@ -378,6 +385,26 @@ public class AI {
         } else
             return false;
     }
+
+    /**
+     * Sprawdza czy dla gracza który jest właścicielem zadanego bohatera jest możliwość kupienia
+     * nowego bohatera.
+     *
+     * @param playerMob
+     */
+    public void checkBuyNewPlayerMob(PlayerMob playerMob) {
+        if (playerMob.getPlayerOwner().getGold() >= 100) {
+            if (playerMob.getPlayerOwner().getCastleMobs().size() > 0) {
+                CastleMob castleMob = playerMob.getPlayerOwner().getCastleMobs().get(0);
+                if (castleMob.getFieldOfCastleMob().getPlayerMob() == null)
+                    BuyPlayerMob.getInstance().buyNewPlayerMob(PlayerMobClasses.Knight,
+                            castleMob.getCoordinateXonMap(),
+                            castleMob.getCoordinateYonMap(),
+                            true);
+            }
+        }
+    }
+
 
     /**
      * GETTERS AND SETTERS

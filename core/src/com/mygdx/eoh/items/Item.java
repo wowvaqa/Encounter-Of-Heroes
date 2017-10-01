@@ -98,6 +98,10 @@ public class Item extends Image {
             if (GameStatus.getInstance().getCurrentPlayerTurn().equals(playerMob.getPlayerOwner())) {
                 playerMob.getPlayerOwner().changeGoldLabel(playerMob.getPlayerOwner());
             }
+
+            if (playerMob.getAi() != null) {
+                playerMob.getAi().checkBuyNewPlayerMob(playerMob);
+            }
         }
 
         if (this.itemType.equals(AvailableItems.HealthPotion)) {

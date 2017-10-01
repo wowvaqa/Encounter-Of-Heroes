@@ -321,9 +321,6 @@ public enum PlayerMobState implements State<PlayerMob> {
                     Gdx.app.log("AI Status", "5. CAST CURE");
                     playerMob.getStateMachine().changeState(CAST_CURE);
 
-                    // Sprawdzenie czy można rzucić czar kula ognia.
-
-
                     // Sprawdzenie czy bohater nie został zaatakowany przez wrogiego bohatera.
                 } else if (playerMob.getAgressor() != null) {
                     Gdx.app.log("AI Status", "1. DEFEND YOURSELF");
@@ -377,6 +374,12 @@ public enum PlayerMobState implements State<PlayerMob> {
                     Gdx.app.log("AI Status", "5. CAST FIREBALL ON FREEMOB");
                     playerMob.getStateMachine().changeState(CAST_FIREBALL_ON_FREEMOB);
 
+                    // Sprawdzenie czy lista wrogich bohaterów nie jest pusta oraz sprawdzenie czy pole bohatera sąsiaduje z polem wrogiego bohatera
+                } else if (playerMob.getAi().findAvailablePlayerMobs(playerMob.getFieldOfPlayerMob(), PlayerMobTypes.ENEMY).size() > 0 &&
+                        playerMob.getAi().findAvailablePlayerMobs(playerMob.getFieldOfPlayerMob(), PlayerMobTypes.ENEMY).get(0).getDistance() < 2) {
+                    Gdx.app.log("AI Status", "7. ATTACK PLAYER MOB");
+                    playerMob.getStateMachine().changeState(ATTACK_PLAYER_MOB);
+
                     // Sprawdza czy moba można zaatakować.
                 } else if (playerMob.getAi().findAvailableFreeMobs(playerMob.getFieldOfPlayerMob()).size() > 0 &&
                         playerMob.getAi().findAvailableFreeMobs(playerMob.getFieldOfPlayerMob()).get(0).getDistance() < 2) {
@@ -388,18 +391,13 @@ public enum PlayerMobState implements State<PlayerMob> {
                     Gdx.app.log("AI Status", "6. MOVE TO FREE MOB");
                     playerMob.getStateMachine().changeState(MOVE_TO_FREE_MOB);
 
-                } else if (playerMob.getAi().findAvailablePlayerMobs(playerMob.getFieldOfPlayerMob(), PlayerMobTypes.ENEMY).size() > 0 &&
+                } else if (playerMob.getPlayerMobClass().equals(PlayerMobClasses.Wizard) &&
+                        playerMob.getAi().findAvailablePlayerMobs(playerMob.getFieldOfPlayerMob(), PlayerMobTypes.ENEMY).size() > 0 &&
                         playerMob.getAi().findAvailablePlayerMobs(playerMob.getFieldOfPlayerMob(), PlayerMobTypes.ENEMY).get(0).getDistance() < 2 &&
-                        playerMob.getPlayerMobClass().equals(PlayerMobClasses.Wizard) &&
                         playerMob.getActualMana() > 0) {
                     Gdx.app.log("AI Status", "7. CAST FIREBALL ON PLAYER MOB");
                     playerMob.getStateMachine().changeState(CAST_FIREBALL_ON_PLAYERMOB);
 
-                    // Sprawdzenie czy lista wrogich bohaterów nie jest pusta oraz sprawdzenie czy pole bohatera sąsiaduje z polem wrogiego bohatera
-                } else if (playerMob.getAi().findAvailablePlayerMobs(playerMob.getFieldOfPlayerMob(), PlayerMobTypes.ENEMY).size() > 0 &&
-                        playerMob.getAi().findAvailablePlayerMobs(playerMob.getFieldOfPlayerMob(), PlayerMobTypes.ENEMY).get(0).getDistance() < 2) {
-                    Gdx.app.log("AI Status", "7. ATTACK PLAYER MOB");
-                    playerMob.getStateMachine().changeState(ATTACK_PLAYER_MOB);
 
                     // Sprawdzenie dostępności wrogich bohaterów.
                 } else if (playerMob.getAi().findAvailablePlayerMobs(playerMob.getFieldOfPlayerMob(), PlayerMobTypes.ENEMY).size() > 0) {

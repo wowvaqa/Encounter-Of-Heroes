@@ -501,21 +501,24 @@ public class ScreenNetGame extends DefaultGameScreen {
                     BuyPlayerMob.getInstance().buyNewPlayerMob(
                             PlayerMobClasses.Knight,
                             NetStatus.getInstance().getLocationXvarible(),
-                            NetStatus.getInstance().getLocationYvarible()
+                            NetStatus.getInstance().getLocationYvarible(),
+                            false
                     );
                     break;
                 case 1:
                     BuyPlayerMob.getInstance().buyNewPlayerMob(
                             PlayerMobClasses.Wizard,
                             NetStatus.getInstance().getLocationXvarible(),
-                            NetStatus.getInstance().getLocationYvarible()
+                            NetStatus.getInstance().getLocationYvarible(),
+                            false
                     );
                     break;
                 default:
                     BuyPlayerMob.getInstance().buyNewPlayerMob(
                             PlayerMobClasses.Wizard,
                             NetStatus.getInstance().getLocationXvarible(),
-                            NetStatus.getInstance().getLocationYvarible()
+                            NetStatus.getInstance().getLocationYvarible(),
+                            false
                     );
                     break;
             }

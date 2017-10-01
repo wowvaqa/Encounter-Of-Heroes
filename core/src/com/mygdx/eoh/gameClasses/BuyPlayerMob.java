@@ -7,6 +7,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.ui.Window;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
+import com.mygdx.eoh.ai.AI;
 import com.mygdx.eoh.assets.AssetsGameScreen;
 import com.mygdx.eoh.creators.PlayerMobCreator;
 import com.mygdx.eoh.enums.PlayerMobClasses;
@@ -129,7 +130,7 @@ public class BuyPlayerMob {
         return window;
     }
 
-    public void buyNewPlayerMob(PlayerMobClasses playerMobClasses, int locationXofCastle, int locationYofCastle){
+    public void buyNewPlayerMob(PlayerMobClasses playerMobClasses, int locationXofCastle, int locationYofCastle, boolean isAI) {
         CastleMob castleMob = GameStatus.getInstance().getMap().getFields()[locationXofCastle][locationYofCastle].getCastleMob();
         PlayerMob playerMob = PlayerMobCreator.getInstance().createPlayerMob(
                 playerMobClasses,
@@ -137,6 +138,11 @@ public class BuyPlayerMob {
                 castleMob.getCoordinateXonMap(),
                 castleMob.getCoordinateYonMap(),
                 GameStatus.getInstance().getMap().getFields()[castleMob.getCoordinateXonMap()][castleMob.getCoordinateYonMap()]);
+
+        if (isAI) {
+            playerMob.setAi(new AI());
+            playerMob.getPlayerOwner().setGold(playerMob.getPlayerOwner().getGold() - 100);
+        }
 
         GameStatus.getInstance().getMapStage().addActor(playerMob.getPlayerColorImage());
         GameStatus.getInstance().getMapStage().addActor(playerMob);
