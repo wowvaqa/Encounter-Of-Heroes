@@ -192,10 +192,11 @@ public enum PlayerMobState implements State<PlayerMob> {
 
             if (playerMob.getAi().getPathFinder().findPath(playerMob.getFieldOfPlayerMob(),
                     playerMob.getAgressor().getFieldOfPlayerMob(),
-                    moves, FindPath.SearchDestination.PLAYER_MOB)) {
+                    moves, FindPath.SearchDestination.ATTACK_PLAYER_MOB)) {
                 if (moves.size() < 2) {
 
-                    playerMob.changeToAttackAnimation(playerMob,
+                    playerMob.changeToAttackAnimation(
+                            playerMob,
                             playerMob.getAgressor().getCoordinateXonMap(),
                             playerMob.getAgressor().getCoordinateYonMap()
                     );
@@ -282,6 +283,9 @@ public enum PlayerMobState implements State<PlayerMob> {
                     Spell.castSpell(spellTmp, playerMob, playerMob.getAi().getPlayerMobCells().get(0).getPlayerMob());
                 }
             }
+
+            playerMob.getAi().getPlayerMobCells().get(0).getPlayerMob().setAgressor(playerMob);
+
             playerMob.getStateMachine().changeState(WAIT);
         }
     },
@@ -359,18 +363,22 @@ public enum PlayerMobState implements State<PlayerMob> {
                     playerMob.getStateMachine().changeState(WAIT);
 
                     // Sprawdzenie czy można rzucić czar ulepszajacy atak
-                } else if (playerMob.getAi().findAvailableFreeMobs(playerMob.getFieldOfPlayerMob()).size() > 0 &&
-                        playerMob.getAi().findAvailableFreeMobs(playerMob.getFieldOfPlayerMob()).get(0).getDistance() < 2 &&
-                        playerMob.getPlayerMobClass().equals(PlayerMobClasses.Knight) &&
-                        playerMob.getActualMana() > 0) {
+                } else if (
+                        playerMob.getActualMana() > 0 &&
+                                playerMob.getPlayerMobClass().equals(PlayerMobClasses.Knight) &&
+                                playerMob.getAi().findAvailableFreeMobs(playerMob.getFieldOfPlayerMob()).size() > 0 &&
+                                playerMob.getAi().findAvailableFreeMobs(playerMob.getFieldOfPlayerMob()).get(0).getDistance() < 2
+                        ) {
                     Gdx.app.log("AI Status", "5. CAST ATTACK UPGRADE");
                     playerMob.getStateMachine().changeState(CAST_ATTACK_UPGRADE);
 
                     // Sprawdzenie czy można rzucić czar kula ognia.
-                } else if (playerMob.getAi().findAvailableFreeMobs(playerMob.getFieldOfPlayerMob()).size() > 0 &&
-                        playerMob.getAi().findAvailableFreeMobs(playerMob.getFieldOfPlayerMob()).get(0).getDistance() < 2 &&
-                        playerMob.getPlayerMobClass().equals(PlayerMobClasses.Wizard) &&
-                        playerMob.getActualMana() > 0) {
+                } else if (
+                        playerMob.getActualMana() > 0 &&
+                                playerMob.getPlayerMobClass().equals(PlayerMobClasses.Wizard) &&
+                                playerMob.getAi().findAvailableFreeMobs(playerMob.getFieldOfPlayerMob()).size() > 0 &&
+                                playerMob.getAi().findAvailableFreeMobs(playerMob.getFieldOfPlayerMob()).get(0).getDistance() < 2
+                        ) {
                     Gdx.app.log("AI Status", "5. CAST FIREBALL ON FREEMOB");
                     playerMob.getStateMachine().changeState(CAST_FIREBALL_ON_FREEMOB);
 
@@ -391,10 +399,12 @@ public enum PlayerMobState implements State<PlayerMob> {
                     Gdx.app.log("AI Status", "6. MOVE TO FREE MOB");
                     playerMob.getStateMachine().changeState(MOVE_TO_FREE_MOB);
 
-                } else if (playerMob.getPlayerMobClass().equals(PlayerMobClasses.Wizard) &&
+                } else if (
+                        playerMob.getPlayerMobClass().equals(PlayerMobClasses.Wizard) &&
+                                playerMob.getActualMana() > 0 &&
                         playerMob.getAi().findAvailablePlayerMobs(playerMob.getFieldOfPlayerMob(), PlayerMobTypes.ENEMY).size() > 0 &&
-                        playerMob.getAi().findAvailablePlayerMobs(playerMob.getFieldOfPlayerMob(), PlayerMobTypes.ENEMY).get(0).getDistance() < 2 &&
-                        playerMob.getActualMana() > 0) {
+                                playerMob.getAi().findAvailablePlayerMobs(playerMob.getFieldOfPlayerMob(), PlayerMobTypes.ENEMY).get(0).getDistance() < 2
+                        ) {
                     Gdx.app.log("AI Status", "7. CAST FIREBALL ON PLAYER MOB");
                     playerMob.getStateMachine().changeState(CAST_FIREBALL_ON_PLAYERMOB);
 

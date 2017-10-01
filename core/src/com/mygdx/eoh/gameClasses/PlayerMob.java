@@ -123,16 +123,18 @@ public class PlayerMob extends DefaultMob {
         // Sprawdzenie czy dla graczy jest aktywna sztuczna inteligencja, ustawienie poziomu opóźnienia w
         // wykonywaniu czynności wg poziomu trudności. Dla durgiego gracza dodanie dodatkowego opóźnienia
         // w celu wyeliminowania możliwości jednoczesnego wchodzenia na to samo pole przez różnych bohaterów.
-        if (playerOwner.getInedxOfPlayerInArrayOfPlayer() == 0 && GameStatus.getInstance().isPlayerOneAI()) {
-            ai = new AI();
-            ai.setDifficultyTime(GameStatus.getInstance().getPlayerOneDifficultyTime());
-        } else if (playerOwner.getInedxOfPlayerInArrayOfPlayer() == 1 && GameStatus.getInstance().isPlayerTwoAI()) {
-            ai = new AI();
-            ai.setDifficultyTime(GameStatus.getInstance().getPlayerTwoDifficultyTime() + 0.01f);
+        if (!GameStatus.getInstance().isNetGame()) {
+            if (playerOwner.getInedxOfPlayerInArrayOfPlayer() == 0 && GameStatus.getInstance().isPlayerOneAI()) {
+                ai = new AI();
+                ai.setDifficultyTime(GameStatus.getInstance().getPlayerOneDifficultyTime());
+            } else if (playerOwner.getInedxOfPlayerInArrayOfPlayer() == 1 && GameStatus.getInstance().isPlayerTwoAI()) {
+                ai = new AI();
+                ai.setDifficultyTime(GameStatus.getInstance().getPlayerTwoDifficultyTime() + 0.01f);
+            }
+            stateMachine = new DefaultStateMachine<PlayerMob, PlayerMobState>(this, PlayerMobState.WAIT);
         }
 
         visibleFog = new ArrayList<Fog>();
-        stateMachine = new DefaultStateMachine<PlayerMob, PlayerMobState>(this, PlayerMobState.WAIT);
     }
 
     /**

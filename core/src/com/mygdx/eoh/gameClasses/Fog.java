@@ -48,8 +48,13 @@ public class Fog extends Image {
             fog.getFieldOwner().getPlayerMob().getHpBar().setVisible(false);
             fog.getFieldOwner().getPlayerMob().getManaBar().setVisible(false);
         }
-
-
+        if (fog.getFieldOwner().getPlayerMob() != null && GameStatus.getInstance().isNetGame()) {
+            fog.getFieldOwner().getPlayerMob().setVisible(true);
+            fog.getFieldOwner().getPlayerMob().getPlayerColorImage().setVisible(true);
+            fog.getFieldOwner().getPlayerMob().getApBar().setVisible(true);
+            fog.getFieldOwner().getPlayerMob().getHpBar().setVisible(true);
+            fog.getFieldOwner().getPlayerMob().getManaBar().setVisible(true);
+        }
     }
 
     /**
@@ -69,6 +74,13 @@ public class Fog extends Image {
             fog.getFieldOwner().getItem().setVisible(true);
         }
         if (fog.getFieldOwner().getPlayerMob() != null && fog.getFieldOwner().getPlayerMob().getAi() != null) {
+            fog.getFieldOwner().getPlayerMob().setVisible(true);
+            fog.getFieldOwner().getPlayerMob().getPlayerColorImage().setVisible(true);
+            fog.getFieldOwner().getPlayerMob().getApBar().setVisible(true);
+            fog.getFieldOwner().getPlayerMob().getHpBar().setVisible(true);
+            fog.getFieldOwner().getPlayerMob().getManaBar().setVisible(true);
+        }
+        if (fog.getFieldOwner().getPlayerMob() != null && GameStatus.getInstance().isNetGame()) {
             fog.getFieldOwner().getPlayerMob().setVisible(true);
             fog.getFieldOwner().getPlayerMob().getPlayerColorImage().setVisible(true);
             fog.getFieldOwner().getPlayerMob().getApBar().setVisible(true);

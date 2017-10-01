@@ -45,6 +45,8 @@ class ScreenSingleGame extends DefaultGameScreen {
     ScreenSingleGame() {
         super();
 
+        GameStatus.getInstance().setNetGame(false);
+
         createTables();
 
         super.createMapStage();

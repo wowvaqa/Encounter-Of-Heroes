@@ -54,6 +54,9 @@ public class ScreenNetGame extends DefaultGameScreen {
 
     public ScreenNetGame(GameStatus gs) {
         super(gs);
+
+        GameStatus.getInstance().setNetGame(true);
+
         createTables();
 
         super.createMapStage();
@@ -94,6 +97,8 @@ public class ScreenNetGame extends DefaultGameScreen {
         GameStatus.getInstance().getUpperBarTable().getCells().get(0).setActor(
                 GameStatus.getInstance().getCurrentPlayerIcon()
         );
+
+        GameStatus.getInstance().setFields(new ArrayList<Field>());
 
         for (int i = 0; i < mapfile.mapColumns; i++) {
             for (int j = 0; j < mapfile.mapRows; j++) {

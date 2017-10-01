@@ -20,6 +20,8 @@ public class GameStatus {
     private static GameStatus instance = new GameStatus();
     // All Fields
     ArrayList<Field> fields;
+    // Jeżeli TRUE gra jest sieciowa, jeżeli FALSE - gra single
+    private boolean netGame = false;
     private SnapshotArray<MoveButton> moveButtons;
     private SnapshotArray<AttackButton> attackButtons;
     private SnapshotArray<CastButton> castButtons;
@@ -303,5 +305,13 @@ public class GameStatus {
 
     public void setFields(ArrayList<Field> fields) {
         this.fields = fields;
+    }
+
+    public boolean isNetGame() {
+        return netGame;
+    }
+
+    public void setNetGame(boolean netGame) {
+        this.netGame = netGame;
     }
 }
