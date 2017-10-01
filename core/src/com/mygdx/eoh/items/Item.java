@@ -55,6 +55,38 @@ public class Item extends Image {
 //        this.createButton(this);
 //    }
 
+    /**
+     * Wypicie mikstury przywracania punktów HP
+     *
+     * @param item      Item
+     * @param playerMob bohater któwy wypija mikstuę
+     */
+    public static void drinkHealthPotion(Item item, PlayerMob playerMob) {
+        for (InstantEffect instantEffect : item.instantEffects) {
+            instantEffect.setPosition(item.getX(), item.getY());
+            instantEffect.setPosition(playerMob.getX(), playerMob.getY());
+            instantEffect.setStateTime(0);
+            instantEffect.action(playerMob, playerMob);
+            GameStatus.getInstance().getMapStage().addActor(instantEffect);
+        }
+        item.remove();
+        playerMob.getItems().removeValue(item, true);
+    }
+
+    /**
+     * Srpwadza czy w ekwipunku z itemkami występuje mikstura leczenia.
+     *
+     * @param items Itemki
+     * @return TURE jeżeli jest, FALSE jeżeli nie ma.
+     */
+    public static boolean checkHealthPotion(SnapshotArray<Item> items) {
+        for (Item item : items) {
+            if (item.getItemType().equals(AvailableItems.HealthPotion))
+                return true;
+        }
+        return false;
+    }
+
     public void itemAction(PlayerMob playerMob) {
         if (this.itemType.equals(AvailableItems.Gold)) {
             playerMob.getFieldOfPlayerMob().getItem().remove();
@@ -132,18 +164,7 @@ public class Item extends Image {
                     @Override
                     public void clicked(InputEvent event, float x, float y) {
                         super.clicked(event, x, y);
-                        for (InstantEffect instantEffect: item.instantEffects){
-                            instantEffect.setPosition(getX(), getY());
-                            instantEffect.setPosition(
-                                    GameStatus.getInstance().getSelectedPlayerMob().getX(),
-                                    GameStatus.getInstance().getSelectedPlayerMob().getY()
-                            );
-                            instantEffect.setStateTime(0);
-                            instantEffect.action(GameStatus.getInstance().getSelectedPlayerMob(), GameStatus.getInstance().getSelectedPlayerMob());
-                            GameStatus.getInstance().getMapStage().addActor(instantEffect);
-                        }
-                        item.remove();
-                        GameStatus.getInstance().getSelectedPlayerMob().getItems().removeValue(item, true);
+                        Item.drinkHealthPotion(item, GameStatus.getInstance().getSelectedPlayerMob());
                     }
                 });
                 break;
@@ -208,6 +229,10 @@ public class Item extends Image {
 
     public void setCoordinateXonMap(int coordinateXonMap) {
         this.coordinateXonMap = coordinateXonMap;
+    }
+
+    public AvailableItems getItemType() {
+        return itemType;
     }
 
     public int getCoordinateYonMap() {

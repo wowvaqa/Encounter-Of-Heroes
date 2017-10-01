@@ -3,10 +3,15 @@ package com.mygdx.eoh.ai;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.ai.fsm.State;
 import com.badlogic.gdx.ai.msg.Telegram;
+import com.mygdx.eoh.enums.PlayerMobClasses;
+import com.mygdx.eoh.enums.Spells;
 import com.mygdx.eoh.gameClasses.FightManager;
 import com.mygdx.eoh.gameClasses.GameStatus;
 import com.mygdx.eoh.gameClasses.MoveManager;
 import com.mygdx.eoh.gameClasses.PlayerMob;
+import com.mygdx.eoh.items.AvailableItems;
+import com.mygdx.eoh.items.Item;
+import com.mygdx.eoh.magic.Spell;
 
 import java.util.ArrayList;
 
@@ -217,6 +222,86 @@ public enum PlayerMobState implements State<PlayerMob> {
         }
     },
 
+    DRINK_HEALTH_POTION() {
+        @Override
+        public void update(PlayerMob playerMob) {
+            if (playerMob.getItems().size > 0) {
+                for (Item item : playerMob.getItems()) {
+                    if (item.getItemType().equals(AvailableItems.HealthPotion)) {
+                        Item.drinkHealthPotion(item, playerMob);
+                    }
+                }
+            }
+            playerMob.getStateMachine().changeState(WAIT);
+        }
+    },
+
+    CAST_ATTACK_UPGRADE() {
+        @Override
+        public void update(PlayerMob playerMob) {
+            playerMob.setBusy(true);
+            Spell spellTmp;
+
+            for (Spell spell : playerMob.getSpells()) {
+                if (spell.getSpellType().equals(Spells.AttackUpgrade)) {
+                    spellTmp = spell;
+                    Spell.castSpell(spellTmp, playerMob, null);
+                }
+            }
+            playerMob.getStateMachine().changeState(WAIT);
+        }
+    },
+
+    CAST_FIREBALL_ON_FREEMOB() {
+        @Override
+        public void update(PlayerMob playerMob) {
+            playerMob.setBusy(true);
+            Spell spellTmp;
+
+            for (Spell spell : playerMob.getSpells()) {
+                if (spell.getSpellType().equals(Spells.Fireball)) {
+                    spellTmp = spell;
+
+                    Spell.castSpell(spellTmp, playerMob, playerMob.getAi().getFreeMobCells().get(0).getFreeMob());
+                }
+            }
+            playerMob.getStateMachine().changeState(WAIT);
+        }
+    },
+
+    CAST_FIREBALL_ON_PLAYERMOB() {
+        @Override
+        public void update(PlayerMob playerMob) {
+            playerMob.setBusy(true);
+            Spell spellTmp;
+
+            for (Spell spell : playerMob.getSpells()) {
+                if (spell.getSpellType().equals(Spells.Fireball)) {
+                    spellTmp = spell;
+
+                    Spell.castSpell(spellTmp, playerMob, playerMob.getAi().getPlayerMobCells().get(0).getPlayerMob());
+                }
+            }
+            playerMob.getStateMachine().changeState(WAIT);
+        }
+    },
+
+    CAST_CURE() {
+        @Override
+        public void update(PlayerMob playerMob) {
+            playerMob.setBusy(true);
+            Spell spellTmp;
+
+            for (Spell spell : playerMob.getSpells()) {
+                if (spell.getSpellType().equals(Spells.Cure)) {
+                    spellTmp = spell;
+                    Spell.castSpell(spellTmp, playerMob, null);
+                }
+            }
+            playerMob.getStateMachine().changeState(WAIT);
+        }
+    },
+
     WAIT() {
         @Override
         public void update(PlayerMob playerMob) {
@@ -225,10 +310,26 @@ public enum PlayerMobState implements State<PlayerMob> {
             // zadany w pozimie trudności gry.
             if (!playerMob.isBusy() && playerMob.getAi().checkDificultyTimeCounter(playerMob)) {
 
-                if (playerMob.getAgressor() != null) {
+                if (playerMob.getActualhp() < playerMob.getMaxHp() / 2 &&
+                        Item.checkHealthPotion(playerMob.getItems())) {
+                    Gdx.app.log("AI Status", "DRINK HEALTH POTION");
+                    playerMob.getStateMachine().changeState(DRINK_HEALTH_POTION);
+
+                } else if (playerMob.getActualhp() < playerMob.getMaxHp() / 2 &&
+                        playerMob.getPlayerMobClass().equals(PlayerMobClasses.Wizard) &&
+                        playerMob.getActualMana() > 0) {
+                    Gdx.app.log("AI Status", "5. CAST CURE");
+                    playerMob.getStateMachine().changeState(CAST_CURE);
+
+                    // Sprawdzenie czy można rzucić czar kula ognia.
+
+
+                    // Sprawdzenie czy bohater nie został zaatakowany przez wrogiego bohatera.
+                } else if (playerMob.getAgressor() != null) {
                     Gdx.app.log("AI Status", "1. DEFEND YOURSELF");
                     playerMob.getStateMachine().changeState(DEFEND_YOURSELF);
 
+                    // Sprawdzenie czy bohater może zdobyć item.
                 } else if (playerMob.getAi().findAvailableItems(playerMob.getFieldOfPlayerMob()).size() > 0 &&
                         playerMob.getAi().getItemCells().get(0).getDistance() < 3) {
                     Gdx.app.log("AI Status", " MOVE TO ITEM");
@@ -248,25 +349,51 @@ public enum PlayerMobState implements State<PlayerMob> {
                     Gdx.app.log("AI Status", "3. MOVE TO CASTLE");
                     playerMob.getStateMachine().changeState(MOVE_TO_CASTLE);
 
+                    // Sprawdzenie czy można wypić miksturę lecznia
+                } else if (playerMob.getActualhp() < playerMob.getMaxHp() / 2 &&
+                        Item.checkHealthPotion(playerMob.getItems())) {
+                    playerMob.getStateMachine().changeState(DRINK_HEALTH_POTION);
+                    playerMob.getStateMachine().changeState(WAIT);
+
                     // Sprawdzenie czy poziomu zdrowia oraz czy bohater znajduje się na polu z zamkeim.
                 } else if (playerMob.getActualhp() < playerMob.getMaxHp() / 2 &&
                         playerMob.getFieldOfPlayerMob().getCastleMob() != null) {
                     Gdx.app.log("AI Status", "4. WAIT WHEN HP ");
                     playerMob.getStateMachine().changeState(WAIT);
 
+                    // Sprawdzenie czy można rzucić czar ulepszajacy atak
+                } else if (playerMob.getAi().findAvailableFreeMobs(playerMob.getFieldOfPlayerMob()).size() > 0 &&
+                        playerMob.getAi().findAvailableFreeMobs(playerMob.getFieldOfPlayerMob()).get(0).getDistance() < 2 &&
+                        playerMob.getPlayerMobClass().equals(PlayerMobClasses.Knight) &&
+                        playerMob.getActualMana() > 0) {
+                    Gdx.app.log("AI Status", "5. CAST ATTACK UPGRADE");
+                    playerMob.getStateMachine().changeState(CAST_ATTACK_UPGRADE);
+
+                    // Sprawdzenie czy można rzucić czar kula ognia.
+                } else if (playerMob.getAi().findAvailableFreeMobs(playerMob.getFieldOfPlayerMob()).size() > 0 &&
+                        playerMob.getAi().findAvailableFreeMobs(playerMob.getFieldOfPlayerMob()).get(0).getDistance() < 2 &&
+                        playerMob.getPlayerMobClass().equals(PlayerMobClasses.Wizard) &&
+                        playerMob.getActualMana() > 0) {
+                    Gdx.app.log("AI Status", "5. CAST FIREBALL ON FREEMOB");
+                    playerMob.getStateMachine().changeState(CAST_FIREBALL_ON_FREEMOB);
+
                     // Sprawdza czy moba można zaatakować.
                 } else if (playerMob.getAi().findAvailableFreeMobs(playerMob.getFieldOfPlayerMob()).size() > 0 &&
-                        playerMob.getAi().findAvailableFreeMobs(playerMob.getFieldOfPlayerMob()).get(0).getDistance() < 2 /*&&
-                        playerMob.getAi().getFreeMobCells().get(0).getFreeMob().getLevel() <= playerMob.getLevel()*/
-                        ) {
+                        playerMob.getAi().findAvailableFreeMobs(playerMob.getFieldOfPlayerMob()).get(0).getDistance() < 2) {
                     Gdx.app.log("AI Status", "5. ATTACK FREE MOB");
                     playerMob.getStateMachine().changeState(ATTACK_FREE_MOB);
 
                     // Sprawdzenie czy są dostępne wolne moby do zaatakowania.
-                } else if (playerMob.getAi().findAvailableFreeMobs(playerMob.getFieldOfPlayerMob()).size() > 0 /*&&
-                        playerMob.getAi().getFreeMobCells().get(0).getFreeMob().getLevel() <= playerMob.getLevel()*/) {
+                } else if (playerMob.getAi().findAvailableFreeMobs(playerMob.getFieldOfPlayerMob()).size() > 0) {
                     Gdx.app.log("AI Status", "6. MOVE TO FREE MOB");
                     playerMob.getStateMachine().changeState(MOVE_TO_FREE_MOB);
+
+                } else if (playerMob.getAi().findAvailablePlayerMobs(playerMob.getFieldOfPlayerMob(), PlayerMobTypes.ENEMY).size() > 0 &&
+                        playerMob.getAi().findAvailablePlayerMobs(playerMob.getFieldOfPlayerMob(), PlayerMobTypes.ENEMY).get(0).getDistance() < 2 &&
+                        playerMob.getPlayerMobClass().equals(PlayerMobClasses.Wizard) &&
+                        playerMob.getActualMana() > 0) {
+                    Gdx.app.log("AI Status", "7. CAST FIREBALL ON PLAYER MOB");
+                    playerMob.getStateMachine().changeState(CAST_FIREBALL_ON_PLAYERMOB);
 
                     // Sprawdzenie czy lista wrogich bohaterów nie jest pusta oraz sprawdzenie czy pole bohatera sąsiaduje z polem wrogiego bohatera
                 } else if (playerMob.getAi().findAvailablePlayerMobs(playerMob.getFieldOfPlayerMob(), PlayerMobTypes.ENEMY).size() > 0 &&

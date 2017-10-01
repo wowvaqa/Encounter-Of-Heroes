@@ -140,7 +140,5 @@ public class BuyPlayerMob {
 
         GameStatus.getInstance().getMapStage().addActor(playerMob.getPlayerColorImage());
         GameStatus.getInstance().getMapStage().addActor(playerMob);
-
-        //MoveManager.unselectCastles(GameStatus.getInstance().getMap());
     }
 }
