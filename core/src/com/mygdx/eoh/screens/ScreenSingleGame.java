@@ -7,7 +7,6 @@ import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Dialog;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.mygdx.eoh.Equipment.Treasure;
-import com.mygdx.eoh.Options.OptionsInGame;
 import com.mygdx.eoh.assets.AssetsGameScreen;
 import com.mygdx.eoh.creators.BuldingCreator;
 import com.mygdx.eoh.creators.PlayerMobCreator;
@@ -53,7 +52,7 @@ class ScreenSingleGame extends DefaultGameScreen {
         GameStatus.getInstance().setMap(createMap(loadMap(getMainStage())));
         super.fillStage(GameStatus.getInstance().getMap());
 
-        OptionsInGame.getInstance().setFog(true);
+        //OptionsInGame.getInstance().setFog(true);
 
         //ai = new AI(GameStatus.getInstance().getPlayers().get(0));
 

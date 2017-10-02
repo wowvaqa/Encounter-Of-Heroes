@@ -121,10 +121,10 @@ public abstract class DefaultGameScreen extends DefaultScreen {
         gameTable.add(interfaceManager.imageButtonZoomOut).size(50, 50).pad(5);
         gameTable.add(interfaceManager.imageButtonZoomIn).size(50, 50).pad(5);
         gameTable.row();
-        if (NetStatus.getInstance().getClient() == null) {
-            gameTable.add(interfaceManager.imageButtonNextTurn).size(150, 150).pad(5).colspan(2);
-            gameTable.row();
-        }
+//        if (NetStatus.getInstance().getClient() == null) {
+//            gameTable.add(interfaceManager.imageButtonNextTurn).size(150, 150).pad(5).colspan(2);
+//            gameTable.row();
+//        }
         gameTable.add(interfaceManager.imageButtonExit).size(50, 50).pad(5);
         gameTable.add(interfaceManager.imageButtonSettings).size(50, 50).pad(5);
 

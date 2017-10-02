@@ -26,9 +26,6 @@ public class ScreenNewSingleGame extends DefaultScreen {
     ScreenNewSingleGame(){
         interfaceManager = new Interface();
         createTables();
-
-        GameStatus.getInstance().setPlayerOneAI(true);
-        GameStatus.getInstance().setPlayerTwoAI(true);
     }
 
     private void createTables(){
@@ -116,10 +113,10 @@ public class ScreenNewSingleGame extends DefaultScreen {
             tbPlayerOneNextClass = new TextButton("NEXT", AssetsMainMenu.getInstance().getManager().get("styles/skin.json", Skin.class));
             tbPlayerTwoNextClass = new TextButton("NEXT", AssetsMainMenu.getInstance().getManager().get("styles/skin.json", Skin.class));
 
-            tbPlayerOneCPU = new TextButton("Player One AI ON", AssetsMainMenu.getInstance().getManager().get("styles/skin.json", Skin.class));
+            tbPlayerOneCPU = new TextButton("Player One AI OFF", AssetsMainMenu.getInstance().getManager().get("styles/skin.json", Skin.class));
             tbPlayerTwoCPU = new TextButton("Player Two AI ON", AssetsMainMenu.getInstance().getManager().get("styles/skin.json", Skin.class));
 
-            tbFog = new TextButton("Fog OFF", AssetsMainMenu.getInstance().getManager().get("styles/skin.json", Skin.class));
+            tbFog = new TextButton("Fog ON", AssetsMainMenu.getInstance().getManager().get("styles/skin.json", Skin.class));
 
             tbPlayerOneDificulty = new TextButton("Hard", AssetsMainMenu.getInstance().getManager().get("styles/skin.json", Skin.class));
             tbPlayerTwoDificulty = new TextButton("Hard", AssetsMainMenu.getInstance().getManager().get("styles/skin.json", Skin.class));

@@ -48,7 +48,7 @@ public class GameStatus {
     private PlayerMobClasses singleGamePlayerOneMobClass = PlayerMobClasses.Knight;
     private PlayerMobClasses singleGamePlayerTwoMobClass = PlayerMobClasses.Knight;
     // Określa czy dany gracz jest sterowany przez AI
-    private boolean playerOneAI = true;
+    private boolean playerOneAI = false;
     private boolean playerTwoAI = true;
     // Określa opóźnienie w wykonaniu czynności przez AI
     private float playerOneDifficultyTime = 0.5f;

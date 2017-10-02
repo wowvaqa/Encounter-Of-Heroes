@@ -19,7 +19,8 @@ import com.mygdx.eoh.gameClasses.GameStatus;
  * Represents Main Menu Screen
  * Created by v on 2016-09-19.
  */
-public class ScreenMainMenu extends DefaultScreen {
+public class
+ScreenMainMenu extends DefaultScreen {
 
     public ScreenMainMenu() {
 
@@ -29,7 +30,7 @@ public class ScreenMainMenu extends DefaultScreen {
 
         super.getMainTable().add(new Image(AssetsMainMenu.getInstance().getManager().get("mainMenu/interface/titleLogo.png", Texture.class))).size(300, 144);
         super.getMainTable().row();
-        super.getMainTable().add(new Label("version 0.0007", AssetsMainMenu.getInstance().getManager().get("styles/skin.json", Skin.class), "black16")).padBottom(5);
+        super.getMainTable().add(new Label("version 0.008", AssetsMainMenu.getInstance().getManager().get("styles/skin.json", Skin.class), "black16")).padBottom(5);
         super.getMainTable().row();
         super.getMainTable().add(interfaceManager.imageButtonSinglePlayer).size(150, 57).pad(2);
         super.getMainTable().row();

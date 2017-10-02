@@ -177,6 +177,8 @@ public class GameInterface {
                 AssetsGameInterface.getInstance().dispose();
                 AssetsGameScreen.getInstance().dispose();
                 if (NetStatus.getInstance().getClient() != null) {
+//                if (GameStatus.getInstance().isNetGame()) {
+                    GameStatus.getInstance().setNetGame(false);
                     ScreenLoading.destinationScreen = Screens.ScreenNewNetGame;
 //                    ScreenManager.getInstance().setScreen(Screens.ScreenNewNetGame);
                     ScreenManager.getInstance().setScreen(Screens.ScreenLoading);

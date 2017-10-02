@@ -6,5 +6,5 @@ package com.mygdx.eoh.gameClasses;
  */
 public class Options {
     public static int tileSize = 300;
-    public static boolean fog = false;
+    public static boolean fog = true;
 }

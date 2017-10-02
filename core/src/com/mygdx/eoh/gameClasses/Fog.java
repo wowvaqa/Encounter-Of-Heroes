@@ -1,9 +1,9 @@
 package com.mygdx.eoh.gameClasses;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.scenes.scene2d.Touchable;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
-import com.mygdx.eoh.Options.OptionsInGame;
 
 /**
  * Fog class to cover fields.
@@ -30,6 +30,7 @@ public class Fog extends Image {
      * @param fog
      */
     public static void turnOffVisibility(Fog fog) {
+        Gdx.app.log("TURN OFF VISIBILITY Dłłłłłłłłłłłłłłłługi warunek", "działa................................");
         if (fog.getFieldOwner().getTreasure() != null) {
             fog.getFieldOwner().getTreasure().setVisible(false);
         }
@@ -48,12 +49,17 @@ public class Fog extends Image {
             fog.getFieldOwner().getPlayerMob().getHpBar().setVisible(false);
             fog.getFieldOwner().getPlayerMob().getManaBar().setVisible(false);
         }
-        if (fog.getFieldOwner().getPlayerMob() != null && GameStatus.getInstance().isNetGame()) {
-            fog.getFieldOwner().getPlayerMob().setVisible(true);
-            fog.getFieldOwner().getPlayerMob().getPlayerColorImage().setVisible(true);
-            fog.getFieldOwner().getPlayerMob().getApBar().setVisible(true);
-            fog.getFieldOwner().getPlayerMob().getHpBar().setVisible(true);
-            fog.getFieldOwner().getPlayerMob().getManaBar().setVisible(true);
+
+        if (GameStatus.getInstance().isNetGame() &&
+                fog.getFieldOwner().getPlayerMob() != null &&
+                fog.getFieldOwner().getPlayerMob().getPlayerOwner() !=
+                        GameStatus.getInstance().getCurrentPlayerTurn()
+                ) {
+            fog.getFieldOwner().getPlayerMob().setVisible(false);
+            fog.getFieldOwner().getPlayerMob().getPlayerColorImage().setVisible(false);
+            fog.getFieldOwner().getPlayerMob().getApBar().setVisible(false);
+            fog.getFieldOwner().getPlayerMob().getHpBar().setVisible(false);
+            fog.getFieldOwner().getPlayerMob().getManaBar().setVisible(false);
         }
     }
 
@@ -62,6 +68,7 @@ public class Fog extends Image {
      * @param fog
      */
     public static void turnOnVisibility(Fog fog) {
+        Gdx.app.log("TURN ON VISIBILITY Dłłłłłłłłłłłłłłłługi warunek", "działa................................");
         if (fog.getFieldOwner().getTreasure() != null) {
             fog.getFieldOwner().getTreasure().setVisible(true);
         }
@@ -74,6 +81,17 @@ public class Fog extends Image {
             fog.getFieldOwner().getItem().setVisible(true);
         }
         if (fog.getFieldOwner().getPlayerMob() != null && fog.getFieldOwner().getPlayerMob().getAi() != null) {
+            fog.getFieldOwner().getPlayerMob().setVisible(true);
+            fog.getFieldOwner().getPlayerMob().getPlayerColorImage().setVisible(true);
+            fog.getFieldOwner().getPlayerMob().getApBar().setVisible(true);
+            fog.getFieldOwner().getPlayerMob().getHpBar().setVisible(true);
+            fog.getFieldOwner().getPlayerMob().getManaBar().setVisible(true);
+        }
+        if (GameStatus.getInstance().isNetGame() &&
+                fog.getFieldOwner().getPlayerMob() != null &&
+                fog.getFieldOwner().getPlayerMob().getPlayerOwner() !=
+                        GameStatus.getInstance().getCurrentPlayerTurn()
+                ) {
             fog.getFieldOwner().getPlayerMob().setVisible(true);
             fog.getFieldOwner().getPlayerMob().getPlayerColorImage().setVisible(true);
             fog.getFieldOwner().getPlayerMob().getApBar().setVisible(true);
@@ -103,11 +121,11 @@ public class Fog extends Image {
     @Override
     public void act(float delta) {
         super.act(delta);
-        if (OptionsInGame.getInstance().isFog()) {
-            if (this.visibility) {
+        if (Options.fog) {
+            if (this.visibility && this.isVisible()) {
                 this.setVisible(false);
                 Fog.turnOnVisibility(this);
-            } else {
+            } else if (!this.visibility && !this.isVisible()) {
                 this.setVisible(true);
                 Fog.turnOffVisibility(this);
             }

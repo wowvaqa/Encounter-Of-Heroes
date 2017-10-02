@@ -13,6 +13,7 @@ import com.mygdx.eoh.assets.AssetsGameScreen;
 import com.mygdx.eoh.gameClasses.Fog;
 import com.mygdx.eoh.gameClasses.GameStatus;
 import com.mygdx.eoh.gameClasses.Grid;
+import com.mygdx.eoh.gameClasses.Options;
 import com.mygdx.eoh.gameClasses.Positioning;
 
 import java.util.ArrayList;
@@ -28,12 +29,10 @@ public class OptionsInGame {
 
     private Window singleGameOptionsWindow;
     private boolean grid = true;
-    private boolean fog = false;
     private boolean showEquipInfo = false;
     private ArrayList<Grid> gridArrayList;
 
     private OptionsInGame() {
-        //createSingleGameOptionsWindow();
     }
 
     public static OptionsInGame getInstance() {
@@ -83,7 +82,7 @@ public class OptionsInGame {
             public void clicked(InputEvent event, float x, float y) {
                 super.clicked(event, x, y);
                 labelFogInfo.setText("ON");
-                fog = true;
+                Options.fog = true;
             }
         });
 
@@ -93,7 +92,7 @@ public class OptionsInGame {
             public void clicked(InputEvent event, float x, float y) {
                 super.clicked(event, x, y);
                 labelFogInfo.setText("OFF");
-                fog = false;
+                Options.fog = false;
             }
         });
 
@@ -131,7 +130,7 @@ public class OptionsInGame {
                     //DefaultGameScreen.sortZindex();
                 }
 
-                if (!fog) {
+                if (!Options.fog) {
                     Fog.turnOffFog();
                 }
                 singleGameOptionsWindow.remove();
@@ -208,13 +207,5 @@ public class OptionsInGame {
 
     public void setShowEquipInfo(boolean showEquipInfo) {
         this.showEquipInfo = showEquipInfo;
-    }
-
-    public boolean isFog() {
-        return fog;
-    }
-
-    public void setFog(boolean fog) {
-        this.fog = fog;
     }
 }

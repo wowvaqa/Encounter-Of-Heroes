@@ -442,12 +442,15 @@ public class PlayerMob extends DefaultMob {
 //            }
 //        }
 //    }
-
     @Override
     public void act(float delta) {
         super.act(delta);
 
-        if (this.getAi() == null) {
+        if (!GameStatus.getInstance().isNetGame()) {
+            if (this.getAi() == null) {
+                showFields();
+            }
+        } else if (playerOwner == GameStatus.getInstance().getCurrentPlayerTurn()) {
             showFields();
         }
 
@@ -542,6 +545,7 @@ public class PlayerMob extends DefaultMob {
 
     /**
      * Shows green label for positive effects.
+     *
      * @param damage
      * @param locationXonMap
      * @param locationYonMap
@@ -645,7 +649,7 @@ public class PlayerMob extends DefaultMob {
     /**
      * Referesh informaion about mana, hp, ap
      */
-    private void refreshHeroInformation(){
+    private void refreshHeroInformation() {
         APBar.recalculateApBarFrameDuration(this);
         ManaBar.recalculateManaBarFrameDuration(this);
         getManaLabel().setText("" + this.getActualMana() + "/" + (getMaxMana() + ModifierGetter.getWisdomModifier(this)));
@@ -856,6 +860,11 @@ public class PlayerMob extends DefaultMob {
 
     public void setAgressor(PlayerMob agressor) {
         this.agressor = agressor;
+    }
+
+    @Override
+    public void setVisible(boolean visible) {
+        super.setVisible(visible);
     }
 
     @Override
