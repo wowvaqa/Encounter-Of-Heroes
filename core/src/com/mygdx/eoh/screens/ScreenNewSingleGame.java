@@ -1,18 +1,30 @@
 package com.mygdx.eoh.screens;
 
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
+import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.badlogic.gdx.scenes.scene2d.ui.Dialog;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
+import com.badlogic.gdx.scenes.scene2d.ui.List;
+import com.badlogic.gdx.scenes.scene2d.ui.ScrollPane;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
+import com.badlogic.gdx.scenes.scene2d.ui.Window;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.utils.Align;
 import com.mygdx.eoh.assets.AssetsMainMenu;
+import com.mygdx.eoh.assets.AssetsMapEditor;
+import com.mygdx.eoh.defaultClasses.DefaultGestureDetector;
+import com.mygdx.eoh.defaultClasses.DefaultGestureListener;
 import com.mygdx.eoh.defaultClasses.DefaultScreen;
 import com.mygdx.eoh.enums.PlayerMobClasses;
 import com.mygdx.eoh.enums.Screens;
 import com.mygdx.eoh.gameClasses.GameStatus;
 import com.mygdx.eoh.gameClasses.Options;
+import com.mygdx.eoh.gameClasses.Positioning;
+import com.mygdx.eoh.mapEditor.MapEditor;
 
 /**
  * Screen for single player game start.
@@ -34,6 +46,10 @@ public class ScreenNewSingleGame extends DefaultScreen {
         Table bottomTable = new Table();
         Table playerOneTable = new Table();
         Table playerTwoTable = new Table();
+
+        upperTable.add(interfaceManager.tbMap).pad(3).padTop(20);
+        upperTable.row();
+        upperTable.add(interfaceManager.lblMap).pad(3);
 
         playerOneTable.add(interfaceManager.lblPlayerOneHero).pad(3);
         playerOneTable.row();
@@ -85,6 +101,7 @@ public class ScreenNewSingleGame extends DefaultScreen {
     private class Interface{
 
         TextButton tbPlay;
+        TextButton tbMap;
         TextButton tbPlayerOneNextClass;
         TextButton tbPlayerTwoNextClass;
         TextButton tbPlayerOneCPU;
@@ -94,6 +111,7 @@ public class ScreenNewSingleGame extends DefaultScreen {
         TextButton tbFog;
         TextButton tbExit;
 
+        Label lblMap;
         Label lblPlayerOneHero;
         Label lblPlyaerTwoHero;
         Label lblPlayerOneDificulty;
@@ -108,6 +126,10 @@ public class ScreenNewSingleGame extends DefaultScreen {
         }
 
         private void createButtons(){
+
+            tbMap = new TextButton("Map", AssetsMainMenu.getInstance().getManager().get("styles/skin.json", Skin.class));
+            lblMap = new Label("None", AssetsMainMenu.getInstance().getManager().get("styles/skin.json", Skin.class), "black32");
+
             tbPlay = new TextButton("PLAY", AssetsMainMenu.getInstance().getManager().get("styles/skin.json", Skin.class));
 
             tbPlayerOneNextClass = new TextButton("NEXT", AssetsMainMenu.getInstance().getManager().get("styles/skin.json", Skin.class));
@@ -134,6 +156,18 @@ public class ScreenNewSingleGame extends DefaultScreen {
         }
 
         private void addListeners(){
+
+            tbMap.addListener(new ClickListener(){
+                @Override
+                public void clicked(InputEvent event, float x, float y) {
+                    super.clicked(event, x, y);
+
+                    Window mapLoadWindow = interfaceManager.getLoadMapWindow();
+                    Positioning.setWindowToCenter(mapLoadWindow);
+
+                    getMainStage().addActor(mapLoadWindow);
+                }
+            });
 
             tbFog.addListener(new ClickListener() {
                 @Override
@@ -225,10 +259,10 @@ public class ScreenNewSingleGame extends DefaultScreen {
                 public void clicked(InputEvent event, float x, float y) {
                     super.clicked(event, x, y);
 
-                    if (GameStatus.getInstance().getPlayerOneDifficultyTime() == 0.5f) {
+                    if (GameStatus.getInstance().getPlayerOneDifficultyTime() < 0.6f) {
                         tbPlayerOneDificulty.setText("Easy");
                         GameStatus.getInstance().setPlayerOneDifficultyTime(1.0f);
-                    } else if (GameStatus.getInstance().getPlayerOneDifficultyTime() == 1.0f) {
+                    } else {
                         tbPlayerOneDificulty.setText("Hard");
                         GameStatus.getInstance().setPlayerOneDifficultyTime(0.5f);
                     }
@@ -240,10 +274,10 @@ public class ScreenNewSingleGame extends DefaultScreen {
                 public void clicked(InputEvent event, float x, float y) {
                     super.clicked(event, x, y);
 
-                    if (GameStatus.getInstance().getPlayerTwoDifficultyTime() == 0.5f) {
+                    if (GameStatus.getInstance().getPlayerTwoDifficultyTime() < 0.6f) {
                         tbPlayerTwoDificulty.setText("Easy");
                         GameStatus.getInstance().setPlayerTwoDifficultyTime(1.0f);
-                    } else if (GameStatus.getInstance().getPlayerTwoDifficultyTime() == 1.0f) {
+                    } else {
                         tbPlayerTwoDificulty.setText("Hard");
                         GameStatus.getInstance().setPlayerTwoDifficultyTime(0.5f);
                     }
@@ -259,6 +293,88 @@ public class ScreenNewSingleGame extends DefaultScreen {
                 }
             });
 
+        }
+
+        public Window getLoadMapWindow() {
+            final Skin skin = AssetsMainMenu.getInstance().getManager().get("styles/skin.json");
+            final Window window = new Window("WCZYTAJ MAPĘ", skin);
+            Table table = new Table();
+            table.setSize(300, 200);
+            window.setSize(600, 400);
+
+            final List<FileHandle> listOfMap = new List<FileHandle>(skin);
+            listOfMap.setSize(200, 100);
+            FileHandle[] files = Gdx.files.local("maps/").list();
+            for (FileHandle file : files)
+                if (file.extension().equals("map")) listOfMap.getItems().add(file);
+
+            TextButton tbOk = new TextButton("OK", skin);
+            TextButton tbCancel = new TextButton("Cancel", skin);
+
+            tbOk.addListener(new ClickListener() {
+                @Override
+                public void clicked(InputEvent event, float x, float y) {
+                    if (listOfMap.getSelected() != null) {
+
+                        Gdx.app.log("Zaznaczono", "" + listOfMap.getSelection().toString());
+
+//                        if (mapStage == null) {
+//                            mapStage = new Stage(mapStageViewport);
+//                        }
+
+//                        mapEditor = mapEditor.loadMap(listOfMap, mainStage, mapEditor, mapStageViewport);
+//                        mapStage = mapEditor.getMapStage();
+//                        mapEditor.drawingType = MapEditor.DrawingType.none;
+
+//                        if (mapEditor.isMapLoaded) {
+//
+//                            mapStage.clear();
+//
+//                            createFreameAroudMap();
+//
+//                            DefaultGestureListener myGL = new DefaultGestureListener(mapStage, mapEditor);
+//                            DefaultGestureDetector myGD = new DefaultGestureDetector(myGL);
+//                            getInputMultiplexer().clear();
+//                            getInputMultiplexer().addProcessor(myGD);
+//
+//                            getInputMultiplexer().addProcessor(mainStage);
+//
+////                            for (int i = 0; i < mapEditor.mapColumns; i++) {
+////                                for (int j = 0; j < mapEditor.mapRows; j++) {
+////                                    mapStage.addActor(mapEditor.fields[i][j]);
+////                                    mapEditor.fillField(mapEditor.fields[i][j]);
+////                                }
+////                            }
+//                        }
+                        window.remove();
+                    } else {
+                        Dialog dialog = new Dialog("BŁĄD", skin);
+                        dialog.text("Nie wybrano mapy");
+                        dialog.button("OK");
+                        //dialog.show(mainStage);
+                    }
+                }
+
+            });
+
+            tbCancel.addListener(new ClickListener() {
+                @Override
+                public void clicked(InputEvent event, float x, float y) {
+                    window.remove();
+                }
+            });
+
+            table.add(listOfMap);
+            ScrollPane scrollPane = new ScrollPane(listOfMap, skin);
+            //scrollPane.setSize(500, 200);
+            scrollPane.layout();
+
+            window.add(scrollPane).size(500, 275).colspan(3);
+            window.row();
+            window.add(tbOk).pad(5).size(100, 50);
+            window.add(tbCancel).pad(5).size(100, 50);
+            window.row();
+            return window;
         }
     }
 

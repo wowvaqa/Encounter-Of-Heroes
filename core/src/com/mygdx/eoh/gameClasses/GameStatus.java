@@ -20,6 +20,8 @@ public class GameStatus {
     private static GameStatus instance = new GameStatus();
     // All Fields
     ArrayList<Field> fields;
+    // Map fel
+    private String mapName = "NONE";
     // Jeżeli TRUE gra jest sieciowa, jeżeli FALSE - gra single
     private boolean netGame = false;
     private SnapshotArray<MoveButton> moveButtons;
@@ -313,5 +315,13 @@ public class GameStatus {
 
     public void setNetGame(boolean netGame) {
         this.netGame = netGame;
+    }
+
+    public String getMapName() {
+        return mapName;
+    }
+
+    public void setMapName(String mapName) {
+        this.mapName = mapName;
     }
 }

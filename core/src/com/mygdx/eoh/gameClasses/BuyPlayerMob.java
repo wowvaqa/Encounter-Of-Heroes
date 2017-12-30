@@ -146,5 +146,9 @@ public class BuyPlayerMob {
 
         GameStatus.getInstance().getMapStage().addActor(playerMob.getPlayerColorImage());
         GameStatus.getInstance().getMapStage().addActor(playerMob);
+
+        for (Field field : GameStatus.getInstance().getFields()) {
+            field.getFog().toFront();
+        }
     }
 }

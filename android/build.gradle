@@ -1,29 +1,6 @@
 android {
-    buildToolsVersion '25.0.0'
-    compileSdkVersion 25
-
-    signingConfigs {
-        release {
-            storeFile file("EOHkeyStore.jks")
-            storePassword "keystoreEOHTFCygvUHB09*&"
-            keyAlias "EOHkeyStore"
-            keyPassword "keyEOHTFCygvUHB09*&"
-        }
-    }
-
-
-    buildTypes {
-        release {
-            signingConfig signingConfigs.release
-        }
-
-//        debug {
-//            debuggable true
-//
-//
-//        }
-    }
-
+    buildToolsVersion "27.0.3"
+    compileSdkVersion 27
     sourceSets {
         main {
             manifest.srcFile 'AndroidManifest.xml'
@@ -43,7 +20,15 @@ android {
     defaultConfig {
         applicationId "com.mygdx.eoh"
         minSdkVersion 9
-        targetSdkVersion 25
+        targetSdkVersion 27
+        versionCode 1
+        versionName "1.0"
+    }
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
     }
 }
 

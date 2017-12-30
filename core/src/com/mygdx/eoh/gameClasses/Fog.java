@@ -1,6 +1,5 @@
 package com.mygdx.eoh.gameClasses;
 
-import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.scenes.scene2d.Touchable;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
@@ -30,7 +29,6 @@ public class Fog extends Image {
      * @param fog
      */
     public static void turnOffVisibility(Fog fog) {
-        Gdx.app.log("TURN OFF VISIBILITY Dłłłłłłłłłłłłłłłługi warunek", "działa................................");
         if (fog.getFieldOwner().getTreasure() != null) {
             fog.getFieldOwner().getTreasure().setVisible(false);
         }
@@ -65,10 +63,10 @@ public class Fog extends Image {
 
     /**
      * Włącza widoczność elemntów pod mgłą.
+     *
      * @param fog
      */
     public static void turnOnVisibility(Fog fog) {
-        Gdx.app.log("TURN ON VISIBILITY Dłłłłłłłłłłłłłłłługi warunek", "działa................................");
         if (fog.getFieldOwner().getTreasure() != null) {
             fog.getFieldOwner().getTreasure().setVisible(true);
         }
@@ -122,10 +120,10 @@ public class Fog extends Image {
     public void act(float delta) {
         super.act(delta);
         if (Options.fog) {
-            if (this.visibility && this.isVisible()) {
+            if (this.visibility) {
                 this.setVisible(false);
                 Fog.turnOnVisibility(this);
-            } else if (!this.visibility && !this.isVisible()) {
+            } else if (!this.visibility) {
                 this.setVisible(true);
                 Fog.turnOffVisibility(this);
             }
